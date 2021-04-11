@@ -1,5 +1,17 @@
 <?php
-if (file_exists('some')) {
-    file_put_contents($argv[1], "\n yess", FILE_APPEND | LOCK_EX);
+$lastInstallFilePath = "last-commit.log";
+$currentCommit = trim(exec("git log -n 1 --decorate='short'"));
+$shouldInstall = false;
+
+if (file_exists($lastInstallFilePath)) {
+    $shouldInstall = trim(file_get_contents($lastInstallFilePath)) != $currentCommit;
+} else {
+    $shouldInstall = true;
 }
 
+if ($shouldInstall) {
+    file_put_contents($lastInstallFilePath, $currentCommit);
+
+    exec("cp .env.prod .env");
+    exec("php composer.phar install");
+}
