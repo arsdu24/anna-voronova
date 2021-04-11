@@ -15,5 +15,5 @@ if (!$shouldInstall) {
 
 file_put_contents($lastInstallFilePath, $currentCommit);
 
-exec("cp .env.prod .env");
-exec("php composer.phar install");
+echo exec("cp .env.prod .env");
+echo exec("php composer.phar install");
