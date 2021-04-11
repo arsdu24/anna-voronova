@@ -9,9 +9,11 @@ if (file_exists($lastInstallFilePath)) {
     $shouldInstall = true;
 }
 
-if ($shouldInstall) {
-    file_put_contents($lastInstallFilePath, $currentCommit);
-
-    exec("cp .env.prod .env");
-    exec("php composer.phar install");
+if (!$shouldInstall) {
+    die("No updates required ... Current git version $currentCommit");
 }
+
+file_put_contents($lastInstallFilePath, $currentCommit);
+
+exec("cp .env.prod .env");
+exec("php composer.phar install");
