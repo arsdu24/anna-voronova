@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class headingGroup extends Component
+class HeadingGroup extends Component
 {
     /**
      * Create a new component instance.
