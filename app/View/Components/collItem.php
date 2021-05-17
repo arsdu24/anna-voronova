@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class collItem extends Component
+class CollItem extends Component
 {
     /**
      * Create a new component instance.
