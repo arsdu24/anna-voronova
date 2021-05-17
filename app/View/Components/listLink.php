@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class listLink extends Component
+class ListLink extends Component
 {
     /**
      * Create a new component instance.
