@@ -3,7 +3,7 @@
                                      padding:0 0 20px; ">
                 <div class="container">
                     <div class="sectionInner ">
-                         <x-headingGroup title="Best Seller Products" subtitle="Top sale in this week"/>
+                         <x-HeadingGroup title="Best Seller Products" subtitle="Top sale in this week"/>
                         <div class="velaContent">
                             <div class="rowFlex rowFlexMargin">
                                 <div class="col-sp-12 col-xs-6 col-sm-6 col-md-4 col-lg-3">
@@ -37,7 +37,7 @@
                                                     </div>
                                                 </a>
                                                 <div class="productLable"></div>
-                                                <x-cartAddBtn type="options" href="arctander-chair" value="33475186819116"/>
+                                                <x-CartAddBtn type="options" href="arctander-chair" value="33475186819116"/>
                                                 
                                             </div>
                                                      <x-proContent href="arctander-chair" name="Arctander Chair" money="$39.00">
@@ -110,7 +110,7 @@
                                                     </div>
                                                 </a>
                                                 <div class="productLable"><span class="labelSale">Sale</span></div>
-                                                <x-cartAddBtn value="33475121676332" />
+                                                <x-CartAddBtn value="33475121676332" />
                                             </div>
                                          <x-proContent name="Stainless steel teapot " href="stainless-steel-teapot" price="2" oldmoney="$57.00" money="$39.00"/>
                                         </div>
@@ -156,7 +156,7 @@
                                                     </div>
                                                 </a>
                                                 <div class="productLable"><span class="labelSale">Sale</span></div>
-                                                <x-cartAddBtn value="33475100540972" />
+                                                <x-CartAddBtn value="33475100540972" />
                                             </div>
                                             <x-proContent name="Beoplay A1 " href="beoplay-a1" price="2" oldmoney="$57.00" money="$39.00"/>
                                         </div>
@@ -202,7 +202,7 @@
                                                     </div>
                                                 </a>
                                                 <div class="productLable"></div>
-                                                <x-cartAddBtn value="33475052175404"/>
+                                                <x-CartAddBtn value="33475052175404"/>
                                             </div>
                                              <x-proContent name="Turning Table " href="turning-table" price="1"  money="$59.00"/>
                                         </div>

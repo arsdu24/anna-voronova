@@ -3,10 +3,7 @@
             <div class="productListHome velaProducts mbBlockGutter" style="background-color: rgba(0,0,0,0); padding:20px 0; ">
                 <div class="container">
                     <div class="sectionInner ">
-                        <div class="headingGroup pb20">
-                            <h3 class="velaHomeTitle text-center">
-                                Trending Products
-                            </h3><span class="subTitle">Top view in this week</span></div>
+                    <x-HeadingGroup title="Trending Products" subtitle="Top view in this week"/>
                         <div class="velaContent">
                             <div class="proOwlCarousel owlCarouselPlay">
                                 <div class="owl-carousel" data-nav="true" data-autoplay="false"
@@ -41,9 +38,9 @@
                                                         </div>
                                                     </a>
                                                     <div class="productLable"></div>
-                                                    <x-cartAddBtn value="33475186819116" type="options" href="arctander-chair"/>
+                                                    <x-CartAddBtn value="33475186819116" type="options" href="arctander-chair"/>
                                                   </div>
-                                                    <x-proContent name="Arctander Chair" href="arctander-chair" money="$39.00">
+                                                    <x-ProContent name="Arctander Chair" href="arctander-chair" money="$39.00">
                                                             <ul class="velaSwatchProduct">
                                                                 <li>
                                                                     <label
@@ -81,7 +78,7 @@
                                                                     </div>
                                                                 </li>
                                                             </ul>
-                                                    </x-proContent>
+                                                    </x-ProContent>
                                             </div>
                                         </div>
                                     </div>
@@ -103,10 +100,10 @@
                                                         </div>
                                                     </a>
                                                     <div class="productLable"><span class="labelSale">Sale</span></div>
-                                                    <x-cartAddBtn value="33475121676332"/>
+                                                    <x-CartAddBtn value="33475121676332"/>
                                                    
                                                 </div>
-                                                 <x-proContent name="Stainless steel teapot" href="stainless-steel-teapot" price="2" oldmoney="$57.00" money="$39.00"/>
+                                                 <x-ProContent name="Stainless steel teapot" href="stainless-steel-teapot" price="2" oldmoney="$57.00" money="$39.00"/>
                                             </div>
                                         </div>
                                     </div>
@@ -139,9 +136,9 @@
                                                         </div>
                                                     </a>
                                                     <div class="productLable"><span class="labelSale">Sale</span></div>
-                                                    <x-cartAddBtn value="33475100540972" />
+                                                    <x-CartAddBtn value="33475100540972" />
                                                 </div>
-                                                <x-proContent name="Beoplay A1" href="beoplay-a1" price="2" oldmoney="$57.00" money="$39.00"/>
+                                                <x-ProContent name="Beoplay A1" href="beoplay-a1" price="2" oldmoney="$57.00" money="$39.00"/>
                                             </div>
                                         </div>
                                     </div>
@@ -174,9 +171,9 @@
                                                         </div>
                                                     </a>
                                                     <div class="productLable"></div>
-                                                    <x-cartAddBtn value="33475052175404"/>
+                                                    <x-CartAddBtn value="33475052175404"/>
                                                 </div>
-                                                <x-proContent name="Turning Table" href="turning-table" price="1" money="$59.00"/>
+                                                <x-ProContent name="Turning Table" href="turning-table" price="1" money="$59.00"/>
                                               </div>   
                                          </div>
                                     </div>
