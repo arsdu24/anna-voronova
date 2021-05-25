@@ -1,4 +1,4 @@
-<x-headingGroup title=" From Our Blog" subtitle="Commodo sociosqu venenatis cras dolor sagittis integer luctus sem primis eget"/>
+<x-HeadingGroup title=" From Our Blog" subtitle="Commodo sociosqu venenatis cras dolor sagittis integer luctus sem primis eget"/>
                         <div class="velaContent">
                             <div class="velaOwlRow owlCarouselPlay">
                                 <div class="owl-carousel" data-nav="true" data-loop="false" data-dots="false"

@@ -46,12 +46,12 @@
                                                         <span>Home</span>
                                                     </a>                                        
                                                     <ul class="menuDropdown">
-                                                                    <x-listLink title="Home 01" class="" href="{{route('home')}}=94977327148"/>
-                                                                    <x-listLink title="Home 02" class="" href="{{route('home')}}=96445497388"/>
-                                                                    <x-listLink title="Home 03" class="" href="{{route('home')}}=96547930156"/>
-                                                                    <x-listLink title="Home 04" class="" href="{{route('home')}}=96549371948"/>
-                                                                    <x-listLink title="Home 05" class="" href="{{route('home')}}=96538427436"/>
-                                                                    <x-listLink title="Home 06" class="" href="{{route('home')}}=96540786732"/>
+                                                                    <x-ListLink title="Home 01" class="" href="{{route('home')}}=94977327148"/>
+                                                                    <x-ListLink title="Home 02" class="" href="{{route('home')}}=96445497388"/>
+                                                                    <x-ListLink title="Home 03" class="" href="{{route('home')}}=96547930156"/>
+                                                                    <x-ListLink title="Home 04" class="" href="{{route('home')}}=96549371948"/>
+                                                                    <x-ListLink title="Home 05" class="" href="{{route('home')}}=96538427436"/>
+                                                                    <x-ListLink title="Home 06" class="" href="{{route('home')}}=96540786732"/>
                                                     </ul>
                                             </li>        
                                             <li class="hasMenuDropdown hasMegaMenu">

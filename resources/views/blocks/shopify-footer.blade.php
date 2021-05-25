@@ -34,13 +34,13 @@
                                     <h4 class="velaFooterTitle">Information Company</h4>
                                     <div class="velaContent">
                                         <ul class="velaFooterLinks list-unstyled">
-                                            <x-listLink title="My Account" class="" href="/account"/>
-                                            <x-listLink title="Track Your Order" class="active" href="/"/>
-                                            <x-listLink title="FAQs" class="" href="/pages/faqs"/>
-                                            <x-listLink title="Payment Methods" class="" href="/"/>
-                                            <x-listLink title="Shipping Guide" class="" href="/policies/shipping-policy"/>
-                                            <x-listLink title="Products Support" class="" href="https://velatheme.ticksy.com/"/>
-                                            <x-listLink title="Gift Card Balance" class="" href="/"/>
+                                            <x-ListLink title="My Account" class="" href="/account"/>
+                                            <x-ListLink title="Track Your Order" class="active" href="/"/>
+                                            <x-ListLink title="FAQs" class="" href="/pages/faqs"/>
+                                            <x-ListLink title="Payment Methods" class="" href="/"/>
+                                            <x-ListLink title="Shipping Guide" class="" href="/policies/shipping-policy"/>
+                                            <x-ListLink title="Products Support" class="" href="https://velatheme.ticksy.com/"/>
+                                            <x-ListLink title="Gift Card Balance" class="" href="/"/>
                                         </ul>
                                     </div>
                                 </div>
@@ -50,13 +50,13 @@
                                     <h4 class="velaFooterTitle">More From Rubix</h4>
                                     <div class="velaContent">
                                         <ul class="velaFooterLinks list-unstyled">
-                                            <x-listLink title="About Rubix" class="" href="/pages/about-us"/>
-                                            <x-listLink title="Our Guarantees" class="" href="/policies/privacy-policy"/>
-                                            <x-listLink title="Terms and Conditions" class="" href="/policies/terms-of-service"/>
-                                            <x-listLink title="Privacy Policy" class="" href="/policies/privacy-policy"/>
-                                            <x-listLink title="Return Policy" class="" href="/policies/refund-policy"/>
-                                            <x-listLink title="Delivery & Return" class="" href="/policies/refund-policy"/>
-                                            <x-listLink title="Sitemap" class="" href="/"/>
+                                            <x-ListLink title="About Rubix" class="" href="/pages/about-us"/>
+                                            <x-ListLink title="Our Guarantees" class="" href="/policies/privacy-policy"/>
+                                            <x-ListLink title="Terms and Conditions" class="" href="/policies/terms-of-service"/>
+                                            <x-ListLink title="Privacy Policy" class="" href="/policies/privacy-policy"/>
+                                            <x-ListLink title="Return Policy" class="" href="/policies/refund-policy"/>
+                                            <x-ListLink title="Delivery & Return" class="" href="/policies/refund-policy"/>
+                                            <x-ListLink title="Sitemap" class="" href="/"/>
                                         </ul>
                                     </div>
                                 </div>

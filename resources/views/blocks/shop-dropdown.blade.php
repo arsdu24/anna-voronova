@@ -11,32 +11,32 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-4">
                                             <ul class="velaMenuLinks">
-                                               <x-listLink title="Catalog" class="menuTitle" href="/collections"/>
-                                               <x-listLink title="Furniture" class="" href="/collections/furniture"/>
-                                               <x-listLink title="Chairs" class="" href="/collections/chairs"/>
-                                               <x-listLink title="Sofas" class="" href="/collections/sofas"/>
-                                               <x-listLink title="Decor Art" class=""  href="/collections/decoration"/>
-                                               <x-listLink title="Lighting Lam" class="" href="/collections/lighting-lamp"/>
+                                               <x-ListLink title="Catalog" class="menuTitle" href="/collections"/>
+                                               <x-ListLink title="Furniture" class="" href="/collections/furniture"/>
+                                               <x-ListLink title="Chairs" class="" href="/collections/chairs"/>
+                                               <x-ListLink title="Sofas" class="" href="/collections/sofas"/>
+                                               <x-ListLink title="Decor Art" class=""  href="/collections/decoration"/>
+                                               <x-ListLink title="Lighting Lam" class="" href="/collections/lighting-lamp"/>
                                             </ul>
                                         </div>
                                         <div class="col-xs-12 col-sm-4">
                                             <ul class="velaMenuLinks">
-                                               <x-listLink title="Shop pages" class="menuTitle" href="/collections/all"/>
-                                               <x-listLink title="Left sidebar" class="" href="/collections/all"/>
-                                               <x-listLink title="Collection List" class="" href="/collections/decoration"/>
-                                               <x-listLink title="Collection Grid" class="" href="/collections/furniture"/>
-                                               <x-listLink title="Full Width" class=""  href="/collections/frontpage"/>
-                                               <x-listLink title="Full Width 1" class="" href="/collections/sofas"/> 
+                                               <x-ListLink title="Shop pages" class="menuTitle" href="/collections/all"/>
+                                               <x-ListLink title="Left sidebar" class="" href="/collections/all"/>
+                                               <x-ListLink title="Collection List" class="" href="/collections/decoration"/>
+                                               <x-ListLink title="Collection Grid" class="" href="/collections/furniture"/>
+                                               <x-ListLink title="Full Width" class=""  href="/collections/frontpage"/>
+                                               <x-ListLink title="Full Width 1" class="" href="/collections/sofas"/> 
                                             </ul>
                                         </div>
                                         <div class="col-xs-12 col-sm-4">
                                             <ul class="velaMenuLinks">
-                                                <x-listLink title="Product Pages " class="menuTitle" href="/products/arctander-chair"/>
-                                                <x-listLink title="Product Page 1" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=94977327148"/>
-                                                <x-listLink title="Product Page 2" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=96445497388"/>
-                                                <x-listLink title="Product Page 3" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=96547930156"/>
-                                                <x-listLink title="Product Page 4" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=96549371948"/>
-                                                <x-listLink title="Product Page 5" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=96538427436"/>
+                                                <x-ListLink title="Product Pages " class="menuTitle" href="/products/arctander-chair"/>
+                                                <x-ListLink title="Product Page 1" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=94977327148"/>
+                                                <x-ListLink title="Product Page 2" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=96445497388"/>
+                                                <x-ListLink title="Product Page 3" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=96547930156"/>
+                                                <x-ListLink title="Product Page 4" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=96549371948"/>
+                                                <x-ListLink title="Product Page 5" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=96538427436"/>
                                             </ul>
                                         </div>
 
@@ -46,8 +46,8 @@
                                     <div class="velaMenuProducts">
                                         <div class="menuTitle"><span>New Products</span></div>
                                         <div class="listProduct">
-                                             <x-blockProMenu href="victo-pedant-lamp" img="14_{width}x.jpg?v=1586245038" title="Victo pedant lamp" price="$79.00"/>
-                                             <x-blockProMenu href="turning-table" img="30_{width}x.jpg?v=1586316781" title="Turning Table" price="$59.00"/>
+                                             <x-BlockProMenu href="victo-pedant-lamp" img="14_{width}x.jpg?v=1586245038" title="Victo pedant lamp" price="$79.00"/>
+                                             <x-BlockProMenu href="turning-table" img="30_{width}x.jpg?v=1586316781" title="Turning Table" price="$59.00"/>
                                         </div>
                                     </div>
                                 </div>

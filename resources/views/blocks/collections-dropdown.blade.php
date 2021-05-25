@@ -16,12 +16,12 @@
                 <div class="velaMenuListCollection">
 
                     <div class="velaMenuListContent rowFlex">
-                            <x-collItem title="Furniture" route="furniture" img="7_{width}x.jpg?v=1587097465"/>
-                            <x-collItem title="Chairs" route="chairs" img="7_0a95e6cb-4ae8-4685-894a-04c0fda3cd2c_{width}x.jpg?v=1598244162"/>
-                            <x-collItem title="Sofas" route="sofas" img="22_{width}x.jpg?v=1587132940"/>
-                            <x-collItem title="Lighting Lamp" route="lighting-lamp" img="21_{width}x.jpg?v=1587097430"/>
-                            <x-collItem title="Decor Art" route="decoration" img="18_{width}x.jpg?v=1587097408"/>
-                            <x-collItem title="Home page" route="frontpage" img="16_{width}x.jpg?v=1587755406"/>
+                            <x-CollItem title="Furniture" route="furniture" img="7_{width}x.jpg?v=1587097465"/>
+                            <x-CollItem title="Chairs" route="chairs" img="7_0a95e6cb-4ae8-4685-894a-04c0fda3cd2c_{width}x.jpg?v=1598244162"/>
+                            <x-CollItem title="Sofas" route="sofas" img="22_{width}x.jpg?v=1587132940"/>
+                            <x-CollItem title="Lighting Lamp" route="lighting-lamp" img="21_{width}x.jpg?v=1587097430"/>
+                            <x-CollItem title="Decor Art" route="decoration" img="18_{width}x.jpg?v=1587097408"/>
+                            <x-CollItem title="Home page" route="frontpage" img="16_{width}x.jpg?v=1587755406"/>
                     </div>
                 </div>
             </div>
