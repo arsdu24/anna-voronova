@@ -1,4 +1,5 @@
-<x-HeadingGroup title=" From Our Blog" subtitle="Commodo sociosqu venenatis cras dolor sagittis integer luctus sem primis eget"/>
+
+@include('components.heading-group',['title'=>'From Our Blog','subtitle'=>'Commodo sociosqu venenatis cras dolor sagittis integer luctus sem primis eget'])
                         <div class="velaContent">
                             <div class="velaOwlRow owlCarouselPlay">
                                 <div class="owl-carousel" data-nav="true" data-loop="false" data-dots="false"
@@ -42,10 +43,9 @@
                                                 sagittis augue
 
                                             </div>
-                                            <a class="btnBlogReadMore"
-                                               href="/blogs/news/anteposuerit-litterarum-formas-7" title="Read More">
-                                                Read More<span class="icons icon-arrow-right"></span>
-                                            </a>
+                                            @include('components.read-more',['href'=>'anteposuerit-litterarum-formas-7'])
+
+                                          
                                         </div>
                                     </div>
 
@@ -95,10 +95,8 @@
                                                     February...</p>
 
                                             </div>
-                                            <a class="btnBlogReadMore"
-                                               href="/blogs/news/anteposuerit-litterarum-formas-9" title="Read More">
-                                                Read More<span class="icons icon-arrow-right"></span>
-                                            </a>
+                                            @include('components.read-more',['href'=>'anteposuerit-litterarum-formas-9'])
+                                            
                                         </div>
                                     </div>
 
@@ -148,10 +146,7 @@
                                                     February...</p>
 
                                             </div>
-                                            <a class="btnBlogReadMore"
-                                               href="/blogs/news/anteposuerit-litterarum-formas-8" title="Read More">
-                                                Read More<span class="icons icon-arrow-right"></span>
-                                            </a>
+                                            @include('components.read-more',['href'=>'anteposuerit-litterarum-formas-8'])
                                         </div>
                                     </div>
 

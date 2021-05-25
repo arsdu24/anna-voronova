@@ -3,7 +3,7 @@
                 <div class="container">
                     <div class="velaNewsletterInner text-center clearfix">
                         <div class="wrap">
-                        <x-HeadingGroup title="Subcribe To Our Newsletter" subtitle="Sign up for the weekly newsletter and build better ecommerce stores."/>
+                        @include('components.heading-group',['title'=>'Subcribe To Our Newsletter', 'subtitle'=>'Sign up for the weekly newsletter and build better ecommerce stores.'])
                             <div class="velaContent">
                                 <form method="post" action="/contact#contact_form" id="contact_form"
                                       accept-charset="UTF-8" class="contact-form">

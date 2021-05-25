@@ -11,32 +11,33 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-4">
                                             <ul class="velaMenuLinks">
-                                               <x-ListLink title="Catalog" class="menuTitle" href="/collections"/>
-                                               <x-ListLink title="Furniture" class="" href="/collections/furniture"/>
-                                               <x-ListLink title="Chairs" class="" href="/collections/chairs"/>
-                                               <x-ListLink title="Sofas" class="" href="/collections/sofas"/>
-                                               <x-ListLink title="Decor Art" class=""  href="/collections/decoration"/>
-                                               <x-ListLink title="Lighting Lam" class="" href="/collections/lighting-lamp"/>
+                                             @include('components.list-link',['title'=>'Furniture','class'=>'' ,'href'=>'/collections/furniture'])
+                                             @include('components.list-link',['title'=>'Chairs','class'=>'' ,'href'=>'/collections/chairs'])
+                                             @include('components.list-link',['title'=>'Sofas','class'=>'' ,'href'=>'/collections/sofas'])
+                                             @include('components.list-link',['title'=>'Decor Art','class'=>'' ,'href'=>'/collections/decoration'])
+                                             @include('components.list-link',['title'=>'Lighting Lamp','class'=>'' ,'href'=>'/collections/lighting-lamp'])
+                                               
                                             </ul>
                                         </div>
                                         <div class="col-xs-12 col-sm-4">
                                             <ul class="velaMenuLinks">
-                                               <x-ListLink title="Shop pages" class="menuTitle" href="/collections/all"/>
-                                               <x-ListLink title="Left sidebar" class="" href="/collections/all"/>
-                                               <x-ListLink title="Collection List" class="" href="/collections/decoration"/>
-                                               <x-ListLink title="Collection Grid" class="" href="/collections/furniture"/>
-                                               <x-ListLink title="Full Width" class=""  href="/collections/frontpage"/>
-                                               <x-ListLink title="Full Width 1" class="" href="/collections/sofas"/> 
+                                             @include('components.list-link',['title'=>'Shop pages','class'=>'menuTitle' ,'href'=>'/collections/all'])
+                                             @include('components.list-link',['title'=>'Left sidebar','class'=>'' ,'href'=>'/collections/all'])
+                                             @include('components.list-link',['title'=>'Collection List','class'=>'' ,'href'=>'/collections/decoration'])
+                                             @include('components.list-link',['title'=>'Collection Grid','class'=>'' ,'href'=>'/collections/furniture'])
+                                             @include('components.list-link',['title'=>'Full Width','class'=>'' ,'href'=>'/collections/frontpage'])
+                                             @include('components.list-link',['title'=>'Full width 1','class'=>'' ,'href'=>'/collections/sofas'])
                                             </ul>
                                         </div>
                                         <div class="col-xs-12 col-sm-4">
+                                            
                                             <ul class="velaMenuLinks">
-                                                <x-ListLink title="Product Pages " class="menuTitle" href="/products/arctander-chair"/>
-                                                <x-ListLink title="Product Page 1" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=94977327148"/>
-                                                <x-ListLink title="Product Page 2" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=96445497388"/>
-                                                <x-ListLink title="Product Page 3" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=96547930156"/>
-                                                <x-ListLink title="Product Page 4" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=96549371948"/>
-                                                <x-ListLink title="Product Page 5" class="" href="https://velademo-rubix.myshopify.com/products/arctander-chair/?preview_theme_id=96538427436"/>
+                                            @include('components.list-link',['title'=>'Product pages','class'=>'menuTitle' ,'href'=>"/products/arctander-chair"])
+                                            @include('components.list-link',['title'=>'Product page 1','class'=>'' ,'href'=>"{{route('home')}}=94977327148"])
+                                            @include('components.list-link',['title'=>'Product page 2','class'=>'' ,'href'=>"{{route('home')}}=96445497388"])
+                                            @include('components.list-link',['title'=>'Product page 3','class'=>'' ,'href'=>"{{route('home')}}=96547930156"])
+                                            @include('components.list-link',['title'=>'Product page 4','class'=>'' ,'href'=>"{{route('home')}}=96549371948"])
+                                            @include('components.list-link',['title'=>'Product page 5','class'=>'' ,'href'=>"{{route('home')}}=96538427436"])
                                             </ul>
                                         </div>
 
@@ -46,8 +47,8 @@
                                     <div class="velaMenuProducts">
                                         <div class="menuTitle"><span>New Products</span></div>
                                         <div class="listProduct">
-                                             <x-BlockProMenu href="victo-pedant-lamp" img="14_{width}x.jpg?v=1586245038" title="Victo pedant lamp" price="$79.00"/>
-                                             <x-BlockProMenu href="turning-table" img="30_{width}x.jpg?v=1586316781" title="Turning Table" price="$59.00"/>
+                                             @include('components.block-pro-menu',['href'=>'victo-pedant-lamp','img'=>'14_{width}x.jpg?v=1586245038','title'=>'Victo pedant lamp','price'=>'$79.00'])
+                                             @include('components.block-pro-menu',['href'=>'turning-table','img'=>'30_{width}x.jpg?v=1586316781','title'=>'Turning Table','price'=>'$59.00'])
                                         </div>
                                     </div>
                                 </div>
@@ -61,13 +62,9 @@
                                         </div>
                                     </div>
                                 </div>
-
-
                                 <div class="col-sm-2">
                                     <div class="velaMenuBanner mb10">
                                         <a href="/collections/chairs">
-
-
                                             <div class="p-relative">
                                                 <div class="product-card__image"
                                                         style="padding-top:133.33333333333334%;">
@@ -82,13 +79,9 @@
                                                     class="placeholder-background placeholder-background--animation"
                                                     data-image-placeholder></div>
                                             </div>
-
-
                                         </a>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                       
