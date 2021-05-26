@@ -24,9 +24,11 @@
                         <div class="boxServiceDesc">
                             On all orders over $75.00
                         </div>
+
                             
                         @include('components.learn-more-btn',['href'=>'/policies/shipping-policy'])
                             
+
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 mbItemGutter">
@@ -52,7 +54,9 @@
                         <div class="boxServiceDesc">
                             We ensure secure payment with PEV
                         </div>
+
                         @include('components.learn-more-btn',['href'=>'/policies/privacy-policy'])
+
                 </div>
             </div>
             <div class="col-xs-12 col-sm-4 mbItemGutter">
@@ -78,7 +82,9 @@
                         <div class="boxServiceDesc">
                             Return it within 20 day for an exchange
                         </div>
+
                         @include('components.learn-more-btn',['href'=>'/policies/refund-policy'])
+
                 </div>
             </div>
         </div>

@@ -46,12 +46,14 @@
                                                         <span>Home</span>
                                                     </a>                                        
                                                     <ul class="menuDropdown">
+
                                                          @include('components.list-link',['title'=>'Home 01','class'=>'' ,'href'=>"{{route('home')}}=94977327148"])
                                                          @include('components.list-link',['title'=>'Home 02','class'=>'' ,'href'=>"{{route('home')}}=96445497388"])
                                                          @include('components.list-link',['title'=>'Home 03','class'=>'' ,'href'=>"{{route('home')}}=96547930156"])
                                                          @include('components.list-link',['title'=>'Home 04','class'=>'' ,'href'=>"{{route('home')}}=96549371948"])
                                                          @include('components.list-link',['title'=>'Home 05','class'=>'' ,'href'=>"{{route('home')}}=96538427436"])
                                                          @include('components.list-link',['title'=>'Home 06','class'=>'' ,'href'=>"{{route('home')}}=96540786732"])
+
                                                     </ul>
                                             </li>        
                                             <li class="hasMenuDropdown hasMegaMenu">

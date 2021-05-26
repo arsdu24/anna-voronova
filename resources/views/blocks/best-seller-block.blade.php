@@ -4,7 +4,9 @@
                 <div class="container">
                     <div class="sectionInner ">
 
+
                          @include('components.heading-group',['title'=>'Best Seller Products', 'subtitle'=>'Top sale in this week'])
+
 
                         <div class="velaContent">
                             <div class="rowFlex rowFlexMargin">
@@ -39,7 +41,9 @@
                                                     </div>
                                                 </a>
                                                 <div class="productLable"></div>
+
                                                 @include('components.cart-add-btn',['type'=>'options', 'href'=>'arctander-chair', 'value'=>'33475186819116'])
+
                                                 
                                             </div>
                                                      @include('components.pro-content',[ 'name'=>'Arctander Chair','href'=>'arctander-chair','money'=>'$39.00'])
@@ -74,8 +78,10 @@
                                                     </div>
                                                 </a>
                                                 <div class="productLable"><span class="labelSale">Sale</span></div>
+
                                          
                                                  @include('components.cart-add-btn',['value'=>'33475121676332','type'=>'add'])
+
                                             </div>
                                          
                                          @include('components.pro-content',['name'=>'Stainless steel teapot ','href'=>'stainless-steel-teapot','price'=>'2','oldmoney'=>'$57.00','money'=>'$39.00'])
@@ -122,8 +128,10 @@
                                                     </div>
                                                 </a>
                                                 <div class="productLable"><span class="labelSale">Sale</span></div>
+
                                     
                                                 @include('components.cart-add-btn',['value'=>'33475100540972','type'=>'add'])
+
                                             </div>
                                             @include('components.pro-content',[ 'name'=>'Beoplay A1 ','href'=>'beoplay-a1','price'=>'2','oldmoney'=>'$57.00','money'=>'$39.00'])
                                         </div>
@@ -169,7 +177,9 @@
                                                     </div>
                                                 </a>
                                                 <div class="productLable"></div>
+
                                                 @include('components.cart-add-btn',['value'=>'33475052175404','type'=>'add'])
+
                                             </div>
                                              @include('components.pro-content',[ 'name'=>'Turning Table','href'=>'turning-table','money'=>'$59.00'])
                                         </div>

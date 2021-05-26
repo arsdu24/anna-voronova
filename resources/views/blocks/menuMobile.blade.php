@@ -5,6 +5,7 @@
                     <div class="btnMenuClose">&nbsp;</div>
                 </div>
                 <ul class="nav memoNav">
+
                     
                      
                    <li class="hasMemoDropdown active">
@@ -72,6 +73,7 @@
                     @include('components.list-link',['title'=>'Collections','class'=>'' ,'href'=>'/collections'])
                     @include('components.list-link',['title'=>'Blogs','class'=>'' ,'href'=>'/blogs/news'])
                     @include('components.list-link',['title'=>'Contact Us','class'=>'' ,'href'=>'/pages/contact-us'])
+
                 </ul>
             </div>
         </div>
