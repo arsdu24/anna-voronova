@@ -4,18 +4,18 @@
     </h5>
     <div class="groupPrice clearfix">
         <div class="proPrice">
-            @if($price=="2")
+            @if($price ?? '' =='2')
             <div class="priceProduct priceCompare"><span
-                    class=money>{{$oldmoney}}</span></div>
+                    class=money>{{$oldmoney ?? ''}}</span></div>
             <div class="priceProduct priceSale"><span
-                    class=money>{{$money}}</span></div>
-            @else            
+                    class=money>{{$money ?? ''}}</span></div>
+            @else           
                 <div class="priceProduct "><span
                     class=money>{{$money}}</span></div>      
             @endif                               
             </div>
         <div class="velaSwatchCus">
-         {{$slot}}
+         @yield('')
         </div>
     </div>
 </div>

@@ -27,7 +27,7 @@
 
                                         <div class="p-relative">
                                             <div class="product-card__image" style="padding-top:18.461538461538463%;">
-                                                <img class="product-card__img lazyload"/>
+                                                <img class="product-card__img lazyload" src="{{asset('img/logo.png')}}"/>
                                             </div>
                                             <div class="placeholder-background placeholder-background--animation"
                                                  data-image-placeholder></div>
@@ -46,12 +46,14 @@
                                                         <span>Home</span>
                                                     </a>                                        
                                                     <ul class="menuDropdown">
-                                                                    <x-ListLink title="Home 01" class="" href="{{route('home')}}=94977327148"/>
-                                                                    <x-ListLink title="Home 02" class="" href="{{route('home')}}=96445497388"/>
-                                                                    <x-ListLink title="Home 03" class="" href="{{route('home')}}=96547930156"/>
-                                                                    <x-ListLink title="Home 04" class="" href="{{route('home')}}=96549371948"/>
-                                                                    <x-ListLink title="Home 05" class="" href="{{route('home')}}=96538427436"/>
-                                                                    <x-ListLink title="Home 06" class="" href="{{route('home')}}=96540786732"/>
+
+                                                         @include('components.list-link',['title'=>'Home 01','class'=>'' ,'href'=>"{{route('home')}}=94977327148"])
+                                                         @include('components.list-link',['title'=>'Home 02','class'=>'' ,'href'=>"{{route('home')}}=96445497388"])
+                                                         @include('components.list-link',['title'=>'Home 03','class'=>'' ,'href'=>"{{route('home')}}=96547930156"])
+                                                         @include('components.list-link',['title'=>'Home 04','class'=>'' ,'href'=>"{{route('home')}}=96549371948"])
+                                                         @include('components.list-link',['title'=>'Home 05','class'=>'' ,'href'=>"{{route('home')}}=96538427436"])
+                                                         @include('components.list-link',['title'=>'Home 06','class'=>'' ,'href'=>"{{route('home')}}=96540786732"])
+
                                                     </ul>
                                             </li>        
                                             <li class="hasMenuDropdown hasMegaMenu">

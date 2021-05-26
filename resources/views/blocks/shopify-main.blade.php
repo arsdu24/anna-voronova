@@ -22,11 +22,11 @@
                                     <div class="velassSlide velassSlide1551027504217-0">
                                         <a href="/collections/all" class="velassLink">
                                             <div class="velassImage"
-                                                 data-image="{{asset('img/slide11_1994x.png')}}">
+                                                 data-image="{{asset('img/slide11_1944x.png')}}">
                                                 <div class="p-relative">
                                                     <div class="product-card__image"
                                                          style="padding-top:34.89583333333333%;">
-                                                        <img class="product-card__img lazyload" src="{{asset('img/slide11_1994x.png')}}"/>
+                                                        <img class="product-card__img lazyload" src="{{asset('img/slide11_1944x.png')}}"/>
                                                     </div>
                                                     <div
                                                         class="placeholder-background placeholder-background--animation"

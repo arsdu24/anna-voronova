@@ -34,13 +34,15 @@
                                     <h4 class="velaFooterTitle">Information Company</h4>
                                     <div class="velaContent">
                                         <ul class="velaFooterLinks list-unstyled">
-                                            <x-ListLink title="My Account" class="" href="/account"/>
-                                            <x-ListLink title="Track Your Order" class="active" href="/"/>
-                                            <x-ListLink title="FAQs" class="" href="/pages/faqs"/>
-                                            <x-ListLink title="Payment Methods" class="" href="/"/>
-                                            <x-ListLink title="Shipping Guide" class="" href="/policies/shipping-policy"/>
-                                            <x-ListLink title="Products Support" class="" href="https://velatheme.ticksy.com/"/>
-                                            <x-ListLink title="Gift Card Balance" class="" href="/"/>
+
+                                     @include('components.list-link',['title'=>'My Account','class'=>'' ,'href'=>'/account'])
+                                     @include('components.list-link',['title'=>'Track Your Order','class'=>'active' ,'href'=>'/'])
+                                     @include('components.list-link',['title'=>'FAQs','class'=>'' ,'href'=>'/pages/faqs'])
+                                     @include('components.list-link',['title'=>'Payment Methods','class'=>'' ,'href'=>'/'])
+                                     @include('components.list-link',['title'=>'Shipping Guide','class'=>'' ,'href'=>'/policies/shipping-policy]'])
+                                     @include('components.list-link',['title'=>'Products Support','class'=>'' ,'href'=>'https://velatheme.ticksy.com/'])
+                                     @include('components.list-link',['title'=>'Gift Card Balance','class'=>'' ,'href'=>'/'])
+
                                         </ul>
                                     </div>
                                 </div>
@@ -50,13 +52,16 @@
                                     <h4 class="velaFooterTitle">More From Rubix</h4>
                                     <div class="velaContent">
                                         <ul class="velaFooterLinks list-unstyled">
-                                            <x-ListLink title="About Rubix" class="" href="/pages/about-us"/>
-                                            <x-ListLink title="Our Guarantees" class="" href="/policies/privacy-policy"/>
-                                            <x-ListLink title="Terms and Conditions" class="" href="/policies/terms-of-service"/>
-                                            <x-ListLink title="Privacy Policy" class="" href="/policies/privacy-policy"/>
-                                            <x-ListLink title="Return Policy" class="" href="/policies/refund-policy"/>
-                                            <x-ListLink title="Delivery & Return" class="" href="/policies/refund-policy"/>
-                                            <x-ListLink title="Sitemap" class="" href="/"/>
+
+
+                                             @include('components.list-link',['title'=>'About Rubix','class'=>'' ,'href'=>'/pages/about-us'])
+                                             @include('components.list-link',['title'=>'Our Guarantees','class'=>'active' ,'href'=>'/policies/privacy-policy'])
+                                             @include('components.list-link',['title'=>'Terms and Conditions','class'=>'' ,'href'=>'/policies/terms-of-service'])
+                                             @include('components.list-link',['title'=>'Privacy Policy','class'=>'' ,'href'=>'/policies/privacy-policy'])
+                                             @include('components.list-link',['title'=>'Return Policy','class'=>'' ,'href'=>'/policies/refund-policy'])
+                                             @include('components.list-link',['title'=>'Delivery & Return','class'=>'' ,'href'=>'/policies/refund-policy'])
+                                             @include('components.list-link',['title'=>'Sitemap','class'=>'' ,'href'=>'/'])
+
                                         </ul>
                                     </div>
                                 </div>

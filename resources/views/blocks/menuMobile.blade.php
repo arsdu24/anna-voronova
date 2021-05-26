@@ -5,61 +5,75 @@
                     <div class="btnMenuClose">&nbsp;</div>
                 </div>
                 <ul class="nav memoNav">
-                    <x-ListLink title="Home" class="hasMemoDropdown active" href="/">
-                         <span class="memoBtnDropdown collapsed" data-toggle="collapse" data-target="#memoDropdown11"><i
+
+                    
+                     
+                   <li class="hasMemoDropdown active">
+                                <a href="/" title="">Home</a>
+                           
+                     <span class="memoBtnDropdown collapsed" data-toggle="collapse" data-target="#memoDropdown11"><i
                                 class="fa fa-angle-down"></i></span>
                          <ul id="memoDropdown11" class="memoDropdown collapse">
-                            <x-ListLink title="Home 01" class="" href="{{route('home')}}=94977327148"/>
-                            <x-ListLink title="Home 02" class="" href="{{route('home')}}=96445497388"/>
-                            <x-ListLink title="Home 03" class="" href="{{route('home')}}=96547930156"/>
-                            <x-ListLink title="Home 04" class="" href="{{route('home')}}=96549371948"/>
-                            <x-ListLink title="Home 05" class="" href="{{route('home')}}=96538427436"/>
-                            <x-ListLink title="Home 06" class="" href="{{route('home')}}=96540786732"/>
+                         
+                            @include('components.list-link',['title'=>'Home 01','class'=>'' ,'href'=>'/'])
+                            @include('components.list-link',['title'=>'Home 02','class'=>'' ,'href'=>'/'])
+                            @include('components.list-link',['title'=>'Home 03','class'=>'' ,'href'=>'/'])
+                            @include('components.list-link',['title'=>'Home 04','class'=>'' ,'href'=>'/'])
+                            @include('components.list-link',['title'=>'Home 05','class'=>'' ,'href'=>'/'])
+                            @include('components.list-link',['title'=>'Home 06','class'=>'' ,'href'=>'/'])
+                            
                          </ul>
-                    </x-ListLink>
-                    <x-ListLink title="Shop" class="hasMemoDropdown" href="/collections/all">
+                    </li>
+                    
+                    <li class="hasMemoDropdown">
+                                <a href="/collections/all" title="">Shop</a>
                         <span class="memoBtnDropdown collapsed" data-toggle="collapse" data-target="#memoDropdown12"><i
                                 class="fa fa-angle-down"></i></span>
                         <ul id="memoDropdown12" class="memoDropdown collapse">
-                            <x-ListLink  title="Catalog"  class="hasMemoDropdown" href="/collections">
+                            <li class="hasMemoDropdown">
+                                <a href="/collections" title="">Catalog</a>
                                 <span class="memoBtnDropdown collapsed" data-toggle="collapse"
                                       data-target="#memoDropdown221"><i class="fa fa-angle-down"></i></span>
                                 <ul id="memoDropdown221" class="memoDropdown collapse">
-                                     <x-ListLink title="Furniture" class="" href="/collections/furniture"/>
-                                     <x-ListLink title="Chairs" class="" href="/collections/chairs"/>
-                                     <x-ListLink title="Sofas" class="" href="/collections/sofas"/>
-                                     <x-ListLink title="Decor Art" class=""  href="/collections/decoration"/>
-                                     <x-ListLink title="Lighting Lam" class="" href="/collections/lighting-lamp"/>
+                                     @include('components.list-link',['title'=>'Furniture','class'=>'' ,'href'=>'/collections/furniture'])
+                                     @include('components.list-link',['title'=>'Chairs','class'=>'' ,'href'=>'/collections/chairs'])
+                                     @include('components.list-link',['title'=>'Sofas','class'=>'' ,'href'=>'/collections/sofas'])
+                                     @include('components.list-link',['title'=>'Decor Art','class'=>'' ,'href'=>'/collections/decoration'])
+                                     @include('components.list-link',['title'=>'Lighting Lamp','class'=>'' ,'href'=>'/collections/lighting-lamp'])
                                 </ul>
-                           </x-ListLink>
-                           <x-ListLink  title="Shop pages"  class="hasMemoDropdown" href="/collections/all">
+                            </li>
+                            <li class="hasMemoDropdown">
+                                <a href="/collections/all" title="">Shop pages</a>
                                 <span class="memoBtnDropdown collapsed" data-toggle="collapse"
                                       data-target="#memoDropdown222"><i class="fa fa-angle-down"></i></span>
                                 <ul id="memoDropdown222" class="memoDropdown collapse">
-                                     <x-ListLink title="Left sidebar" class="" href="/collections/all"/>
-                                     <x-ListLink title="Collection List" class="" href="/collections/decoration"/>
-                                     <x-ListLink title="Collection Grid" class=""  href="/collections/furniture"/>
-                                     <x-ListLink title="Full Width" class="" href="/collections/frontpage"/>
-                                     <x-ListLink title="Full width 1" class="" href="/collections/sofas"/>
+                                     @include('components.list-link',['title'=>'Left sidebar','class'=>'' ,'href'=>'/collections/all'])
+                                     @include('components.list-link',['title'=>'Collection List','class'=>'' ,'href'=>'/collections/decoration'])
+                                     @include('components.list-link',['title'=>'Collection Grid','class'=>'' ,'href'=>'/collections/furniture'])
+                                     @include('components.list-link',['title'=>'Full Width','class'=>'' ,'href'=>'/collections/frontpage'])
+                                     @include('components.list-link',['title'=>'Full width 1','class'=>'' ,'href'=>'/collections/sofas'])
                                 </ul>
-                            </x-ListLink>
-                            <x-ListLink title="Product Pages" class="hasMemoDropdown" href="/products/arctander-chair">
+                            
+                            
+                            <li class="hasMemoDropdown">
+                                <a href="/products/arctander-chair" title="">Product Pages</a>
                                 <span class="memoBtnDropdown collapsed" data-toggle="collapse"
                                       data-target="#memoDropdown223"><i class="fa fa-angle-down"></i></span>
                                     <ul id="memoDropdown223" class="memoDropdown collapse">
-                                         <x-ListLink title="Product page 1" class="" href="{{route('home')}}=94977327148"/>
-                                         <x-ListLink title="Product page 2" class="" href="{{route('home')}}=96445497388"/>
-                                         <x-ListLink title="Product page 3" class="" href="{{route('home')}}=96547930156"/>
-                                         <x-ListLink title="Product page 4" class="" href="{{route('home')}}=96549371948"/>
-                                         <x-ListLink title="Product page 5" class="" href="{{route('home')}}=96538427436"/>
+                                     @include('components.list-link',['title'=>'Product page 1','class'=>'' ,'href'=>"{{route('home')}}=94977327148"])
+                                     @include('components.list-link',['title'=>'Product page 2','class'=>'' ,'href'=>"{{route('home')}}=96445497388"])
+                                     @include('components.list-link',['title'=>'Product page 3','class'=>'' ,'href'=>"{{route('home')}}=96547930156"])
+                                     @include('components.list-link',['title'=>'Product page 4','class'=>'' ,'href'=>"{{route('home')}}=96549371948"])
+                                     @include('components.list-link',['title'=>'Product page 5','class'=>'' ,'href'=>"{{route('home')}}=96538427436"])
                                 </ul>
                                 
-                            </x-ListLink>
+                            </li>
                         </ul>
-                    </x-ListLink>
-                    <x-ListLink title="Collections" class="" href="/collections"/>
-                    <x-ListLink title="Blogs" class="" href="/blogs/news"/>
-                    <x-ListLink title="Contact Us" class="" href="/pages/contact-us"/>
+                    </li>
+                    @include('components.list-link',['title'=>'Collections','class'=>'' ,'href'=>'/collections'])
+                    @include('components.list-link',['title'=>'Blogs','class'=>'' ,'href'=>'/blogs/news'])
+                    @include('components.list-link',['title'=>'Contact Us','class'=>'' ,'href'=>'/pages/contact-us'])
+
                 </ul>
             </div>
         </div>
