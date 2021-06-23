@@ -1,4 +1,7 @@
-@import 'plugin';
-@import 'spr-805222bdeda8199e3a86a468a398e3070e6126868692225ffa23ac7502b1eca2';
-@import 'vela-fonts';
-@import 'vela-site';
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import 'variables';
+@import url('vela-fonts.scss');
+@import url('vela-site.scss');
+@import url('plugin.scss');
+@import url('spr-805222bdeda8199e3a86a468a398e3070e6126868692225ffa23ac7502b1eca2.scss');
