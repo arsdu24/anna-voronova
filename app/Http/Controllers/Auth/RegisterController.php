@@ -23,27 +23,10 @@ class RegisterController extends Controller
         $this->middleware('guest:admin');
         $this->middleware('guest:client');
     }
-
-    public function showAdminRegisterForm()
-    {
-        return view('auth.register', ['url' => 'admin']);
-    }
     
     public function showClientRegisterForm()
     {
         return view('auth.register', ['url' => 'client']);
-    }
-
-    protected function createAdmin(Request $request)
-    {
-        $this->validator($request->all())->validate();
-        $admin = Admin::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'role' => 1,
-            'password' => Hash::make($request['password']),
-        ]);
-        return redirect()->intended('login');
     }
 
     protected function createClient(Request $request)
