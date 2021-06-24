@@ -1,5 +1,8 @@
 <?php
 
+
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,10 +15,19 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
+Route::get('/',function(){
     return view('pages.index');
-})->name('home');
-Route::get('/collections/all', function () {
-    return view('pages.shop');
-})->name('shop');
+})->middleware('auth','guest')->name('home');
+
+
+Auth::routes();
+Route::get('/client', 'ClientController@index')->name('client')->middleware('client');
+Route::get('/admin', 'AdminController@index')->name('admin')->middleware('admin');
+Route::get('/guest', 'ClientController@index')->name('guest')->middleware('client');
+Route::get('/register/client', 'Auth\RegisterController@showClientRegisterForm');
+Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');
+
+Route::post('/register/client', 'Auth\RegisterController@createClient');
+Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login')->name('login');
+
