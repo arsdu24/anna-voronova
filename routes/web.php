@@ -23,12 +23,10 @@ Route::get('/',function(){
 Auth::routes();
 Route::get('/client', 'ClientController@index')->name('client')->middleware('client');
 Route::get('/admin', 'AdminController@index')->name('admin')->middleware('admin');
-Route::get('/guest', 'AdminController@index')->name('guest')->middleware('admin');
-Route::get('/register/admin', 'Auth\RegisterController@showAdminRegisterForm');
+Route::get('/guest', 'ClientController@index')->name('client')->middleware('client');
 Route::get('/register/client', 'Auth\RegisterController@showClientRegisterForm');
 Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');
 
-Route::post('/register/admin', 'Auth\RegisterController@createAdmin');
 Route::post('/register/client', 'Auth\RegisterController@createClient');
 Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login')->name('login');
