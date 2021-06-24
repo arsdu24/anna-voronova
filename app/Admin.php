@@ -4,9 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Admin extends Model implements JWTSubject
+class Admin extends Model 
 {
     use Notifiable;
 
