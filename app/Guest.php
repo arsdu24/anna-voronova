@@ -4,9 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Guest extends Model implements JWTSubject
+class Guest extends Model 
 {
     use Notifiable;
 
