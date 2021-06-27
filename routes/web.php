@@ -23,7 +23,6 @@ Route::get('/',function(){
 Auth::routes();
 Route::get('/client', 'ClientController@index')->name('client')->middleware('client');
 Route::get('/admin', 'AdminController@index')->name('admin')->middleware('admin');
-Route::get('/guest', 'ClientController@index')->name('client')->middleware('client');
 Route::get('/register/client', 'Auth\RegisterController@showClientRegisterForm');
 Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');
 

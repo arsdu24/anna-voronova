@@ -25,10 +25,6 @@ class LoginController extends Controller
                 $this->redirectTo = '/client';
                 return $this->redirectTo;
             break;
-            case 3:
-                $this->redirectTo = '/guest';
-                return $this->redirectTo;
-            break;
         }
     }
 
