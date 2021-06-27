@@ -19,12 +19,16 @@ return [
             'hash' => false,
         ],
         'admin' => [
-            'driver' => 'token',
+            'driver' => 'jwt',
             'provider' => 'admins',
         ],
         'client' => [
-            'driver' => 'token',
+            'driver' => 'jwt',
             'provider' => 'clients',
+        ],
+        'guest' => [
+            'driver' => 'jwt',
+            'provider' => 'guests',
         ],
     ],
 
@@ -40,6 +44,10 @@ return [
         'clients' => [
             'driver' => 'eloquent',
             'model' => App\Client::class,
+        ],
+        'guests' => [
+            'driver' => 'eloquent',
+            'model' => App\Guest::class,
         ],
 
         // 'users' => [
