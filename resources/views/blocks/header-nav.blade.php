@@ -18,7 +18,7 @@
                                 </div>
                             </div>
                             <div class="velaHeaderLeft d-flex flexAlignCenter col-xs-6 col-sm-6 col-md-2 col-lg-3">
-                                <h1 class="velaLogo" itemscope itemtype="http://schema.org/Organization"><a href="/"
+                                <h1 class="velaLogo" itemscope itemtype="http://schema.org/Organization"><a href="{{route('home')}}"
                                                                                                             itemprop="url"
                                                                                                             class="velaLogoLink"
                                                                                                             style="width: 150px;"><span
@@ -42,7 +42,7 @@
                                     <nav class="menuContainer">
                                         <ul class="nav hidden-xs hidden-sm">
                                             <li class="hasMenuDropdown active">
-                                                    <a href="/" title="Home">
+                                                    <a href="{{route('home')}}" title="Home">
                                                         <span>Home</span>
                                                     </a>                                        
                                                     <ul class="menuDropdown">
@@ -82,11 +82,29 @@
                                     <a href="/account">
                                         <i class="icons icon-user"></i>
                                     </a>
+                                 @if(Auth::check() && Auth::user()->role != 3)
+                                       
                                     <ul class="list-unstyled list-inline hidden-xs hidden-sm hidden-md">
-                                        <li><a href="/account/login" id="customer_login_link">Login</a></li>
-                                        <li><a href="/account/register" id="customer_register_link">Sign up</a></li>
+                                         <li><a class="" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        Logout</a></li>
 
                                     </ul>
+                                        
+                                        
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                    
+                                 @else
+                                    <ul class="list-unstyled list-inline hidden-xs hidden-sm hidden-md">
+                                        <li><a href="/login" id="customer_login_link">Login</a></li>
+                                        <li><a href="/register/client" id="customer_register_link">Sign up</a></li>
+
+                                    </ul>
+                                 @endif
+                                    
+                                    
                                 </div>
 
 
