@@ -22,7 +22,7 @@ class RegisterController extends Controller
         $this->middleware('guest:admin');
         $this->middleware('guest:client');
     }
-    
+
     public function showClientRegisterForm()
     {
         return view('auth.register', ['url' => 'client']);
