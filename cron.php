@@ -15,6 +15,5 @@ if (!$shouldInstall) {
 
 file_put_contents($lastInstallFilePath, $currentCommit);
 
-echo exec("cp .env.prod .env");
 echo exec("php composer.phar install");
 echo exec("php artisan key:generate");
