@@ -22,7 +22,11 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
+    public function orders(){
+        return $this->hasMany('App\Order');
+    } 
+
     public function getJWTIdentifier() {
         return $this->getKey();
     }

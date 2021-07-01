@@ -15,7 +15,7 @@ class Authenticate extends Middleware{
         $now = microtime(true);
         $guest = Guest::create([
             'name'=>'guest',
-            'email'=>"guset.$now@ana-voronova.ru",
+            'email'=>"guest.$now@ana-voronova.ru",
             'password'=>Hash::make("$now"),
             'role' => 3,
         ]);

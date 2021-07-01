@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.App')
 
 @section('shopify-section-main')
 <div class="container" style="margin-bottom:200px;">

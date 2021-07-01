@@ -21,6 +21,10 @@ class Client extends Model implements JWTSubject
         'password', 'remember_token',
     ];
     
+    public function orders(){
+       return $this->hasMany('App\Order');
+    }
+
     public function getJWTIdentifier() {
         return $this->getKey();
     }
