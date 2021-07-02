@@ -17,6 +17,10 @@ class Guest extends Model implements JWTSubject
         'role', 'name','email','password',
     ];
     
+    public function orders(){
+        return $this->hasMany('App\Order');
+     } 
+
     public function getJWTIdentifier() {
         return $this->getKey();
     }
