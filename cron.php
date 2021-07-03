@@ -21,6 +21,9 @@ file_put_contents($lastInstallFilePath, $currentCommit);
 echo exec("php composer.phar install");
 echo exec("php artisan key:generate");
 echo exec("php artisan migrate");
+echo exec("php artisan db:seed");
+
 
 rename("./public/index.php", "./public/index.deploy.php");
 rename("./public/index.hold.php", "./public/index.php");
+ 
