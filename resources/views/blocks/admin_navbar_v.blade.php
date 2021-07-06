@@ -17,7 +17,7 @@
                     <span class="pcoded-mtext">Products</span>
                 </a>
                 <ul class="pcoded-submenu">
-                    @include('components.sidebar_link',['title'=>'Product List', 'href'=>'/product-list'])
+                    @include('components.sidebar_link',['title'=>'Product List', 'href'=>'/admin/product-list'])
                 </ul>
             </li>
         </ul>
