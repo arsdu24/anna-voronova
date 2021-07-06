@@ -6,7 +6,7 @@
                 <i class="feather icon-menu"></i>
             </a>
             <a href="/">
-                <img class="img-fluid" src="{{asset('img\logo.png')}}" alt="Theme-Logo">
+                <img class="" src="{{asset('img\logo.png')}}" alt="Theme-Logo">
             </a>
             <a class="mobile-options">
                 <i class="feather icon-more-horizontal"></i>

@@ -79,12 +79,15 @@
 
 
                                 <div id="velaTopLinks" class="velaTopLinks d-flex flexAlignCenter">
-                                    <a href="/account">
+                                    <a href="/client">
                                         <i class="icons icon-user"></i>
                                     </a>
                                  @if(Auth::check() && Auth::user()->role != 3)
                                        
                                     <ul class="list-unstyled list-inline hidden-xs hidden-sm hidden-md">
+                                        <li><a class="" href="{{route('client')}}" >
+                                            Account
+                                      </a></li>
                                          <li><a class="" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         Logout</a></li>

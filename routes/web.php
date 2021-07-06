@@ -22,7 +22,6 @@ Route::get('/',function(){
 
 Auth::routes();
 Route::get('/client', 'ClientController@index')->name('client')->middleware('client');
-Route::get('/admin', 'AdminController@index')->name('admin')->middleware('admin');
 Route::get('/register/client', 'Auth\RegisterController@showClientRegisterForm');
 Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');
 Route::get('/order','\App\Http\Controllers\OrdersController@showForm');
@@ -32,3 +31,9 @@ Route::post('/register/client', 'Auth\RegisterController@createClient');
 Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login')->name('login');
 
+//    Admin panel routes
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('product-list','ProductsController@viewList')->name('productList');
+    Route::post('add-product','ProductsController@createProduct')->name('createPdroduct');
+    Route::get('/admin', 'AdminController@index')->name('admin');
+});
