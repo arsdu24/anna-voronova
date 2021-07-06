@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
-{
+{   
     public function createProduct(Request $request){
         $formInput= $request->except('image');
         $image=$request->file('image');
@@ -25,5 +25,11 @@ class ProductsController extends Controller
     {   
         $products=Product::all();
         return view('pages.products_list',['user'=>Auth::user(),'products'=>$products]);  
+    }
+
+    public function clientViewAll()
+    {
+        $products=Product::all();
+        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products]);  
     }
 }
