@@ -33,8 +33,8 @@ Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->nam
 Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login')->name('login');
 
 //    Admin panel routes
-Route::group(['middleware' => 'admin'], function () {
+Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('product-list','ProductsController@viewList')->name('productList');
     Route::post('add-product','ProductsController@createProduct')->name('createPdroduct');
-    Route::get('/admin', 'AdminController@index')->name('admin');
+    Route::get('/', 'AdminController@index')->name('admin');
 });
