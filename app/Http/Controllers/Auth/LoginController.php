@@ -46,11 +46,11 @@ class LoginController extends Controller
             switch ($NewUser->role)
             {
             case 1:
-                if($OldUser->role == 3){$OldUser->delete();};
+                if($OldUser && $OldUser->role == 3){$OldUser->delete();};
                 return redirect()->intended('/admin');
             break;
             case 2:
-                if($OldUser->role == 3){
+                if($OldUser && $OldUser->role == 3){
                     foreach($OldUser->orders as $order){
                         $order->user()->dissociate();
                         $order->user()->associate(Auth::user());

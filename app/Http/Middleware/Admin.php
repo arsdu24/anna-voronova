@@ -19,7 +19,7 @@ class Admin
             return redirect()->route('login');
         }
         if (Auth::user()->role != 1) {
-            return redirect()->route('client');
+            return redirect()->route('home');
         }else return $next($request);
     }
 }
