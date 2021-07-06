@@ -15,7 +15,7 @@ class OrdersController extends Controller
     }
     
     public function showForm(){
-      return view('order');
+      return view('pages.order');
     }
 
     public function createOrder(Request $request)

@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     public function index()
-    {
-        return view('admin');
+    {   $user = Auth::user();
+        return view('pages.admin',['user'=>$user]);
     }
 }

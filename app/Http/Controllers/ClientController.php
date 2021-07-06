@@ -9,6 +9,6 @@ class ClientController extends Controller
 {    
     public function index()
     {   $orders=Auth::user()->orders->reverse();
-        return view('client',['orders'=>$orders, 'user'=>Auth::user()]);
+        return view('pages.client',['orders'=>$orders, 'user'=>Auth::user()]);
     }
 }
