@@ -21,7 +21,8 @@ Route::get('/',function(){
 
 
 Auth::routes();
-Route::get('/client', 'ClientController@index')->name('client')->middleware('client');
+Route::get('/client', 'ClientController@index')->middleware('client')->name('client');
+Route::get('/products','ProductsController@clientViewAll')->middleware('client')->name('productsView');
 Route::get('/register/client', 'Auth\RegisterController@showClientRegisterForm');
 Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');
 Route::get('/order','\App\Http\Controllers\OrdersController@showForm');

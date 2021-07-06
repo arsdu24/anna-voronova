@@ -1,5 +1,5 @@
 
-                            <a href="/collections/all" title="">
+                            <a href="/products" title="">
                               <span>Shop</span></a>
                         <a class="btnCaret hidden-xl hidden-lg hidden-md" data-toggle="collapse"
                             href="#megaDropdown21"></a>
@@ -11,7 +11,7 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-4">
                                             <ul class="velaMenuLinks">
-
+                                             @include('components.list-link',['title'=>'Categories','class'=>'menuTitle' ,'href'=>"/collections"])
                                              @include('components.list-link',['title'=>'Furniture','class'=>'' ,'href'=>'/collections/furniture'])
                                              @include('components.list-link',['title'=>'Chairs','class'=>'' ,'href'=>'/collections/chairs'])
                                              @include('components.list-link',['title'=>'Sofas','class'=>'' ,'href'=>'/collections/sofas'])
