@@ -1,158 +1,169 @@
 @extends('layouts.Admin')
 @section('title', 'Products')
-@section('main-content')
-  <!-- Main-body start -->
-  <div class="main-body">
-    <div class="page-wrapper">
-        <!-- Page-header start -->
-        <div class="page-header">
-            <div class="row align-items-end">
-                <div class="col-lg-8">
-                    <div class="page-header-title">
-                        <div class="d-inline">
-                            <h4>Product List</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="page-header-breadcrumb">
-                        <ul class="breadcrumb-title">
-                            <li class="breadcrumb-item">
-                                <a href="index-1.htm"> <i class="feather icon-home"></i> </a>
-                            </li>
-                            <li class="breadcrumb-item"><a href="#!">Products</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+@section('content')
+<div class="content-wrapper" style="min-height: 1515.62px;">
+   
+  
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>
+            Products
+          </h1>
         </div>
-        <!-- Page-header end -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Products</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
 
-            <!-- Page body start -->
-            <div class="page-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <!-- Product list card start -->
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Product List</h5>
-                                <button type="button" onclick="addProduct()" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" id="addProduct" data-modal="modal-13"> <i class="icofont icofont-plus m-r-5"></i> Add Product
+
+
+
+<div class="card">
+    <div class="card-header">
+      <h3 class="card-title">Products</h3>
+      <div class="card-tools">
+        <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">
+            <i class="fas fa-plus"></i>
+            Add product
         </button>
-                            </div>
-                            <div class="card-block">
-                                <div class="table-responsive">
-                                    <div class="table-content">
-                                        <div class="project-table">
-                                            <table id="e-product-list" class="table table-striped dt-responsive nowrap">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Image</th>
-                                                        <th>Product Name</th>
-                                                        <th>Description</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach($products as $product)
-                                                    <tr>
-                                                        <td class="pro-list-img">
-                                                            <img src="{{asset('img/'.$product->image)}}" class="img-fluid" alt="tbl">
-                                                        </td>
-                                                        <td class="pro-name">
-                                                            <h6>{{$product->name}}</h6>
-                                                        </td>
-                                                        <td>
-                                                            <h6 >{{$product->description}}</h6>
-                                                        </td>
-                                                        <td class="action-icon">
-                                                            <a href="#!" class="m-r-15 text-muted" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="icofont icofont-ui-edit"></i></a>
-                                                            <a href="#!" class="text-muted" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="icofont icofont-delete-alt"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    @endforeach
-                                                    
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Product list card end -->
-                    </div>
-                </div>
-               
-                <div class="md-modal addcontact" id="modal-13">
-                    <div class="md-content">
-                        <h3 class="f-26">Add Product</h3>
-                        <div>
-                            <form method="POST" action="{{ route('createPdroduct') }}" enctype="multipart/form-data" >
-                                @csrf
-                                <div class="form-group row">
-                                    <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
-        
-                                    <div class="col-md-6">
-                                        <input id="name" type="text" class="form-control " name="name" required autocomplete="name">
-                                    </div>
-                                </div>
-        
-                                <div class="form-group row">
-                                    <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
-        
-                                    <div class="col-md-6">
-                                        <input id="description" type="text" class="form-control" name="description"  required autocomplete="description">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="image" class="col-md-4 col-form-label text-md-right">Image</label>
-        
-                                    <div class="col-md-6">
-                                        <input id="image" type="file" class="form-control " name="image" required >
-                                    </div>
-                                </div>
-        
-
-                                <div class=" row ">
-                                    <div class="col-md-6">
-                                        <button type="button" onclick="closeForm()" class="btn btn-primary">
-                                            {{ __('Close') }}
-                                        </button>
-                                    </div>
-                                    <div class="col-md-6 ">
-                                        <button type="submit" class="btn btn-primary">
-                                            {{ __('Save') }}
-                                        </button>
-                                    </div>
-                                    
-                                </div>
-                                
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="md-overlay"></div>
-                <!-- Add Contact Ends Model end-->
-            </div>
-            <!-- Page body end -->
-        </div>
+      </div>
     </div>
-    <!-- Main-body end -->
+    <!-- /.card-header -->
+    <div class="card-body">
+      <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12">
+          <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
+        <thead>
+        <tr role="row">
+            <th>Thumbnail</th>
+            <th>Name</th>
+            <th>Excerpt</th>
+            <th>Price</th>
+            <th>Action</th></tr>
+        </thead>
+        <tbody>
+            @foreach($products as $product)
+            <tr class="odd">
+                <td class="dtr-control sorting_1" tabindex="0">
+                    <img src="{{asset('img/'.$product->thumbnail)}}" class="img-fluid rounded" alt="tbl">
+                </td>
+                <td>{{$product->name}}</td>
+                <td>{{$product->excerpt}}</td>
+                <td>{{$product->price}} <strong>$</strong></td>
+                <td>
+                    <a href="product-list/{{$product->id}}">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+              </tr>
+            @endforeach
+        </tbody>
+      </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example2_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
+    </div>
+    <!-- /.card-body -->
+  </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Add product</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="{{ route('createPdroduct') }}" enctype="multipart/form-data" >
+                @csrf
+                <div class="form-group row">
+                    <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+
+                    <div class="col-md-6">
+                        <input id="name" type="text" class="form-control " name="name" required autocomplete="name">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="description" class="col-md-4 col-form-label text-md-right">Excerpt</label>
+
+                    <div class="col-md-6">
+                        <input id="description" type="text" class="form-control" name="excerpt"  required autocomplete="excerpt">
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="image" class="col-md-4 col-form-label text-md-right">Thumbnail </label>
+
+                    <div class="input-group mb-3 col-md-6">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="inputGroupFileAddon01"><i class="fas fa-image"></i></span>
+                        </div>
+                        <div class="custom-file">
+                          <input id="image" type="file" name="thumbnail" class="custom-file-input" id="inputGroupFile01" >
+                          <label class="custom-file-label"  id="image_label">Choose file</label>
+                        </div>
+                      </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="price" class="col-md-4 col-form-label text-md-right">Price</label>
+
+                        <div class="input-group mb-3 col-md-6">
+                            <div class="input-group-prepend">
+                                    <span class="input-group-text">$</span>
+                            </div>
+                            <input type="number" class="form-control" name="price" id="price" aria-label="Amount (to the nearest dollar)">
+                        </div>
+                </div>
+                    <div class=" modal-footer ">
+                        <button type="button" data-dismiss="modal" class="btn btn-secondary btn-sm">
+                            {{ __('Close') }}
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            {{ __('Save') }}
+                        </button>
+                     </div>
+                
+                </div>
+            </form>
+        </div>
+
+      </div>
+  
+    </div>
+  </div>
 @endsection
 
 @section('scripts')
 <script>
-    let element = document.querySelector('#modal-13');
-    function addProduct(){
-        element.className="md-modal addcontact md-show";
-    };
-    function closeForm(){
-        document.querySelector('#image').value='';
-        document.querySelector('#description').value='';
-        document.querySelector('#name').value='';
-        element.className="md-modal addcontact";
+let label = document.querySelector('#image_label');
+let input = document.querySelector('#image');
+ input.addEventListener("change",()=>{
+     if(input.value!=null)label.innerHTML=input.value;
+     else label.innerHTML= "Choose file"
+ })
 
-    }
+
+$('[data-dismiss=modal]').on('click', function (e) {
+  let label = document.querySelector('#image_label');
+    var $t = $(this),
+        target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
+    label.innerHTML="Choose file";
+  $(target)
+    .find("input,textarea,select")
+       .val('')
+       .end()
+    .find("input[type=checkbox], input[type=radio]")
+       .prop("checked", "")
+       .end();
+})
  </script>
 @endsection
