@@ -37,4 +37,5 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('product-list','ProductsController@viewList')->name('productList');
     Route::post('add-product','ProductsController@createProduct')->name('createPdroduct');
     Route::get('/', 'AdminController@index')->name('admin');
+    Route::get('product-list/{id}','ProductsController@productPage')->name('productPage');
 });
