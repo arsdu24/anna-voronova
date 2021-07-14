@@ -19,7 +19,6 @@ Route::get('/',function(){
     return view('pages.index');
 })->middleware('auth','guest')->name('home');
 
-
 Auth::routes();
 Route::get('/client', 'ClientController@index')->middleware('client')->name('client');
 Route::get('/products','ProductsController@clientViewAll')->middleware('client')->name('productsView');
@@ -35,7 +34,16 @@ Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login')->name(
 //    Admin panel routes
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('product-list','ProductsController@viewList')->name('productList');
-    Route::post('add-product','ProductsController@createProduct')->name('createPdroduct');
     Route::get('/', 'AdminController@index')->name('admin');
     Route::get('product-list/{id}','ProductsController@productPage')->name('productPage');
+    
+    Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');
+    Route::post('review/unpublish','ReviewController@unpublishReview')->name('reviewUnpublish');
+    Route::post('review/delete','ReviewController@deleteReview')->name('reviewDelete');
+    
+    Route::post('add-product','ProductsController@createProduct')->name('createPdroduct');
+    Route::post('product/save/{id}','ProductsController@updateProduct')->name('productUpdate');
+    Route::post('product/image-delete','ProductsController@deleteImage')->name('imageDelete');
+    Route::post('product/delete/{id}','ProductsController@deleteProduct')->name('productDelete');
+
 });

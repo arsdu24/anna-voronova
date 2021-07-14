@@ -25,6 +25,10 @@ class Client extends Model implements JWTSubject
        return $this->hasMany('App\Order');
     }
 
+    public function reviews(){
+        return $this->hasMany('App\Review');
+    }
+
     public function getJWTIdentifier() {
         return $this->getKey();
     }

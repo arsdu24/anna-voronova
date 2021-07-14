@@ -61,10 +61,11 @@
           <a class="dropdown-item" href="/logout" onclick="event.preventDefault();
           document.getElementById('logout-form').submit();">
          Log out</a>
+         <form id="logout-form" action="/logout" method="POST" style="display: none;">
+          @csrf</form>
         </div>
       </li>
     </ul>
-    <form id="logout-form" action="/logout" method="POST" style="display: none;">
-        <input type="hidden" name="_token" value="dEpPHLHWPM0Ku56DFLyOLHuoeIqVKiVwNxIlsmu3">    </form>
+    
   </nav>
   <!-- /.navbar -->

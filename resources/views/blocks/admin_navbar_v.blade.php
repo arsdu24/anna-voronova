@@ -15,7 +15,7 @@
           <img src="{{asset('/img/21_360x.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Andrei Admin</a>
+          <a href="#" class="d-block">{{$user->name}}</a>
         </div>
       </div>
 
@@ -36,7 +36,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item menu-open">
             <a href="/admin" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="fas fa-table"></i>
               <p>
                 Dashboard
               </p>
@@ -64,6 +64,4 @@
         </ul>
       </nav>
     </div>
-    <!-- /.sidebar -->
-    <div class="sidebar-background" style="background-image: url(&quot;../assets/img/sidebar-1.jpg&quot;);"></div>
   </aside>
