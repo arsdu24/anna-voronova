@@ -1,7 +1,6 @@
 @extends('layouts.Admin')
 @section('title', 'Products')
 @section('content')
-
 <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -188,7 +187,7 @@ let label = document.querySelector('#image_label');
 let input = document.querySelector('#image');
  input.addEventListener("change",()=>{
      if(input.value!=null)label.innerHTML=input.value;
-     else label.innerHTML= "Change file"
+     else label.innerHTML= "Choose file"
  })
 
 
@@ -196,6 +195,7 @@ $('[data-dismiss=modal]').on('click', function (e) {
   let label = document.querySelector('#image_label');
     var $t = $(this),
         target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
+    label.innerHTML="Choose file";
   $(target)
     .find("input,textarea,select")
        .val('')

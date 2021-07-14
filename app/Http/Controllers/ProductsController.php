@@ -106,7 +106,7 @@ class ProductsController extends Controller
         $reviews = $product->reviews;
         return view('pages.product_page',['user'=>Auth::user(),'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_cat'=>$product_categories]);  
     }
-   
+     
      public function viewList()
     {   
         $products=Product::all()->reverse();

@@ -36,6 +36,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('product-list','ProductsController@viewList')->name('productList');
     Route::get('/', 'AdminController@index')->name('admin');
     Route::get('product-list/{id}','ProductsController@productPage')->name('productPage');
+<<<<<<< HEAD
     
     Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');
     Route::post('review/unpublish','ReviewController@unpublishReview')->name('reviewUnpublish');
@@ -46,4 +47,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('product/image-delete','ProductsController@deleteImage')->name('imageDelete');
     Route::post('product/delete/{id}','ProductsController@deleteProduct')->name('productDelete');
 
+=======
+>>>>>>> beta
 });

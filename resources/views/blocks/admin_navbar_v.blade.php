@@ -37,7 +37,7 @@
           <li class="nav-item menu-open">
             <a href="/admin" class="nav-link active">
               <i class="fas fa-table"></i>
-              <p>
+     <p>
                 Dashboard
               </p>
             </a>
