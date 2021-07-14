@@ -29,7 +29,8 @@ class ProductsController extends Controller
         $product = Product::find($id);
         if($request->category){
          $product->categories()->sync($request->category);
-        };
+        }
+        else $product->categories()->detach();
         if($request->name) $product->name=$request->name;
         if($request->excerpt)$product->excerpt = $request->excerpt;
         if($request->content)$product->content = $request->content;
