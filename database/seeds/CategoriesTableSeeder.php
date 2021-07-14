@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CtegoriesTableSeeder extends Seeder
+class CategoriesTableSeeder extends Seeder
 {
     public function run()
     {
