@@ -9,6 +9,15 @@ class Product extends Model
     protected $table = 'product';
 
     protected $fillable = [
-        'name', 'excerpt', 'thumbnail', 'price'
+        'name', 'excerpt', 'thumbnail', 'price','tags', 'sale_price','content'
     ];
+    protected $casts = [
+        'published' => 'boolean',
+    ];
+    public function reviews(){
+        return $this->hasMany('App\Review');
+    }
+    public function categories(){
+        return $this->belongsToMany('App\Category');
+    }
 }

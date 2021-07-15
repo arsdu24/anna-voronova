@@ -1976,6 +1976,8 @@ pre code {
 
 .table td,
 .table th {
+	word-break: break-all;
+    word-wrap: break-word;
 	padding: .75rem;
 	vertical-align: top;
 	border-top: 1px solid #dee2e6
@@ -36538,32 +36540,29 @@ a.disabled.mailbox-attachment-close {
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	margin-top: 2rem
+	margin-top: 2rem;
+	animation: animate_img 2s;
 }
 
 .product-image-thumb {
-	box-shadow: 0 1px 2px rgba(0, 0, 0, .075);
-	border-radius: .25rem;
+	margin: 2px;
+	border: none;
 	background-color: #fff;
-	border: 1px solid #dee2e6;
+	border-radius: 0.5rem;
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	margin-right: 1rem;
 	max-width: 7rem;
 	padding: .5rem
 }
 
 .product-image-thumb img {
 	max-width: 100%;
+	border-radius: 0.5rem;
 	height: auto;
 	-webkit-align-self: center;
 	-ms-flex-item-align: center;
 	align-self: center
-}
-
-.product-image-thumb:hover {
-	opacity: .5
 }
 
 .product-share a {
@@ -36998,13 +36997,13 @@ body.iframe-mode-fullscreen .content-wrapper.iframe-mode {
 
 .select2-container--default .select2-dropdown .select2-search__field,
 .select2-container--default .select2-search--inline .select2-search__field {
-	border: 1px solid #ced4da
+	border: 1px transparent
 }
 
 .select2-container--default .select2-dropdown .select2-search__field:focus,
 .select2-container--default .select2-search--inline .select2-search__field:focus {
 	outline: 0;
-	border: 1px solid #80bdff
+	border: 1px solid transparent;
 }
 
 .select2-container--default .select2-dropdown.select2-dropdown--below {
@@ -37078,12 +37077,15 @@ body.iframe-mode-fullscreen .content-wrapper.iframe-mode {
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
 	color: rgba(255, 255, 255, .7);
 	float: right;
+	position: relative;
+	background-color: transparent;
+	border-right: 0;
 	margin-left: 5px;
 	margin-right: -2px
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
-	color: #fff
+	color: white;
 }
 
 .select2-container--default .select2-selection--multiple.text-sm .select2-search.select2-search--inline .select2-search__field,
@@ -40338,7 +40340,7 @@ select.form-control-sm~.select2-container--default .select2-selection--multiple 
 .select2-container--default .dark-mode .select2-gray-dark .select2-selection--multiple .select2-selection__choice__remove:hover {
 	color: #fff
 }
-
+.select2-selection__choice {background-color: transparent;}
 .dark-mode .select2-gray-dark .select2-container--default.select2-container--focus .select2-selection--multiple,
 .select2-container--default .dark-mode .select2-gray-dark.select2-container--focus .select2-selection--multiple {
 	border-color: #6d7a86
@@ -54007,7 +54009,75 @@ a.text-muted:hover {
 	color: #3f474e
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+.dropzone{
+	background: rgb(255, 255, 255);
+	border:2px dashed rgb(6, 160, 221);
+	border-radius: 0.5rem;
+}
 
+div.product-image-thumb a{
+	overflow: hidden;
+	width:100%;
+	height:0;
+	text-align:center;
+	font-size: 300%;
+	color: white;
+	position:absolute;
+	top:0;
+	left:0;
+	transition: all 1s ease-out;
+}
+div.product-image-thumb a i{
+	vertical-align: middle;
+	display:none;
+	opacity:0;
+	transition: all 1s ease-out;
+}
+div.product-image-thumb:hover a{
+	border-radius: .5rem;
+	height:100%;
+	background : rgba(255, 0, 0, 0.4);
+	box-sizing: border-box;
+}
+div.product-image-thumb:hover a span i{
+	display:block;
+	opacity:1;
+	animation: animate 1s;
+}
+div.product-image-thumb a span{
+	overflow: hidden;
+	display:flex;
+	align-items: center;
+	justify-content:center;
+	width:100%;
+	height:100%;
+	vertical-align: middle;
+}
+div.product-image-thumb:hover{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color:transparent;
+	cursor:pointer;
+}
+
+
+@keyframes animate{
+	from{transform:rotateZ(0deg) ;}
+	to{transform:rotateZ(90deg) ;}
+}
+.select2-selection__choice__remove:hover{
+	background-color: #007BFF !important;
+	color:white;
+}
+#img{
+    transition:opacity 0.5s linear;
+}
 /*# sourceMappingURL=adminlte.min.css.map */
 {"mode":"full","isActive":false}
 {"mode":"full","isActive":false}
