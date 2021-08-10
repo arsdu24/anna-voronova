@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Auth;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -29,7 +30,8 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('auth.login');
+        $categories=Category::all();
+        return view('auth.login',['categories'=>$categories]);
     }
 
     public function login(Request $request)
@@ -60,7 +62,8 @@ class LoginController extends Controller
                         }
                 $OldUser->delete();
                 }
-                return redirect()->intended('/client');
+                $categories=Category::all();
+                return redirect()->route('client');
             break;
             }
         }
