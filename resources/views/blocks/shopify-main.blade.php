@@ -46,7 +46,7 @@
                                                             style="color:#1a1a1a;">
                                                             Normann Copenhagen - <br>Craft salt and pepper grinder
                                                         </h3><a class="btn btnVelaSlider leftright-5"
-                                                                href="/collections/all" style="border-color: #1a1a1a;
+                                                                href="/products" style="border-color: #1a1a1a;
                                                                 background-color: #1a1a1a;
                                                                 color: #ffffff;
                                                                 padding: 14px 25px; ">
