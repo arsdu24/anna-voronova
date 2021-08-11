@@ -100,9 +100,7 @@
                     data-zoom-height="300" 
                     data-zoom-lens="100" 
                     data-lens-shape="square"
-                    /><button id="velaViewImage" class="btn hidden-xs hidden-sm">
-                        <i class="icons icon-size-fullscreen"></i>
-                    </button></div>
+                    /></div>
         </div><div id="productThumbs" class="proThumbnails thumbnails-wrapper">
                 <div class="owl-thumblist">
                         <div class="owl-carousel product-single__thumbnails product-single__thumbnails-vela-template-product" data-item = "5" data-vertical = "false" >
@@ -168,9 +166,20 @@
         </div>
     </div>
                 <div class="proQuantity">
-                    <input type="number" id="Quantity" name="quantity" value="1" placeholder="1" min="0" >
-                </div>
+                    
+
+                    <div class="velaQty">
+                        <button type="button" class="velaQtyAdjust velaQtyButton velaQtyMinus">
+                            <span class="txtFallback">−</span>
+                        </button>
+                        <input type="text" value="1" class="velaQtyNum velaQtyText">
+                        <button type="button" class="velaQtyAdjust velaQtyButton velaQtyPlus">
+                            <span class="txtFallback">+</span>
+                        </button>
+                    </div>
                 
+                
+                                </div>
                 <button type="submit" name="add" id="AddToCart" class="btn btnAddToCart">
                     <i class="icons icon-handbag"></i>
                     <span id="AddToCartText">Add to Cart</span>
@@ -1070,6 +1079,7 @@ Body of Review
     })
 </script>
 <script>
+    document.querySelector('velaQtyNum').value=1;
     document.querySelector('#w_r').addEventListener('click',(e)=>{
         e.preventDefault();
         let el =document.querySelector('#form_4960511557676')
@@ -1077,7 +1087,5 @@ Body of Review
          el.style.display="none";
         else el.style.display="block";
     })
-        
-    
 </script>
 @endsection

@@ -23,7 +23,7 @@ Route::get('/products','ProductsController@clientViewAll')->middleware('client')
 Route::get('/order','\App\Http\Controllers\OrdersController@showForm');
 Route::get('/collections','CategoryController@clientViewAll')->name('categoriesList');
 Route::get('/collections/{category}','CategoryController@categoryShow')->name('categoryShow');
-
+Route::get('/products/{id}','ProductsController@clientProductPage')->middleware('client')->name('productView');
 Route::post('/create_order','\App\Http\Controllers\OrdersController@createOrder')->name('create_order');
 
 Auth::routes();
