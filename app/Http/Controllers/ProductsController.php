@@ -117,6 +117,7 @@ class ProductsController extends Controller
     public function clientViewAll()
     {
         $products=Product::all()->reverse();
-        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products]);  
+        $categories = Category::all();
+        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'categories'=>$categories]);  
     }
 }

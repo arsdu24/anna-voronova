@@ -36,7 +36,7 @@
               <div class="row">
                       <div class="card-body">
       
-                          <form method="POST" action="{{route('categoryUpdate',['id'=>$category->id])}}" id="form" enctype="multipart/form-data">
+                          <form method="POST" action="{{route('categoryUpdate',['category'=>$category])}}" id="form" enctype="multipart/form-data">
                               @csrf
                                   <div class="row">
                                   <div class="col-12 col-lg-6 form-group mt-3">

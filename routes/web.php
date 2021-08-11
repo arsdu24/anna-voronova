@@ -22,7 +22,7 @@ Route::get('/client', 'ClientController@index')->middleware('client')->name('cli
 Route::get('/products','ProductsController@clientViewAll')->middleware('client')->name('productsView');
 Route::get('/order','\App\Http\Controllers\OrdersController@showForm');
 Route::get('/collections','CategoryController@clientViewAll')->name('categoriesList');
-Route::get('/collections/{id}','CategoryController@categoryShow')->name('categoryShow');
+Route::get('/collections/{category}','CategoryController@categoryShow')->name('categoryShow');
 
 Route::post('/create_order','\App\Http\Controllers\OrdersController@createOrder')->name('create_order');
 
@@ -39,7 +39,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('/', 'AdminController@index')->name('admin');
     Route::get('product-list/{id}','ProductsController@productPage')->name('productPage');
     Route::get('categories-list','CategoryController@viewList')->name('categoriesList');
-    Route::get('categories-list/{id}','CategoryController@categoryPage')->name('categoryPage');
+    Route::get('categories-list/{category}','CategoryController@categoryPage')->name('categoryPage');
 
     Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');
     Route::post('review/unpublish','ReviewController@unpublishReview')->name('reviewUnpublish');
@@ -48,8 +48,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('product/save/{id}','ProductsController@updateProduct')->name('productUpdate');
     Route::post('product/image-delete','ProductsController@deleteImage')->name('imageDelete');
     Route::post('product/delete/{id}','ProductsController@deleteProduct')->name('productDelete');
-    Route::post('category/delete/{id}','CategoryController@deleteCategory')->name('categoryDelete');
+    Route::post('category/delete/{category}','CategoryController@deleteCategory')->name('categoryDelete');
     Route::post('add-category','CategoryController@createCategory')->name('createCategory');
-    Route::post('category/save/{id}','CategoryController@updateCategory')->name('categoryUpdate');
+    Route::post('category/save/{category}','CategoryController@updateCategory')->name('categoryUpdate');
 
 });
