@@ -45,9 +45,7 @@
                           <form method="POST" action="{{route('productUpdate',['id'=>$product->id])}}" id="form" enctype="multipart/form-data">
                               @csrf
                                 <div class="row">
-                                  <div class="col-12 col-lg-6">
-                                    
-                                    <h3 class="d-inline-block d-sm-none">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
+                                  <div class="col-12 col-lg-6"> 
                                     <div class="col-12 image-input image-input-outline">
                                       <img src="{{asset('img/'.unserialize($product->thumbnail)[0])}}" class="product-image rounded" id="img" alt="Product Image">
                                       

@@ -708,7 +708,7 @@ vela.ajaxFilter = function() {
                 var newTitle = $(data).filter('title').text();
                 document.title = newTitle;
                 ajaxFilterData(data);
-                ajaxFilterSortby();
+                
                 ajaxFilterReview();
                 ajaxFilterClear();
                 ajaxFilterAddToCart();

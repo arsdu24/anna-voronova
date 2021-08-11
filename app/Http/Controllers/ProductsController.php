@@ -104,20 +104,52 @@ class ProductsController extends Controller
         foreach($product->categories as $category){
         array_push($product_categories, $category->id);
         }
-        $reviews = $product->reviews;
+        $reviews = $product->reviews->reverse();
         return view('pages.product_page',['user'=>Auth::user(),'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_cat'=>$product_categories]);  
     }
      
      public function viewList()
     {   
-        $products=Product::all()->reverse();
+        $products=Product::orderby('id', 'desc')->paginate(15);
         return view('pages.products_list',['user'=>Auth::user(),'products'=>$products]);  
     }
 
     public function clientViewAll()
-    {
-        $products=Product::all()->reverse();
+    {    
+        if(!isset($_GET['sort_by']) || $_GET['sort_by']== 'default')
+        $products=Product::where('published',1)->orderby('id', 'desc')->paginate(15);
+        else if($_GET['sort_by']== 'title-ascending')
+          $products=Product::where('published',1)->orderby('name', 'asc')->paginate(15);
+        else if($_GET['sort_by']== 'title-descending')
+          $products=Product::where('published',1)->orderby('name', 'desc')->paginate(15);
+        else if($_GET['sort_by']== 'price-ascending')
+          $products=Product::where('published',1)->orderby('price', 'asc')->paginate(15);
+        else if($_GET['sort_by']== 'price-descending')
+          $products=Product::where('published',1)->orderby('price', 'desc')->paginate(15);
+        else if($_GET['sort_by']== 'created-descending')
+          $products=Product::where('published',1)->orderby('created_at', 'desc')->paginate(15);
+        else if($_GET['sort_by']== 'created-ascending')
+          $products=Product::where('published',1)->orderby('created_at', 'asc')->paginate(15);
+        else if($_GET['sort_by']== 'manual')
+          $products=Product::where('published',1)->orderby('updated_at', 'asc')->paginate(15);
+        else if($_GET['sort_by']== 'best-selling')
+          $products=Product::where('published',1)->orderby('updated_at', 'asc')->paginate(15);
         $categories = Category::all();
         return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'categories'=>$categories]);  
+    }
+
+    public function clientProductPage($id)
+    {
+
+      $categories =Category::all();
+      $product=Product::find($id);
+      $reviews = $product->reviews->where('published',1);
+      $stars =0;
+      foreach($reviews as $review){
+        $stars+=$review->stars;
+      }
+      if($stars)$rating=$stars/$reviews->count();
+      else $rating=0;
+      return view('pages.client_product_page',['user'=>Auth::user(),'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating]);  
     }
 }
