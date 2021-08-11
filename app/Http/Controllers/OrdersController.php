@@ -27,6 +27,6 @@ class OrdersController extends Controller
        'address' => $request['address'],
        'status' => 'active',
      ]);
-     return redirect('/');
+     return redirect()->route('home');
     }
 }

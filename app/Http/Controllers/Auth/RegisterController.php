@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Category;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -24,8 +25,9 @@ class RegisterController extends Controller
     }
 
     public function showClientRegisterForm()
-    {
-        return view('auth.register', ['url' => 'client']);
+    {   
+        $categories =Category::all();
+        return view('auth.register', ['url' => 'client','categories'=>$categories]);
     }
 
     protected function createClient(Request $request)

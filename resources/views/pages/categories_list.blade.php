@@ -1,18 +1,18 @@
 @extends('layouts.Admin')
-@section('title', 'Products')
+@section('title', 'Categories')
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>
-            Products
+            Categories
           </h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Products</li>
+            <li class="breadcrumb-item active"> Categories</li>
           </ol>
         </div>
       </div>
@@ -24,45 +24,44 @@
 
 <div class="card">
     <div class="card-header">
-      <h3 class="card-title">Products</h3>
+      <h3 class="card-title"> Categories</h3>
       <div class="card-tools">
         <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">
             <i class="fas fa-plus"></i>
-            Add product
+            Add category
         </button>
       </div>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
       <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12">
-      @if(count($products)!=0)
+      @if(count($categories)!=0)
         <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
         <thead>
         <tr role="row">
             <th>Thumbnail</th>
-            <th>Name</th>
-            <th>Excerpt</th>
-            <th>Price</th>
-            <th>Action</th></tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
         </thead>
         <tbody>
-            @foreach($products as $product)
+            @foreach($categories as $category)
             <tr class="odd">
                 <td class="dtr-control sorting_1" tabindex="0">
-                    <img src="{{asset('img/'.unserialize($product->thumbnail)[0])}}" class="img-fluid rounded" alt="tbl">
+                    <img src="{{asset('img/'.$category->thumbnail)}}" class="img-fluid rounded" alt="tbl">
                 </td>
-                <td>{{$product->name}}</td>
-                <td>{{$product->excerpt}}</td>
-                <td>{{$product->price}} <strong>$</strong></td>
+                <td>{{$category->title}}</td>
+                <td>{{$category->description}}</td>
                 <td>
-                    <a href="product-list/{{$product->id}}"   class="col-md-6 text-warning">
+                    <a href="categories-list/{{$category->id}}"   class="col-md-6 text-warning">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a href="{{route('productDelete',['id'=>$product->id])}}" title="Delete" class="text-danger" onclick="event.preventDefault();
-                    document.getElementById('{{$product->id}}').submit();">
+                    <a href="" title="Delete" class="text-danger" onclick="event.preventDefault();
+                    document.getElementById('{{$category->id}}').submit();">
                       <i class="fas fa-trash"></i>
                     </a>
-                    <form id="{{$product->id}}" action="{{route('productDelete',['id'=>$product->id])}}" method="POST" style="display: none;">
+                    <form id="{{$category->id}}" action="{{route('categoryDelete',['category'=>$category])}}" method="POST" style="display: none;">
                       @csrf</form>
                 </td>
               </tr>
@@ -71,22 +70,21 @@
       </table>
     @else
     <div class="alert alert-info" role="alert">
-      You don't have products yet!
+      You don't have categories yet!
     </div>
     @endif
-    </div></div><div class="row">
-      <div class="col-sm-12 col-md-5">
-        <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-          Showing {{$products->firstItem()  ?? '0'}} to {{$products->count()}} of {{$products->total()}} entries
-        </div>
-      </div>
-     
-        <div class="col-sm-12 col-md-7">
-          <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-            <ul class="pagination">
-              {!!$products->links() !!}
-            </ul></div></div></div></div>
+</div></div><div class="row">
+  <div class="col-sm-12 col-md-5">
+    <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+      Showing {{$categories->firstItem() ?? '0'}} to {{$categories->count()}} of {{$categories->total()}} entries
     </div>
+  </div>
+ 
+    <div class="col-sm-12 col-md-7">
+      <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+        {!!$categories->links()!!}
+        </div></div></div></div>
+</div>
     <!-- /.card-body -->
   </div>
 </div>
@@ -97,26 +95,26 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Add product</h4>
+          <h4 class="modal-title">Add category</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{ route('createPdroduct') }}" enctype="multipart/form-data" >
+            <form method="POST" action="{{ route('createCategory') }}" enctype="multipart/form-data" >
                 @csrf
                 <div class="form-group row">
-                    <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+                    <label for="name" class="col-md-4 col-form-label text-md-right">Title</label>
 
                     <div class="col-md-6">
-                        <input id="name" type="text" class="form-control " name="name" required autocomplete="name">
-                    </div>
+                        <input id="name" type="text" class="form-control " name="title" required autocomplete="title">
+                      </div>
                 </div>
 
                 <div class="form-group row">
-                    <label for="description" class="col-md-4 col-form-label text-md-right">Excerpt</label>
-
-                    <div class="col-md-6">
-                        <input id="description" type="text" class="form-control" name="excerpt"  required autocomplete="excerpt">
-                    </div>
+                  <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
+                  <div class="col-md-6">
+                  <textarea class="form-control" name="description"  >
+                  </textarea>
+                </div>
                 </div>
 
 
@@ -132,17 +130,6 @@
                           <label class="custom-file-label"  id="image_label">Choose file</label>
                         </div>
                       </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="price" class="col-md-4 col-form-label text-md-right">Price</label>
-
-                        <div class="input-group mb-3 col-md-6">
-                            <div class="input-group-prepend">
-                                    <span class="input-group-text">$</span>
-                            </div>
-                            <input type="number" class="form-control" name="price" id="price" aria-label="Amount (to the nearest dollar)">
-                        </div>
                 </div>
                     <div class=" modal-footer ">
                         <button type="button" data-dismiss="modal" class="btn btn-secondary btn-sm">
@@ -161,7 +148,6 @@
   
     </div>
 @endsection
-
 @section('scripts')
 <script>
 let label = document.querySelector('#image_label');
