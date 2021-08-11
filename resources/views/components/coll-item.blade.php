@@ -1,7 +1,7 @@
 
      <div class="coll-item" style="width: 16.6667%;">
         <div class="collImage">
-            <a href="/collections/{{$category->id}}">
+            <a href="{{route('categoryShow',['category'=>$category])}}">
 
 
                 <div class="p-relative">
@@ -25,6 +25,6 @@
             </a>
         </div>
         <h5 class="collTitle"><a
-            href="/collections/{{$category->id}}"
+            href="{{route('categoryShow',['category'=>$category])}}"
                 title="{{$category->title}}">{{$category->title}}</a></h5>
     </div>                      
