@@ -17,14 +17,12 @@ class CategoryController extends Controller
             $image->move('img',$imageName);
             $formInput['thumbnail'] = $imageName;
             $category = Category::create($formInput);
-            $id = $category->id;
-            return redirect()->route('categoryPage',['id'=> $id]);
+            return redirect()->route('categoryPage',['category'=> $category]);
         }
         return redirect()->back();
     }
 
-    public function updateCategory($id,Request $request){
-        $category = Category::find($id);
+    public function updateCategory(Category $category,Request $request){
         if($request->title) $category->title=$request->title;
         if($request->description)$category->description = $request->description;
         $image=$request->file('thumbnail');
@@ -34,17 +32,15 @@ class CategoryController extends Controller
             $category->thumbnail = $imageName;
         }
         $category->save();
-        return redirect()->route('categoryPage',['id'=> $id]);
+        return redirect()->route('categoryPage',['category'=> $category]);
     }
 
-    public function deleteCategory($id){
-        $category = Category::find($id);
+    public function deleteCategory(Category $category){
         $category->delete();
         return redirect()->route('categoriesList');
     }
 
-    public function categoryPage($id){
-        $category = Category::find($id);
+    public function categoryPage(Category $category){
         return view('pages.category_page',['user'=>Auth::user(),'category'=>$category]);  
     }
      
@@ -60,9 +56,9 @@ class CategoryController extends Controller
         return view('pages.client_categories_list',['user'=>Auth::user(),'categories'=>$categories]);  
     }
 
-    public function categoryShow($id)
+    public function categoryShow(Category $category)
     {
-        $category = Category::find($id);
+        $id = $category->id;
         $products = Product::whereHas('categories', function($q) use ($id) {
             $q->where('category_id', $id);
          })->where('published',1)->paginate(15);

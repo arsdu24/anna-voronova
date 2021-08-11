@@ -58,10 +58,10 @@
                         <i class="fas fa-edit"></i>
                     </a>
                     <a href="" title="Delete" class="text-danger" onclick="event.preventDefault();
-                    document.getElementById('delete-form').submit();">
+                    document.getElementById('{{$category->id}}').submit();">
                       <i class="fas fa-trash"></i>
                     </a>
-                    <form id="delete-form" action="{{route('categoryDelete',['id'=>$category->id])}}" method="POST" style="display: none;">
+                    <form id="{{$category->id}}" action="{{route('categoryDelete',['category'=>$category])}}" method="POST" style="display: none;">
                       @csrf</form>
                 </td>
               </tr>
