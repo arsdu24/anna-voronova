@@ -140,6 +140,7 @@ class ProductsController extends Controller
 
     public function clientProductPage($id)
     {
+
       $categories =Category::all();
       $product=Product::find($id);
       $reviews = $product->reviews->where('published',1);

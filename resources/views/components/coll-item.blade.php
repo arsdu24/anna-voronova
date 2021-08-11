@@ -1,6 +1,7 @@
 
      <div class="coll-item" style="width: 16.6667%;">
         <div class="collImage">
+
             <a href="{{route('categoryShow',['category'=>$category])}}">
 
 
