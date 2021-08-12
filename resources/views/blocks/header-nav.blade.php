@@ -115,9 +115,16 @@
                                    data-toggle="collapse" title="Search">
                                     <i class="icons icon-magnifier"></i>
                                 </a>
-                                <div class="velaCartTop"><a href="/cart" class="jsDrawerOpenRight d-flex">
+                                <div class="velaCartTop"><a href="/cart" id="cartTop" class="jsDrawerOpenRight d-flex">
                                         <i class="icons icon-handbag"></i>
-                                        <span class="text"><span id="CartCount">1</span></span>
+                                        <span class="text">
+                                        <span id="CartCount">
+                                            @isset($user)
+                                             @if($user->cart)
+                                                {{$user->cart->items()->count()}}
+                                             @endif
+                                            @endisset
+                                        </span></span>
 
                                     </a></div>
                             </div>

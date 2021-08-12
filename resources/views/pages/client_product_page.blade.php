@@ -131,14 +131,10 @@
         </div><div class="proDescription rte">
             <p>{{$product->excerpt}}</p>
         </div><div class="wrapper">
-            <form method="post" action="" id="oldID" accept-charset="UTF-8" class="formAddToCart" enctype="multipart/form-data">
-                <input type="hidden" name="form_type" value="product" />
-                <input type="hidden" name="utf8" value="✓" />
-    <div class="proVariants">
-                
     
-  
-    
+     <form method="post" action="{{route('addToCart')}}" accept-charset="UTF-8" enctype="multipart/form-data">
+             @csrf
+             <div class="proVariants">
     <style rel="stylesheet" type="text/css" >
                       .proVariants .selector-wrapper:nth-child(1){display: none;}
                 </style>
@@ -151,49 +147,40 @@
                 <div class="priceProduct "><span class="money">{{$product->price}} $</span></div>     
                 @endif
             </div>
+            <p class="proAttr productAvailability instock"><label>Availability:</label>In stock</p>
             <div class="velaGroup clearfix mb20">
-                
-    
-     <div id="velaSizeGuide" style="display: none;">
-        <div  class="velaSizeGuide">
-            
-                
-            
-                
-            
-                
-        </div>
-        </div>
     </div>
+    </div>
+                <input type="hidden" name="form_type" value="product" />
+                <input type="hidden" name="product" value="{{$product->id}}" />
+                <input type="hidden" name="utf8" value="✓" />
                 <div class="proQuantity">
-                    
+                    <!-- <label for="Quantity" class="qtySelector">Quantity:</label> -->
+                    <div style="display:none"><input type="number"></div>     
+                        <div class="velaQty">
+                            <button type="button" class="velaQtyAdjust velaQtyButton velaQtyMinus">
+                                <span class="txtFallback">−</span>
+                            </button>
+                            <input type="text" value="1" name="quantity" class="velaQtyNum velaQtyText " >
+                            <button type="button" class="velaQtyAdjust velaQtyButton velaQtyPlus">
+                                <span class="txtFallback">+</span>
+                            </button>
+                        </div>
 
-                    <div class="velaQty">
-                        <button type="button" class="velaQtyAdjust velaQtyButton velaQtyMinus">
-                            <span class="txtFallback">−</span>
-                        </button>
-                        <input type="text" value="1" class="velaQtyNum velaQtyText">
-                        <button type="button" class="velaQtyAdjust velaQtyButton velaQtyPlus">
-                            <span class="txtFallback">+</span>
-                        </button>
-                    </div>
-                
-                
-                                </div>
-                <button type="submit" name="add" id="AddToCart" class="btn btnAddToCart">
+
+                </div>
+
+                <button type="submit"  class="btn btnAddToCart">
                     <i class="icons icon-handbag"></i>
                     <span id="AddToCartText">Add to Cart</span>
-                </button><div class="velaBuyNow">
-                        <div data-shopify="payment-button" class="shopify-payment-button">
-                            <button class="shopify-payment-button__button shopify-payment-button__button--unbranded shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> 
-                            </button>
-                            <button class="shopify-payment-button__more-options shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> 
-                            </button></div>
-                </div></div>
-            
-            
+                </button>
+                
+                <div class="velaBuyNow">
+                </div>
         </form>
-    <p class="proAttr productAvailability instock"><label>Availability:</label>In stock</p>
+        
+   <p class="proAttr productAvailability instock"><label></label></p>
+   
     <div class="mb30 pt-md-30">
         <section class="proDetailInfo"><div class="proTabHeading">
 <ul class="nav velaProductNavTabs nav-tabs"><li class="active">
@@ -365,11 +352,13 @@ Body of Review
     
                         
                     </div></a>
-                <div class="productLable"></div><div class="proButton clearfix"><form action="https://velademo-rubix.myshopify.com/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
-                        <input type="hidden" name="id" value="33452385239084" /><button class="btn  btnProduct btnAddToCart" type="submit" value="Submit" title="Add to Cart">
+                <div class="productLable"></div><div class="proButton clearfix">
+                <form action="{{route('addToCart')}}" method="post" enctype="multipart/form-data" class="formAddToCart">
+                        <input type="hidden" name="id" value="{{$product->id}}" /><button class="btn  btnProduct btnAddToCart" type="submit" value="Submit" title="Add to Cart">
                                     <span class="icons icon-handbag"></span>
                                     <span class="text">Add to Cart</span>
-                                </button></form>
+                                </button>
+                </form>
                     
         <div class="productQuickView">
             <a class="btn btnProduct btnProductQuickview" href="#velaQuickView" data-handle="victo-pedant-lamp" title="Quick view">
@@ -1079,7 +1068,6 @@ Body of Review
     })
 </script>
 <script>
-    document.querySelector('velaQtyNum').value=1;
     document.querySelector('#w_r').addEventListener('click',(e)=>{
         e.preventDefault();
         let el =document.querySelector('#form_4960511557676')
@@ -1088,4 +1076,9 @@ Body of Review
         else el.style.display="block";
     })
 </script>
+<script>
+   $('.btnAddToCart').click($('#cartTop').trigger( "click" ));
+   
+</script>
+
 @endsection

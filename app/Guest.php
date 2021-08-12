@@ -25,6 +25,10 @@ class Guest extends Model implements JWTSubject
         return $this->getKey();
     }
 
+    public function cart(){
+        return $this->hasOne('App\Cart');
+    }
+    
     public function getJWTCustomClaims() {
         return [];
     }    

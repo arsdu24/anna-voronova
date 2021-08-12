@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="#ba933e">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="canonical" href="{{ route('home') }}">
     <link rel="shortcut icon" href="{{ asset('img/faviicon_32x32.jpg') }}" type="image/png">
     <title>
@@ -58,13 +59,120 @@
     <div class="drawerCartTitle">
         <span>Shopping cart</span>
     </div>
-    <div id="cartContainer"></div>
+    
+<div id="cartContainer">
+    @isset($user)
+        @if($user->cart)
+            @if($user->cart->items()->count())
+        <form action="/cart" method="post" novalidate="" class="cart ajaxcart">
+            <div class="ajaxCartInner" id="CartItemContainer">
+                       
+                             @foreach($user->cart->items as $cartItem)
+                                   <div class="ajaxCartProduct">
+                                        <div class="drawerProduct ajaxCartRow" data-line="2">
+                                            <div class="drawerProductImage">
+                                                <a href="/products/{{$cartItem->product->id}}"><img class="img-responsive" src="{{asset('img/'.unserialize($cartItem->product->thumbnail)[0])}}" alt="{{$cartItem->product->name}}"></a>
+                                            </div>
+                                            <div class="drawerProductContent">
+                                                <div class="drawerProductTitle">
+                                                    <a href="/products/{{$cartItem->product->id}}">{{$cartItem->product->name}}</a>
+                                                </div>
+                                                <div class="drawerProductPrice">
+                                                    <div class="priceProduct">
+                                                        <span class="money" data-currency="USD">$ 
+                                                        @if(!$cartItem->product->sale_price)
+                                                        {{$cartItem->product->price}}
+                                                        @else 
+                                                        {{$cartItem->product->sale_price}}
+                                                        @endif
+                                                         USD</span>
+                                                    </div>
+                                                </div>
+                                                <div class="drawerProductQty">
+                                                    <div class="velaQty">
+                                                        <button type="button" data-id="{{$cartItem->id}}" data-price="{{$cartItem->product->price}}" class="qtyAdjust velaQtyButton velaQtyMinus" >
+                                                            <span class="txtFallback">&minus;</span>
+                                                        </button>
+                                                        <input type="text" name="updates[]" data-price="{{$cartItem->product->price}}" data-id="{{$cartItem->id}}" class="qtyNum velaQtyText" value="{{$cartItem->quantity}}" min="0"  pattern="[0-9]*" />
+                                                        <button type="button" data-id="{{$cartItem->id}}" data-price="{{$cartItem->product->price}}" class="qtyAdjust velaQtyButton velaQtyPlus" >
+                                                            <span class="txtFallback">+</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="drawerProductDelete">
+                                                    <div class="cartRemoveBox">
+                                                        <a href="#" id="{{$cartItem->id}}" item-total="{{$cartItem->product->price * $cartItem->quantity}}" class="cartRemove btnClose remove">
+                                                            <span>Remove</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                             @endforeach
+                            
+                            
+                </div>
+                
+    
+                
+    
+                    <div class="ajaxCartNote">
+                        <div class="velaCartNoteButton">
+                            <a class="btnCartNote collapsed" href="#velaCartNote" data-toggle="collapse">
+                                <i class="fa fa-times"></i>
+                                add order note
+                            </a>
+                        </div>
+                        <div id="velaCartNote" class="velaCartNoteGroup collapse">
+                            <label for="CartSpecialInstructions">Special instructions for seller</label>
+                            <textarea name="note" class="form-control" id="CartSpecialInstructions" rows="4"></textarea>
+                        </div>
+                    </div>
+    
+                
+    
+                <div class="drawerCartFooter">
+                    <div class="drawerAjaxFooter">
+                        <div class="drawerSubtotal">
+                            <span class="cartSubtotalHeading">Subtotal</span>
+                            <span class="cartSubtotal">$<span class="money" id="cart_value"  data-currency="USD">
+                           
+                                {{$user->cart->totalPrice}}
+                            </span>USD</span>
+                        </div>
+                        <p class="drawerShipping">Shipping, taxes, and discounts will be calculated at checkout.</p>
+                        <div class="drawerButton">
+                            <div class="drawerButtonBox">
+                                <a class="btn btnVelaCart btnViewCart" href="/cart">
+                                    View Cart
+                                </a>
+                            </div>
+                            <div class="drawerButtonBox">
+                                <button type="submit" class="btn btnVelaCart btnCheckout" name="checkout">
+                                    Check Out
+                                </button>
+                            </div>
+                         
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        @else
+        <div class="drawerCartEmpty">Your cart is currently empty.</div>
+        @endif
+        @endif
+      @endisset
+    
 </div>
-
-
+</div>
 <div id="pageContainer" class="isMoved">
-    @include('blocks.shopify-header')
 
+    @include('blocks.shopify-header')
+                          
     @yield('shopify-section-main')
 
     @include('blocks.shopify-footer')
@@ -382,7 +490,6 @@
     </div>
 </div>
 
-
 <script
     src="//cdn.shopify.com/shopifycloud/shopify/assets/themes_support/option_selection-fe6b72c2bbdd3369ac0bfefe8648e3c889efca213baefd4cfb0dd9363563831f.js"
     type="text/javascript"></script>
@@ -400,6 +507,147 @@
         type="text/javascript"></script>
 <script src="//cdn.shopify.com/s/files/1/0376/9440/6700/t/10/assets/jquery.cookie.js?v=7236575574540404818"
         type="text/javascript"></script>
+<script >
+function remove(){
+   $(".remove").click(function(e) {
+    e.preventDefault();
+    let id = $(this).attr('id');
+    let el =  $(this);
+    let cart = $('#CartCount');
+    let cartTotalEl=$('#cart_value');
+    let cartContent=$('#cartContainer');
+    $.ajax({
+        headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+        type: "POST",
+        url: '{{route("cartItemDelete")}}',
+        data: { 
+            id: id,
+        },
+        success: function(result) {
+            refreshedPage = $(result);
+          newDemo = refreshedPage.find("#cart_value").html();
+          newCartCount = refreshedPage.find("#CartCount").html();
+          newCart = refreshedPage.find("#cartContainer").html();
+          cartTotalEl.html(newDemo);
+          cart.html(newCartCount);
+          cartContent.html(newCart);
+          qtyMinus_click();
+          qtyChange();
+          qtyPlus();
+          remove();
+        },
+        error: function(result) {
+            console.log(result);
+        }
+    });
+});
+}
+function qtyChange(){
+$('.qtyNum').change(function(e){
+    e.preventDefault();
+    let id = $(this).attr('data-id');
+    let el =  $(this);
+    let cartTotalEl=$('#cart_value');
+    let quantity = $(this).val();
+    let cartContent=$('#cartContainer');
+    let cart = $('#CartCount');
+    $.ajax({
+        headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+        type: "POST",
+        url: '{{route("qtyUpdate")}}',
+        data: { 
+            id: id,
+            quantity: quantity,
+        },
+        success: function(result) {
+        refreshedPage = $(result);
+          newDemo = refreshedPage.find("#cart_value").html();
+          newCartCount = refreshedPage.find("#CartCount").html();
+          newCart = refreshedPage.find("#cartContainer").html();
+          cartTotalEl.html(newDemo);
+          cart.html(newCartCount);
+          cartContent.html(newCart);
+          qtyMinus_click();
+          qtyChange();
+          qtyPlus();
+          remove();
+        },
+        error: function(result) {
+            console.log(result);
+        }
+    });
+});
+}
+function qtyPlus(){
+$('.velaQtyPlus').click(function(e){
+    e.preventDefault();
+    let id = $(this).attr('data-id');
+    let el =  $(this);
+    let cartTotalEl=$('#cart_value');
+    $.ajax({
+        headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+        type: "POST",
+        url: '{{route("qtyPlus")}}',
+        data: { 
+            id: id,
+        },
+        success: function(result) {
+            refreshedPage = $(result);
+            newDemo = refreshedPage.find("#cart_value").html();
+            cartTotalEl.html(newDemo);
+        },
+        error: function(result) {
+            console.log(result);
+        }
+    });
+});
+}
+function qtyMinus_click(){
+$('.velaQtyMinus').click(function(e){
+    e.preventDefault();
+    let id = $(this).attr('data-id');
+    let el =  $(this);
+    let cartTotalEl=$('#cart_value');
+    let cartContent=$('#cartContainer');
+    let cart = $('#CartCount');
+    $.ajax({
+        headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+        type: "POST",
+        url: '{{route("qtyMinus")}}',
+        data: { 
+            id: id,
+        },
+        success: function(result) {
+          refreshedPage = $(result);
+          newDemo = refreshedPage.find("#cart_value").html();
+          newCartCount = refreshedPage.find("#CartCount").html();
+          newCart = refreshedPage.find("#cartContainer").html();
+          cartTotalEl.html(newDemo);
+          cart.html(newCartCount);
+          cartContent.html(newCart);
+          qtyMinus_click();
+          qtyChange();
+          qtyPlus();
+          remove();
+        },
+        error: function(result) {
+            console.log(result);
+        }
+    });
+});
+}
+qtyMinus_click();
+qtyChange();
+qtyPlus();
+remove();
+</script>
 </body>
-
 </html>

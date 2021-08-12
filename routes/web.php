@@ -16,15 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/','\App\Http\Controllers\HomeController@index')->middleware('auth','guest')->name('home');
-
-
 Route::get('/client', 'ClientController@index')->middleware('client')->name('client');
 Route::get('/products','ProductsController@clientViewAll')->middleware('client')->name('productsView');
 Route::get('/order','\App\Http\Controllers\OrdersController@showForm');
 Route::get('/collections','CategoryController@clientViewAll')->name('categoriesList');
 Route::get('/collections/{category}','CategoryController@categoryShow')->name('categoryShow');
 Route::get('/products/{id}','ProductsController@clientProductPage')->middleware('client')->name('productView');
+
+Route::post('/cart/add','CartController@addToCart')->middleware('client')->name('addToCart');
 Route::post('/create_order','\App\Http\Controllers\OrdersController@createOrder')->name('create_order');
+Route::post('cart/delete','CartController@ItemDelete')->name('cartItemDelete');
+Route::post('cart/qty_plus','CartController@qtyPlus')->name('qtyPlus');
+Route::post('cart/qty_minus','CartController@qtyMinus')->name('qtyMinus');
+Route::post('cart/qty_update','CartController@qtyUpdate')->name('qtyUpdate');
 
 Auth::routes();
 Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');
