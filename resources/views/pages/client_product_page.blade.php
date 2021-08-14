@@ -126,9 +126,23 @@
                             <div class="col-xs-12 col-md-6 mb30">
                                 <div class="proBoxInfo">
                                     
-    <h1>{{$product->name}}</h1><div class="proReviews">
+    <h1>{{$product->name}}</h1>
+    <div class="proReviews">
+        <span class="spr-badge" id="spr_badge_4960484327468" data-rating="5.0">
+            <span class="spr-starrating spr-badge-starrating">
+                @for($i = 0; $i < $rating; $i++)
+                     <i class="spr-icon spr-icon-star"></i>
+                @endfor
+              </span>
+        <span class="spr-badge-caption">{{$reviews->count()}} review</span>
+    </span>
+
+    </div>
+    <div class="proReviews">
             <span class="shopify-product-reviews-badge" data-id="4960511557676"></span>
-        </div><div class="proDescription rte">
+        </div
+        
+        ><div class="proDescription rte">
             <p>{{$product->excerpt}}</p>
         </div><div class="wrapper">
     
@@ -216,55 +230,56 @@ border-color: #ECECEC;
 <span class="spr-summary-caption">
     @if($reviews->count()>0)<span class="spr-summary-actions-togglereviews">Based on {{$reviews->count()}} reviews</span>@endif
 </span><span class="spr-summary-actions">
-<a href="#"  class="spr-summary-actions-newreview" id="w_r">Write a review</a>
+@if($user->role == 2)
+    <a href="#"  class="spr-summary-actions-newreview" id="w_r">Write a review</a>
+@else
+    <div class="spr-summary-actions-newreview">To write a review please <a href="/register/client" id="customer_register_link"> Sign up</a> or <a href="/login" id="customer_register_link"> Log in</a></div>
+@endif
 </span>
 </div>
 </div>
 
 <div class="spr-content">
 <div class="spr-form" id="form_4960511557676" style="display: none" >
-    
-    
-    <form method="post" action="//productreviews.shopifycdn.com/api/reviews/create" id="new-review-form_4960511557676" class="new-review-form" onsubmit="SPR.submitForm(this);return false;"><input type="hidden" name="review[rating]"><input type="hidden" name="product_id" value="4960511557676"><h3 class="spr-form-title">Write a review</h3><fieldset class="spr-form-contact"><div class="spr-form-contact-name">
-<label class="spr-form-label" for="review_author_4960511557676">Name</label>
-<input class="spr-form-input spr-form-input-text " id="review_author_4960511557676" type="text" name="review[author]" value="" placeholder="Enter your name">
-</div><div class="spr-form-contact-email">
-<label class="spr-form-label" for="review_email_4960511557676">Email</label>
-<input class="spr-form-input spr-form-input-email " id="review_email_4960511557676" type="email" name="review[email]" value="" placeholder="john.smith@example.com">
-</div></fieldset>
-<fieldset class="spr-form-review" id="Form">
-<div class="spr-form-review-rating">
-<label class="spr-form-label" for="review[rating]">Rating</label>
-<div class="spr-form-input spr-starrating ">
-    <a href="#" onclick="SPR.setRating(this);return false;" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="1" aria-label="1 of 5 stars">&nbsp;</a>
-    <a href="#" onclick="SPR.setRating(this);return false;" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="2" aria-label="2 of 5 stars">&nbsp;</a>
-    <a href="#" onclick="SPR.setRating(this);return false;" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="3" aria-label="3 of 5 stars">&nbsp;</a>
-    <a href="#" onclick="SPR.setRating(this);return false;" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="4" aria-label="4 of 5 stars">&nbsp;</a>
-    <a href="#" onclick="SPR.setRating(this);return false;" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="5" aria-label="5 of 5 stars">&nbsp;</a>
+    <form method="post" action="{{route('createReview')}}" id="new-review-form" class="new-review-form" onsubmit="">
+        <h3 class="spr-form-title">Write a review</h3>
+            @csrf
+            <fieldset class="spr-form-review" id="Form">
+            <div class="spr-form-review-rating">
+            <label class="spr-form-label" for="rating">Rating</label>
+            <input type="hidden" name="rating" id="rating_input">
+            <input type="hidden" name="product" value="{{$product->id}}">
+            <div class="spr-form-input spr-starrating " id="stars">
+                <a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="1" aria-label="1 of 5 stars">&nbsp;</a>
+                <a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="2" aria-label="2 of 5 stars">&nbsp;</a>
+                <a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="3" aria-label="3 of 5 stars">&nbsp;</a>
+                <a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="4" aria-label="4 of 5 stars">&nbsp;</a>
+                <a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="5" aria-label="5 of 5 stars">&nbsp;</a>
+            </div>
+            </div>
+            <div class="spr-form-review-title">
+            <label class="spr-form-label" for="review_title">Review Title</label>
+            <input class="spr-form-input spr-form-input-text " id="review_title" type="text" name="title" value="" placeholder="Give your review a title">
+            </div>
+            <div class="spr-form-review-body">
+            <label class="spr-form-label" for="review_body">
+            Body of Review
+            <span role="status" aria-live="polite" aria-atomic="true">
+            <span class="spr-form-review-body-charactersremaining">(1500)</span>
+            <span class="visuallyhidden">characters remaining</span>
+            </span>
+            </label>
+            <div class="spr-form-input">
+            <textarea class="spr-form-input spr-form-input-textarea " id="review_body" data-product-id="4960511557676" name="body" rows="10" placeholder="Write your comments here"></textarea>
+            </div>
+            </div>
+            </fieldset>
+            <fieldset class="spr-form-actions">
+            <input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Submit Review">
+            </fieldset>
+</form>
 </div>
-</div>
-<div class="spr-form-review-title">
-<label class="spr-form-label" for="review_title_4960511557676">Review Title</label>
-<input class="spr-form-input spr-form-input-text " id="review_title_4960511557676" type="text" name="review[title]" value="" placeholder="Give your review a title">
-</div>
-<div class="spr-form-review-body">
-<label class="spr-form-label" for="review_body_4960511557676">
-Body of Review
-<span role="status" aria-live="polite" aria-atomic="true">
-<span class="spr-form-review-body-charactersremaining">(1500)</span>
-<span class="visuallyhidden">characters remaining</span>
-</span>
-</label>
-<div class="spr-form-input">
-<textarea class="spr-form-input spr-form-input-textarea " id="review_body_4960511557676" data-product-id="4960511557676" name="review[body]" rows="10" placeholder="Write your comments here"></textarea>
-</div>
-</div>
-</fieldset>
-<fieldset class="spr-form-actions">
-<input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Submit Review">
-</fieldset></form></div>
 <div class="spr-reviews">
-
 @foreach($reviews as $review)
 <div class="spr-review" id="spr-review-115784653">
 <div class="spr-review-header">
@@ -1077,8 +1092,37 @@ Body of Review
     })
 </script>
 <script>
-   $('.btnAddToCart').click($('#cartTop').trigger( "click" ));
-   
+ $(document).ready(function(){
+        /* Hover code */
+        $('#stars a').on('mouseover', function(){
+            var onStar = parseInt($(this).data('value'), 10);
+            $(this).parent().children('a.spr-icon-star').each(function(e){
+                if (e < onStar) {
+                    $(this).addClass('spr-icon-star-hover');
+                }
+                else {
+                    $(this).removeClass('spr-icon-star-hover');
+                }
+            });
+        }).on('mouseout', function(){
+            $(this).parent().children('a.spr-icon-star').each(function(e){
+                $(this).removeClass('spr-icon-star-hover');
+            });
+        });
+ $('#stars a').on('click', function(e){
+            e.preventDefault();
+            var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+            var stars = $(this).parent().children('a.spr-icon-star');
+            for (i = 0; i < stars.length; i++) {
+                $(stars[i]).addClass('spr-icon-star-empty');
+            }
+            for (i = 0; i < onStar; i++) {
+                $(stars[i]).removeClass('spr-icon-star-empty');
+            }
+            let input = $('#rating_input');
+            input.val($(this).attr('data-value'));
+        });
+    });
 </script>
 
 @endsection

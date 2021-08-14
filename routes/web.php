@@ -29,6 +29,7 @@ Route::post('cart/delete','CartController@ItemDelete')->name('cartItemDelete');
 Route::post('cart/qty_plus','CartController@qtyPlus')->name('qtyPlus');
 Route::post('cart/qty_minus','CartController@qtyMinus')->name('qtyMinus');
 Route::post('cart/qty_update','CartController@qtyUpdate')->name('qtyUpdate');
+Route::post('products/review','ReviewController@createReview')->name('createReview');
 
 Auth::routes();
 Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');

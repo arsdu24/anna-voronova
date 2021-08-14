@@ -21,7 +21,7 @@ class CartController extends Controller
                 'quantity' => $request->quantity,      
                 'product_id' => $request->product,  
             ]);
-            if(!$item->product->sale_price)$user->cart->totalPrice += $item->product->price *  $item->quantity ;
+            if(!$item->product->sale_price){$cart->totalPrice += $item->product->price *  $item->quantity;}
             else $cart->totalPrice += $item->product->sale_price *  $item->quantity ;
             $cart->save();
         };

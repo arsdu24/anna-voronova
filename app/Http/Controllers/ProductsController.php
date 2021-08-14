@@ -89,16 +89,6 @@ class ProductsController extends Controller
 
     public function productPage($id){
         $product = Product::find($id);
-        
-        $review = Review::create([
-            'title' => 'title',
-            'description' => 'fsasd',
-            'stars' => 2,
-            'user_id'=> Auth::id(),
-            'product_id'=> $product->id,
-        ]);
-        $review->product()->associate($product);
-         
         $categories =Category::all();
         $product_categories = array();
         foreach($product->categories as $category){
@@ -143,7 +133,7 @@ class ProductsController extends Controller
 
       $categories =Category::all();
       $product=Product::find($id);
-      $reviews = $product->reviews->where('published',1);
+      $reviews = $product->reviews->where('published',1)->reverse();
       $stars =0;
       foreach($reviews as $review){
         $stars+=$review->stars;

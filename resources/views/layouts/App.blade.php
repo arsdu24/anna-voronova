@@ -164,6 +164,8 @@
         @else
         <div class="drawerCartEmpty">Your cart is currently empty.</div>
         @endif
+        @else
+        <div class="drawerCartEmpty">Your cart is currently empty.</div>
         @endif
       @endisset
     
