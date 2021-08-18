@@ -9,8 +9,13 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'user_id','address', 'status'
+        'user_id','address', 'status','subtotal','serial_number'
     ];
+
+    public function items()
+    {
+        return $this->hasMany('App\CartItem');
+    }
 
     public function client()
     {

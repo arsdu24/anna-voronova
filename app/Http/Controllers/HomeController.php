@@ -17,7 +17,6 @@ class HomeController extends Controller
     public function index()
     {   $user = Auth::user();
         $categories = Category::all();
-       
         return view('pages.index',['categories'=>$categories,'user'=>$user]);
     }
 }

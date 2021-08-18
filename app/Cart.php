@@ -11,10 +11,14 @@ class Cart extends Model
     ];
 
     public function user(){
-        return $this->belongsTo('App/User');
+        return $this->belongsTo('App\User');
     }
 
     public function items(){
-        return $this->hasMany(CartItem::class);
+        return $this->hasMany('App\CartItem');
+    }
+
+    public function orders(){
+        return $this->hasMany('App\Order');
     }
 }

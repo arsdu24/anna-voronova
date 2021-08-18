@@ -134,7 +134,8 @@
                      <i class="spr-icon spr-icon-star"></i>
                 @endfor
               </span>
-        <span class="spr-badge-caption">{{$reviews->count()}} review</span>
+       @if($reviews->count())<span class="spr-badge-caption">{{$reviews->count()}} review</span>
+    @endif
     </span>
 
     </div>

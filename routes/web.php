@@ -45,6 +45,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('product-list/{id}','ProductsController@productPage')->name('productPage');
     Route::get('categories-list','CategoryController@viewList')->name('categoriesList');
     Route::get('categories-list/{category}','CategoryController@categoryPage')->name('categoryPage');
+    Route::get('orders-list','OrdersController@viewList')->name('ordersList');
+    Route::get('orders-list/{order}','OrdersController@orderPage')->name('orderPage');
 
     Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');
     Route::post('review/unpublish','ReviewController@unpublishReview')->name('reviewUnpublish');
@@ -53,6 +55,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('product/save/{id}','ProductsController@updateProduct')->name('productUpdate');
     Route::post('product/image-delete','ProductsController@deleteImage')->name('imageDelete');
     Route::post('product/delete/{id}','ProductsController@deleteProduct')->name('productDelete');
+    Route::post('order/delete','OrdersController@deleteOrder')->name('orderDelete');
+    Route::post('order/update_status','OrdersController@updateOrderStatus')->name('orderStatusUpdate');
     Route::post('category/delete/{category}','CategoryController@deleteCategory')->name('categoryDelete');
     Route::post('add-category','CategoryController@createCategory')->name('createCategory');
     Route::post('category/save/{category}','CategoryController@updateCategory')->name('categoryUpdate');

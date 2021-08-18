@@ -60,7 +60,7 @@ class LoginController extends Controller
                         $order->user()->associate(Auth::user());
                         $order->save();
                         }
-                $OldUser->delete();
+                    $OldUser->delete();
                 }
                 $categories=Category::all();
                 return redirect()->route('client');

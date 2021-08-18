@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cart;
 use App\CartItem;
+use App\Product;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,9 @@ class CartController extends Controller
 { 
     public function addToCart(Request $request){
         $user=Auth::user();
+        $product=Product::find($request->product);
+        if($product->sale_price)$price =$product->sale_price;
+        else $price =$product->price;
         if(!$user->cart){
             $cart = $user->cart()->create([
                 'totalPrice' => 0,
@@ -19,13 +23,13 @@ class CartController extends Controller
             $item = $cart->items()->create([
                 'cart_id'=>$cart->id,
                 'quantity' => $request->quantity,      
-                'product_id' => $request->product,  
+                'product_id' => $request->product,
+                'price' => $price, 
             ]);
-            if(!$item->product->sale_price){$cart->totalPrice += $item->product->price *  $item->quantity;}
-            else $cart->totalPrice += $item->product->sale_price *  $item->quantity ;
+            $cart->totalPrice += $item->price *  $item->quantity;
             $cart->save();
-        };
-        if($user->cart){
+        }
+        else{
             if($user->cart->items){
             foreach($user->cart->items as $cartItem){
                if($cartItem->product->id == $request->product){
@@ -42,9 +46,9 @@ class CartController extends Controller
             'cart_id'=>$user->cart->id,
             'quantity' => $request->quantity,      
             'product_id' => $request->product,  
+            'price'=>$price,
         ]);
-        if(!$item->product->sale_price)$user->cart->totalPrice += $item->product->price *  $item->quantity ;
-        else $user->cart->totalPrice += $item->product->sale_price *  $item->quantity ;
+        $user->cart->totalPrice += $item->price *  $item->quantity ;
         $user->cart->save();
     }
         return redirect()->back();

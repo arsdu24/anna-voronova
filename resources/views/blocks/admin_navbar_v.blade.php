@@ -77,6 +77,14 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="{{route('ordersList')}}" class="nav-link">
+              <i class="fas fa-shopping-basket"></i>
+              <p>
+                Orders
+              </p>
+            </a>
+          </li>
 
         </ul>
       </nav>
