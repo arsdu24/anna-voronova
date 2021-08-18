@@ -7,6 +7,7 @@ use App\Product;
 use App\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class ProductsController extends Controller
 {   
@@ -105,13 +106,19 @@ class ProductsController extends Controller
         array_push($product_categories, $category->id);
         }
         $reviews = $product->reviews->reverse();
-        return view('pages.product_page',['user'=>Auth::user(),'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_cat'=>$product_categories]);  
+
+        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+        $cart_data = json_decode($cookie_data, true);
+        return view('pages.product_page',['user'=>Auth::user(),'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_cat'=>$product_categories,'cart_data'=>$cart_data]);  
     }
      
      public function viewList()
     {   
         $products=Product::orderby('id', 'desc')->paginate(15);
-        return view('pages.products_list',['user'=>Auth::user(),'products'=>$products]);  
+        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+        $cart_data = json_decode($cookie_data, true);
+
+        return view('pages.products_list',['user'=>Auth::user(),'products'=>$products,'cart_data'=>$cart_data]);  
     }
 
     public function clientViewAll()
@@ -135,7 +142,10 @@ class ProductsController extends Controller
         else if($_GET['sort_by']== 'best-selling')
           $products=Product::where('published',1)->orderby('updated_at', 'asc')->paginate(15);
         $categories = Category::all();
-        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'categories'=>$categories]);  
+
+        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+        $cart_data = json_decode($cookie_data, true);
+        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'categories'=>$categories,'cart_data'=>$cart_data]);  
     }
 
     public function clientProductPage($id)
@@ -150,6 +160,9 @@ class ProductsController extends Controller
       }
       if($stars)$rating=$stars/$reviews->count();
       else $rating=0;
-      return view('pages.client_product_page',['user'=>Auth::user(),'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating]);  
+
+      $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+      $cart_data = json_decode($cookie_data, true);
+      return view('pages.client_product_page',['user'=>Auth::user(),'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart_data'=>$cart_data]);  
     }
 }

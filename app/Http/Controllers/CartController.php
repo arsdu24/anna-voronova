@@ -2,105 +2,161 @@
 
 namespace App\Http\Controllers;
 
-use App\Cart;
-use App\CartItem;
-use GuzzleHttp\Promise\Create;
+use App\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class CartController extends Controller
-{ 
+{  
     public function addToCart(Request $request){
-        $user=Auth::user();
-        if(!$user->cart){
-            $cart = $user->cart()->create([
-                'totalPrice' => 0,
-            ]);
-            $item = $cart->items()->create([
-                'cart_id'=>$cart->id,
-                'quantity' => $request->quantity,      
-                'product_id' => $request->product,  
-            ]);
-            if(!$item->product->sale_price)$user->cart->totalPrice += $item->product->price *  $item->quantity ;
-            else $cart->totalPrice += $item->product->sale_price *  $item->quantity ;
-            $cart->save();
-        };
-        if($user->cart){
-            if($user->cart->items){
-            foreach($user->cart->items as $cartItem){
-               if($cartItem->product->id == $request->product){
-                    $cartItem->quantity += $request->quantity;
-                    $cartItem->save();
-                    if(!$cartItem->product->sale_price)$user->cart->totalPrice += $cartItem->product->price *  $request->quantity;
-                    else $user->cart->totalPrice += $cartItem->product->sale_price *  $request->quantity;
-                    $user->cart->save();
-                    return redirect()->back();
-               }
+        $prod_id = $request->input('product');
+        $quantity = $request->input('quantity');
+
+        if(Cookie::get('shopping_cart'))
+        {
+            $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+            $cart_data = json_decode($cookie_data, true);
+        }
+        else
+        {
+            $cart_data = array();
+        }
+
+        $item_id_list = array_column($cart_data, 'item_id');
+        $prod_id_is_there = $prod_id;
+
+        if(in_array($prod_id_is_there, $item_id_list))
+        {
+            foreach($cart_data as $keys => $values)
+            {
+                if($cart_data[$keys]["item_id"] == $prod_id)
+                {
+                    $cart_data[$keys]["item_quantity"] += $request->input('quantity');
+                    $item_data = json_encode($cart_data);
+                    $minutes = 60;
+                    Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
+                    return redirect()->back()->with('succes-mesage','Added to cart!');
+                }
             }
         }
-        $item=$user->cart->items()->create([
-            'cart_id'=>$user->cart->id,
-            'quantity' => $request->quantity,      
-            'product_id' => $request->product,  
-        ]);
-        if(!$item->product->sale_price)$user->cart->totalPrice += $item->product->price *  $item->quantity ;
-        else $user->cart->totalPrice += $item->product->sale_price *  $item->quantity ;
-        $user->cart->save();
-    }
-        return redirect()->back();
+        else
+        {
+            $product = Product::find($prod_id);
+            $prod_name = $product->name;
+            $prod_image = unserialize($product->thumbnail)[0];
+            if(!$product->sale_price)$priceval = $product->price;
+            else $priceval = $product->sale_price;
+            if($product)
+            {
+                $item_array = array(
+                    'item_id' => $prod_id,
+                    'item_name' => $prod_name,
+                    'item_quantity' => $quantity,
+                    'item_price' => $priceval,
+                    'item_image' => $prod_image
+                );
+                $cart_data[] = $item_array;
+
+                $item_data = json_encode($cart_data);
+                $minutes = 6000;
+                Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
+                return redirect()->back()->with('succes-mesage','Added to cart!');
+            }
+        }
+        
     }   
 
-    public function ItemDelete(Request $request){
-        $user=Auth::user();
-        $item=$user->cart->items()->find($request->id);
-        if($item){
-        if(!$item->product->sale_price) $user->cart->totalPrice -= $item->product->price *  $item->quantity ;
-        else $user->cart->totalPrice -= $item->product->sale_price *  $item->quantity ;
-        $item->delete();
-        $user->cart->save();
+    public function CartLoad()
+    {
+        if(Cookie::get('shopping_cart'))
+        {
+            $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+            $cart_data = json_decode($cookie_data, true);
+            $totalcart = count($cart_data);
+
+            echo json_encode(array('totalcart' => $totalcart)); die;
+            return;
         }
-        return redirect()->back();
+        else
+        {
+            $totalcart = "0";
+            echo json_encode(array('totalcart' => $totalcart)); die;
+            return;
+        }
     }
 
-    public function qtyPlus(Request $request){
-        $user=Auth::user();
-        $item=$user->cart->items()->find($request->id);
-        $item->quantity ++;
-        $item->save();
-        if(!$item->product->sale_price)$user->cart->totalPrice += $item->product->price ;
-        else $user->cart->totalPrice += $item->product->sale_price;
-        $user->cart->save();
-        return redirect()->back();
-    }
-    public function qtyMinus(Request $request){
-        $user=Auth::user();
-        $item=$user->cart->items()->find($request->id);
-        $item->quantity --;
-        $item->save();
-        if(!$item->product->sale_price)$user->cart->totalPrice -= $item->product->price ;
-        else $user->cart->totalPrice -= $item->product->sale_price ;
-        if($item->quantity == 0){
-            $item->delete();
+    public function ItemDelete(Request $request){
+        $prod_id = $request->input('product');
+
+        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+        $cart_data = json_decode($cookie_data, true);
+
+        $item_id_list = array_column($cart_data, 'item_id');
+        $prod_id_is_there = $prod_id;
+
+        if(in_array($prod_id_is_there, $item_id_list))
+        {
+            foreach($cart_data as $keys => $values)
+            {
+                if($cart_data[$keys]["item_id"] == $prod_id)
+                {
+                    unset($cart_data[$keys]);
+                    $item_data = json_encode($cart_data);
+                    $minutes = 6000;
+                    Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
+                    return redirect()->back();
+                }
+            }
         }
-        $user->cart->save();
-        return redirect()->back();
+    }
+
+    public function clearcart()
+    {
+        Cookie::queue(Cookie::forget('shopping_cart'));
+        return response()->json(['status'=>'Your Cart is Cleared']);
     }
 
     public function qtyUpdate(Request $request){
-        $user=Auth::user();
-        $item=$user->cart->items()->find($request->id);
-        if($item){
-        if(!$item->product->sale_price) $user->cart->totalPrice -=  $item->quantity * $item->product->price;
-        else $user->cart->totalPrice -=  $item->quantity * $item->product->sale_price;
-        $item->quantity = $request->quantity;
-        if(!$item->product->sale_price)$user->cart->totalPrice += $item->product->price * $item->quantity ;
-        else $user->cart->totalPrice += $item->product->sale_price * $item->quantity ;
-        $item->save();
-        if($item->quantity == 0){
-            $item->delete();
+        
+        $prod_id = $request->input('product');
+        $quantity = $request->input('quantity');
+
+        if(Cookie::get('shopping_cart'))
+        {
+            $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+            $cart_data = json_decode($cookie_data, true);
+
+            $item_id_list = array_column($cart_data, 'item_id');
+            $prod_id_is_there = $prod_id;
+
+            if(in_array($prod_id_is_there, $item_id_list))
+            {
+                foreach($cart_data as $keys => $values)
+                { 
+                  if($quantity!=0){
+                    if($cart_data[$keys]["item_id"] == $prod_id)
+                    {
+                        $cart_data[$keys]["item_quantity"] =  $quantity;
+                        $item_data = json_encode($cart_data);
+                        $minutes = 6000;
+                        Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
+                        return redirect()->back();
+                    }
+                  }else{
+                    foreach($cart_data as $keys => $values)
+                    {
+                        if($cart_data[$keys]["item_id"] == $prod_id)
+                        {
+                            unset($cart_data[$keys]);
+                            $item_data = json_encode($cart_data);
+                            $minutes = 6000;
+                            Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
+                            return redirect()->back();
+                        }
+                    }
+                  }
+                }
+            }
         }
-        $user->cart->save();
-        }
-        return redirect()->back();
     }
 }

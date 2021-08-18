@@ -1,4 +1,7 @@
 @extends('layouts.App')
+@section('title')
+{{$product->name}}
+@endsection
 @section('shopify-section-main')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <main class="mainContent" role="main">
@@ -161,7 +164,7 @@
                             <button type="button" class="velaQtyAdjust velaQtyButton velaQtyMinus">
                                 <span class="txtFallback">−</span>
                             </button>
-                            <input type="text" value="1" name="quantity" class="velaQtyNum velaQtyText " >
+                            <input type="text" value="1" name="quantity" id="quantity" class="velaQtyNum velaQtyText " >
                             <button type="button" class="velaQtyAdjust velaQtyButton velaQtyPlus">
                                 <span class="txtFallback">+</span>
                             </button>
@@ -1068,13 +1071,13 @@ Body of Review
     })
 </script>
 <script>
-    document.querySelector('#w_r').addEventListener('click',(e)=>{
+  if(document.querySelector('#w_r')){document.querySelector('#w_r').addEventListener('click',(e)=>{
         e.preventDefault();
         let el =document.querySelector('#form_4960511557676')
         if(el.style.display=="block")
          el.style.display="none";
         else el.style.display="block";
-    })
+    })};
 </script>
 <script>
    $('.btnAddToCart').click($('#cartTop').trigger( "click" ));
