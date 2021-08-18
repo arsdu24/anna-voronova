@@ -168,7 +168,7 @@ vela.productPage = function(options) {
     var $addToCart = $('#AddToCart'),
         $productPrice = $('#ProductPrice'),
         $comparePrice = $('#ComparePrice'),
-        $quantityElements = $('.qtySelector, .qtySelector + .velaQty'),
+        $quantityElements = $('.qtySelector, .qtySelector '),
         $addToCartText = $('#AddToCartText');
     if (variant) {
         if (variant.available) {

@@ -30,14 +30,6 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTIdentifier() {
         return $this->getKey();
     }
-    
-    public function cart(){
-        return $this->hasOne('App\Cart');
-    }
-
-    public function CartItem(){
-        return $this->hasMany('App\CartItem');
-    }
 
     public function getJWTCustomClaims() {
         return [];

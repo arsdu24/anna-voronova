@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\CartItem;
+use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
 {
@@ -17,6 +16,8 @@ class HomeController extends Controller
     public function index()
     {   $user = Auth::user();
         $categories = Category::all();
-        return view('pages.index',['categories'=>$categories,'user'=>$user]);
+        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+        $cart_data = json_decode($cookie_data, true);
+        return view('pages.index',['categories'=>$categories,'user'=>$user,'cart_data'=>$cart_data]);
     }
 }

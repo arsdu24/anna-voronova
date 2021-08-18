@@ -6,6 +6,7 @@ use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class CategoryController extends Controller
 {
@@ -41,6 +42,7 @@ class CategoryController extends Controller
     }
 
     public function categoryPage(Category $category){
+        
         return view('pages.category_page',['user'=>Auth::user(),'category'=>$category]);  
     }
      
@@ -53,7 +55,9 @@ class CategoryController extends Controller
     public function clientViewAll()
     {
         $categories=Category::orderby('id', 'desc')->paginate(15);
-        return view('pages.client_categories_list',['user'=>Auth::user(),'categories'=>$categories]);  
+        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+        $cart_data = json_decode($cookie_data, true);
+        return view('pages.client_categories_list',['user'=>Auth::user(),'categories'=>$categories,'cart_data'=>$cart_data]);  
     }
 
     public function categoryShow(Category $category)
@@ -63,6 +67,8 @@ class CategoryController extends Controller
             $q->where('category_id', $id);
          })->where('published',1)->paginate(15);
         $categories = Category::all();
-        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'categories'=>$categories,'category'=>$category]);  
+        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+        $cart_data = json_decode($cookie_data, true);
+        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'categories'=>$categories,'category'=>$category,'cart_data'=>$cart_data]);  
     }
 }
