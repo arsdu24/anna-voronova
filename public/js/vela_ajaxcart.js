@@ -274,17 +274,15 @@ var ajaxCart = (function(module, $) {
         }
     };
     adjustCart = function() {
-        $body.on('click', '.qtyAdjust', function() {
+        $body.on('click', '.qtysdjust', function() {
             var $el = $(this),
                 line = $el.data('line'),
                 $qtySelector = $el.siblings('.qtyNum'),
                 qty = parseInt($qtySelector.val().replace(/\D/g, ''));
             var qty = validateQty(qty);
-            if ($el.hasClass('velaQtyPlus')) {
+            if ($el.hasClass('velaQtyPlus') || $el.hasClass('velaQtyMinus')) {
                 qty += 1;
             } else {
-                qty -= 1;
-                if (qty <= 0) qty = 0;
             }
             if (line) {
                 updateQuantity(line, qty);
@@ -292,25 +290,13 @@ var ajaxCart = (function(module, $) {
                 $qtySelector.val(qty);
             }
         });
-        $body.on('change', '.qtyNum', function() {
-            var $el = $(this),
-                line = $el.data('line'),
-                qty = parseInt($el.val().replace(/\D/g, ''));
-            var qty = validateQty(qty);
-            if (line) {
-                updateQuantity(line, qty);
-            }
+        $body.on('change', '.qtNum', function() {
+            
         });
         $body.on('submit', 'form.ajaxcart', function(evt) {
             if (isUpdating) {
                 evt.preventDefault();
             }
-        });
-        $body.on('focus', '.qtyAdjust', function() {
-            var $el = $(this);
-            setTimeout(function() {
-                $el.select();
-            }, 50);
         });
         $body.on('click', '.cartRemove', function() {
             var $el = $(this),
@@ -321,21 +307,7 @@ var ajaxCart = (function(module, $) {
             }
         });
 
-        function updateQuantity(line, qty) {
-            isUpdating = true;
-            var $row = $('.ajaxCartRow[data-line="' + line + '"]').addClass('is-loading');
-            if (qty === 0) {
-                $row.parent().addClass('is-removed');
-            }
-            setTimeout(function() {
-                ShopifyAPI.changeItem(line, qty, adjustCartCallback);
-            }, 250);
-        }
-        $body.on('change', 'textarea[name="note"]', function() {
-            var newNote = $(this).val();
-            ShopifyAPI.updateCartNote(newNote, function(cart) {});
-        });
-    };
+        
     adjustCartCallback = function(cart) {
         isUpdating = false;
         updateCountPrice(cart);
@@ -385,20 +357,6 @@ var ajaxCart = (function(module, $) {
                         inputId: inputId
                     };
                 $el.after(template(data)).remove();
-            });
-            $('body').on('click', '.velaQtyAdjust', function() {
-                var $el = $(this),
-                    id = $el.data('id'),
-                    $qtySelector = $el.siblings('.velaQtyNum'),
-                    qty = parseInt($qtySelector.val().replace(/\D/g, ''));
-                var qty = validateQty(qty);
-                if ($el.hasClass('velaQtyPlus')) {
-                    qty += 1;
-                } else {
-                    qty -= 1;
-                    if (qty <= 1) qty = 1;
-                }
-                $qtySelector.val(qty);
             });
         }
     };
