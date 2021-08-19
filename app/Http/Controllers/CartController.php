@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 
 class CartController extends Controller
 {  
+    public function index()
+    {  
+        $categories=Category::orderby('id', 'desc')->paginate(15);
+        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+        $cart_data = json_decode($cookie_data, true);
+        return view('pages.cart-information',['user'=>Auth::user(),'categories'=>$categories,'cart_data'=>$cart_data]);  
+    }
+
     public function addToCart(Request $request){
         $prod_id = $request->input('product');
         $quantity = $request->input('quantity');
@@ -33,7 +43,7 @@ class CartController extends Controller
                 {
                     $cart_data[$keys]["item_quantity"] += $request->input('quantity');
                     $item_data = json_encode($cart_data);
-                    $minutes = 60;
+                    $minutes = 2147483647;
                     Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
                     return redirect()->back()->with('succes-mesage','Added to cart!');
                 }
@@ -58,7 +68,7 @@ class CartController extends Controller
                 $cart_data[] = $item_array;
 
                 $item_data = json_encode($cart_data);
-                $minutes = 6000;
+                $minutes = 2147483647;
                 Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
                 return redirect()->back()->with('succes-mesage','Added to cart!');
             }
@@ -102,7 +112,7 @@ class CartController extends Controller
                 {
                     unset($cart_data[$keys]);
                     $item_data = json_encode($cart_data);
-                    $minutes = 6000;
+                    $minutes = 2147483647;
                     Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
                     return redirect()->back();
                 }
@@ -138,7 +148,7 @@ class CartController extends Controller
                     {
                         $cart_data[$keys]["item_quantity"] =  $quantity;
                         $item_data = json_encode($cart_data);
-                        $minutes = 6000;
+                        $minutes = 2147483647;
                         Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
                         return redirect()->back();
                     }
@@ -149,7 +159,7 @@ class CartController extends Controller
                         {
                             unset($cart_data[$keys]);
                             $item_data = json_encode($cart_data);
-                            $minutes = 6000;
+                            $minutes = 2147483647;
                             Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
                             return redirect()->back();
                         }

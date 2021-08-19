@@ -21,8 +21,7 @@ class OrdersController extends Controller
       $categories = Category::all();
       $cookie_data = stripslashes(Cookie::get('shopping_cart'));
       $cart_data = json_decode($cookie_data, true);
-
-      return view('pages.checkout-information',['categories'=>$categories,'user'=>$user]);
+      return view('pages.checkout-information',['categories'=>$categories,'user'=>$user,'cart_data'=>$cart_data]);
     }
 
     public function createOrder(Request $request)
@@ -32,15 +31,24 @@ class OrdersController extends Controller
      $now=str_replace('.', '', microtime(true));
      $cookie_data = stripslashes(Cookie::get('shopping_cart'));
      $cart_data = json_decode($cookie_data, true);
+     $total=0;
+     $order_qty = 0;
+     foreach($cart_data as $data){
+      $total+=$data['item_price']*$data['item_quantity'];
+      $order_qty+=$data['item_quantity'];
+    }
      $order=$user->orders()->create([
        'serial_number' => 'ORD-'.$now,
        'user_id'=> $id,
-       'address' => $request['address'],
+       'contact' => $request->checkout['email_or_phone'],
+       'address' => serialize($request->checkout['shipping_address']),
        'status' => 'Active',
-       'subtotal' => $user->cart->totalPrice,
+       'quantity' => $order_qty,
+       'subtotal' => $total,
      ]);
      foreach($cart_data as $data){
        $item = CartItem::create([
+        'order_id' => $order->id,
         'quantity'=>$data['item_quantity'],
         'price' =>$data['item_price'],
         'product_id'=>$data['item_id'],
@@ -48,9 +56,10 @@ class OrdersController extends Controller
        $item->order()->associate($order);
      }
      $order->save();
-     if(isset($_COOKIE['shopping_cart'])) {
-        unset($_COOKIE['shopping_cart']); 
-     };
+     $cart_data = array();
+     $item_data = json_encode($cart_data);
+     $minutes = 2147483647;
+     Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
      return redirect()->route('home');
     }
 

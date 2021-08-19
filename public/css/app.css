@@ -24740,6 +24740,7 @@ input[type="email"].spr-form-input-error {
         clear: both
     }
 }
+
 .qtyUpdate{
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -24760,5 +24761,3 @@ input[type="email"].spr-form-input-error {
     display: block;
     padding: 0;
 }
-
-

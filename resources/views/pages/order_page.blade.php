@@ -13,8 +13,8 @@ Order {!!$order->id!!}
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Orders</li>
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active"><a href="/admin/orders-list">Orders</a></li>
             <li class="breadcrumb-item active">Order {{$order->serial_number}}</li>
           </ol>
         </div>
@@ -31,6 +31,9 @@ Order {!!$order->id!!}
         <div class="row">
             <div class="col-md-12">
                 <div class="tile">
+                    @php
+                        $address=unserialize($order->address);
+                    @endphp
                     <section class="invoice">
                         <div class="row mb-4">
                             <div class="col-6">
@@ -41,11 +44,14 @@ Order {!!$order->id!!}
                             </div>
                         </div>
                         <div class="row invoice-info">
-                            <div class="col-4">Placed By
-                                <address><strong>{{ $order->user->name }}</strong><br>Email: {{ $order->user->email }}</address>
+                            <div class="col-4">
+                                @if( $order->user)Placed By<address><strong>{{ $order->user->name }}</strong><br>Email: {{ $order->user->email }}</address>@endif
+                                <div class="col-4">Contact information
+                                     <strong>{{$order->contact}}</strong>
+                                </div>
                             </div>
                             <div class="col-4">Ship To
-                                <address><strong>{{ $order->first_name }} {{ $order->last_name }}</strong><br>{{ $order->address }}<br>{{ $order->city }}, {{ $order->country }} {{ $order->post_code }}<br>{{ $order->phone_number }}<br></address>
+                                <address><strong>{{ $address['first_name'] }} {{ $address['last_name']}}</strong><br>{{ $address['address1']}}<br>{{ $address['address2']}} {{ $address['city']}}, {{ $address['country']}}<br> {{ $address['zip']}}<br>{{ $order->phone_number }}<br></address>
                             </div>
                             <div class="col-4">
                                 <b>Order ID:</b> {{ $order->serial_number }}<br>
