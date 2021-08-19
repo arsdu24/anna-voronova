@@ -120,9 +120,13 @@
                                         <span class="text" id="CartCount">
                                         <span >
                                             @php
+                                            if(Cookie::get('shopping_cart')!== null)
+                                             {
                                                  $cookie_data = stripslashes(Cookie::get('shopping_cart'));
                                                     $cart_data = json_decode($cookie_data, true);
-                                                    $totalcart = count($cart_data);
+                                                   $totalcart = count($cart_data);
+                                             }
+                                             else $totalcart = 0;
                                             @endphp
                                             {{$totalcart}}
                                         </span></span>
