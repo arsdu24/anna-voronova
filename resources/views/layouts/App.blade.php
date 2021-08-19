@@ -134,13 +134,15 @@
                             <span class="cartSubtotalHeading">Subtotal</span>
                             <span class="cartSubtotal">$<span class="money" id="cart_value"  data-currency="USD">
                                 @php
-                                    $total = 0;
+                                 $total = 0;
+                                if(Cookie::get('shopping_cart')!== null)
+                                {
                                     $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-                                     $cart_data = json_decode($cookie_data, true);
-
+                                    $cart_data = json_decode($cookie_data, true);
                                     foreach ($cart_data as $data) {
                                         $total+=$data['item_price']*$data['item_quantity'];
                                     }
+                                }
                                 @endphp
                                 {{$total}}
                             </span>USD</span>
