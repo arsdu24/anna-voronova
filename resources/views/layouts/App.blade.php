@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="#ba933e">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="canonical" href="{{ route('home') }}">
     <link rel="shortcut icon" href="{{ asset('img/faviicon_32x32.jpg') }}" type="image/png">
     <title>
@@ -58,13 +59,125 @@
     <div class="drawerCartTitle">
         <span>Shopping cart</span>
     </div>
-    <div id="cartContainer"></div>
+    
+<div id="cartContainer">
+    @if(isset($cart_data))
+    @if(Cookie::get('shopping_cart') && $cart_data)
+        <form action="/cart" method="post" novalidate="" class="cart ajaxcart">
+            <div class="ajaxCartInner" id="CartItemContainer">
+                       
+                             @foreach($cart_data as $cartItem)
+                                   <div class="ajaxCartProduct">
+                                        <div class="drawerProduct ajaxCartRow" data-line="2">
+                                            <div class="drawerProductImage">
+                                                <a href="/products/{{$cartItem['item_id']}}"><img class="img-responsive" src="{{asset('img/'.$cartItem['item_image'])}}" alt="{{$cartItem['item_name']}}"></a>
+                                            </div>
+                                            <div class="drawerProductContent">
+                                                <div class="drawerProductTitle">
+                                                    <a href="/products/{{$cartItem['item_id']}}">{{$cartItem['item_name']}}</a>
+                                                </div>
+                                                <div class="drawerProductPrice">
+                                                    <div class="priceProduct">
+                                                        <span class="money" data-currency="USD">$ 
+                                                        {{$cartItem['item_price']}}
+                                                         USD</span>
+                                                    </div>
+                                                </div>
+                                                <div class="drawerProductQty">
+                                                    <div class="velaQty">
+                                                        <button type="button" data-id="{{$cartItem['item_id']}}"  class="qtyUpdate velaQtyButton velaMinus" >
+                                                            <span class="txtFallback">&minus;</span>
+                                                        </button>
+                                                        <input type="text" name="updates[]" data-id="{{$cartItem['item_id']}}" class="qtyNum velaQtyText" value="{{$cartItem['item_quantity']}}" min="0"  pattern="[0-9]*" />
+                                                        <button type="button" data-id="{{$cartItem['item_id']}}"  class="qtyUpdate velaQtyButton velaPlus" >
+                                                            <span class="txtFallback">+</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="drawerProductDelete">
+                                                    <div class="cartRemoveBox">
+                                                        <a href="#" id="{{$cartItem['item_id']}}" item-total="{{$cartItem['item_price'] * $cartItem['item_quantity']}}" class="cartRemove btnClose remove">
+                                                            <span>Remove</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                
+                             @endforeach
+                            
+                            
+                </div>
+                
+    
+                
+    
+                    <div class="ajaxCartNote">
+                        <div class="velaCartNoteButton">
+                            <a class="btnCartNote collapsed" href="#velaCartNote" data-toggle="collapse">
+                                <i class="fa fa-times"></i>
+                                add order note
+                            </a>
+                        </div>
+                        <div id="velaCartNote" class="velaCartNoteGroup collapse">
+                            <label for="CartSpecialInstructions">Special instructions for seller</label>
+                            <textarea name="note" class="form-control" id="CartSpecialInstructions" rows="4"></textarea>
+                        </div>
+                    </div>
+    
+                
+    
+                <div class="drawerCartFooter">
+                    <div class="drawerAjaxFooter">
+                        <div class="drawerSubtotal">
+                            <span class="cartSubtotalHeading">Subtotal</span>
+                            <span class="cartSubtotal">$<span class="money" id="cart_value"  data-currency="USD">
+                                @php
+                                    $total = 0;
+                                    $cookie_data = stripslashes(Cookie::get('shopping_cart'));
+                                     $cart_data = json_decode($cookie_data, true);
+
+                                    foreach ($cart_data as $data) {
+                                        $total+=$data['item_price']*$data['item_quantity'];
+                                    }
+                                @endphp
+                                {{$total}}
+                            </span>USD</span>
+                        </div>
+                        <p class="drawerShipping">Shipping, taxes, and discounts will be calculated at checkout.</p>
+                        <div class="drawerButton">
+                            <div class="drawerButtonBox">
+                                <a class="btn btnVelaCart btnViewCart" href="/cart">
+                                    View Cart
+                                </a>
+                            </div>
+                            <div class="drawerButtonBox">
+                                <button type="submit" class="btn btnVelaCart btnCheckout" name="checkout">
+                                    Check Out
+                                </button>
+                            </div>
+                         
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        @else
+        <div class="drawerCartEmpty">Your cart is currently empty.</div>
+        @endif
+        @else
+        <div class="drawerCartEmpty">Your cart is currently empty.</div>
+        @endif
+
+    
 </div>
-
-
+</div>
 <div id="pageContainer" class="isMoved">
-    @include('blocks.shopify-header')
 
+    @include('blocks.shopify-header')
+                          
     @yield('shopify-section-main')
 
     @include('blocks.shopify-footer')
@@ -183,7 +296,6 @@
                         }
                     });
                 }
-
             }, 0);
         });
       </script>
@@ -204,11 +316,11 @@
                         </div>
                         <div class="drawerProductQty">
                             <div class="velaQty">
-                                <button type="button" class="qtyAdjust velaQtyButton velaQtyMinus">
+                                <button type="button" class="qtyAdjust velaQtyButton velaMinus">
                                     <span class="txtFallback">&minus;</span>
                                 </button>
                                 <input type="text" name="updates[]" class="qtyNum velaQtyText" pattern="[0-9]*"/>
-                                <button type="button" class="qtyAdjust velaQtyButton velaQtyPlus">
+                                <button type="button" class="qtyAdjust velaQtyButton velaPlus">
                                     <span class="txtFallback">+</span>
                                 </button>
                             </div>
@@ -314,12 +426,12 @@
 <script id="velaAjaxQty" type="text/template">
 
     <div class="velaQty">
-        <button type="button" class="qtyAdjust velaQtyButton velaQtyMinus">
+        <button type="button" class="qtyAdjust velaQtyButton velaMinus">
             <span class="txtFallback">&minus;</span>
         </button>
         <input type="text" class="qtyNum velaQtyText" aria-label="quantity"
                pattern="[0-9]*">
-        <button type="button" class="qtyAdjust velaQtyButton velaQtyPlus">
+        <button type="button" class="qtyAdjust velaQtyButton velaPlus">
             <span class="txtFallback">+</span>
         </button>
     </div>
@@ -328,11 +440,11 @@
 <script id="velaJsQty" type="text/template">
 
     <div class="velaQty">
-        <button type="button" class="velaQtyAdjust velaQtyButton velaQtyMinus">
+        <button type="button" class="velaQtyAdjust velaQtyButton velaMinus">
             <span class="txtFallback">&minus;</span>
         </button>
         <input type="text" class="velaQtyNum velaQtyText"/>
-        <button type="button" class="velaQtyAdjust velaQtyButton velaQtyPlus">
+        <button type="button" class="velaQtyAdjust velaQtyButton velaPlus">
             <span class="txtFallback">+</span>
         </button>
     </div>
@@ -382,7 +494,6 @@
     </div>
 </div>
 
-
 <script
     src="//cdn.shopify.com/shopifycloud/shopify/assets/themes_support/option_selection-fe6b72c2bbdd3369ac0bfefe8648e3c889efca213baefd4cfb0dd9363563831f.js"
     type="text/javascript"></script>
@@ -392,7 +503,7 @@
 <script src="//cdn.shopify.com/s/javascripts/currencies.js" type="text/javascript"></script>
 <script src="//cdn.shopify.com/s/files/1/0376/9440/6700/t/10/assets/vendor.js?v=13878651640065809907"
         type="text/javascript"></script>
-<script src="//cdn.shopify.com/s/files/1/0376/9440/6700/t/10/assets/vela_ajaxcart.js?v=7288850833425201504"
+        <script src="//cdn.shopify.com/s/files/1/0376/9440/6700/t/10/assets/vela_ajaxcart.js?v=7288850833425201504"
         type="text/javascript"></script>
 <script src="//cdn.shopify.com/s/files/1/0376/9440/6700/t/10/assets/lazysizes.min.js?v=15377268347072223862"
         async="async"></script>
@@ -400,6 +511,139 @@
         type="text/javascript"></script>
 <script src="//cdn.shopify.com/s/files/1/0376/9440/6700/t/10/assets/jquery.cookie.js?v=7236575574540404818"
         type="text/javascript"></script>
-</body>
+<script>
+ $(document).ready(function () {
+    cartload();
+    ajust();
+    remove();
 
+});
+ 
+
+function cartload()
+    {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: '/load-cart-data',
+            method: "GET",
+            success: function (response) {
+                $('#CartCount').html('');
+                var parsed = jQuery.parseJSON(response)
+                var value = parsed; //Single Data Viewing
+                $('#CartCount').html(value['totalcart']);
+            },
+            error: function (response) {
+               console.log(response);
+            }
+        });
+    }
+
+
+    function remove(){$('.remove').click(function (e) {
+        e.preventDefault();
+
+        var product_id = $(this).attr('id');
+
+        var data = {
+            '_token': $('input[name=_token]').val(),
+            "product": product_id,
+        };
+
+        // $(this).closest(".cartpage").remove();
+
+        $.ajax({
+            url: '{{route("cartItemDelete")}}',
+            type: 'POST',
+            data: data,
+            success: function (result) {
+             let document=$(result);
+             let cart_value = document.find('#cartContainer').html();
+             let cart_count = document.find('#CartCount').html();
+             $('#CartCount').html(cart_count);
+             $('#cartContainer').html(cart_value);
+             ajust();
+             remove();
+            },
+            error: function (result) {
+               console.log(result);
+            }
+        });
+    });
+} 
+
+function ajust(){
+    $('.qtyUpdate').off('click').click(function ajust_qty(e) {
+    e.preventDefault();
+    var quantity = $(this).closest(".velaQty").find('.velaQtyText').val();
+    var product_id = $(this).attr('data-id');
+    if($(this).hasClass('velaMinus')){
+    if(quantity>0){
+        $(this).closest(".velaQty").find('.velaQtyText').val(--quantity);
+    }
+    }
+    else if($(this).hasClass('velaPlus')){
+        $(this).closest(".velaQty").find('.velaQtyText').val(++quantity)
+    }
+    quantity = $(this).closest(".velaQty").find('.velaQtyText').val();
+    var data = {
+        '_token': $('input[name=_token]').val(),
+        'quantity':quantity,
+        'product':product_id,
+    };
+
+    $.ajax({
+        url: '{{route("qtyUpdate")}}',
+        type: 'POST',
+        data: data,
+        success: function (result) {
+             let document=$(result);
+             let cart_value = document.find('#cartContainer').html();
+             let cart_count = document.find('#CartCount').html();
+             $('#CartCount').html(cart_count);
+             console.log(cart_count);
+             $('#cartContainer').html(cart_value);
+             ajust();
+             remove();
+        },
+        error: function (response) {
+               console.log(response);
+            }
+    });
+});
+ $('.velaQty').change(function ajust_qty(e) {
+    e.preventDefault();
+    var quantity = e.target.value;
+    var product_id =e.target.getAttribute('data-id');
+    var data = {
+        '_token': $('input[name=_token]').val(),
+        'quantity':quantity,
+        'product':product_id,
+    };
+
+    $.ajax({
+        url: '{{route("qtyUpdate")}}',
+        type: 'POST',
+        data: data,
+        success: function (result) {
+             let document=$(result);
+             let cart_value = document.find('#cartContainer').html();
+             let cart_count = document.find('#CartCount').html();
+             $('#CartCount').html(cart_count);
+             $('#cartContainer').html(cart_value);
+             ajust();
+             remove();
+        },
+        error: function (response) {
+               console.log(response);
+            }
+    });
+});
+}
+</script>
+</body>
 </html>

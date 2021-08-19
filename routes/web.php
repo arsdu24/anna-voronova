@@ -16,15 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/','\App\Http\Controllers\HomeController@index')->middleware('auth','guest')->name('home');
-
-
 Route::get('/client', 'ClientController@index')->middleware('client')->name('client');
 Route::get('/products','ProductsController@clientViewAll')->middleware('client')->name('productsView');
-Route::get('/order','\App\Http\Controllers\OrdersController@showForm');
+Route::get('/checkout','\App\Http\Controllers\OrdersController@showForm');
 Route::get('/collections','CategoryController@clientViewAll')->name('categoriesList');
 Route::get('/collections/{category}','CategoryController@categoryShow')->name('categoryShow');
+Route::get('/load-cart-data','CartController@CartLoad')->name('CartLoad');
 Route::get('/products/{id}','ProductsController@clientProductPage')->middleware('client')->name('productView');
+
+Route::post('/cart/add','CartController@addToCart')->middleware('client')->name('addToCart');
 Route::post('/create_order','\App\Http\Controllers\OrdersController@createOrder')->name('create_order');
+Route::post('cart/delete','CartController@ItemDelete')->name('cartItemDelete');
+Route::post('cart/qty_update','CartController@qtyUpdate')->name('qtyUpdate');
+Route::post('products/review','ReviewController@createReview')->name('createReview');
 
 Auth::routes();
 Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');
@@ -40,6 +44,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('product-list/{id}','ProductsController@productPage')->name('productPage');
     Route::get('categories-list','CategoryController@viewList')->name('categoriesList');
     Route::get('categories-list/{category}','CategoryController@categoryPage')->name('categoryPage');
+    Route::get('orders-list','OrdersController@viewList')->name('ordersList');
+    Route::get('orders-list/{order}','OrdersController@orderPage')->name('orderPage');
 
     Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');
     Route::post('review/unpublish','ReviewController@unpublishReview')->name('reviewUnpublish');
@@ -48,6 +54,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('product/save/{id}','ProductsController@updateProduct')->name('productUpdate');
     Route::post('product/image-delete','ProductsController@deleteImage')->name('imageDelete');
     Route::post('product/delete/{id}','ProductsController@deleteProduct')->name('productDelete');
+    Route::post('order/delete','OrdersController@deleteOrder')->name('orderDelete');
+    Route::post('order/update_status','OrdersController@updateOrderStatus')->name('orderStatusUpdate');
     Route::post('category/delete/{category}','CategoryController@deleteCategory')->name('categoryDelete');
     Route::post('add-category','CategoryController@createCategory')->name('createCategory');
     Route::post('category/save/{category}','CategoryController@updateCategory')->name('categoryUpdate');

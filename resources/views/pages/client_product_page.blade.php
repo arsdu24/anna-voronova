@@ -1,4 +1,7 @@
 @extends('layouts.App')
+@section('title')
+{{$product->name}}
+@endsection
 @section('shopify-section-main')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <main class="mainContent" role="main">
@@ -126,19 +129,30 @@
                             <div class="col-xs-12 col-md-6 mb30">
                                 <div class="proBoxInfo">
                                     
-    <h1>{{$product->name}}</h1><div class="proReviews">
+    <h1>{{$product->name}}</h1>
+    <div class="proReviews">
+        <span class="spr-badge" id="spr_badge_4960484327468" data-rating="5.0">
+            <span class="spr-starrating spr-badge-starrating">
+                @for($i = 0; $i < $rating; $i++)
+                     <i class="spr-icon spr-icon-star"></i>
+                @endfor
+              </span>
+       @if($reviews->count())<span class="spr-badge-caption">{{$reviews->count()}} review</span>
+    @endif
+    </span>
+
+    </div>
+    <div class="proReviews">
             <span class="shopify-product-reviews-badge" data-id="4960511557676"></span>
-        </div><div class="proDescription rte">
+        </div
+        
+        ><div class="proDescription rte">
             <p>{{$product->excerpt}}</p>
         </div><div class="wrapper">
-            <form method="post" action="" id="oldID" accept-charset="UTF-8" class="formAddToCart" enctype="multipart/form-data">
-                <input type="hidden" name="form_type" value="product" />
-                <input type="hidden" name="utf8" value="✓" />
-    <div class="proVariants">
-                
     
-  
-    
+     <form method="post" action="{{route('addToCart')}}" accept-charset="UTF-8" enctype="multipart/form-data">
+             @csrf
+             <div class="proVariants">
     <style rel="stylesheet" type="text/css" >
                       .proVariants .selector-wrapper:nth-child(1){display: none;}
                 </style>
@@ -151,49 +165,40 @@
                 <div class="priceProduct "><span class="money">{{$product->price}} $</span></div>     
                 @endif
             </div>
+            <p class="proAttr productAvailability instock"><label>Availability:</label>In stock</p>
             <div class="velaGroup clearfix mb20">
-                
-    
-     <div id="velaSizeGuide" style="display: none;">
-        <div  class="velaSizeGuide">
-            
-                
-            
-                
-            
-                
-        </div>
-        </div>
     </div>
+    </div>
+                <input type="hidden" name="form_type" value="product" />
+                <input type="hidden" name="product" value="{{$product->id}}" />
+                <input type="hidden" name="utf8" value="✓" />
                 <div class="proQuantity">
-                    
+                    <!-- <label for="Quantity" class="qtySelector">Quantity:</label> -->
+                    <div style="display:none"><input type="number"></div>     
+                        <div class="velaQty">
+                            <button type="button" class="velaQtyAdjust velaQtyButton velaQtyMinus">
+                                <span class="txtFallback">−</span>
+                            </button>
+                            <input type="text" value="1" name="quantity" id="quantity" class="velaQtyNum velaQtyText " >
+                            <button type="button" class="velaQtyAdjust velaQtyButton velaQtyPlus">
+                                <span class="txtFallback">+</span>
+                            </button>
+                        </div>
 
-                    <div class="velaQty">
-                        <button type="button" class="velaQtyAdjust velaQtyButton velaQtyMinus">
-                            <span class="txtFallback">−</span>
-                        </button>
-                        <input type="text" value="1" class="velaQtyNum velaQtyText">
-                        <button type="button" class="velaQtyAdjust velaQtyButton velaQtyPlus">
-                            <span class="txtFallback">+</span>
-                        </button>
-                    </div>
-                
-                
-                                </div>
-                <button type="submit" name="add" id="AddToCart" class="btn btnAddToCart">
+
+                </div>
+
+                <button type="submit"  class="btn btnAddToCart">
                     <i class="icons icon-handbag"></i>
                     <span id="AddToCartText">Add to Cart</span>
-                </button><div class="velaBuyNow">
-                        <div data-shopify="payment-button" class="shopify-payment-button">
-                            <button class="shopify-payment-button__button shopify-payment-button__button--unbranded shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> 
-                            </button>
-                            <button class="shopify-payment-button__more-options shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> 
-                            </button></div>
-                </div></div>
-            
-            
+                </button>
+                
+                <div class="velaBuyNow">
+                </div>
         </form>
-    <p class="proAttr productAvailability instock"><label>Availability:</label>In stock</p>
+        
+   <p class="proAttr productAvailability instock"><label></label></p>
+   
     <div class="mb30 pt-md-30">
         <section class="proDetailInfo"><div class="proTabHeading">
 <ul class="nav velaProductNavTabs nav-tabs"><li class="active">
@@ -229,55 +234,56 @@ border-color: #ECECEC;
 <span class="spr-summary-caption">
     @if($reviews->count()>0)<span class="spr-summary-actions-togglereviews">Based on {{$reviews->count()}} reviews</span>@endif
 </span><span class="spr-summary-actions">
-<a href="#"  class="spr-summary-actions-newreview" id="w_r">Write a review</a>
+@if($user->role == 2)
+    <a href="#"  class="spr-summary-actions-newreview" id="w_r">Write a review</a>
+@else
+    <div class="spr-summary-actions-newreview">To write a review please <a href="/register/client" id="customer_register_link"> Sign up</a> or <a href="/login" id="customer_register_link"> Log in</a></div>
+@endif
 </span>
 </div>
 </div>
 
 <div class="spr-content">
 <div class="spr-form" id="form_4960511557676" style="display: none" >
-    
-    
-    <form method="post" action="//productreviews.shopifycdn.com/api/reviews/create" id="new-review-form_4960511557676" class="new-review-form" onsubmit="SPR.submitForm(this);return false;"><input type="hidden" name="review[rating]"><input type="hidden" name="product_id" value="4960511557676"><h3 class="spr-form-title">Write a review</h3><fieldset class="spr-form-contact"><div class="spr-form-contact-name">
-<label class="spr-form-label" for="review_author_4960511557676">Name</label>
-<input class="spr-form-input spr-form-input-text " id="review_author_4960511557676" type="text" name="review[author]" value="" placeholder="Enter your name">
-</div><div class="spr-form-contact-email">
-<label class="spr-form-label" for="review_email_4960511557676">Email</label>
-<input class="spr-form-input spr-form-input-email " id="review_email_4960511557676" type="email" name="review[email]" value="" placeholder="john.smith@example.com">
-</div></fieldset>
-<fieldset class="spr-form-review" id="Form">
-<div class="spr-form-review-rating">
-<label class="spr-form-label" for="review[rating]">Rating</label>
-<div class="spr-form-input spr-starrating ">
-    <a href="#" onclick="SPR.setRating(this);return false;" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="1" aria-label="1 of 5 stars">&nbsp;</a>
-    <a href="#" onclick="SPR.setRating(this);return false;" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="2" aria-label="2 of 5 stars">&nbsp;</a>
-    <a href="#" onclick="SPR.setRating(this);return false;" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="3" aria-label="3 of 5 stars">&nbsp;</a>
-    <a href="#" onclick="SPR.setRating(this);return false;" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="4" aria-label="4 of 5 stars">&nbsp;</a>
-    <a href="#" onclick="SPR.setRating(this);return false;" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="5" aria-label="5 of 5 stars">&nbsp;</a>
+    <form method="post" action="{{route('createReview')}}" id="new-review-form" class="new-review-form" onsubmit="">
+        <h3 class="spr-form-title">Write a review</h3>
+            @csrf
+            <fieldset class="spr-form-review" id="Form">
+            <div class="spr-form-review-rating">
+            <label class="spr-form-label" for="rating">Rating</label>
+            <input type="hidden" name="rating" id="rating_input">
+            <input type="hidden" name="product" value="{{$product->id}}">
+            <div class="spr-form-input spr-starrating " id="stars">
+                <a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="1" aria-label="1 of 5 stars">&nbsp;</a>
+                <a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="2" aria-label="2 of 5 stars">&nbsp;</a>
+                <a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="3" aria-label="3 of 5 stars">&nbsp;</a>
+                <a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="4" aria-label="4 of 5 stars">&nbsp;</a>
+                <a href="#" class="spr-icon spr-icon-star spr-icon-star-empty" data-value="5" aria-label="5 of 5 stars">&nbsp;</a>
+            </div>
+            </div>
+            <div class="spr-form-review-title">
+            <label class="spr-form-label" for="review_title">Review Title</label>
+            <input class="spr-form-input spr-form-input-text " id="review_title" type="text" name="title" value="" placeholder="Give your review a title">
+            </div>
+            <div class="spr-form-review-body">
+            <label class="spr-form-label" for="review_body">
+            Body of Review
+            <span role="status" aria-live="polite" aria-atomic="true">
+            <span class="spr-form-review-body-charactersremaining">(1500)</span>
+            <span class="visuallyhidden">characters remaining</span>
+            </span>
+            </label>
+            <div class="spr-form-input">
+            <textarea class="spr-form-input spr-form-input-textarea " id="review_body" data-product-id="4960511557676" name="body" rows="10" placeholder="Write your comments here"></textarea>
+            </div>
+            </div>
+            </fieldset>
+            <fieldset class="spr-form-actions">
+            <input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Submit Review">
+            </fieldset>
+</form>
 </div>
-</div>
-<div class="spr-form-review-title">
-<label class="spr-form-label" for="review_title_4960511557676">Review Title</label>
-<input class="spr-form-input spr-form-input-text " id="review_title_4960511557676" type="text" name="review[title]" value="" placeholder="Give your review a title">
-</div>
-<div class="spr-form-review-body">
-<label class="spr-form-label" for="review_body_4960511557676">
-Body of Review
-<span role="status" aria-live="polite" aria-atomic="true">
-<span class="spr-form-review-body-charactersremaining">(1500)</span>
-<span class="visuallyhidden">characters remaining</span>
-</span>
-</label>
-<div class="spr-form-input">
-<textarea class="spr-form-input spr-form-input-textarea " id="review_body_4960511557676" data-product-id="4960511557676" name="review[body]" rows="10" placeholder="Write your comments here"></textarea>
-</div>
-</div>
-</fieldset>
-<fieldset class="spr-form-actions">
-<input type="submit" class="spr-button spr-button-primary button button-primary btn btn-primary" value="Submit Review">
-</fieldset></form></div>
 <div class="spr-reviews">
-
 @foreach($reviews as $review)
 <div class="spr-review" id="spr-review-115784653">
 <div class="spr-review-header">
@@ -365,11 +371,13 @@ Body of Review
     
                         
                     </div></a>
-                <div class="productLable"></div><div class="proButton clearfix"><form action="https://velademo-rubix.myshopify.com/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
-                        <input type="hidden" name="id" value="33452385239084" /><button class="btn  btnProduct btnAddToCart" type="submit" value="Submit" title="Add to Cart">
+                <div class="productLable"></div><div class="proButton clearfix">
+                <form action="{{route('addToCart')}}" method="post" enctype="multipart/form-data" class="formAddToCart">
+                        <input type="hidden" name="id" value="{{$product->id}}" /><button class="btn  btnProduct btnAddToCart" type="submit" value="Submit" title="Add to Cart">
                                     <span class="icons icon-handbag"></span>
                                     <span class="text">Add to Cart</span>
-                                </button></form>
+                                </button>
+                </form>
                     
         <div class="productQuickView">
             <a class="btn btnProduct btnProductQuickview" href="#velaQuickView" data-handle="victo-pedant-lamp" title="Quick view">
@@ -1079,13 +1087,46 @@ Body of Review
     })
 </script>
 <script>
-    document.querySelector('velaQtyNum').value=1;
-    document.querySelector('#w_r').addEventListener('click',(e)=>{
+  if(document.querySelector('#w_r')){document.querySelector('#w_r').addEventListener('click',(e)=>{
         e.preventDefault();
         let el =document.querySelector('#form_4960511557676')
         if(el.style.display=="block")
          el.style.display="none";
         else el.style.display="block";
-    })
+    })};
 </script>
+<script>
+ $(document).ready(function(){
+        /* Hover code */
+        $('#stars a').on('mouseover', function(){
+            var onStar = parseInt($(this).data('value'), 10);
+            $(this).parent().children('a.spr-icon-star').each(function(e){
+                if (e < onStar) {
+                    $(this).addClass('spr-icon-star-hover');
+                }
+                else {
+                    $(this).removeClass('spr-icon-star-hover');
+                }
+            });
+        }).on('mouseout', function(){
+            $(this).parent().children('a.spr-icon-star').each(function(e){
+                $(this).removeClass('spr-icon-star-hover');
+            });
+        });
+ $('#stars a').on('click', function(e){
+            e.preventDefault();
+            var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+            var stars = $(this).parent().children('a.spr-icon-star');
+            for (i = 0; i < stars.length; i++) {
+                $(stars[i]).addClass('spr-icon-star-empty');
+            }
+            for (i = 0; i < onStar; i++) {
+                $(stars[i]).removeClass('spr-icon-star-empty');
+            }
+            let input = $('#rating_input');
+            input.val($(this).attr('data-value'));
+        });
+    });
+</script>
+
 @endsection
