@@ -35,6 +35,7 @@
     <script src="{{asset('js/jquery-3.5.0.min.js')}}"
             type="text/javascript"></script>
     <link href="{{route('home')}}" rel="dns-prefetch">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <script integrity="sha256-2KbxRG1nAJxSTtTmhkiAC6kILrdVSO4o4QUDMcvnuig="
             data-source-attribution="shopify.loadfeatures" defer="defer"
             src="{{asset('js/load_feature-d8a6f1446d67009c524ed4e68648800ba9082eb75548ee28e1050331cbe7ba28.js')}}"
@@ -110,24 +111,6 @@
                             
                 </div>
                 
-    
-                
-    
-                    <div class="ajaxCartNote">
-                        <div class="velaCartNoteButton">
-                            <a class="btnCartNote collapsed" href="#velaCartNote" data-toggle="collapse">
-                                <i class="fa fa-times"></i>
-                                add order note
-                            </a>
-                        </div>
-                        <div id="velaCartNote" class="velaCartNoteGroup collapse">
-                            <label for="CartSpecialInstructions">Special instructions for seller</label>
-                            <textarea name="note" class="form-control" id="CartSpecialInstructions" rows="4"></textarea>
-                        </div>
-                    </div>
-    
-                
-    
                 <div class="drawerCartFooter">
                     <div class="drawerAjaxFooter">
                         <div class="drawerSubtotal">
@@ -155,9 +138,9 @@
                                 </a>
                             </div>
                             <div class="drawerButtonBox">
-                                <button type="submit" class="btn btnVelaCart btnCheckout" name="checkout">
+                                <a href="/checkout" class="btn btnVelaCart btnCheckout" name="checkout">
                                     Check Out
-                                </button>
+                                </a>
                             </div>
                          
     
@@ -566,6 +549,8 @@ function cartload()
              let document=$(result);
              let cart_value = document.find('#cartContainer').html();
              let cart_count = document.find('#CartCount').html();
+             let cartpage = document.find('#pageContent').html();
+             if(cartpage)$('#pageContent').html(cartpage);
              $('#CartCount').html(cart_count);
              $('#cartContainer').html(cart_value);
              ajust();
@@ -606,8 +591,9 @@ function ajust(){
              let document=$(result);
              let cart_value = document.find('#cartContainer').html();
              let cart_count = document.find('#CartCount').html();
+             let cartpage = document.find('#pageContent').html();
+             if(cartpage)$('#pageContent').html(cartpage);
              $('#CartCount').html(cart_count);
-             console.log(cart_count);
              $('#cartContainer').html(cart_value);
              ajust();
              remove();
@@ -635,6 +621,8 @@ function ajust(){
              let document=$(result);
              let cart_value = document.find('#cartContainer').html();
              let cart_count = document.find('#CartCount').html();
+             let cartpage = document.find('#pageContent').html();
+             if(cartpage)$('#pageContent').html(cartpage);
              $('#CartCount').html(cart_count);
              $('#cartContainer').html(cart_value);
              ajust();

@@ -17,9 +17,9 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->nullable();
             $table->integer('subtotal')->unsigned()->nullable();
-            $table->string('address');
-            $table->string('name')->nullable();
-            $table->string('full_name')->nullable();
+            $table->mediumText('address');
+            $table->integer('quantity')->unsigned();
+            $table->string('contact');
             $table->string('serial_number');
             $table->string('status')->nullable();
             $table->timestamps();

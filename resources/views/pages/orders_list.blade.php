@@ -44,16 +44,46 @@
         </thead>
         <tbody>
             @foreach($orders as $order)
-            @if($order->user)
             <tr class="odd">
                 <td class="dtr-control sorting_1" tabindex="0">
                   {{$order->serial_number}}
                 </td>
+                @if($order->user)
                 <td>{{$order->user->name}}</td>
                 <td>{{$order->user->email}}</td>
+                @else
+                <td>guest</td>
+                <td>guest</td>
+                @endif
                 <td>{{$order->quantity}}</td>
                 <td>{{$order->subtotal}}</td>
-                <td>{{$order->status}}</td>
+                <td>
+                @if ($order->status=='Active')
+                                <span class="btn btn-info form-input">
+                                    {{ $order->status }}
+                                </span>
+                                @elseif($order->status=='Confirmed')
+                                <span class="btn btn-success form-input" >
+                                    {{ $order->status }}
+                                </span>
+                                @elseif($order->status=='Pedding')
+                                <span class="btn btn-warning form-input" >
+                                    {{ $order->status }}
+                                </span>
+                                @elseif($order->status=='Completed')
+                                <span class="btn btn-dark form-input" >
+                                    {{ $order->status }}
+                                </span>
+                                @elseif($order->status=='Refused')
+                                <span class="btn btn-danger form-input" >
+                                    {{ $order->status }}
+                                </span>
+                                @elseif($order->status=='Canceled')
+                                <span class="btn btn-danger form-input" >
+                                    {{ $order->status }}
+                                </span>
+                                @endif
+                </td>
                 <td>
                     <a href="{{route('orderPage',[$order])}}" title="View" class="text-primary" >
                        <i class="far fa-eye"></i>
@@ -66,7 +96,6 @@
                       @csrf</form>
                 </td>
             </tr>
-            @endif
             @endforeach
         </tbody>
       </table>

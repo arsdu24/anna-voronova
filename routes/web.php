@@ -19,13 +19,14 @@ Route::get('/','\App\Http\Controllers\HomeController@index')->middleware('auth',
 Route::get('/client', 'ClientController@index')->middleware('client')->name('client');
 Route::get('/products','ProductsController@clientViewAll')->middleware('client')->name('productsView');
 Route::get('/checkout','\App\Http\Controllers\OrdersController@showForm');
+Route::get('/cart','CartController@index')->name('cart');
 Route::get('/collections','CategoryController@clientViewAll')->name('categoriesList');
 Route::get('/collections/{category}','CategoryController@categoryShow')->name('categoryShow');
 Route::get('/load-cart-data','CartController@CartLoad')->name('CartLoad');
 Route::get('/products/{id}','ProductsController@clientProductPage')->middleware('client')->name('productView');
 
 Route::post('/cart/add','CartController@addToCart')->middleware('client')->name('addToCart');
-Route::post('/create_order','\App\Http\Controllers\OrdersController@createOrder')->name('create_order');
+Route::post('/checkout','\App\Http\Controllers\OrdersController@createOrder')->name('create_order');
 Route::post('cart/delete','CartController@ItemDelete')->name('cartItemDelete');
 Route::post('cart/qty_update','CartController@qtyUpdate')->name('qtyUpdate');
 Route::post('products/review','ReviewController@createReview')->name('createReview');
