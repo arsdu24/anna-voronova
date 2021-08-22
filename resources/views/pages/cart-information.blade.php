@@ -11,7 +11,7 @@ Information
 </div>
 </header>
 <section id="pageContent">
-    @if(count($cart_data)!=0)
+    @if($cart->items()->count()!=0)
     <div class="container">
         <div id="shopify-section-vela-template-cart" class="shopify-section"><div class="cartContainer">
     <h1 class="cartTitle">Shopping cart</h1>
@@ -24,23 +24,23 @@ Information
                         <div class="col-xs-12 col-sm-2 hidden-xs text-right">Total</div>
                     </div>
                     <div class="cartItemWrap">
-                               @foreach($cart_data as $data)
+                               @foreach($cart->items as $data)
                                    
                             <div class="flexRow noGutter">
                                 <div class="productImage col-xs-3 col-sm-2" data-label="Product">
-                                    <a href="/products/{{$data['item_id']}}" class="cartImage">
-                                      <img class="img-responsive" src="{{asset('img/'.$data['item_image'])}}" alt="{{$data['item_name']}}">
+                                    <a href="/products/{{$data->product_id}}" class="cartImage">
+                                      <img class="img-responsive" src="{{asset('img/'.unserialize($data->product->thumbnail)[0])}}" alt="{{$data->product->name}}">
                                     </a>
                                 </div>
                                 <div class="productInfo col-xs-9 col-sm-8">
                                     <a href="/products/hanging-egg-chair?variant=33435010727980" class="productName">
-                                        {{$data['item_name']}}
+                                        {{$data->product->name}}
                                     </a>
                                     
                                         <br>
                                     <div data-label="Price">
                                         <span class="priceProduct">
-                                            <span class="money" >{{$data['item_price']}}</span>
+                                            <span class="money" >{{$data->price}}</span>
                                         </span>
                                     </div>
                                     <div class="flexRow cartGroup flexAlignCenter" data-label="Quantity">
@@ -48,17 +48,17 @@ Information
                         
                                         <div class="drawerProductQty">
                                             <div class="velaQty">
-                                                <button type="button" data-id="{{$data['item_id']}}"  class="qtyUpdate velaQtyButton velaMinus" >
+                                                <button type="button" data-id="{{$data->id}}"  class="qtyUpdate velaQtyButton velaMinus" >
                                                     <span class="txtFallback">&minus;</span>
                                                 </button>
-                                                <input type="text" name="updates[]" data-id="{{$data['item_id']}}" class="qtyNum velaQtyText" value="{{$data['item_quantity']}}" min="0"  pattern="[0-9]*" />
-                                                <button type="button" data-id="{{$data['item_id']}}"  class="qtyUpdate velaQtyButton velaPlus" >
+                                                <input type="text" name="updates[]" data-id="{{$data->id}}" class="qtyNum velaQtyText" value="{{$data->quantity}}" min="0"  pattern="[0-9]*" />
+                                                <button type="button" data-id="{{$data->id}}"  class="qtyUpdate velaQtyButton velaPlus" >
                                                     <span class="txtFallback">+</span>
                                                 </button>
                                             </div>
                                         </div>
                                         </div>
-                                        <a href="" id="{{$data['item_id']}}" item-total="{{$data['item_price'] * $data['item_quantity']}}" class="cartRemove remove" title="Remove">
+                                        <a href="" id="{{$data->id}}" item-total="{{$data->price * $data->quantity}}" class="cartRemove remove" title="Remove">
                                             Remove
                                         </a>
                                     </div>
@@ -66,7 +66,7 @@ Information
                                 <div class="text-right col-xs-12 col-sm-2 hidden-xs" data-label="Total">
                                     <span class="h3 cartSubtotal priceProduct">
                                         @php
-                                            $item_total=$data['item_price']*$data['item_quantity'];
+                                            $item_total=$data->price* $data->quantity;
                                         @endphp
                                         <span class="money" data-currency-usd="$630.00">$ {{ $item_total}}</span>
                                     </span>
@@ -84,19 +84,8 @@ Information
                             <span class="cartSubtotalTitle">Subtotal: </span> 
                             <span class="cartSubtotal"><span class="money" data-currency-usd="$669.00">
                                 <span >
-                                    @php
-                                        if(Cookie::get('shopping_cart')!== null)
-                                        {
-                                                $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-                                                $cart_data = json_decode($cookie_data, true);
-                                                $total =0;
-                                                foreach ($cart_data as $item) {
-                                                $total+=$item['item_price']*$item['item_quantity'];
-                                                }
-                                        }
-                                        else $total = 0;
-                                        @endphp
-                                    $ {{$total}}
+                                   
+                                    $ {{$cart->subtotal}}
                                 </span></span></span>
                         </div>
                         <p class="cartShipping">Shipping, taxes, and discounts will be calculated at checkout.</p>

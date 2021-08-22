@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\CartItem;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Order;
+use App\Product;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
 
 class OrdersController extends Controller
 {
@@ -19,9 +18,13 @@ class OrdersController extends Controller
     public function showForm(){
       $user=Auth::user();
       $categories = Category::all();
-      $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-      $cart_data = json_decode($cookie_data, true);
-      return view('pages.checkout-information',['categories'=>$categories,'user'=>$user,'cart_data'=>$cart_data]);
+      $cart = null;
+      foreach($user->orders as $order){
+      if($order->status == "Draft") {
+        $cart = $order;break;
+      }
+      }
+      return view('pages.checkout-information',['categories'=>$categories,'user'=>$user,'cart'=>$cart]);
     }
 
     public function createOrder(Request $request)
@@ -29,37 +32,22 @@ class OrdersController extends Controller
      $user=Auth::user();
      $id= Auth::id();
      $now=str_replace('.', '', microtime(true));
-     $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-     $cart_data = json_decode($cookie_data, true);
-     $total=0;
-     $order_qty = 0;
-     foreach($cart_data as $data){
-      $total+=$data['item_price']*$data['item_quantity'];
-      $order_qty+=$data['item_quantity'];
-    }
-     $order=$user->orders()->create([
-       'serial_number' => 'ORD-'.$now,
-       'user_id'=> $id,
-       'contact' => $request->checkout['email_or_phone'],
-       'address' => serialize($request->checkout['shipping_address']),
-       'status' => 'Active',
-       'quantity' => $order_qty,
-       'subtotal' => $total,
-     ]);
-     foreach($cart_data as $data){
-       $item = CartItem::create([
-        'order_id' => $order->id,
-        'quantity'=>$data['item_quantity'],
-        'price' =>$data['item_price'],
-        'product_id'=>$data['item_id'],
-       ]);
-       $item->order()->associate($order);
+     $cart = null;
+     foreach($user->orders as $order){
+      if($order->status == "Draft") {
+        $cart = $order;break;
+      }
      }
-     $order->save();
-     $cart_data = array();
-     $item_data = json_encode($cart_data);
-     $minutes = 2147483647;
-     Cookie::queue(Cookie::make('shopping_cart', $item_data, $minutes));
+     $quantity=0;
+     foreach($cart->items as $item){
+       $quantity+=$item->quantity;
+     }
+     $cart->contact = $request->checkout['email_or_phone'];
+     $cart->address = serialize($request->checkout['shipping_address']);
+     $cart->serial_number='ORD-'.$now;
+     $cart->status = "Active";
+     $cart->quantity = $quantity;
+     $cart->save();
      return redirect()->route('home');
     }
 
@@ -86,4 +74,105 @@ class OrdersController extends Controller
       $order->save();
       return redirect()->back();
     }
+
+
+    public function addToCart(Request $request){
+      $user=Auth::user();
+      $product = Product::find($request->product);
+      if($product->sale_price) $price=$product->sale_price;
+      else $price=$product->price;
+      $cart = null;
+      foreach($user->orders as $order){
+        if($order->status == "Draft") {
+          $cart = $order;break;
+        }
+      }
+
+      if(!$cart){
+          $NewCart = $user->orders()->create([
+              'subtotal' => 0,
+              'status'=> 'Draft'
+          ]);
+          $item = $NewCart->items()->create([
+              'cart_id'=>$NewCart->id,
+              'quantity' => $request->quantity,      
+              'product_id' => $request->product, 
+              'price' => $price, 
+          ]);
+          $NewCart->subtotal +=$item->price * $request->quantity;
+          $NewCart->save();
+      };
+      if($cart){
+          if($cart->items){
+          foreach($cart->items as $cartItem){
+             if($cartItem->product_id == $request->product){
+                  $cartItem->quantity += $request->quantity;
+                  $cartItem->save();
+                  $cart->subtotal+=$cartItem->price * $request->quantity;
+                  $cart->save();
+                  return redirect()->back();
+             }
+          }
+      }
+      $item=$cart->items()->create([
+          'cart_id'=>$cart->id,
+          'quantity' => $request->quantity,      
+          'product_id' => $request->product, 
+          'price' => $price,  
+      ]);
+      $cart->subtotal+=$item->price * $request->quantity;
+      $cart->save();
+  }
+      return redirect()->back();
+  }   
+
+  public function ItemDelete(Request $request){
+      $user=Auth::user();
+      $cart = null;
+      foreach($user->orders as $order){
+        if($order->status == "Draft") {
+          $cart = $order;break;
+        }
+      }
+      if($cart)$item=$cart->items()->find($request->id);
+      if($item){
+      $cart->subtotal -= $item->price * $item->quantity ;
+      $item->delete();
+      $cart->save();
+      }
+      return redirect()->back();
+  }
+
+  public function qtyUpdate(Request $request){
+    $user=Auth::user();
+    $cart = null;
+    foreach($user->orders as $order){
+      if($order->status == "Draft") {
+        $cart = $order;break;
+      }
+    }
+      if($cart)$item=$cart->items()->find($request->id);
+      if($item){
+      $cart->subtotal -=  $item->quantity * $item->price;
+      $item->quantity = $request->quantity;
+      $cart->subtotal += $item->price * $item->quantity ;
+      $item->save();
+      if($item->quantity == 0){
+          $item->delete();
+      }
+      $cart->save();
+      }
+      return redirect()->back();
+  }
+  public function index(){
+      $user = Auth::user();
+      $categories = Category::all();
+      $cart = null;
+      foreach($user->orders as $order){
+          if($order->status == "Draft"){
+              $cart=$order;break;
+          }
+      }
+      return view('pages.cart-information',['categories'=>$categories,'user'=>$user,'cart'=>$cart]);
+  }
 }

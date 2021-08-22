@@ -55,9 +55,12 @@ class CategoryController extends Controller
     public function clientViewAll()
     {
         $categories=Category::orderby('id', 'desc')->paginate(15);
-        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-        $cart_data = json_decode($cookie_data, true);
-        return view('pages.client_categories_list',['user'=>Auth::user(),'categories'=>$categories,'cart_data'=>$cart_data]);  
+        foreach($user->orders as $order){
+            if($order->status == "Draft"){
+                $cart=$order;break;
+            }
+        }
+        return view('pages.client_categories_list',['user'=>Auth::user(),'categories'=>$categories,'cart'=>$cart]);  
     }
 
     public function categoryShow(Category $category)
@@ -67,8 +70,11 @@ class CategoryController extends Controller
             $q->where('category_id', $id);
          })->where('published',1)->paginate(15);
         $categories = Category::all();
-        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-        $cart_data = json_decode($cookie_data, true);
-        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'categories'=>$categories,'category'=>$category,'cart_data'=>$cart_data]);  
+        foreach($user->orders as $order){
+            if($order->status == "Draft"){
+                $cart=$order;break;
+            }
+        }
+        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'categories'=>$categories,'category'=>$category,'cart'=>$cart]);  
     }
 }

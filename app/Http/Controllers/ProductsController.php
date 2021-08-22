@@ -96,23 +96,30 @@ class ProductsController extends Controller
         array_push($product_categories, $category->id);
         }
         $reviews = $product->reviews->reverse();
-
-        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-        $cart_data = json_decode($cookie_data, true);
-        return view('pages.product_page',['user'=>Auth::user(),'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_cat'=>$product_categories,'cart_data'=>$cart_data]);  
+        $user=Auth::user();
+        $cart = null;
+        foreach($user->orders as $order){
+          if($order->status == "Draft"){
+              $cart=$order;break;
+          }
+      }
+        return view('pages.product_page',['user'=>Auth::user(),'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_cat'=>$product_categories,'cart'=>$cart]);  
     }
      
      public function viewList()
-    {   
+    {    $user=Auth::user();
         $products=Product::orderby('id', 'desc')->paginate(15);
-        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-        $cart_data = json_decode($cookie_data, true);
-
-        return view('pages.products_list',['user'=>Auth::user(),'products'=>$products,'cart_data'=>$cart_data]);  
+        $cart = null;
+        foreach($user->orders as $order){
+          if($order->status == "Draft"){
+              $cart=$order;break;
+          }
+      }
+        return view('pages.products_list',['user'=>Auth::user(),'products'=>$products,'cart'=>$cart]);  
     }
 
     public function clientViewAll()
-    {    
+    {    $user=Auth::user();
         if(!isset($_GET['sort_by']) || $_GET['sort_by']== 'default')
         $products=Product::where('published',1)->orderby('id', 'desc')->paginate(15);
         else if($_GET['sort_by']== 'title-ascending')
@@ -132,15 +139,18 @@ class ProductsController extends Controller
         else if($_GET['sort_by']== 'best-selling')
           $products=Product::where('published',1)->orderby('updated_at', 'asc')->paginate(15);
         $categories = Category::all();
-
-        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-        $cart_data = json_decode($cookie_data, true);
-        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'categories'=>$categories,'cart_data'=>$cart_data]);  
+        $cart = null;
+        foreach($user->orders as $order){
+          if($order->status == "Draft"){
+              $cart=$order;break;
+          }
+      }
+        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'categories'=>$categories,'cart'=>$cart]);  
     }
 
     public function clientProductPage($id)
     {
-
+      $user=Auth::user();
       $categories =Category::all();
       $product=Product::find($id);
       $reviews = $product->reviews->where('published',1)->reverse();
@@ -150,9 +160,12 @@ class ProductsController extends Controller
       }
       if($stars)$rating=$stars/$reviews->count();
       else $rating=0;
-
-      $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-      $cart_data = json_decode($cookie_data, true);
-      return view('pages.client_product_page',['user'=>Auth::user(),'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart_data'=>$cart_data]);  
+      $cart = null;
+      foreach($user->orders as $order){
+        if($order->status == "Draft"){
+            $cart=$order;break;
+        }
+    }
+      return view('pages.client_product_page',['user'=>Auth::user(),'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart]);  
     }
 }
