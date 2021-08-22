@@ -53,7 +53,7 @@ class OrdersController extends Controller
 
     public function viewList(Request $request)
     {
-     $orders = Order::orderby('created_at','desc')->paginate(15);
+     $orders = Order::orderby('created_at','desc')->where('status','<>','Draft')->paginate(15);
      return view('pages.orders_list',['user'=>Auth::user(),'orders'=>$orders]);
     }
 
