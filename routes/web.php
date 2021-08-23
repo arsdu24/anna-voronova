@@ -31,6 +31,9 @@ Route::post('cart/delete','OrdersController@ItemDelete')->name('cartItemDelete')
 Route::post('cart/qty_update','OrdersController@qtyUpdate')->name('qtyUpdate');
 Route::post('products/review','ReviewController@createReview')->name('createReview');
 
+//Blog routes
+Route::get('/blogs/news','BlogController@index')->name('blogs');
+
 Auth::routes();
 Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');
 Route::get('/register/client', 'Auth\RegisterController@showClientRegisterForm');

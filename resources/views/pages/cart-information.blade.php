@@ -110,7 +110,7 @@ Information
             <div class="card">
                 <div class="card-body cart">
                     <div class="col-sm-12 empty-cart-cls text-center"> 
-                      <img src="https://i.pinimg.com/originals/bc/bd/99/bcbd99c43aea08b85d3c3a6b80a47b56.png" width="400" height="300" class="img-fluid mb-4 mr-3">
+                        <img src="https://i.pinimg.com/originals/bc/bd/99/bcbd99c43aea08b85d3c3a6b80a47b56.png" width="400" height="300" class="img-fluid mb-4 mr-3">
                         <h2 style="margin-top:5rem"><strong>Your Cart is Empty</strong></h3>
                         <h4>Before proceed to checkout you must add some products to your shopping cart. You will find a lot of interesting products on our "Shop" page.</h4> 
                         <a href="/products" class="btn btn-primary cart-btn-transform m-3" style="margin-top:5rem" data-abc="true">Start shopping</a>
