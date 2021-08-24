@@ -56,7 +56,10 @@
 
 <div class="p-relative">
 <div class="product-card__image" style="padding-top:62.5%;">
-<img class="product-card__img lazyautosizes lazyloaded" scr="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-widths="[1,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808]" data-aspectratio="1.6" data-ratio="1.6" data-sizes="auto" alt="Anteposuerit litterarum formas." data-srcset="//cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_1x.jpg?v=1585986913 1w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_360x.jpg?v=1585986913 360w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_540x.jpg?v=1585986913 540w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_720x.jpg?v=1585986913 720w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_900x.jpg?v=1585986913 900w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_1080x.jpg?v=1585986913 1080w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_1296x.jpg?v=1585986913 1296w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_1512x.jpg?v=1585986913 1512w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_1728x.jpg?v=1585986913 1728w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_1944x.jpg?v=1585986913 1944w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_2160x.jpg?v=1585986913 2160w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_2376x.jpg?v=1585986913 2376w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_2592x.jpg?v=1585986913 2592w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_2808x.jpg?v=1585986913 2808w" sizes="712.0000000000001px" srcset="//cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_1x.jpg?v=1585986913 1w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_360x.jpg?v=1585986913 360w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_540x.jpg?v=1585986913 540w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_720x.jpg?v=1585986913 720w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_900x.jpg?v=1585986913 900w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_1080x.jpg?v=1585986913 1080w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_1296x.jpg?v=1585986913 1296w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_1512x.jpg?v=1585986913 1512w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_1728x.jpg?v=1585986913 1728w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_1944x.jpg?v=1585986913 1944w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_2160x.jpg?v=1585986913 2160w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_2376x.jpg?v=1585986913 2376w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_2592x.jpg?v=1585986913 2592w, //cdn.shopify.com/s/files/1/0376/9440/6700/articles/10_2808x.jpg?v=1585986913 2808w">
+<img id="ProductPhotoImg"
+        class="img-responsive product-card__img"
+        src="{{asset('img/'.$article->thumbnail)}}"
+        alt="{{$article->title}}"/>
 </div>
 <div class="placeholder-background placeholder-background--animation" data-image-placeholder=""></div>
 </div>
@@ -67,11 +70,11 @@
         </div>
         <div class="articleMeta d-flex">
             <span class="articleAuthor">{{$article->author}} .</span>
-            <span class="articlePublish pull-left">{{$article->created_at->format()}}</span> 
+            <span class="articlePublish pull-left">{{$article->created_at->format('j F Y')}}</span> 
         </div>
     </header>
     <div class="articleDetailContent">
-        <div class="rte" itemprop="description">
+        <div class="rte" itemprop="description" style="word-wrap: break-word;">
            {!!$article->excerpt!!}
            <br><br>
            {!!$article->content!!}
@@ -80,7 +83,7 @@
     <div class="articleTags">
     <span>Tags:</span>
   @foreach (unserialize($article->tags) as $tag)
-        <a href="/blogs/news/tagged/apps">$tag</a>, 
+        <a href="/blogs/news/tagged/apps">{{$tag}}</a>, 
   @endforeach
 </div>
 
@@ -120,58 +123,20 @@
 <h4 class="titleSidebar">Recent Articles</h4>
 <div class="velaContent" style="">
     <ul class="listSidebarBlog list-unstyled">
-        
-            <li>
-                <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-7" title="Anteposuerit litterarum formas.">
-                    Anteposuerit litterarum formas.
-                </a>
-                <time datetime="2020-04-04">April 04, 2020</time>
-            </li>
-        
+            @foreach($recent_articles as $article)
             <li>
                 <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-9" title="Anteposuerit litterarum formas.">
-                    Anteposuerit litterarum formas.
+                    {{$article->title}}
                 </a>
-                <time datetime="2020-04-04">April 04, 2020</time>
+                <time datetime="2020-04-04">{{$article->created_at->format('j F Y')}}</time>
             </li>
-        
-            <li>
-                <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-8" title="Anteposuerit litterarum formas.">
-                    Anteposuerit litterarum formas.
-                </a>
-                <time datetime="2020-04-04">April 04, 2020</time>
-            </li>
-        
-            <li>
-                <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-6" title="Anteposuerit litterarum formas.">
-                    Anteposuerit litterarum formas.
-                </a>
-                <time datetime="2020-04-04">April 04, 2020</time>
-            </li>
-        
-            <li>
-                <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-5" title="Anteposuerit litterarum formas.">
-                    Anteposuerit litterarum formas.
-                </a>
-                <time datetime="2020-04-04">April 04, 2020</time>
-            </li>
-        
-            <li>
-                <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-4" title="Anteposuerit litterarum formas.">
-                    Anteposuerit litterarum formas.
-                </a>
-                <time datetime="2020-04-04">April 04, 2020</time>
-            </li>
-        
+            @endforeach
     </ul>
 </div>
 </div><div class="velaCategoriesBlogSidebar velaBlock">
   <h3 class="titleSidebar">Categories</h3><div class="velaContent" style="">
         <ul class="sidebarListCategories list-unstyled">
-            
-<li class="sidebarBlogCateItem active">
-                    <a class="active" href="/blogs/news">Music</a></li>
-@foreach($blog_category as $category)
+@foreach($categories as $category)
     <li class="sidebarBlogCateItem active">
       <a class="active" href="/blogs/news">{{$category->name}}</a></li>
 @endforeach

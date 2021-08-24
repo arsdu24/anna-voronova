@@ -10,8 +10,10 @@ class Article extends Model
     protected $fillable = [
         'tags','title','thumbnail','content','excerpt','author'
     ];
-
+    protected $casts = [
+        'published' => 'boolean',
+    ];
     public function category(){
-        return $this->belongsTo(BlogCategory::class);
+        return $this->belongsToMany(BlogCategory::class);
     }
 }

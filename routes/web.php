@@ -22,7 +22,6 @@ Route::get('/checkout','\App\Http\Controllers\OrdersController@showForm');
 Route::get('/cart','OrdersController@index')->name('cart');
 Route::get('/collections','CategoryController@clientViewAll')->name('categoriesList');
 Route::get('/collections/{category}','CategoryController@categoryShow')->name('categoryShow');
-Route::get('/load-cart-data','CartController@CartLoad')->name('CartLoad');
 Route::get('/products/{id}','ProductsController@clientProductPage')->middleware('client')->name('productView');
 
 Route::post('/cart/add','OrdersController@addToCart')->middleware('client')->name('addToCart');
@@ -33,6 +32,7 @@ Route::post('products/review','ReviewController@createReview')->name('createRevi
 
 //Blog routes
 Route::get('/blogs/news','BlogController@index')->name('blogs');
+Route::get('/blogs/news/{article}','BlogController@blogPage')->name(' blogPage');
 
 Auth::routes();
 Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');
@@ -50,6 +50,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('categories-list/{category}','CategoryController@categoryPage')->name('categoryPage');
     Route::get('orders-list','OrdersController@viewList')->name('ordersList');
     Route::get('orders-list/{order}','OrdersController@orderPage')->name('orderPage');
+    Route::get('blogs','BlogController@admin_blogs')->name('admin_blogs');
+    Route::get('blogs/{article}','BlogController@article_update_page')->name('admin_article');
+    Route::get('blog/categories','BlogController@categoriesList')->name('articleCategories');
 
     Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');
     Route::post('review/unpublish','ReviewController@unpublishReview')->name('reviewUnpublish');
@@ -63,5 +66,10 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('category/delete/{category}','CategoryController@deleteCategory')->name('categoryDelete');
     Route::post('add-category','CategoryController@createCategory')->name('createCategory');
     Route::post('category/save/{category}','CategoryController@updateCategory')->name('categoryUpdate');
-
+    Route::post('blogs/add','BlogController@create_article')->name('createArticle');
+    Route::post('blogs/delete/{article}','BlogController@delete_article')->name('articleDelete');
+    Route::post('blogs/update/{article}','BlogController@articleUpdate')->name('articleUpdate');
+    Route::post('blogs/category/create','BlogController@categoryCreate')->name('createArticleCategory');
+    Route::post('blogs/category/delete/{category}','BlogController@categoryDelete')->name('deleteArticleCategory');
+    Route::post('blogs/category/update/{category}','BlogController@categoryUpdate')->name('updateArticleCategory');
 });

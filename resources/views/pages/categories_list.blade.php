@@ -54,12 +54,14 @@
                 <td>{{$category->title}}</td>
                 <td>{{$category->description}}</td>
                 <td>
-                    <a href="categories-list/{{$category->id}}"   class="col-md-6 text-warning">
+                    <a href="categories-list/{{$category->id}}"   class="btn btn-info">
                         <i class="fas fa-edit"></i>
+                        Edit
                     </a>
-                    <a href="" title="Delete" class="text-danger" onclick="event.preventDefault();
+                    <a href="" title="Delete" class="btn btn-danger" onclick="event.preventDefault();
                     document.getElementById('{{$category->id}}').submit();">
                       <i class="fas fa-trash"></i>
+                      Delete
                     </a>
                     <form id="{{$category->id}}" action="{{route('categoryDelete',['category'=>$category])}}" method="POST" style="display: none;">
                       @csrf</form>

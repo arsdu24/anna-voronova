@@ -46,7 +46,10 @@
                                         <a href="/blogs/news/{{$article->id}}">  
 <div class="p-relative">
             <div class="product-card__image" style="padding-top:62.5%;">
-            <img class="product-card__img lazyautosizes lazyloaded" scr="{{asset('img'.$article->thumbnail)}}">
+                <img id="ProductPhotoImg"
+                class="img-responsive product-card__img"
+                src="{{asset('img/'.$article->thumbnail)}}"
+                alt="{{$article->title}}"/>
             </div>
             <div class="placeholder-background placeholder-background--animation" data-image-placeholder=""></div>
             </div> </a>
@@ -60,15 +63,19 @@
                         <span class="articlePublish pull-left">{{$article->created_at->format('j F Y')}}</span> 
                     </div>
                     <h3 class="articleTitle">
-                        <a href="/blogs/news/{{$article->id}}">{{$article->title}}</a>
+                        <a href="/blogs/news/{{$article->id}}">
+                            @if(strlen($article->excerpt)<=50)
+                                    {{$article->title}}
+                            @else {{substr($article->title, 0, 50).'...'}}
+                            @endif</a>
                     </h3>
-                    <div class="articleDesc">
+                    <div class="articleDesc" style="word-wrap: break-word;">
                             @if(strlen($article->excerpt)<=180)
                                 {{$article->excerpt}}
                             @else {{substr($article->excerpt, 0, 180).'...'}}
                             @endif
                     </div>
-                    @include('components.read-more',['href'=>'1'])
+                    @include('components.read-more',['href'=>$article->id])
                 </div>
             </div>
         </div>
@@ -98,58 +105,23 @@
 <h4 class="titleSidebar">Recent Articles</h4>
 <div class="velaContent" style="">
     <ul class="listSidebarBlog list-unstyled">
-        
-            <li>
-                <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-7" title="Anteposuerit litterarum formas.">
-                    Anteposuerit litterarum formas.
-                </a>
-                <time datetime="2020-04-04">April 04, 2020</time>
-            </li>
-        
-            <li>
-                <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-9" title="Anteposuerit litterarum formas.">
-                    Anteposuerit litterarum formas.
-                </a>
-                <time datetime="2020-04-04">April 04, 2020</time>
-            </li>
-        
-            <li>
-                <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-8" title="Anteposuerit litterarum formas.">
-                    Anteposuerit litterarum formas.
-                </a>
-                <time datetime="2020-04-04">April 04, 2020</time>
-            </li>
-        
-            <li>
-                <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-6" title="Anteposuerit litterarum formas.">
-                    Anteposuerit litterarum formas.
-                </a>
-                <time datetime="2020-04-04">April 04, 2020</time>
-            </li>
-        
-            <li>
-                <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-5" title="Anteposuerit litterarum formas.">
-                    Anteposuerit litterarum formas.
-                </a>
-                <time datetime="2020-04-04">April 04, 2020</time>
-            </li>
-        
-            <li>
-                <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-4" title="Anteposuerit litterarum formas.">
-                    Anteposuerit litterarum formas.
-                </a>
-                <time datetime="2020-04-04">April 04, 2020</time>
-            </li>
-        
-    </ul>
+        @foreach($recent_articles as $article)
+        <li>
+            <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-9" title="Anteposuerit litterarum formas.">
+                @if(strlen($article->excerpt)<=50)
+                {{$article->title}}
+                @else {{substr($article->title, 0, 50).'...'}}
+                @endif
+            </a>
+            <time datetime="2020-04-04">{{$article->created_at->format('j F Y')}}</time>
+        </li>
+        @endforeach
+</ul>
 </div>
 </div><div class="velaCategoriesBlogSidebar velaBlock">
   <h3 class="titleSidebar">Categories</h3><div class="velaContent" style="">
         <ul class="sidebarListCategories list-unstyled">
-            
-<li class="sidebarBlogCateItem active">
-                    <a class="active" href="/blogs/news">Music</a></li>
-@foreach($blog_category as $category)
+@foreach($categories as $category)
     <li class="sidebarBlogCateItem active">
       <a class="active" href="/blogs/news">{{$category->name}}</a></li>
 @endforeach
