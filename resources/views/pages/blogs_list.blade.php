@@ -60,7 +60,8 @@
                       Delete
                     </a>
                     <form id="{{$article->id}}" action="{{route('articleDelete',['article'=>$article->id])}}" method="POST" style="display: none;">
-                      <input type="hidden" name="_token" value="LL4sLrSpxOGT3oYDz0PmhsJasjDTmluH64BzISsJ"></form>
+                      @csrf
+                    </form>
                 </td>
               </tr>
             @endforeach
@@ -150,9 +151,11 @@
                   <div class="form-group">
                       <label>Tags</label>
                           <select class="select2bs4 select2-hidden-accessible" id="tag" multiple="" data-placeholder="Select tags" style="width: 100%;" data-select2-id="23" tabindex="-1" aria-hidden="true" name="tags[]">
-                              <option>Best Seller</option>
-                              <option>New</option>
-                              <option>Trending</option>
+                            @if($tags ?? '')
+                            @foreach($tags as $option)
+                            <option value="{{$option->id}}">{{$option->name}}</option>
+                            @endforeach
+                            @endif
                           </select>
                       <span class="select2 select2-container select2-container--bootstrap4 select2-container--below select2-container--focus" dir="ltr" data-select2-id="24" style="width: 100%;">
                   </div>

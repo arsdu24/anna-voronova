@@ -53,6 +53,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('blogs','BlogController@admin_blogs')->name('admin_blogs');
     Route::get('blogs/{article}','BlogController@article_update_page')->name('admin_article');
     Route::get('blog/categories','BlogController@categoriesList')->name('articleCategories');
+    Route::get('blog/tags','BlogController@tagsList')->name('articleTags');
+    Route::get('blog/product-tags','ProductsController@tagsList')->name('Tags');
 
     Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');
     Route::post('review/unpublish','ReviewController@unpublishReview')->name('reviewUnpublish');
@@ -66,10 +68,16 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('category/delete/{category}','CategoryController@deleteCategory')->name('categoryDelete');
     Route::post('add-category','CategoryController@createCategory')->name('createCategory');
     Route::post('category/save/{category}','CategoryController@updateCategory')->name('categoryUpdate');
+    Route::post('tag/delete/{tag}','ProductsController@deleteTag')->name('deleteTag');
+    Route::post('add-tag','ProductsController@createTag')->name('createTag');
+    Route::post('tag/save/{tag}','ProductsController@updateTag')->name('updateTag');
     Route::post('blogs/add','BlogController@create_article')->name('createArticle');
     Route::post('blogs/delete/{article}','BlogController@delete_article')->name('articleDelete');
     Route::post('blogs/update/{article}','BlogController@articleUpdate')->name('articleUpdate');
     Route::post('blogs/category/create','BlogController@categoryCreate')->name('createArticleCategory');
     Route::post('blogs/category/delete/{category}','BlogController@categoryDelete')->name('deleteArticleCategory');
     Route::post('blogs/category/update/{category}','BlogController@categoryUpdate')->name('updateArticleCategory');
+    Route::post('blogs/tags/create','BlogController@tagCreate')->name('createArticleTag');
+    Route::post('blogs/tags/delete/{tag}','BlogController@tagDelete')->name('deleteArticleTag');
+    Route::post('blogs/tags/update/{tag}','BlogController@tagUpdate')->name('updateArticleTag');
 });

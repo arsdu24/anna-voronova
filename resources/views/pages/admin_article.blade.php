@@ -100,9 +100,9 @@
                                     <div class="form-group">
                                       <label>Tags</label>
                                       <select class="select2bs4 select2-hidden-accessible" id="tag" multiple="" data-placeholder="Select tags" style="width: 100%;" data-select2-id="23" tabindex="-1" aria-hidden="true" name="tags[]">
-                                        <option>Best Seller</option>
-                                        <option>New</option>
-                                        <option>Trending</option>
+                                        @foreach($blog_tags as $tag)
+                                          <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                        @endforeach
                                       </select><span class="select2 select2-container select2-container--bootstrap4 select2-container--below select2-container--focus" dir="ltr" data-select2-id="24" style="width: 100%;">
                                       </div>
                                     @if($article->published != 0)
@@ -150,7 +150,7 @@
       height: 300
     });
   $(document).ready(function() {
-    let tags = {!! json_encode(unserialize($article->tags)) !!}
+    let tags = {!! json_encode($tags) !!}
     let category = {!! json_encode($cat) !!}
     $('#tag').select2().val(tags);
     $('#category').select2().val(category);

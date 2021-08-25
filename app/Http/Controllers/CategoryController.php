@@ -64,12 +64,13 @@ class CategoryController extends Controller
     }
 
     public function categoryShow(Category $category)
-    {
+    {   $user=Auth::user();
         $id = $category->id;
         $products = Product::whereHas('categories', function($q) use ($id) {
             $q->where('category_id', $id);
          })->where('published',1)->paginate(15);
         $categories = Category::all();
+        $cart= null;
         foreach($user->orders as $order){
             if($order->status == "Draft"){
                 $cart=$order;break;

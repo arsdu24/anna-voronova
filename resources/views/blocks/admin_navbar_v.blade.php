@@ -78,6 +78,14 @@
             </ul>
           </li>
           <li class="nav-item">
+            <a href="{{route('Tags')}}" class="nav-link">
+              <i class="fas fa-tag"></i>
+              <p>
+                Tags
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{route('ordersList')}}" class="nav-link">
               <i class="fas fa-shopping-basket"></i>
               <p>
@@ -104,6 +112,12 @@
                 <a href="{{route('articleCategories')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categories List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('articleTags')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tags List</p>
                 </a>
               </li>
             </ul>
