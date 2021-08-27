@@ -55,12 +55,14 @@
                 <td>{{$product->excerpt}}</td>
                 <td>{{$product->price}} <strong>$</strong></td>
                 <td>
-                    <a href="product-list/{{$product->id}}"   class="col-md-6 text-warning">
+                    <a href="product-list/{{$product->id}}"   class=" btn btn-info">
                         <i class="fas fa-edit"></i>
+                        Edit
                     </a>
-                    <a href="{{route('productDelete',['id'=>$product->id])}}" title="Delete" class="text-danger" onclick="event.preventDefault();
+                    <a href="{{route('productDelete',['id'=>$product->id])}}" title="Delete" class="btn btn-danger" onclick="event.preventDefault();
                     document.getElementById('{{$product->id}}').submit();">
                       <i class="fas fa-trash"></i>
+                      Delete
                     </a>
                     <form id="{{$product->id}}" action="{{route('productDelete',['id'=>$product->id])}}" method="POST" style="display: none;">
                       @csrf</form>

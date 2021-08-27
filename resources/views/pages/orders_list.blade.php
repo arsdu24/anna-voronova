@@ -85,12 +85,14 @@
                                 @endif
                 </td>
                 <td>
-                    <a href="{{route('orderPage',[$order])}}" title="View" class="text-primary" >
+                    <a href="{{route('orderPage',[$order])}}" title="View" class="btn btn-info" >
                        <i class="far fa-eye"></i>
+                       Edit
                       </a>
-                    <a href="{{route('orderDelete',['id'=>$order->id])}}" title="Delete" class="text-danger" onclick="event.preventDefault();
+                    <a href="{{route('orderDelete',['id'=>$order->id])}}" title="Delete" class="btn btn-danger" onclick="event.preventDefault();
                     document.getElementById('{{$order->id}}').submit();">
                       <i class="fas fa-trash"></i>
+                      Delete
                     </a>
                     <form id="{{$order->id}}" action="{{route('orderDelete',['id'=>$order->id])}}" method="POST" style="display: none;">
                       @csrf</form>
