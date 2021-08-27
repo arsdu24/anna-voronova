@@ -29,9 +29,16 @@ class LoginController extends Controller
     }
 
     public function showLoginForm()
-    {
+    {    
+        $user=Auth::user();
         $categories=Category::all();
-        return view('auth.login',['categories'=>$categories]);
+        $cart = null;
+        foreach($user->orders as $order){
+          if($order->status == "Draft"){
+              $cart=$order;break;
+          }
+        }
+        return view('auth.login',['categories'=>$categories,'cart'=>$cart]);
     }
 
     public function login(Request $request)
@@ -55,14 +62,28 @@ class LoginController extends Controller
             break;
             case 2:
                 if($OldUser && $OldUser->role == 3){
+                    $hascart=0;
+                    foreach($NewUser->orders as $order){
+                        if($order->status == "Draft"){
+                            $hascart=1;break;
+                        }
+                    }
                     foreach($OldUser->orders as $order){
+                        if($hascart){
+                            if($order->status!="Draft"){
+                                $order->user()->dissociate();
+                                $order->user()->associate(Auth::user());
+                                $order->save();
+                            }
+                        }
+                        else{
                         $order->user()->dissociate();
                         $order->user()->associate(Auth::user());
                         $order->save();
                         }
+                    }
                     $OldUser->delete();
                 }
-                $categories=Category::all();
                 return redirect()->route('client');
             break;
             }

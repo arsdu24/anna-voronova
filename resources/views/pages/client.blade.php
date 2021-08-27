@@ -44,9 +44,12 @@
                         <h4 class="accountHeading">Order History</h4>
                         <div class="orderBoxContent">
                                       @foreach($orders as $order)
+                                                        @php
+                                                            $address = unserialize($order->address);
+                                                        @endphp
                                                 <div class="accountOrderBox">
                                                     <div class="orderBoxContent">
-                                                     <div style="display:flex;flex-direction:row;"><div><h5>Address :</h5></div><div style="padding:10px 0 0 10px">{{$order->address}}</div></div>
+                                                     <div style="display:flex;flex-direction:row; align-items:flex-start"><div><h5>Address :</h5></div><div style="margin: 11.5px;"><strong>{{ $address['first_name'] }} {{ $address['last_name']}}</strong>|{{ $address['address2']}} |{{ $address['city']}}, {{ $address['country']}} |{{ $address['zip']}}{{ $order->phone_number }}</div></div>
                                                      <div style="display:flex;flex-direction:row;"><div><h5>Status :</h5></div><div style="padding:10px 0 0 10px">{{$order->status}}</div></div>
                                                      </div>
                                                 </div>

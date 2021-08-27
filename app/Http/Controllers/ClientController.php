@@ -9,10 +9,15 @@ use Illuminate\Support\Facades\Cookie;
 class ClientController extends Controller
 {    
     public function index()
-    {   $orders=Auth::user()->orders->reverse();
+    {   $orders=Auth::user()->orders->where('status','<>','Draft')->reverse();
+        $user = Auth::user();
         $categories = Category::all();
-        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-        $cart_data = json_decode($cookie_data, true);
-        return view('pages.client',['orders'=>$orders, 'user'=>Auth::user(),'categories'=>$categories,'cart_data'=>$cart_data]);
+        $cart = null;
+        foreach($user->orders as $order){
+            if($order->status == "Draft"){
+                $cart=$order;break;
+            }
+        }
+        return view('pages.client',['orders'=>$orders, 'user'=>Auth::user(),'categories'=>$categories,'cart'=>$cart]);
     }
 }

@@ -117,18 +117,15 @@
                                 </a>
                                 <div class="velaCartTop"><a href="/cart" id="cartTop" class="jsDrawerOpenRight d-flex">
                                         <i class="icons icon-handbag"></i>
-                                        <span class="text" id="CartCount">
-                                        <span >
-                                            @php
-                                            if(Cookie::get('shopping_cart')!== null)
-                                             {
-                                                 $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-                                                    $cart_data = json_decode($cookie_data, true);
-                                                   $totalcart = count($cart_data);
-                                             }
-                                             else $totalcart = 0;
-                                            @endphp
-                                            {{$totalcart}}
+                                        <span class="text">
+                                        <span id="CartCount">
+                                            @isset($cart)
+                                           @if($cart) 
+                                           {{$cart->items()->count()}}
+                                           @else
+                                           0
+                                           @endif
+                                           @endisset
                                         </span></span>
 
                                     </a></div>

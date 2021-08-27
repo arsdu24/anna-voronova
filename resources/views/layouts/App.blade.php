@@ -62,42 +62,45 @@
     </div>
     
 <div id="cartContainer">
-    @if(isset($cart_data))
-    @if(Cookie::get('shopping_cart') && $cart_data)
+    
+        @if($cart)
+            @if($cart->items()->count())
         <form action="/cart" method="post" novalidate="" class="cart ajaxcart">
             <div class="ajaxCartInner" id="CartItemContainer">
                        
-                             @foreach($cart_data as $cartItem)
+                             @foreach($cart->items as $cartItem)
                                    <div class="ajaxCartProduct">
                                         <div class="drawerProduct ajaxCartRow" data-line="2">
                                             <div class="drawerProductImage">
-                                                <a href="/products/{{$cartItem['item_id']}}"><img class="img-responsive" src="{{asset('img/'.$cartItem['item_image'])}}" alt="{{$cartItem['item_name']}}"></a>
+                                                <a href="/products/{{$cartItem->product->id}}"><img class="img-responsive" src="{{asset('img/'.unserialize($cartItem->product->thumbnail)[0])}}" alt="{{$cartItem->product->name}}"></a>
                                             </div>
                                             <div class="drawerProductContent">
                                                 <div class="drawerProductTitle">
-                                                    <a href="/products/{{$cartItem['item_id']}}">{{$cartItem['item_name']}}</a>
+                                                    <a href="/products/{{$cartItem->product->id}}">{{$cartItem->product->name}}</a>
                                                 </div>
                                                 <div class="drawerProductPrice">
                                                     <div class="priceProduct">
                                                         <span class="money" data-currency="USD">$ 
-                                                        {{$cartItem['item_price']}}
+                                                       
+                                                        {{$cartItem->price}}
+                                                     
                                                          USD</span>
                                                     </div>
                                                 </div>
                                                 <div class="drawerProductQty">
                                                     <div class="velaQty">
-                                                        <button type="button" data-id="{{$cartItem['item_id']}}"  class="qtyUpdate velaQtyButton velaMinus" >
+                                                        <button type="button" data-id="{{$cartItem->id}}" data-price="{{$cartItem->price}}" class="qtyUpdate velaQtyButton velaMinus" >
                                                             <span class="txtFallback">&minus;</span>
                                                         </button>
-                                                        <input type="text" name="updates[]" data-id="{{$cartItem['item_id']}}" class="qtyNum velaQtyText" value="{{$cartItem['item_quantity']}}" min="0"  pattern="[0-9]*" />
-                                                        <button type="button" data-id="{{$cartItem['item_id']}}"  class="qtyUpdate velaQtyButton velaPlus" >
+                                                        <input type="text" name="updates[]"  data-id="{{$cartItem->id}}" class="qtyNum velaQtyText " value="{{$cartItem->quantity}}" min="0"  pattern="[0-9]*" />
+                                                        <button type="button" data-id="{{$cartItem->id}}" data-price="{{$cartItem->price}}" class="qtyUpdate  velaQtyButton velaPlus" >
                                                             <span class="txtFallback">+</span>
                                                         </button>
                                                     </div>
                                                 </div>
                                                 <div class="drawerProductDelete">
                                                     <div class="cartRemoveBox">
-                                                        <a href="#" id="{{$cartItem['item_id']}}" item-total="{{$cartItem['item_price'] * $cartItem['item_quantity']}}" class="cartRemove btnClose remove">
+                                                        <a href="#" id="{{$cartItem->id}}" class="cartRemove btnClose remove">
                                                             <span>Remove</span>
                                                         </a>
                                                     </div>
@@ -111,23 +114,31 @@
                             
                 </div>
                 
+    
+                
+    
+                    <div class="ajaxCartNote">
+                        <div class="velaCartNoteButton">
+                            <a class="btnCartNote collapsed" href="#velaCartNote" data-toggle="collapse">
+                                <i class="fa fa-times"></i>
+                                add order note
+                            </a>
+                        </div>
+                        <div id="velaCartNote" class="velaCartNoteGroup collapse">
+                            <label for="CartSpecialInstructions">Special instructions for seller</label>
+                            <textarea name="note" class="form-control" id="CartSpecialInstructions" rows="4"></textarea>
+                        </div>
+                    </div>
+    
+                
+    
                 <div class="drawerCartFooter">
                     <div class="drawerAjaxFooter">
                         <div class="drawerSubtotal">
                             <span class="cartSubtotalHeading">Subtotal</span>
                             <span class="cartSubtotal">$<span class="money" id="cart_value"  data-currency="USD">
-                                @php
-                                 $total = 0;
-                                if(Cookie::get('shopping_cart')!== null)
-                                {
-                                    $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-                                    $cart_data = json_decode($cookie_data, true);
-                                    foreach ($cart_data as $data) {
-                                        $total+=$data['item_price']*$data['item_quantity'];
-                                    }
-                                }
-                                @endphp
-                                {{$total}}
+                           
+                                {{$cart->subtotal}}
                             </span>USD</span>
                         </div>
                         <p class="drawerShipping">Shipping, taxes, and discounts will be calculated at checkout.</p>
@@ -155,6 +166,7 @@
         @else
         <div class="drawerCartEmpty">Your cart is currently empty.</div>
         @endif
+    
 
     
 </div>
@@ -498,48 +510,19 @@
         type="text/javascript"></script>
 <script>
  $(document).ready(function () {
-    cartload();
     ajust();
     remove();
-
+    change()
 });
- 
 
-function cartload()
-    {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            url: '/load-cart-data',
-            method: "GET",
-            success: function (response) {
-                $('#CartCount').html('');
-                var parsed = jQuery.parseJSON(response)
-                var value = parsed; //Single Data Viewing
-                $('#CartCount').html(value['totalcart']);
-            },
-            error: function (response) {
-               console.log(response);
-            }
-        });
-    }
-
-
-    function remove(){$('.remove').click(function (e) {
+function remove(){
+    $('.remove').click(function (e) {
         e.preventDefault();
-
-        var product_id = $(this).attr('id');
-
+        var id = $(this).attr('id');
         var data = {
-            '_token': $('input[name=_token]').val(),
-            "product": product_id,
+            "_token": "{{ csrf_token() }}",
+            "id": id,
         };
-
-        // $(this).closest(".cartpage").remove();
 
         $.ajax({
             url: '{{route("cartItemDelete")}}',
@@ -549,68 +532,46 @@ function cartload()
              let document=$(result);
              let cart_value = document.find('#cartContainer').html();
              let cart_count = document.find('#CartCount').html();
-             let cartpage = document.find('#pageContent').html();
-             if(cartpage)$('#pageContent').html(cartpage);
+             let cart_content = document.find('#Cart').html();
+             if(cart_content)$('#Cart').html(cart_content);
              $('#CartCount').html(cart_count);
              $('#cartContainer').html(cart_value);
              ajust();
              remove();
+             change()
             },
             error: function (result) {
                console.log(result);
             }
         });
     });
-} 
+}
 
-function ajust(){
+    function ajust(){
     $('.qtyUpdate').off('click').click(function ajust_qty(e) {
     e.preventDefault();
     var quantity = $(this).closest(".velaQty").find('.velaQtyText').val();
     var product_id = $(this).attr('data-id');
     if($(this).hasClass('velaMinus')){
-    if(quantity>0){
-        $(this).closest(".velaQty").find('.velaQtyText').val(--quantity);
-    }
+            $(this).closest(".velaQty").find('.velaQtyText').val(--quantity);
+            $(this).closest(".velaQty").find('.velaQtyText').trigger('change');
     }
     else if($(this).hasClass('velaPlus')){
-        $(this).closest(".velaQty").find('.velaQtyText').val(++quantity)
+            $(this).closest(".velaQty").find('.velaQtyText').val(++quantity)
+            $(this).closest(".velaQty").find('.velaQtyText').trigger('change');
     }
-    quantity = $(this).closest(".velaQty").find('.velaQtyText').val();
-    var data = {
-        '_token': $('input[name=_token]').val(),
-        'quantity':quantity,
-        'product':product_id,
-    };
-
-    $.ajax({
-        url: '{{route("qtyUpdate")}}',
-        type: 'POST',
-        data: data,
-        success: function (result) {
-             let document=$(result);
-             let cart_value = document.find('#cartContainer').html();
-             let cart_count = document.find('#CartCount').html();
-             let cartpage = document.find('#pageContent').html();
-             if(cartpage)$('#pageContent').html(cartpage);
-             $('#CartCount').html(cart_count);
-             $('#cartContainer').html(cart_value);
-             ajust();
-             remove();
-        },
-        error: function (response) {
-               console.log(response);
-            }
-    });
 });
- $('.velaQty').change(function ajust_qty(e) {
+}
+
+function change(){$('.velaQty').change(function ajust_qty(e) {
     e.preventDefault();
     var quantity = e.target.value;
+    console.log(quantity);
     var product_id =e.target.getAttribute('data-id');
     var data = {
-        '_token': $('input[name=_token]').val(),
+        "_token": "{{ csrf_token() }}",
         'quantity':quantity,
-        'product':product_id,
+        'id':product_id,
     };
 
     $.ajax({
@@ -621,12 +582,13 @@ function ajust(){
              let document=$(result);
              let cart_value = document.find('#cartContainer').html();
              let cart_count = document.find('#CartCount').html();
-             let cartpage = document.find('#pageContent').html();
-             if(cartpage)$('#pageContent').html(cartpage);
+             let cart_content = document.find('#Cart').html();
+             if(cart_content)$('#Cart').html(cart_content);
              $('#CartCount').html(cart_count);
              $('#cartContainer').html(cart_value);
              ajust();
              remove();
+             change()
         },
         error: function (response) {
                console.log(response);

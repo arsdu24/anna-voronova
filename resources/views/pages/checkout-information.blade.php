@@ -10,7 +10,7 @@ Information
 </h1>
 </div>
 </header>
-@if(count($cart_data)!=0)
+@if($cart->items()->count()!=0)
 <aside role="complementary">
 <button class="order-summary-toggle order-summary-toggle--show shown-if-js" aria-expanded="false" aria-controls="order-summary" data-drawer-toggle="[data-order-summary]">
 <span class="wrap">
@@ -600,19 +600,19 @@ Information
 </thead>
 <tbody data-order-summary-section="line-items">
 
-  @foreach($cart_data as $data)
+  @foreach($cart->items as $data)
   <tr class="product" data-product-id="4938590519340" data-variant-id="33435010727980" data-product-type="Demo Type" data-customer-ready-visible>
     <td class="product__image">
       <div class="product-thumbnail ">
   <div class="product-thumbnail__wrapper">
-  <img alt="{{$data['item_name']}}" class="product-thumbnail__image" src="{{asset('img/'.$data['item_image'])}}" />
+  <img alt="{{$data['item_name']}}" class="product-thumbnail__image" src="{{asset('img/'.unserialize($data->product->thumbnail)[0])}}" />
   </div>
-  <span class="product-thumbnail__quantity" aria-hidden="true">{{$data['item_quantity']}}</span>
+  <span class="product-thumbnail__quantity" aria-hidden="true">{{$data->quantity}}</span>
   </div>
   
     </td>
     <th class="product__description" scope="row">
-      <span class="product__description__name order-summary__emphasis">{{$data['item_name']}}</span>
+      <span class="product__description__name order-summary__emphasis">{{$data->product->name}}</span>
     </th>
     <td class="product__quantity">
       <span class="visually-hidden">
@@ -620,7 +620,7 @@ Information
       </span>
     </td>
     <td class="product__price">
-      <span class="order-summary__emphasis skeleton-while-loading">$ {{$data['item_price']}}</span>
+      <span class="order-summary__emphasis skeleton-while-loading">$ {{$data->price}}</span>
     </td>
   </tr>
   
@@ -683,20 +683,8 @@ Scroll for more items
 <tr class="total-line total-line--subtotal">
 <th class="total-line__name" scope="row">Subtotal</th>
 <td class="total-line__price">
-  @php
-  if(Cookie::get('shopping_cart')!== null)
-   {
-        $cookie_data = stripslashes(Cookie::get('shopping_cart'));
-        $cart_data = json_decode($cookie_data, true);
-        $total =0;
-        foreach ($cart_data as $item) {
-          $total+=$item['item_price']*$item['item_quantity'];
-        }
-   }
-   else $total = 0;
-  @endphp
 <span class="order-summary__emphasis skeleton-while-loading" data-checkout-subtotal-price-target="66900">
- $ {{$total}}
+ $ {{$cart->subtotal}}
 </span>
 </td>
 </tr>
@@ -738,7 +726,7 @@ $0
 <td class="total-line__price payment-due" data-presentment-currency="USD">
   <span class="payment-due__currency remove-while-loading">USD</span>
 <span class="payment-due__price skeleton-while-loading--lg" data-checkout-payment-due-target="68962">
-  ${{$total}}
+  $ {{$cart->subtotal}}
 </span>
 </td>
 </tr>

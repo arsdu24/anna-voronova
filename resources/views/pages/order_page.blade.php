@@ -59,31 +59,8 @@ Order {!!$order->id!!}
                                 <b>Payment Method:</b> {{ $order->payment_method }}<br>
                                 <b>Payment Status:</b> {{ $order->payment_status == 1 ? 'Completed' : 'Not Completed' }}<br>
                                 <b>Order Status:</b> <span id="order-status">
-                                @if ($order->status=='Active')
-                                <span class="btn btn-info form-input">
+                              
                                     {{ $order->status }}
-                                </span>
-                                @elseif($order->status=='Confirmed')
-                                <span class="btn btn-success form-input" >
-                                    {{ $order->status }}
-                                </span>
-                                @elseif($order->status=='Pedding')
-                                <span class="btn btn-warning form-input" >
-                                    {{ $order->status }}
-                                </span>
-                                @elseif($order->status=='Completed')
-                                <span class="btn btn-dark form-input" >
-                                    {{ $order->status }}
-                                </span>
-                                @elseif($order->status=='Refused')
-                                <span class="btn btn-danger form-input" >
-                                    {{ $order->status }}
-                                </span>
-                                @elseif($order->status=='Canceled')
-                                <span class="btn btn-danger form-input" >
-                                    {{ $order->status }}
-                                </span>
-                                @endif
                                 </span>
                                     <select class="select2bs4 select2-hidden-accessible" order-id="{{$order->id}}" name="status" id="status" data-placeholder="Modify status" style="width: 40%;" type="button" data-select2-id="22" tabindex="-1" aria-hidden="true">
                                           <option value="Active">Active</option>
