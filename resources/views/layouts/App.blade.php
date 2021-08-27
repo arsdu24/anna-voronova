@@ -36,14 +36,7 @@
             type="text/javascript"></script>
     <link href="{{route('home')}}" rel="dns-prefetch">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-    <script integrity="sha256-2KbxRG1nAJxSTtTmhkiAC6kILrdVSO4o4QUDMcvnuig="
-            data-source-attribution="shopify.loadfeatures" defer="defer"
-            src="{{asset('js/load_feature-d8a6f1446d67009c524ed4e68648800ba9082eb75548ee28e1050331cbe7ba28.js')}}"
-            crossorigin="anonymous"></script>
-    <script integrity="sha256-h+g5mYiIAULyxidxudjy/2wpCz/3Rd1CbrDf4NudHa4="
-            data-source-attribution="shopify.dynamic-checkout" defer="defer"
-            src="{{asset('js/features-87e8399988880142f2c62771b9d8f2ff6c290b3ff745dd426eb0dfe0db9d1dae.js')}}"
-            crossorigin="anonymous"></script>
+    
     <meta property="og:image"
           content="{{asset('img/logo.png')}}"/>
     <meta property="og:image:width" content="1200"/>
@@ -504,9 +497,8 @@
         type="text/javascript"></script>
 <script src="//cdn.shopify.com/s/files/1/0376/9440/6700/t/10/assets/lazysizes.min.js?v=15377268347072223862"
         async="async"></script>
-<script src="//cdn.shopify.com/s/files/1/0376/9440/6700/t/10/assets/vela.js?v=1594961584149084290"
-        type="text/javascript"></script>
-<script src="//cdn.shopify.com/s/files/1/0376/9440/6700/t/10/assets/jquery.cookie.js?v=7236575574540404818"
+<script src="{{asset('js/vela.js')}}"  type="text/javascript"></script>
+<script src="{{asset('js/jquery.cookie.js')}}
         type="text/javascript"></script>
 <script>
  $(document).ready(function () {

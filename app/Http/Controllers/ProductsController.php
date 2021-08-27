@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
 use App\Review;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
@@ -39,9 +40,10 @@ class ProductsController extends Controller
         $product->sale_price = $request->sale_price;
         if($request->published)$product->published = 1;
         else $product->published = 0;
-        if($request->tags)$product->tags=serialize($request->tags);
-        else $product->tags=serialize([]);
-
+        if($request->tags){
+          $product->tags()->sync($request->tags);
+        }
+        else $product->tags()->detach();
         $firstImage = $request->file('firstThumbnail');
         if($firstImage){
                 $imageName =  $firstImage->getClientOriginalName();
@@ -90,7 +92,12 @@ class ProductsController extends Controller
 
     public function productPage($id){
         $product = Product::find($id);
+        $tags = Tag::all();
         $categories =Category::all();
+        $product_tags = array();
+        foreach($product->tags as $tag){
+          array_push($product_tags, $tag->id);
+          }
         $product_categories = array();
         foreach($product->categories as $category){
         array_push($product_categories, $category->id);
@@ -103,7 +110,8 @@ class ProductsController extends Controller
               $cart=$order;break;
           }
       }
-        return view('pages.product_page',['user'=>Auth::user(),'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_cat'=>$product_categories,'cart'=>$cart]);  
+        return view('pages.product_page',['user'=>Auth::user(),'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_cat'=>$product_categories,'cart'=>$cart,'product_tags'=>$product_tags,'tags'=>$tags]);  
+
     }
      
      public function viewList()
@@ -167,5 +175,34 @@ class ProductsController extends Controller
         }
     }
       return view('pages.client_product_page',['user'=>Auth::user(),'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart]);  
+    }
+
+  public function createTag(Request $request){
+    if($request->excerpt)$excerpt =$request->excerpt;
+    else $excerpt =null;
+      $tag=Tag::create([
+        'name'=>$request->name,
+        'excerpt'=>$excerpt,
+      ]);
+      return redirect()->back();
+  }
+
+  public function updateTag(Tag $tag,Request $request){
+      if($request->name)$tag->name = $request->name;
+      if($request->excerpt)$tag->excerpt = $request->excerpt;
+      $tag->save();
+      return redirect()->back();
+  }
+
+  public function deleteTag(Tag $tag){
+      $tag->delete();
+      return redirect()->back();
+  }
+
+  public function tagsList()
+    {   
+        $user = Auth::user();
+        $tag = Tag::paginate(15);
+        return view('pages.admin_tags',['user'=>$user,'tags'=>$tag]);
     }
 }

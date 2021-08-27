@@ -9,7 +9,7 @@ class Product extends Model
     protected $table = 'product';
 
     protected $fillable = [
-        'name', 'excerpt', 'thumbnail', 'price','tags', 'sale_price','content'
+        'name', 'excerpt', 'thumbnail', 'price', 'sale_price','content'
     ];
     protected $casts = [
         'published' => 'boolean',
@@ -22,5 +22,8 @@ class Product extends Model
     }
     public function cartItems(){
         return $this->hasMany('App\CartItem');
+    }
+    public function tags(){
+        return $this->belongsToMany('App\Tag');
     }
 }

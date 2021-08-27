@@ -8,12 +8,16 @@ class Article extends Model
 {
     protected $table = 'article';
     protected $fillable = [
-        'tags','title','thumbnail','content','excerpt','author'
+        'title','thumbnail','content','excerpt','author'
     ];
     protected $casts = [
         'published' => 'boolean',
     ];
     public function category(){
         return $this->belongsToMany(BlogCategory::class);
+    }
+
+    public function tags(){
+        return $this->belongsToMany(BlogTag::class);
     }
 }

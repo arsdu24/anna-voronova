@@ -23,7 +23,6 @@ class CreateArticleTable extends Migration
             $table->mediumText('excerpt')->nullable();
             $table->mediumText('content')->nullable();
             $table->boolean('published')->nullable();
-            $table->mediumText('tags')->nullable();
         });
     }
 
