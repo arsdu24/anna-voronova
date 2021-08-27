@@ -111,6 +111,7 @@ class ProductsController extends Controller
           }
       }
         return view('pages.product_page',['user'=>Auth::user(),'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_cat'=>$product_categories,'cart'=>$cart,'product_tags'=>$product_tags,'tags'=>$tags]);  
+
     }
      
      public function viewList()

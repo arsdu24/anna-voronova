@@ -103,6 +103,7 @@
                                         @foreach($blog_tags as $tag)
                                           <option value="{{$tag->id}}">{{$tag->name}}</option>
                                         @endforeach
+
                                       </select><span class="select2 select2-container select2-container--bootstrap4 select2-container--below select2-container--focus" dir="ltr" data-select2-id="24" style="width: 100%;">
                                       </div>
                                     @if($article->published != 0)
@@ -151,6 +152,7 @@
     });
   $(document).ready(function() {
     let tags = {!! json_encode($tags) !!}
+
     let category = {!! json_encode($cat) !!}
     $('#tag').select2().val(tags);
     $('#category').select2().val(category);
