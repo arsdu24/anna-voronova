@@ -130,11 +130,11 @@
     <h4 class="titleSidebar">Articles Tags</h4>
     <div class="velaContent" style="">
         <ul class="blogTagsList list-inline">
-            <li><a href="/blogs/news/tagged/apps" title="Show articles tagged Apps">Apps</a></li>
-            <li><a href="/blogs/news/tagged/conference" title="Show articles tagged Conference">Conference</a></li>
-            <li><a href="/blogs/news/tagged/developers" title="Show articles tagged Developers">Developers</a></li>
-            <li><a href="/blogs/news/tagged/enterprise" title="Show articles tagged Enterprise">Enterprise</a></li>
-            <li><a href="/blogs/news/tagged/startups" title="Show articles tagged Startups">Startups</a></li>
+            @foreach($tags as $tag)
+            <li><a href="/blogs/tagged/{{$tag->slug}}" title="Show articles tagged {{$tag->name}}">{{$tag->name}}</a></li>
+         @endforeach
+            
+           
         </ul>
     </div>
 </div><div class="blogSidebar blogBannerSidebar hidden-xs hidden-sm">

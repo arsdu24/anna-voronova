@@ -191,5 +191,27 @@ class BlogController extends Controller
         return view('pages.admin_blog_tags',['user'=>$user,'tags'=>$blog_tag]);
     }
 
+    public function Tagged($slug)
+    {
+        $tag = BlogTag::where('slug','=',$slug)->first();
+        $id = $tag->id;        
+        $user = Auth::user();
+        $blog_category = BlogCategory::all();
+        $categories = Category::all();
+        $tags = BlogTag::all();
+        $articles = Article::whereHas('tags', function($q) use ($id) {
+            $q->where('blog_tag_id', $id);
+         })->where('published',1)->paginate(15);
+        $date = strtotime("-3 days");
+        $startdate = date('Y-m-d',$date);
+        $recents_articles =  Article::whereDate('created_at', '>=', $startdate)->where('published','=','1')->orderby('created_at','desc')->get();
+        $cart = null;
+        foreach($user->orders as $order){
+          if($order->status == "Draft"){
+              $cart=$order;break;
+          }
+        }
+        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags]);
+    }
 
 }
