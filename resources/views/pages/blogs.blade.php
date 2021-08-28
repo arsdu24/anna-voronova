@@ -107,7 +107,7 @@
     <ul class="listSidebarBlog list-unstyled">
         @foreach($recent_articles as $article)
         <li>
-            <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-9" title="Anteposuerit litterarum formas.">
+            <a class="titleBlogsidebar" href="/blogs/news/{{$article->id}}" title="{{$article->title}}">
                 @if(strlen($article->excerpt)<=50)
                 {{$article->title}}
                 @else {{substr($article->title, 0, 50).'...'}}
