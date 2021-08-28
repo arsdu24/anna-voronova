@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Banner;
 use App\Category;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\CartItem;
+use App\Product;
+use App\Tag;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,8 @@ class HomeController extends Controller
                 $cart=$order;break;
             }
         }
-        return view('pages.index',['categories'=>$categories,'user'=>$user,'cart'=>$cart]);
+        $slides = Banner::where('is_slide','=',1)->get();
+        $banners = Banner::where('is_slide','=',0)->get();
+        return view('pages.index',['categories'=>$categories,'user'=>$user,'cart'=>$cart,'slides'=>$slides,'banners'=>$banners]);
     }
 }

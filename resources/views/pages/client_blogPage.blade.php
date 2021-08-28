@@ -82,9 +82,9 @@
 <div class="articlePostBottom clearfix">
     <div class="articleTags">
     <span>Tags:</span>
-  @foreach (unserialize($article->tags) as $tag)
-        <a href="/blogs/news/tagged/apps">{{$tag}}</a>, 
-  @endforeach
+    @foreach ($article->tags as $tag)
+    <a href="/blogs/news/tagged/apps">{{$tag->name}}</a>, 
+@endforeach
 </div>
 
 

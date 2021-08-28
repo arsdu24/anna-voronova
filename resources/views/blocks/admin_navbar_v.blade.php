@@ -94,6 +94,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{route('Banners')}}" class="nav-link">
+              <i class="fas fa-bookmark"></i>
+              <p>
+                Banners
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="" class="nav-link">
                <i class="fa fa-list-alt" aria-hidden="true"></i>
               <p>

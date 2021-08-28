@@ -19,14 +19,14 @@
                                 <div id="velaSlideshows1551027504217" class="vela--slideshow velaSliderLoading"
                                      data-autoplay="false" data-speed="8000" data-navigation="true"
                                      data-pagination="true">
-                                    <div class="velassSlide velassSlide1551027504217-0">
-                                        <a href="/collections/all" class="velassLink">
-                                            <div class="velassImage"
-                                                 data-image="{{asset('img/slide11_1944x.png')}}">
+                                    @foreach($slides as $slide)
+                                        <div class="velassSlide ">
+                                        <a href="/products" class="velassLink">
+                                            <div class="velassImage">
                                                 <div class="p-relative">
-                                                    <div class="product-card__image"
+                                                    <div class="product-card__image float-right"
                                                          style="padding-top:34.89583333333333%;">
-                                                        <img class="product-card__img lazyload" src="{{asset('img/slide11_1944x.png')}}"/>
+                                                        <img class="product-card__img lazyload float-right" src="{{asset('img/'.$slide->thumbnail)}}"/>
                                                     </div>
                                                     <div
                                                         class="placeholder-background placeholder-background--animation"
@@ -35,54 +35,16 @@
                                             </div>
                                         </a>
                                         <div class="velassCaption captionPosition "
-                                             style="background-color:rgba(0,0,0,0)">
+                                             style="background-color:rgba(0,0,0,0);">
                                             <div class="container captionWrap">
                                                 <div class="velassCaptionContent text-left align-middle">
-                                                    <div class="velassCaptionInner text-left ">
-                                                        <h2 class="velassHeading leftright-2" style="color:#444444;">
-                                                            <b>Quick parcel delivery, <span class="text-primary">from $25</span></b>
-                                                        </h2>
-                                                        <h3 class="velassHeadingSmall leftright-3"
-                                                            style="color:#1a1a1a;">
-                                                            Normann Copenhagen - <br>Craft salt and pepper grinder
-                                                        </h3><a class="btn btnVelaSlider leftright-5"
-                                                                href="/products" style="border-color: #1a1a1a;
-                                                                background-color: #1a1a1a;
-                                                                color: #ffffff;
-                                                                padding: 14px 25px; ">
-                                                            Start Shopping
-                                                            <i class="icons icon-arrow-right"></i>
-                                                        </a></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="velassSlide velassSlide1585906051700">
-                                        <a href="/collections/frontpage" class="velassLink">
-                                            <div class="velassImage"
-                                                 data-image="{{asset('img/slide12_1944x.png')}}">
-                                                <div class="p-relative">
-                                                    <div class="product-card__image"
-                                                         style="padding-top:34.89583333333333%;">
-                                                        <img class="product-card__img lazyload" src="{{asset('img/slide12_1944x.png')}}"/>
-                                                    </div>
-                                                    <div
-                                                        class="placeholder-background placeholder-background--animation"
-                                                        data-image-placeholder></div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <div class="velassCaption captionPosition "
-                                             style="background-color:rgba(0,0,0,0)">
-                                            <div class="container captionWrap">
-                                                <div class="velassCaptionContent text-left align-middle">
-                                                    <div class="velassCaptionInner text-left ">
-                                                        <h2 class="velassHeading bottomtop-2" style="color:#444444;">
-                                                            <b>Quick parcel delivery, <span class="text-primary">from $25</span></b>
+                                                    <div class="velassCaptionInner text-left w-100" style="word-wrap: break-word;">
+                                                        <h2 class="velassHeading bottomtop-2" style="color:#444444; word-wrap:break-word; width:50%">
+                                                            <b >{{$slide->excerpt}} <span class="text-primary">{{$slide->highlighted ?? ''}}</span></b>
                                                         </h2>
                                                         <h3 class="velassHeadingSmall bottomtop-3"
-                                                            style="color:#1a1a1a;">
-                                                            Wood Minimal Office Chair<br>Extra 40% off now.
+                                                            style="color:#1a1a1a;word-wrap:break-word;width:50% ">
+                                                            {{$slide->title}}
                                                         </h3><a class="btn btnVelaSlider bottomtop-5"
                                                                 href="/collections/all" style="border-color: #1a1a1a;
                                                                 background-color: #1a1a1a;
@@ -95,6 +57,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -107,31 +70,53 @@
         @include('blocks.treding-block')
 
         <div id="shopify-section-1585935437629" class="shopify-section velaFramework">
-            <div class="velaMultiBanner mb30" style="background-color: rgba(0,0,0,0);
-                                     padding:0 0 20px; ">
+            @foreach($banners as $banner)
+                <div class="velaMultiBanner mb30" style="background-color: rgba(0,0,0,0);">
                 <div class="container-full">
                     <div class="velaMultiBannerInner gutter20">
                         <div class="velaContent">
                             <div class="rowFlex rowFlexMargin ">
                                 <div class="col-xs-12 col-sm-12">
                                     <div class="mb30 velaBanner effectFour">
-                                        <a href="/collections/frontpage" title="velademo-rubix">
+                                        <a href="/products" title="velademo-rubix">
                                             <div class="p-relative">
-                                                <div class="product-card__image"
-                                                     style="padding-top:29.16666666666667%;">
-                                                    <img class="product-card__img lazyload" src="{{asset('img/banner3_360x.jpg')}}" data-sizes="auto" alt=""/>
+                                                <div class="product-card__image relative" style="padding-top:29.16666666666667%;">
+                                                    <img class="lazyautosizes ls-is-cached lazyloaded banner-img" src="{{asset('img/'.$banner->thumbnail)}}">
+                                                    <div class="ImageOver">
+                                                       
+                                                     <div>
+                                                         <h2 class="velassHeading bottomtop-2" style="color:#444444; word-wrap:break-word; width:50%">
+                                                            <b >{{$banner->excerpt}} <span class="text-primary">{{$banner->highlighted ?? ''}}</span></b>
+                                                        </h2>
+                                                        <h3 class="velassHeadingSmall bottomtop-3"
+                                                            style="color:#1a1a1a;word-wrap:break-word;width:50% ">
+                                                            {{$banner->title}}
+                                                        </h3>
+                                                        <button class="btn btnVelaSlider bottomtop-5"
+                                                        style="border-color: #1a1a1a;
+                                                                background-color: #1a1a1a;
+                                                                color: #ffffff;
+                                                                padding: 14px 30px; ">
+                                                             Start Shopping
+                                                             <i class="icons icon-arrow-right"></i>
+                                                        </button>
+                                                     </div>
+                                                  </div>
+                                                      
                                                 </div>
-                                                <div class="placeholder-background placeholder-background--animation"
-                                                     data-image-placeholder></div>
+                                                <div class="placeholder-background placeholder-background--animation" data-image-placeholder=""></div>
                                             </div>
                                         </a>
+                                        
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                </div>
+            @endforeach
         </div>
            @include('blocks.best-seller-block')
            @include('blocks.newsletter')

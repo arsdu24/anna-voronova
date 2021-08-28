@@ -257,13 +257,14 @@
  
 @if(!isset( $_GET["view"]) || $_GET["view"]=='grid')
             @foreach($products as $product)
-                
-    <div class="velaProBlock grid col-xs-6 col-md-4 col-lg-3" data-price="39.00">
+               
+    <div class="velaProBlock grid col-xs-6 col-md-4 col-lg-3" >
         <div class="velaProBlockInner">
             <div class="proHImage d-flex flexJustifyCenter">
                 @if($product->sale_price)
                 <div class="productLable"><span class="labelSale">Sale</span></div>
                 @endif
+                @if(count(unserialize($product->thumbnail))<2)
                 <a class="proFeaturedImage" href="/products/{{$product->id}}">
                     <div class="wrap proSwatch">
     
@@ -280,15 +281,56 @@
             />
         </div>
         <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
-    </div></div></a>
+    </div>
+
+
+</div></a>
+@else
+<a class="proFeaturedImage" href="/products/{{$product->id}}">
+    <div class="wrap ">
+              <div class="p-relative">
+                  <div class="product-card__image"
+                       style="padding-top:124.25%;">
+                      <img class="product-card__img lazyload"
+                           data-src="{{asset('img/'.unserialize($product->thumbnail)[0])}}"
+                           data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
+                           data-aspectratio="0.8048289738430584"
+                           data-ratio="0.8048289738430584" data-sizes="auto"
+                           alt=""/>
+                  </div>
+                  <div
+                      class="placeholder-background placeholder-background--animation"
+                      data-image-placeholder></div>
+              </div>
+          </div>
+          <div class="hidden-sm hidden-xs proSwatch proImageSecond">
+              <div class="p-relative">
+                  <div class="product-card__image"
+                       style="padding-top:124.25%;">
+                      <img class="product-card__img lazyload"
+                           data-src="{{asset('img/'.unserialize($product->thumbnail)[1])}}"
+                           data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
+                           data-aspectratio="0.8048289738430584"
+                           data-ratio="0.8048289738430584" data-sizes="auto"
+                           alt="Turning Table"/>
+                  </div>
+                  <div
+                      class="placeholder-background placeholder-background--animation"
+                      data-image-placeholder></div>
+              </div>
+          </div>
+</a>
+@endif
+
+
                 <div class="productLable"></div><div class="proButton clearfix"><form action="https://velademo-rubix.myshopify.com/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
                         <input type="hidden" name="id" value="33475186819116" /><a class="btn btnProduct btnAddToCart" href="/products/{{$product->id}}" title="Select options">
                                     <span class="icons icon-handbag"></span>
                                     <span class="select_options text">Select options</span>
                                 </a></form>
                     
-        <div class="productQuickView">
-            <a class="btn btnProduct btnProductQuickview" href="#velaQuickView" data-handle="arctander-chair" title="Quick view">
+        <div class="productQuickView"  data-toggle="modal" data-target="{{"#Product".$product->id}}">
+            <a class="btn btnProduct btnProductQuickview"  data-handle="arctander-chair" title="Quick view">
                 <span class="icons icon-magnifier"></span>
                   <span class="text">Quick view</span>
             </a>
@@ -312,8 +354,6 @@
                     </div>
         </div>
     </div>
-                
-            
     @endforeach
 @else
 @foreach($products as $product)
@@ -325,23 +365,62 @@
                     @if($product->sale_price)
                     <div class="productLable"><span class="labelSale">Sale</span></div>
                     @endif
+                    @if(count(unserialize($product->thumbnail))<2)
                     <a class="proFeaturedImage" href="/products/{{$product->id}}">
-                        <div class="wrap proSwatch">
-<div class="p-relative">
-    <div class="product-card__image" style="padding-top:124.25%;">
-        <img class="product-card__img lazyload"
-                scr="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
-                data-src="{{asset('img/'.unserialize($product->thumbnail)[0])}}"
-                data-widths="[1,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808]"
-                data-aspectratio="0.8048289738430584"
-                data-ratio="0.8048289738430584"
-                data-sizes="auto"
-                alt=""
-            />
-    </div>
-    <div class="placeholder-background placeholder-background--animation" data-image-placeholder=""></div>
-</div>
-                        </div></a>
+                <div class="wrap proSwatch">
+                <div class="p-relative">
+                    <div class="product-card__image" style="padding-top:124.25%;">
+                        <img class="product-card__img lazyload"
+                                scr=""
+                                data-src="{{asset('img/'.unserialize($product->thumbnail)[0])}}"
+                                data-widths="[1,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808]"
+                                data-aspectratio="0.8048289738430584"
+                                data-ratio="0.8048289738430584"
+                                data-sizes="auto"
+                                alt=""
+                            />
+                    </div>
+                    <div class="placeholder-background placeholder-background--animation" data-image-placeholder=""></div>
+                </div>
+                        </div>
+                    
+                </a>
+                @else
+                <a class="proFeaturedImage" href="/products/{{$product->id}}">
+                    <div class="wrap ">
+                              <div class="p-relative">
+                                  <div class="product-card__image"
+                                       style="padding-top:124.25%;">
+                                      <img class="product-card__img lazyload"
+                                           data-src="{{asset('img/'.unserialize($product->thumbnail)[0])}}"
+                                           data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
+                                           data-aspectratio="0.8048289738430584"
+                                           data-ratio="0.8048289738430584" data-sizes="auto"
+                                           alt=""/>
+                                  </div>
+                                  <div
+                                      class="placeholder-background placeholder-background--animation"
+                                      data-image-placeholder></div>
+                              </div>
+                          </div>
+                          <div class="hidden-sm hidden-xs proSwatch proImageSecond">
+                              <div class="p-relative">
+                                  <div class="product-card__image"
+                                       style="padding-top:124.25%;">
+                                      <img class="product-card__img lazyload"
+                                           data-src="{{asset('img/'.unserialize($product->thumbnail)[1])}}"
+                                           data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
+                                           data-aspectratio="0.8048289738430584"
+                                           data-ratio="0.8048289738430584" data-sizes="auto"
+                                           alt="Turning Table"/>
+                                  </div>
+                                  <div
+                                      class="placeholder-background placeholder-background--animation"
+                                      data-image-placeholder></div>
+                              </div>
+                          </div>
+                </a>
+                @endif
                     <div class="productLable"></div></div>
             </div>
             <div class="col-xs-12 col-sm-8 col-md-6 col-lg-7">
@@ -363,20 +442,111 @@
                                     <span class="icons icon-handbag"></span>
                                     <span class="text select_options">Select options</span>
                                 </a></form>
-    <div class="productQuickView">
+    <div class="productQuickView"  data-toggle="modal" data-target="{{"#Product".$product->id}}">
         <a class="btn btnProduct btnProductQuickview" href="#velaQuickView" data-handle="arctander-chair" title="Quick view">
             <span class="icons icon-magnifier"></span>
           	<span class="text">Quick view</span>
         </a>
     </div>
-                </div>
-            </div>
-        </div>
+    <!-- Modal -->
+
     </div>
 </div>
     
 @endforeach
-@endif    
+@endif 
+@foreach($products as $product)
+   <div class="modal fade" id="Product{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg " >
+      <div class="modal-content">
+        <div class="modal-body">
+            <div class="w-100 text-right">
+                <a title="Close" class="quickviewClose btnClose text-right w-100" style="right: 0;" data-dismiss="modal" href="javascript:void(0);"></a>
+            </div>
+            <div class="proBoxPrimary row">
+                <div class="proBoxImage col-xs-12 col-sm-12 col-md-5">
+                    <div class="proFeaturedImage">
+                        <a class="proImage" title="" href="/products/{{$product->id}}">
+                            <img class="img-responsive proImageQuickview" src="{{asset('img/'.unserialize($product->thumbnail)[0])}}" alt="Quickview">
+                            <span class="loadingImage" style="display: none;"></span>
+                        </a>
+                    </div>
+                    <div class="proThumbnails proThumbnailsQuickview clearfix">
+                        <div class="owl-thumblist">
+                            <div class="owl-carousel owl-loaded" style="visibility: visible;">
+
+                            <div class="owl-stage-outer">
+                                <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 172px;">
+                                    @foreach(unserialize($product->thumbnail) as $image)
+                                    <div class="owl-item " style="width: 85.75px;"><div
+                                 class="thumbItem">
+                                 <a href="javascript:void(0)" class="imgs" data-index="0" data-imageid="7714764259372" data-image="{{asset('img/'.$image)}}">
+                                    <img src="{{asset('img/'.$image)}}" alt="undefined">
+                                </a>
+                                
+                            </div>
+                            
+                        </div>
+                        @endforeach
+                        </div></div><div class="owl-nav disabled"><div class="owl-prev disabled">prev</div><div class="owl-next disabled">next</div></div><div class="owl-dots disabled"></div></div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="proBoxInfo col-xs-12 col-sm-12 col-md-7" id="product-4948426817580">
+                    <h3 class="quickviewName mb20 text-left"><a href="/products/{{$product->id}}" class="w-100 text-left">{{$product->name}}</a></h3>
+                    <div class="proShortDescription rte text-left"><p>{{$product->excerpt}}</p>
+<p></p></div>
+                    
+                <form method="post" action="{{route('addToCart')}}" accept-charset="UTF-8" enctype="multipart/form-data">  
+                    @csrf                    
+                        <div class="proVariantsQuickview"></div>
+                        <input type="hidden" value="{{$product->id}}" name="product"/>
+                        <div class="proPrice clearfix">
+                            @if($product->sale_price != null)
+                            <div class="priceProduct priceCompare"><span class="money" data-currency-usd="{{$product->price}}" data-currency="USD">${{$product->price}}</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="{{$product->sale_price}}" data-currency="USD">${{$product->sale_price}}</span></div>               
+                            @else 
+                            <div class="priceProduct "><span class="money">{{$product->price}} $</span></div>     
+                            @endif
+                            
+                        </div>
+                        <div class="velaGroup d-flex flexAlignEnd mb20">
+                            <div class="proQuantity">
+                                <!-- <label for="Quantity" class="qtySelector">Quantity</label> -->
+                                
+    
+                                <div style="display:none"><input type="number"></div>     
+                                <div class="velaQty">
+                                    <button type="button" class="velaQtyAdjust velaQtyButton velaQtyMinus">
+                                        <span class="txtFallback">−</span>
+                                    </button>
+                                    <input type="text" value="1" name="quantity" class="velaQtyNum velaQtyText " >
+                                    <button type="button" class="velaQtyAdjust velaQtyButton velaQtyPlus">
+                                        <span class="txtFallback">+</span>
+                                    </button>
+                                </div>
+    
+
+                            </div>
+                            <div class="proButton">
+                                <button type="submit" name="add" class="btn btnAddToCart">
+                                    <span>Add to Cart</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="proAttr quickviewAvailability instock text-left"><label>Availability:</label> In stock</div>       
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+                </div>
+            </div>
+        </div>
+@endforeach   
 </div>
             <div id="collPagination" class="velaPaginationWrap clearfix">
                 <nav class="velaPagination  pull-left">
@@ -395,4 +565,7 @@
                 </div>
             </div>
         </div>
-    </section> </main>
+    </section> 
+
+    
+</main>

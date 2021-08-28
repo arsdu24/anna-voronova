@@ -15178,7 +15178,13 @@ ul.lower-alpha {
     transform: translate(-50%, -50%);
     transition: all 0.35s ease-in-out;
 }
-
+.banner-img{
+    position: absolute;
+    top: 0;
+    left:20%;
+    height: 100%;
+    width:60%;
+}
 @media (max-width: 600px) {
     .headerCartModal .headerCartContent {
         width: 300px;
@@ -15196,6 +15202,10 @@ ul.lower-alpha {
         max-height: 100%;
         padding: 15px;
         overflow-y: auto;
+    }
+    .banner-img{
+        width:90%;
+        left:5%;
     }
 }
 
@@ -17267,8 +17277,8 @@ button:active:focus,
 .btnClose:after {
     content: "";
     position: absolute;
-    top: 11px;
-    left: 0;
+    right: 1%;
+    top: 20px;
     width: 26px;
     height: 2px;
     background-color: #444444;
@@ -24760,4 +24770,15 @@ input[type="email"].spr-form-input-error {
     font-size: 18px;
     display: block;
     padding: 0;
+}
+.ImageOver{
+    position:absolute;
+    margin-left:30%;
+    top:10%;
+    left:0;
+    width: 80%;
+}
+
+.relative{
+    position:relative;
 }

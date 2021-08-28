@@ -55,6 +55,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('blog/categories','BlogController@categoriesList')->name('articleCategories');
     Route::get('blog/tags','BlogController@tagsList')->name('articleTags');
     Route::get('blog/product-tags','ProductsController@tagsList')->name('Tags');
+    Route::get('banners','BannerController@bannersList')->name('Banners');
 
     Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');
     Route::post('review/unpublish','ReviewController@unpublishReview')->name('reviewUnpublish');
@@ -80,4 +81,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('blogs/tags/create','BlogController@tagCreate')->name('createArticleTag');
     Route::post('blogs/tags/delete/{tag}','BlogController@tagDelete')->name('deleteArticleTag');
     Route::post('blogs/tags/update/{tag}','BlogController@tagUpdate')->name('updateArticleTag');
+    Route::post('banners/create','BannerController@create')->name('createBanner');
+    Route::post('banners/delete/{banner}','BannerController@bannerDelete')->name('deleteBanner');
+    Route::post('banners/update/{banner}','BannerController@bannerUpdate')->name('updateBanner');
 });
