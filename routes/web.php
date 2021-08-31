@@ -23,6 +23,7 @@ Route::get('/cart','OrdersController@index')->name('cart');
 Route::get('/collections','CategoryController@clientViewAll')->name('categoriesList');
 Route::get('/collections/{category}','CategoryController@categoryShow')->name('categoryShow');
 Route::get('/products/{id}','ProductsController@clientProductPage')->middleware('client')->name('productView');
+Route::get('/search','SearchController@search')->name('search');
 
 Route::post('/cart/add','OrdersController@addToCart')->middleware('client')->name('addToCart');
 Route::post('/checkout','\App\Http\Controllers\OrdersController@createOrder')->name('create_order');
@@ -57,6 +58,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('blog/tags','BlogController@tagsList')->name('articleTags');
     Route::get('blog/product-tags','ProductsController@tagsList')->name('Tags');
     Route::get('banners','BannerController@bannersList')->name('Banners');
+    Route::get('/search','SearchController@search')->name('adminSearch');
+
 
     Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');
     Route::post('review/unpublish','ReviewController@unpublishReview')->name('reviewUnpublish');

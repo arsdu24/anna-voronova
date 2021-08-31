@@ -55,6 +55,35 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @yield('scripts')
 <!-- AdminLTE App -->
+<script>
+   $('.list-group').hide()
+  $('.search-btn').on('click',()=>{
+    $('.list-group').show()
+  })
+  $('#search').on('keyup focus',function (e) {
+    e.preventDefault();
+    let q = $(this).val();
+    var data = {
+        "_token": "{{ csrf_token() }}",
+        'type':'search',
+        'q': q,
+    };
+    $.ajax({
+        url: '{{route("adminSearch")}}',
+        type: 'GET',
+        data: data,
+        success: function (result) {
+             let document=$(result);
+             let search_value = document.find('.search-result').html();
+             $('.search-result').html(search_value);
+             $('.search-result').show();
+        },
+        error: function (response) {
+               console.log(response);
+            }
+    });
+});
+</script>
 <script src="{{asset('/js/adminlte.js')}}"></script>
 </body>
 </html>

@@ -16326,7 +16326,7 @@ ul.lower-alpha {
     font-size: 15px !important;
 }
 
-.velaAjaxSearch {
+.velaAjaxSearch  {
     position: absolute;
     top: 100%;
     right: 0;
@@ -16338,16 +16338,27 @@ ul.lower-alpha {
     list-style: none;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
 }
-
-.velaAjaxSearch li {
+.blogSearch{
+    position: relative;
+    top: 100%;
+    right: 0;
+    z-index: 10;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #fff;
+    border: 1px solid #e1e1e1;
+    list-style: none;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+.velaAjaxSearch li , .blogSearch li{
     padding: 5px 0;
 }
 
-.velaAjaxSearch li:last-child {
+.velaAjaxSearch li:last-child , .blogSearch li:last-child {
     border-bottom: 0;
 }
 
-.velaAjaxSearch a {
+.velaAjaxSearch a,.blogSearch a {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -16361,25 +16372,36 @@ ul.lower-alpha {
     transition: all 0.35s ease;
 }
 
-.velaAjaxSearch a:after {
+.velaAjaxSearch a:after, .blogSearch a:after {
     content: '';
     display: table;
     clear: both;
 }
 
 .velaAjaxSearch a:hover,
-.velaAjaxSearch a:focus {
+.velaAjaxSearch a:focus ,
+.blogSearch a:hover,
+.blogSearch a:focus{
     color: #ba933e;
 }
 
-.velaAjaxSearch a.searchViewAll {
+.velaAjaxSearch .searchViewAll ,.blogSearch .searchViewAll{
     display: block;
     padding: 10px;
     font-weight: 600;
     text-align: center;
     text-transform: uppercase;
 }
-
+.searchViewAll {
+    display:flex;
+    width:100%;
+    justify-content: center;
+    background-color: transparent;
+    border: 1px transparent;
+}
+.searchViewAll:hover{
+    color: #ba933e;
+}
 .searchProductImage {
     flex: 0 0 38px;
 }
@@ -16388,7 +16410,9 @@ ul.lower-alpha {
     width: 100%;
     padding: 0 10px;
 }
-
+.blogSearch{
+    z-index: 100;
+}
 .searchBoxTop {
     z-index: 9999;
     position: fixed;
@@ -24782,3 +24806,8 @@ input[type="email"].spr-form-input-error {
 .relative{
     position:relative;
 }
+
+.search_img{
+   height: 50px;
+}
+

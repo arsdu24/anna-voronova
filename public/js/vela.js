@@ -421,10 +421,9 @@ vela.ajaxSearch = function() {
     var currentAjaxRequest = null;
     var searchForms = $('form[action="/search"]').each(function() {
         var inputSearch = $(this).find('input[name="q"]');
-        var inputProduct = $(this).find('input[name="type"]');
+        var inputProduct = $(this).find('input[name="gg"]');
         var offSet = inputSearch.position().top + inputSearch.innerHeight();
-        $('<ul class="velaAjaxSearch"></ul>').appendTo($(this)).hide();
-        if (inputProduct.val() == 'product') {
+        if (inputProduct.val() == 'producd') {
             inputSearch.attr('autocomplete', 'off').bind('keyup change', function() {
                 var term = $(this).val();
                 var form = $(this).closest('form');
@@ -457,6 +456,7 @@ vela.ajaxSearch = function() {
     });
     $('body').bind('click', function() {
         $('.velaAjaxSearch').hide();
+        $('.blogSearch').hide();
     });
     $('.searchBoxTop').hover(function() {
         $('.velaSearchbox .velaSearch').focus();
@@ -1424,21 +1424,7 @@ vela.productImage = function() {
                 zoomLensSize = vela.cache.$velaProductImage.data('zoom-lens'),
                 zoomLensShape = vela.cache.$velaProductImage.data('lens-shape'),
                 zoomLensBorderColor = vela.cache.$velaProductImage.data('lens-border');
-            vela.cache.$velaProductImage.elevateZoom({
-                zoomEnabled: zoomYN,
-                gallery: 'productThumbs',
-                galleryActiveClass: 'active',
-                cursor: 'pointer',
-                zoomType: zoomType,
-                scrollZoom: zoomScroll,
-                zoomWindowWidth: zoomWindowWidth,
-                zoomWindowHeight: zoomWindowHeight,
-                lensSize: zoomLensSize,
-                lensShape: zoomLensShape,
-                onImageSwapComplete: function() {
-                    $(".zoomWrapper div").hide();
-                }
-            });
+            
             vela.cache.$velaProductImage.bind('click', function(e) {
                 var ez1 = $('#ProductPhotoImg').data('elevateZoom');
                 var imageGallery1 = [];

@@ -22,7 +22,7 @@
         <div class="navbar-search-block">
           <form class="form-inline">
             <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+              <input class="form-control form-control-navbar" id="search" type="search" autocomplete="off" placeholder="Search" aria-label="Search">
               <div class="input-group-append">
                 <button class="btn btn-navbar" type="submit">
                   <i class="fas fa-search"></i>
@@ -31,6 +31,74 @@
                   <i class="fas fa-times"></i>
                 </button>
               </div>
+              <ul class="nav nav-pills nav-sidebar flex-column search-result w-100" style="display: none;">
+                  @if(isset($result))
+                     @foreach ($result as $key=>$item)
+              <li class="nav-item">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   {{$key}}
+                  </button>
+                    <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
+                        @foreach($item as $result)
+                          @if($key == 'Products')
+                                <a class="dropdown-item" href="/admin/product-list/{{$result->id}}" >
+                                    <i class="far fa-circle nav-icon"></i>
+                                      <span class="searchProductImage" >
+                                          @if($key == 'Products')
+                                            <img src="{{asset('img/'.unserialize($result->thumbnail)[0])}}" class="search_img">
+                                          @endif
+                                      </span>
+                                      <span class="searchProductTitle">
+                                        {{$result->name}}
+                                      </span>
+                                </a>
+                              
+                            @elseif($key == 'Orders')
+                              <a class="dropdown-item" href="/admin/orders-list/{{$result->id}}">
+                                <i class="far fa-circle nav-icon"></i>
+                                  <span class="searchProductImage" >
+                                    {{$result->id}}
+                                  </span>
+                                  <span class="searchProductTitle">
+                                    {{$result->serial_number}}
+                                  </span>
+                                  <span class="searchProductTitle">
+                                    {{$result->status}}
+                                  </span>
+                                  <span class="searchProductTitle">
+                                    {{$result->contact}}
+                                  </span>
+                                  <span class="searchProductTitle">
+                                    {{$result->quantity}}
+                                  </span>
+                              </a>
+                            @else
+                                @if($key == 'Categories')<a class="dropdown-item" href="/admin/categories-list/{{$result->id}}">
+                                @else <a class="dropdown-item" href="/admin/blogs/{{$result->id}}">
+                                @endif
+                                <i class="far fa-circle nav-icon"></i>
+                                  <span class="searchProductImage" >
+                                      <img src="{{asset('img/'.$result->thumbnail)}}" class="search_img">
+                                  </span>
+                                  <span class="searchProductTitle">
+                                    {{$result->title}}
+                                  </span>
+                              </a>
+                            @endif
+                          @endforeach
+                        </div>
+                  </div>
+                  </li>
+                      @endforeach
+                     
+                  @else
+                          <li>
+                              <span class="searchProductTitle"> Not found </span>
+                          </li>
+                  @endif
+                  
+                  </ul>
             </div>
           </form>
         </div>

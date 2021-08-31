@@ -590,5 +590,55 @@ function change(){$('.velaQty').change(function ajust_qty(e) {
 }
 </script>
 @yield('scripts')
+<script>
+    $('.velaSearch').on('keyup focus',function (e) {
+    e.preventDefault();
+    let q = $(this).val();
+    var data = {
+        "_token": "{{ csrf_token() }}",
+        'type':'product',
+        'q': q,
+    };
+    $.ajax({
+        url: '{{route("search")}}',
+        type: 'GET',
+        data: data,
+        success: function (result) {
+             let document=$(result);
+             let search_value = document.find('.velaAjaxSearch').html();
+             $('.velaAjaxSearch').html(search_value);
+             $('.velaAjaxSearch').show();
+        },
+        error: function (response) {
+               console.log(response);
+            }
+    });
+});
+$('.formSearchPageInput').on('keyup focus',function (e) {
+    e.preventDefault();
+    let q = $(this).val();
+    var data = {
+        "_token": "{{ csrf_token() }}",
+        'type':'blog',
+        'q': q,
+    };
+    $.ajax({
+        url: '{{route("search")}}',
+        type: 'GET',
+        data: data,
+        success: function (result) {
+             let document=$(result);
+             let search_value = document.find('.velaAjaxSearch').html();
+             $('.blogSearch').html(search_value);
+             $('.blogSearch').show();
+        },
+        error: function (response) {
+               console.log(response);
+            }
+    });
+});
+
+</script>
+
 </body>
 </html>
