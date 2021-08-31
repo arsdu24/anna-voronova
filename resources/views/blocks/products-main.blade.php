@@ -323,14 +323,17 @@
 @endif
 
 
-                <div class="productLable"></div><div class="proButton clearfix"><form action="https://velademo-rubix.myshopify.com/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
-                        <input type="hidden" name="id" value="33475186819116" /><a class="btn btnProduct btnAddToCart" href="/products/{{$product->id}}" title="Select options">
+                <div class="productLable"></div><div class="proButton clearfix">
+                    <form action="/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
+                        <input type="hidden" name="id" value="33475186819116" />
+                        <a class="btn btnProduct btnAddToCart" href="/products/{{$product->id}}" title="Select options">
                                     <span class="icons icon-handbag"></span>
                                     <span class="select_options text">Select options</span>
-                                </a></form>
+                                </a>
+                    </form>
                     
         <div class="productQuickView"  data-toggle="modal" data-target="{{"#Product".$product->id}}">
-            <a class="btn btnProduct btnProductQuickview"  data-handle="arctander-chair" title="Quick view">
+            <a class="btn btnProduct btnProductQuickview" title="Quick view">
                 <span class="icons icon-magnifier"></span>
                   <span class="text">Quick view</span>
             </a>
@@ -565,7 +568,5 @@
                 </div>
             </div>
         </div>
-    </section> 
-
-    
+    </section>
 </main>

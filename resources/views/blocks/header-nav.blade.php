@@ -140,6 +140,44 @@
                                             <i class="icons icon-magnifier"></i>
                                             <span class="btnSearchText">Search</span>
                                         </button>
+                                        <ul class="velaAjaxSearch" style="display: none;">
+                                        @if(isset($search) && $search->count()>0)
+                                       
+                                         
+                                            @foreach ($search as $item)
+                                                <li>
+                                                    <a href="/products/{{$result->id}}">
+                                                        @if($_GET['type']=='product')
+                                                        <span class="searchProductImage" >
+                                                           
+                                                            <img src="{{asset('img/'.unserialize($item->thumbnail)[0])}}" class="search_img">
+                                                        </span>
+                                                        <span class="searchProductTitle">
+                                                           {{$item->name}}
+                                                        </span>
+                                                        @else
+                                                            <span class="searchProductImage" >
+                                                            
+                                                                <img src="{{asset('img/'.$item->thumbnail)}}" class="search_img">
+                                                            </span>
+                                                            <span class="searchProductTitle">
+                                                            {{$item->title}}
+                                                            </span>
+                                                        @endif
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                            <li>
+                                            <button class="searchViewAll" type="submit">
+                                                <span class="btnSearchText">See all results ({{$results->count()}})</span>
+                                            </button>
+                                            </li>
+                                        @else
+                                                <li>
+                                                    <span class="searchProductTitle"> Not found </span>
+                                                </li>
+                                        @endif
+                                        </ul>
                                     </form>
                                 </div>
                             </div>

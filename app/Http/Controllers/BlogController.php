@@ -46,6 +46,7 @@ class BlogController extends Controller
           array_push($article_tags, $tag->id);
         }
         $date = strtotime("-3 days");
+        $tags = BlogTag::all();
         $startdate = date('Y-m-d',$date);
         $recents_articles =  Article::whereDate('created_at', '>=', $startdate)->where('published','=','1')->orderby('created_at','desc')->get();
         $cart = null;
@@ -55,7 +56,7 @@ class BlogController extends Controller
           }
         }
 
-        return view('pages.client_blogPage',['user'=>$user,'article'=>$article,'categories'=>$blog_categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'article_tags'=>$article_tags]);
+        return view('pages.client_blogPage',['user'=>$user,'article'=>$article,'categories'=>$blog_categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'article_tags'=>$article_tags,'tags'=>$tags]);
     }
 
     public function admin_blogs(){

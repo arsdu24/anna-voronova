@@ -90,18 +90,22 @@
 </div>
 <aside class="velaSidebar velaBlogSidebar col-xs-12 col-sm-4 col-md-3 mb30">
     <div class="blogSidebar velaSearchSidebar"><div class="velaContentSearch">
-    <form class="formSearchPage formSearchBlogPage" action="/search" method="get">
-        <input type="hidden" name="view" value="blog">
-        <input type="hidden" name="type" value="article">
+    <form class="formSearchPage formSearchBlogPage"  action="/search" method="get">
+        <input type="hidden" name="type" value="blog">
         <div class="input-group">
-            <input type="search" name="q" value="" placeholder="Search our blogs" class="formSearchPageInput form-control">                      
+            <input  name="q" value="" placeholder="Search our blogs"  autocomplete="off"class="formSearchPageInput form-control">                      
             <button type="submit" class="formSearchPageButton">
                 <i class="icons icon-magnifier"></i>
             </button>
         </div>
-    <ul class="velaAjaxSearch" style="display: none;"></ul></form>
+        <div class="searchlist">
+        <ul class="blogSearch" style="display: none;"></ul>
+        <div>
+    </form>
+   
 </div>
-</div><div class="blogSidebar">
+</div>
+<div class="blogSidebar">
 <h4 class="titleSidebar">Recent Articles</h4>
 <div class="velaContent" style="">
     <ul class="listSidebarBlog list-unstyled">
