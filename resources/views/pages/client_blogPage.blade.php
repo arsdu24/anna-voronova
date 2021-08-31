@@ -125,7 +125,7 @@
     <ul class="listSidebarBlog list-unstyled">
             @foreach($recent_articles as $article)
             <li>
-                <a class="titleBlogsidebar" href="/blogs/news/anteposuerit-litterarum-formas-9" title="Anteposuerit litterarum formas.">
+                <a class="titleBlogsidebar" href="/blogs/news/{{$article->id}}" title="{{$article->title}}">
                     {{$article->title}}
                 </a>
                 <time datetime="2020-04-04">{{$article->created_at->format('j F Y')}}</time>

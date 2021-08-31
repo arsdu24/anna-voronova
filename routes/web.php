@@ -33,6 +33,7 @@ Route::post('products/review','ReviewController@createReview')->name('createRevi
 //Blog routes
 Route::get('/blogs/news','BlogController@index')->name('blogs');
 Route::get('/blogs/news/{article}','BlogController@blogPage')->name(' blogPage');
+Route::get('/blogs/tagged/{slug}','BlogController@Tagged')->name('TaggedPage');
 
 Auth::routes();
 Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');
