@@ -54,7 +54,9 @@ class CategoryController extends Controller
 
     public function clientViewAll()
     {
+        $user=Auth::user();
         $categories=Category::orderby('id', 'desc')->paginate(15);
+        $cart=null;
         foreach($user->orders as $order){
             if($order->status == "Draft"){
                 $cart=$order;break;

@@ -14,6 +14,7 @@ class BlogController extends Controller
     public function index(){
         $user = Auth::user();
         $blog_category = BlogCategory::all();
+        $categories = Category::all();
         $tags = BlogTag::all();
         $articles = Article::orderby('created_at','desc')->where('published','=','1')->paginate(15);
         $date = strtotime("-3 days");
@@ -25,7 +26,7 @@ class BlogController extends Controller
               $cart=$order;break;
           }
         }
-        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'categories'=>$blog_category,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags]);
+        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags]);
     }
     
     public function categoriesList()

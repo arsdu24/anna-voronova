@@ -792,17 +792,14 @@ vela.floatHeader = function() {
     }
 
     function velaFloatHeader() {
-        if (window.float_header) {
             if (($(window).width()) >= 992) {
                 doFloatHeader(true);
             } else if (($(window).width()) <= 991) {
                 doFloatHeader(false)
             }
-        }
     }
 
     function velaFloatHeaderChange() {
-        if (window.float_header) {
             if (($(window).width()) >= 992) {
                 var hideheight = $('#velaHeader').height() + 120;
                 var pos = $(window).scrollTop();
@@ -814,7 +811,6 @@ vela.floatHeader = function() {
             } else if (($(window).width()) <= 991) {
                 $('#velaMegamenu').removeClass('velaHeaderFixed');
             }
-        }
     }
     velaFloatHeader();
     $(window).resize(velaFloatHeader);
@@ -1240,7 +1236,7 @@ vela.quickview = function() {
         $(".jsQuickview").html("");
         $(".jsQuickview").removeClass('velaFadeOut');
     });
-    $(document).on('click', '.btnProductQuickview', function(e) {
+    $(document).on('click', '.btnProductQuickvie', function(e) {
         vela.cache.$velaLoading.show();
         var producthandle = $(this).data("handle");
         Shopify.getProduct(producthandle, function(product) {

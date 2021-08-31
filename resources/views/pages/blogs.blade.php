@@ -121,9 +121,9 @@
 </div><div class="velaCategoriesBlogSidebar velaBlock">
   <h3 class="titleSidebar">Categories</h3><div class="velaContent" style="">
         <ul class="sidebarListCategories list-unstyled">
-@foreach($categories as $category)
+@foreach($category as $item)
     <li class="sidebarBlogCateItem active">
-      <a class="active" href="/blogs/news">{{$category->name}}</a></li>
+      <a class="active" href="/blogs/news">{{$item->name}}</a></li>
 @endforeach
         </ul>
     </div></div><div class="blogSidebar">

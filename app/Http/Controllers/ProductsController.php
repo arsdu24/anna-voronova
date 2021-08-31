@@ -127,7 +127,8 @@ class ProductsController extends Controller
     }
 
     public function clientViewAll()
-    {    $user=Auth::user();
+    {    
+        $user=Auth::user();
         if(!isset($_GET['sort_by']) || $_GET['sort_by']== 'default')
         $products=Product::where('published',1)->orderby('id', 'desc')->paginate(15);
         else if($_GET['sort_by']== 'title-ascending')
@@ -173,8 +174,10 @@ class ProductsController extends Controller
         if($order->status == "Draft"){
             $cart=$order;break;
         }
-    }
-      return view('pages.client_product_page',['user'=>Auth::user(),'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart]);  
+      }
+      $MightLike = Product::where('id','<>',$product->id)->inRandomOrder()->take(10)->get();
+
+      return view('pages.client_product_page',['user'=>Auth::user(),'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart,'myl'=>$MightLike]);  
     }
 
   public function createTag(Request $request){

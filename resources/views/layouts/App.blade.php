@@ -498,7 +498,7 @@
 <script src="//cdn.shopify.com/s/files/1/0376/9440/6700/t/10/assets/lazysizes.min.js?v=15377268347072223862"
         async="async"></script>
 <script src="{{asset('js/vela.js')}}"  type="text/javascript"></script>
-<script src="{{asset('js/jquery.cookie.js')}}
+<script src="{{asset('js/jquery.cookie.js')}}"
         type="text/javascript"></script>
 <script>
  $(document).ready(function () {
@@ -589,5 +589,6 @@ function change(){$('.velaQty').change(function ajust_qty(e) {
 });
 }
 </script>
+@yield('scripts')
 </body>
 </html>
