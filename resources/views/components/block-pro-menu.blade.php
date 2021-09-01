@@ -1,4 +1,4 @@
-<div class="blockProMenu">
+<div class="blockProMenu  col-sm-5">
     <div class="proImage proImageMenu">
         <a class="proImageLink"
             href="/products/{{$href}}"
