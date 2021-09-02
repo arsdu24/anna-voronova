@@ -176,7 +176,8 @@ class ProductsController extends Controller
         }
       }
       $MightLike = Product::where('id','<>',$product->id)->inRandomOrder()->take(10)->get();
-
+      $product->views ++;
+      $product->save();
       return view('pages.client_product_page',['user'=>Auth::user(),'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart,'myl'=>$MightLike]);  
     }
 
