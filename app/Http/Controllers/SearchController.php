@@ -7,9 +7,9 @@ use App\Banner;
 use App\Category;
 use App\BlogCategory;
 use App\BlogTag;
+use App\Collection;
 use App\Order;
 use App\Product;
-use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +19,7 @@ class SearchController extends Controller
     {   
         $user=Auth::user();
         $categories = Category::all();
+        $collections = Collection::all();
         $cart = null;
         foreach($user->orders as $order){
           if($order->status == "Draft"){
@@ -41,7 +42,7 @@ class SearchController extends Controller
                                 })
                                 ->paginate(15);
             $search = $products->take(10);
-            return view('pages.search_result',['user'=>$user,'categories'=>$categories,'cart'=>$cart,'results'=>$products,'q'=>$q,'search'=>$search]);
+            return view('pages.search_result',['user'=>$user,'categories'=>$categories,'cart'=>$cart,'results'=>$products,'q'=>$q,'search'=>$search,'collections'=>$collections]);
         }
         elseif($request->type=='blog'){
             $articles = Article::where('published','=',1)
@@ -49,7 +50,7 @@ class SearchController extends Controller
                                 ->orWhere('excerpt','LIKE','%'.$q.'%')
                                 ->paginate(15);
             $search = $articles->take(10);
-            return view('pages.search_result',['user'=>$user,'categories'=>$categories,'cart'=>$cart,'q'=>$q,'results'=>$articles,'search'=>$search]);
+            return view('pages.search_result',['user'=>$user,'categories'=>$categories,'cart'=>$cart,'q'=>$q,'results'=>$articles,'search'=>$search,'collections'=>$collections]);
             
         }
         elseif($request->type=='search'){
@@ -61,7 +62,7 @@ class SearchController extends Controller
                                 ->orWhere('excerpt','LIKE','%'.$q.'%')
                                 ->orWhere('id','LIKE','%'.$q.'%')
                                 ->get();
-            $category = Category::where('title','LIKE','%'.$q.'%')
+            $collection = Collection::where('title','LIKE','%'.$q.'%')
                                 ->orWhere('id','LIKE','%'.$q.'%')
                                 ->get();
             $orders = Order::where('status','<>','Draft')
@@ -75,7 +76,7 @@ class SearchController extends Controller
             $result = array(
                 'Articles' => $articles,
                 'Products' => $products,
-                'Categories' => $category,
+                'Collections' => $collection,
                 'Orders' => $orders,
             );
             return view('blocks.admin_navbar_h',['result'=> $result]);

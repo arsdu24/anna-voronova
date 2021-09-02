@@ -14,8 +14,8 @@
             <div class="col-sm-12">
                 <div class="velaMenuListCollection">
                     <div class="velaMenuListContent rowFlex">
-                           @foreach($categories as $category)
-                             @include('components.coll-item',['category'=>$category])
+                           @foreach($collections as $collection)
+                             @include('components.coll-item',['category'=>$collection])
                            @endforeach
                     </div>
                 </div>

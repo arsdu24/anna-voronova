@@ -23,8 +23,8 @@ class Product extends Model
     public function cartItems(){
         return $this->hasMany('App\CartItem');
     }
-    public function tags(){
-        return $this->belongsToMany('App\Tag');
+    public function collections(){
+        return $this->belongsToMany('App\Collection');
     }
     
     public function toSearchableArray()

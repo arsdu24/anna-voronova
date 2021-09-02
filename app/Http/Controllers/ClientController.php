@@ -12,6 +12,7 @@ class ClientController extends Controller
     {   $orders=Auth::user()->orders->where('status','<>','Draft')->reverse();
         $user = Auth::user();
         $categories = Category::all();
+        $collections = Collection::all();
         $cart = null;
         foreach($user->orders as $order){
             if($order->status == "Draft"){

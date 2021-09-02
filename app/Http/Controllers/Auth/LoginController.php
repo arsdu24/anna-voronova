@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Category;
+use App\Collection;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -32,13 +33,14 @@ class LoginController extends Controller
     {    
         $user=Auth::user();
         $categories=Category::all();
+        $collections= Collection::all();
         $cart = null;
         foreach($user->orders as $order){
           if($order->status == "Draft"){
               $cart=$order;break;
           }
         }
-        return view('auth.login',['categories'=>$categories,'cart'=>$cart]);
+        return view('auth.login',['categories'=>$categories,'cart'=>$cart,'collections'=>$collections]);
     }
 
     public function login(Request $request)

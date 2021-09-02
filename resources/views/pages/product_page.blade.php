@@ -113,10 +113,10 @@
                                       <input type="number" class="form-control" id="SalePrice"  name="sale_price" step="any" placeholder="Sale price" value="{{$product->sale_price ?? '' }}">
                                     </div>
                                     <div class="form-group">
-                                      <label for="sel1">Category:</label>
-                                        <select class="select2bs4 select2-hidden-accessible" name="category[]" multiple="" id="category" data-placeholder="Select categories" style="width: 100%;" data-select2-id="22" tabindex="-1" aria-hidden="true">
-                                         @if($categories ?? '')
-                                            @foreach($categories as $option)
+                                      <label for="sel1">Collections</label>
+                                        <select class="select2bs4 select2-hidden-accessible" name="collections[]" multiple="" id="category" data-placeholder="Select categories" style="width: 100%;" data-select2-id="22" tabindex="-1" aria-hidden="true">
+                                         @if(isset($collections))
+                                            @foreach($collections as $option)
                                            <option value="{{$option->id}}">{{$option->title}}</option>
                                             @endforeach
                                          @endif
@@ -124,10 +124,10 @@
                                       
                                     </div>
                                     <div class="form-group">
-                                      <label>Tags</label>
-                                      <select class="select2bs4 select2-hidden-accessible" id="tag" multiple="" data-placeholder="Select tags" style="width: 100%;" data-select2-id="23" tabindex="-1" aria-hidden="true" name="tags[]">
+                                      <label>Categories</label>
+                                      <select class="select2bs4 select2-hidden-accessible" id="tag" multiple="" data-placeholder="Select tags" style="width: 100%;" data-select2-id="23" tabindex="-1" aria-hidden="true" name="categories[]">
                                         @if($categories ?? '')
-                                         @foreach($tags as $option)
+                                         @foreach($categories as $option)
                                           <option value="{{$option->id}}">{{$option->name}}</option>
                                          @endforeach
                                        @endif
@@ -244,10 +244,10 @@
         height: 300
       });
     $(document).ready(function() {
-      let tags = {!! json_encode($product_tags) !!}
-      let categories = {!! json_encode($product_cat) !!}
+      let tags = {!! json_encode($product_categories) !!}
+      let collections = {!! json_encode($product_coll) !!}
       $('#tag').select2().val(tags);
-      $('#category').select2().val(categories);
+      $('#category').select2().val(collections);
       $('#category').trigger('change');
       $('#tag').trigger('change');
       $.fn.select2.defaults.set("theme", "classic");

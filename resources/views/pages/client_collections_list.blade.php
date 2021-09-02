@@ -29,7 +29,7 @@
 <div class="pageCollectionInner mb20 pb-md-30">
     <div id="shopify-section-vela-template-collections" class="shopify-section">
 <div class="rowFlex rowFlexMargin">
-@foreach($categories as $category)
+@foreach($collections as $category)
 <div class="col-xs-12 col-sm-6 col-md-4 col-xl-3">
     <div class="velaBoxCollection mb30 pb-md-30"><div class="velaBoxCollectionImage">
                 <a href="/collections/{{$category->id}}">

@@ -20,8 +20,8 @@ Route::get('/client', 'ClientController@index')->middleware('client')->name('cli
 Route::get('/products','ProductsController@clientViewAll')->middleware('client')->name('productsView');
 Route::get('/checkout','\App\Http\Controllers\OrdersController@showForm');
 Route::get('/cart','OrdersController@index')->name('cart');
-Route::get('/collections','CategoryController@clientViewAll')->name('categoriesList');
-Route::get('/collections/{category}','CategoryController@categoryShow')->name('categoryShow');
+Route::get('/collections','CollectionsController@clientViewAll')->name('collectionsList');
+Route::get('/collections/{collection}','CollectionsController@collectionShow')->name('collectionShow');
 Route::get('/products/{id}','ProductsController@clientProductPage')->middleware('client')->name('productView');
 Route::get('/search','SearchController@search')->name('search');
 
@@ -48,8 +48,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('product-list','ProductsController@viewList')->name('productList');
     Route::get('/', 'AdminController@index')->name('admin');
     Route::get('product-list/{id}','ProductsController@productPage')->name('productPage');
-    Route::get('categories-list','CategoryController@viewList')->name('categoriesList');
-    Route::get('categories-list/{category}','CategoryController@categoryPage')->name('categoryPage');
+    Route::get('collections-list','CollectionsController@viewList')->name('collectionsList');
+    Route::get('collections-list/{collection}','CollectionsController@collectionPage')->name('collectionPage');
     Route::get('orders-list','OrdersController@viewList')->name('ordersList');
     Route::get('orders-list/{order}','OrdersController@orderPage')->name('orderPage');
     Route::get('blogs','BlogController@admin_blogs')->name('admin_blogs');
@@ -59,7 +59,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('blog/product-tags','ProductsController@tagsList')->name('Tags');
     Route::get('banners','BannerController@bannersList')->name('Banners');
     Route::get('/search','SearchController@search')->name('adminSearch');
-
+    Route::get('/categories','ProductsController@categoriesList')->name('Categories');
 
     Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');
     Route::post('review/unpublish','ReviewController@unpublishReview')->name('reviewUnpublish');
@@ -70,12 +70,14 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('product/delete/{id}','ProductsController@deleteProduct')->name('productDelete');
     Route::post('order/delete','OrdersController@deleteOrder')->name('orderDelete');
     Route::post('order/update_status','OrdersController@updateOrderStatus')->name('orderStatusUpdate');
-    Route::post('category/delete/{category}','CategoryController@deleteCategory')->name('categoryDelete');
-    Route::post('add-category','CategoryController@createCategory')->name('createCategory');
-    Route::post('category/save/{category}','CategoryController@updateCategory')->name('categoryUpdate');
-    Route::post('tag/delete/{tag}','ProductsController@deleteTag')->name('deleteTag');
-    Route::post('add-tag','ProductsController@createTag')->name('createTag');
-    Route::post('tag/save/{tag}','ProductsController@updateTag')->name('updateTag');
+
+    Route::post('collection/delete/{collection}','CollectionsController@deleteCollection')->name('collectionDelete');
+    Route::post('add-collection','CollectionsController@createCollection')->name('createCollection');
+    Route::post('collection/save/{collection}','CollectionsController@updateCollection')->name('collectionUpdate');
+    Route::post('tag/delete/{category}','ProductsController@deleteCategory')->name('deleteCategory');
+    Route::post('add-category','ProductsController@createCategory')->name('createCategory');
+    Route::post('category/save/{category}','ProductsController@updateCategory')->name('updateCategory');
+
     Route::post('blogs/add','BlogController@create_article')->name('createArticle');
     Route::post('blogs/delete/{article}','BlogController@delete_article')->name('articleDelete');
     Route::post('blogs/update/{article}','BlogController@articleUpdate')->name('articleUpdate');

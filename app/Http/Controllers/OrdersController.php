@@ -59,7 +59,8 @@ class OrdersController extends Controller
 
     public function orderPage(Order $order){
       $categories =Category::all();
-      return view('pages.order_page',['user'=>Auth::user(),'order'=>$order,'categories'=>$categories]);  
+      $collections = Collection::all();
+      return view('pages.order_page',['user'=>Auth::user(),'order'=>$order,'categories'=>$categories,'collections'=>$collections]);  
     }
 
     public function deleteOrder(Request $request){
@@ -167,12 +168,13 @@ class OrdersController extends Controller
   public function index(){
       $user = Auth::user();
       $categories = Category::all();
+      $collections = Collection::all();
       $cart = null;
       foreach($user->orders as $order){
           if($order->status == "Draft"){
               $cart=$order;break;
           }
       }
-      return view('pages.cart-information',['categories'=>$categories,'user'=>$user,'cart'=>$cart]);
+      return view('pages.cart-information',['categories'=>$categories,'user'=>$user,'cart'=>$cart,'collections'=>$collections]);
   }
 }

@@ -2,23 +2,23 @@
 
 use Illuminate\Database\Seeder;
 
-class CategoriesTableSeeder extends Seeder
+class CollectionsTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('categories')->insert([
+        DB::table('collections')->insert([
             [
-                'title' => 'Category 1',
+                'title' => 'Collection 1',
                 'description' => 'Description',
                 'thumbnail' =>  'banner4.jpg',
             ],
             [
-                'title' => 'Category 2',
+                'title' => 'Collection 2',
                 'description' => 'Description',
                 'thumbnail' =>  'banner4.jpg',
             ],
             [
-                'title' => 'Category 3',
+                'title' => 'Collection 3',
                 'description' => 'Description',
                 'thumbnail' =>  'banner4.jpg',
             ],

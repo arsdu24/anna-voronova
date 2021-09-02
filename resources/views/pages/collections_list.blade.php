@@ -1,18 +1,18 @@
 @extends('layouts.Admin')
-@section('title', 'Categories')
+@section('title', 'collections')
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>
-            Categories
+            Collections
           </h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active"> Categories</li>
+            <li class="breadcrumb-item active"> Collections</li>
           </ol>
         </div>
       </div>
@@ -24,18 +24,18 @@
 
 <div class="card">
     <div class="card-header">
-      <h3 class="card-title"> Categories</h3>
+      <h3 class="card-title"> Collections</h3>
       <div class="card-tools">
         <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">
             <i class="fas fa-plus"></i>
-            Add category
+            Add collection
         </button>
       </div>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
       <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12">
-      @if(count($categories)!=0)
+      @if(count($collections)!=0)
         <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
         <thead>
         <tr role="row">
@@ -46,7 +46,7 @@
         </tr>
         </thead>
         <tbody>
-            @foreach($categories as $category)
+            @foreach($collections as $category)
             <tr class="odd">
                 <td class="dtr-control sorting_1" tabindex="0">
                     <img src="{{asset('img/'.$category->thumbnail)}}" class="img-fluid rounded" alt="tbl">
@@ -54,7 +54,7 @@
                 <td>{{$category->title}}</td>
                 <td>{{$category->description}}</td>
                 <td>
-                    <a href="categories-list/{{$category->id}}"   class="btn btn-info">
+                    <a href="collections-list/{{$category->id}}"   class="btn btn-info">
                         <i class="fas fa-edit"></i>
                         Edit
                     </a>
@@ -63,7 +63,7 @@
                       <i class="fas fa-trash"></i>
                       Delete
                     </a>
-                    <form id="{{$category->id}}" action="{{route('categoryDelete',['category'=>$category])}}" method="POST" style="display: none;">
+                    <form id="{{$category->id}}" action="{{route('collectionDelete',['collection'=>$category])}}" method="POST" style="display: none;">
                       @csrf</form>
                 </td>
               </tr>
@@ -72,19 +72,19 @@
       </table>
     @else
     <div class="alert alert-info" role="alert">
-      You don't have categories yet!
+      You don't have collections yet!
     </div>
     @endif
 </div></div><div class="row">
   <div class="col-sm-12 col-md-5">
     <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-      Showing {{$categories->firstItem() ?? '0'}} to {{$categories->count()}} of {{$categories->total()}} entries
+      Showing {{$collections->firstItem() ?? '0'}} to {{$collections->count()}} of {{$collections->total()}} entries
     </div>
   </div>
  
     <div class="col-sm-12 col-md-7">
       <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-        {!!$categories->links()!!}
+        {!!$collections->links()!!}
         </div></div></div></div>
 </div>
     <!-- /.card-body -->
@@ -97,11 +97,11 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Add category</h4>
+          <h4 class="modal-title">Add Collection</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="{{ route('createCategory') }}" enctype="multipart/form-data" >
+            <form method="POST" action="{{ route('createCollection') }}" enctype="multipart/form-data" >
                 @csrf
                 <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label text-md-right">Title</label>

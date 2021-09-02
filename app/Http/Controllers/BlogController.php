@@ -6,6 +6,7 @@ use App\Article;
 use App\BlogCategory;
 use App\BlogTag;
 use App\Category;
+use App\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,6 +17,7 @@ class BlogController extends Controller
         $blog_category = BlogCategory::all();
         $categories = Category::all();
         $tags = BlogTag::all();
+        $collections = Collection::all();
         $articles = Article::orderby('created_at','desc')->where('published','=','1')->paginate(15);
         $date = strtotime("-3 days");
         $startdate = date('Y-m-d',$date);
@@ -26,7 +28,7 @@ class BlogController extends Controller
               $cart=$order;break;
           }
         }
-        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags]);
+        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
     }
     
     public function categoriesList()
@@ -42,6 +44,7 @@ class BlogController extends Controller
         $user = Auth::user();
         $blog_categories = BlogCategory::all();
         $article_tags = array();
+        $collections = Collection::all();
         foreach($article->tags as $tag){
           array_push($article_tags, $tag->id);
         }
@@ -56,7 +59,7 @@ class BlogController extends Controller
           }
         }
 
-        return view('pages.client_blogPage',['user'=>$user,'article'=>$article,'categories'=>$blog_categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'article_tags'=>$article_tags,'tags'=>$tags]);
+        return view('pages.client_blogPage',['user'=>$user,'article'=>$article,'categories'=>$blog_categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'article_tags'=>$article_tags,'tags'=>$tags,'collections'=>$collections]);
     }
 
     public function admin_blogs(){
@@ -100,7 +103,6 @@ class BlogController extends Controller
 
     public function article_update_page(Article $article){
         $blog_category = BlogCategory::all();
-
         $blog_tags = BlogTag::all();
         $article_tags = array();
         foreach($article->tags as $tag){
@@ -189,7 +191,8 @@ class BlogController extends Controller
     {   
         $user = Auth::user();
         $blog_tag = BlogTag::paginate(15);
-        return view('pages.admin_blog_tags',['user'=>$user,'tags'=>$blog_tag]);
+        $collections = Collection::all();
+        return view('pages.admin_blog_tags',['user'=>$user,'tags'=>$blog_tag,'collections'=>$collections]);
     }
 
     public function Tagged($slug)
@@ -199,6 +202,7 @@ class BlogController extends Controller
         $user = Auth::user();
         $blog_category = BlogCategory::all();
         $categories = Category::all();
+        $collections = Collection::all();
         $tags = BlogTag::all();
         $articles = Article::whereHas('tags', function($q) use ($id) {
             $q->where('blog_tag_id', $id);
@@ -212,7 +216,7 @@ class BlogController extends Controller
               $cart=$order;break;
           }
         }
-        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags]);
+        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
     }
 
 }

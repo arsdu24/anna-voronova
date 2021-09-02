@@ -1,18 +1,18 @@
 @extends('layouts.Admin')
-@section('title', 'Product Tags')
+@section('title', 'Tags')
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>
-            Products Tags
+            Articles Tags
           </h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Products  Tags</li>
+            <li class="breadcrumb-item active">Articles  Tags</li>
           </ol>
         </div>
       </div>
@@ -69,7 +69,7 @@
                 <!-- Modal content-->
                 <div class="modal-content" >
                   <div class="modal-header">
-                    <h4 class="modal-title">Create Article</h4>
+                    <h4 class="modal-title">Create Tag</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
@@ -79,6 +79,12 @@
                               <label for="title" >Title</label>
                               <div>
                                   <input id="title" type="text" class="form-control " name="name" value="{{$tag->name}}" required autocomplete="name"/>
+                              </div>
+                            </div>
+                            <div class="form-group ">
+                              <label for="excerpt" >Ecxerpt</label>
+                              <div>
+                                  <input id="excerpt" type="text" class="form-control " name="excerpt" value="{{$tag->excerpt}}" required autocomplete="name"/>
                               </div>
                             </div>
                               <div class=" modal-footer ">
@@ -114,7 +120,7 @@
           </ul></div></div></div>
           @else
           <div class="alert alert-info" role="alert">
-            You don't have tags yet!
+            You don't have tags for articles yet!
           </div>
           @endif
         </div>
