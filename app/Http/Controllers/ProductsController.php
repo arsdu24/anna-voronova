@@ -162,6 +162,7 @@ class ProductsController extends Controller
       $user=Auth::user();
       $categories =Category::all();
       $product=Product::find($id);
+      if($product && $product->published){
       $reviews = $product->reviews->where('published',1)->reverse();
       $stars =0;
       foreach($reviews as $review){
@@ -178,6 +179,7 @@ class ProductsController extends Controller
       $MightLike = Product::where('id','<>',$product->id)->inRandomOrder()->take(10)->get();
 
       return view('pages.client_product_page',['user'=>Auth::user(),'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart,'myl'=>$MightLike]);  
+      }else return redirect()->route('home');
     }
 
   public function createTag(Request $request){
