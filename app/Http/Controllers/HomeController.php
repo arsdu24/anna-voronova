@@ -26,6 +26,7 @@ class HomeController extends Controller
         }
         $slides = Banner::where('is_slide','=',1)->get();
         $banners = Banner::where('is_slide','=',0)->get();
-        return view('pages.index',['categories'=>$categories,'user'=>$user,'cart'=>$cart,'slides'=>$slides,'banners'=>$banners]);
+        $Trending_products = Product::where('published',1)->orderby('views','desc')->take(4)->get();
+        return view('pages.index',['categories'=>$categories,'user'=>$user,'cart'=>$cart,'slides'=>$slides,'banners'=>$banners,'treding'=>$Trending_products]);
     }
 }
