@@ -19,6 +19,7 @@ class CreateProductTable extends Migration
             $table->longText('thumbnail');
             $table->string('excerpt');
             $table->float('price');
+            $table->bigInteger('views')->nullable();
             $table->float('sale_price')->nullable();
             $table->mediumText('content')->nullable();
             $table->boolean('published')->default(false);
