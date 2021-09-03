@@ -94,10 +94,10 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('Banners')}}" class="nav-link">
+            <a href="{{route('Sliders')}}" class="nav-link">
               <i class="fas fa-bookmark"></i>
               <p>
-                Banners
+                Sliders
               </p>
             </a>
           </li>

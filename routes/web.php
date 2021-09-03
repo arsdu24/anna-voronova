@@ -57,7 +57,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('blog/categories','BlogController@categoriesList')->name('articleCategories');
     Route::get('blog/tags','BlogController@tagsList')->name('articleTags');
     Route::get('blog/product-tags','ProductsController@tagsList')->name('Tags');
-    Route::get('banners','BannerController@bannersList')->name('Banners');
+    Route::get('sliders','BannerController@slidersList')->name('Sliders');
     Route::get('/search','SearchController@search')->name('adminSearch');
 
 

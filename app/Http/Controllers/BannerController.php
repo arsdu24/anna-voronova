@@ -54,10 +54,10 @@ class BannerController extends Controller
         return redirect()->back();
      }
 
-    public function bannersList(Request $request){
+    public function slidersList(Request $request){
         $user = Auth::user();
-        $banners = Banner::paginate('15');
-        return view('pages.banners-list',['user'=>$user,'banners'=>$banners]);
+        $sliders = Banner::where('is_slide','=',1)->paginate('15');
+        return view('pages.banners-list',['user'=>$user,'sliders'=>$sliders]);
     }
-
+   
 }
