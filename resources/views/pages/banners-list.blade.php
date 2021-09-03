@@ -21,12 +21,7 @@
   <div class="card">
     <div class="card-header">
       <h3 class="card-title">  Banners</h3>
-      <div class="card-tools">
-        <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">
-            <i class="fas fa-plus"></i>
-           Create a Banner
-        </button>
-      </div>
+      
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -37,8 +32,7 @@
         <tr role="row">
             <th>Thumbnail</th>
             <th>Title</th>
-            <th>Excerpt</th>
-            <th>Action</th>
+            <th>Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -48,20 +42,11 @@
                     <img src="{{asset('img/'.$banner->thumbnail)}}" class="img-fluid rounded" alt="tbl">
                 </td>
                 <td>{{$banner->title}}</td>
-                <td>{{$banner->excerpt}}</td>
                 <td>
                     <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="{{'#Edit'.$banner->id}}">
                       <i class="fas fa-edit"></i>
                         Edit
                     </button>
-                    <a href="" title="Delete" class="btn btn-danger" onclick="event.preventDefault();
-                    document.getElementById('{{$banner->id}}').submit();">
-                      <i class="fas fa-trash"></i>
-                      Delete
-                    </a>
-                    <form id="{{$banner->id}}" action="{{route('deleteBanner',['banner'=>$banner->id])}}" method="POST" style="display: none;">
-                      @csrf
-                    </form>
                     <div id="{{"Edit".$banner->id}}" class="modal fade" role="dialog">
                       <div class="modal-dialog modal-lg" style="width:100%">
                     
@@ -82,28 +67,16 @@
                                             <span class="input-group-text" id="inputGroupFileAddon01"><i class="fas fa-image"></i></span>
                                           </div>
                                           <div class="custom-file">
-                                            <input id="image" type="file" name="thumbnail" class="custom-file-input" id="inputGroupFile01" >
+                                            <input id="image" type="file" name="thumbnail" class="custom-file-input" id="inputGroupFile01" required >
                                             <label class="custom-file-label text-left"  id="image_label">Choose file</label>
                                           </div>
                                         </div>
                                   </div>
                                   <div class="form-group ">
-                                      <label for="title"  class="w-100 text-left">Title</label>
+                                      <label for="link"  class="w-100 text-left">Link</label>
                                       <div>
-                                          <textarea id="name" type="text" class="form-control " name="title" required >{{$banner->title ?? ''}}</textarea>
+                                          <input id="link" type="text" class="form-control "  value="{{$banner->link ?? ''}}" name="link" >
                                       </div>
-                                  </div>
-                                  <div class="form-group ">
-                                      <label for="excerpt" class="w-100 text-left" >Excerpt</label>
-                                      <div>
-                                          <textarea id="excerpt" type="text" class="form-control " name="excerpt" required >{{$banner->excerpt ?? ''}}</textarea>
-                                      </div>
-                                  </div>
-                                  <div class="form-group ">
-                                    <label for="excerpt" class="w-100 text-left" >Highlighted text</label>
-                                    <div>
-                                        <input id="excerpt" type="text" class="form-control " name="highlighted" value="{{$banner->highlighted ?? ''}}"  />
-                                    </div>
                                   </div>
                                       <div class=" modal-footer ">
                                           <button type="button" data-dismiss="modal" class="btn btn-secondary btn-sm">
@@ -113,8 +86,6 @@
                                               {{ __('Save') }}
                                           </button>
                                        </div>
-                    
-                                  
                               </form>
                           </div>
                   
@@ -146,64 +117,4 @@
 @endif
     <!-- /.card-body -->
   </div> 
-  
-    <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog modal-lg" style="width:100%">
-    
-        <!-- Modal content-->
-        <div class="modal-content" >
-          <div class="modal-header">
-            <h4 class="modal-title">Create Banner</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-          <div class="modal-body">
-              <form method="POST" action="{{ route('createBanner') }}" enctype="multipart/form-data" >
-                  @csrf
-                  <div class="form-group ">
-                      <label for="image" >Thumbnail </label>
-  
-                      <div class="input-group mb-3 col-md-6">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroupFileAddon01"><i class="fas fa-image"></i></span>
-                          </div>
-                          <div class="custom-file">
-                            <input id="image" type="file" name="thumbnail" class="custom-file-input" id="inputGroupFile01" >
-                            <label class="custom-file-label  text-left"  id="image_label">Choose file</label>
-                          </div>
-                        </div>
-                  </div>
-                  <div class="form-group ">
-                      <label for="title" >Title</label>
-                      <div>
-                          <textarea id="name" type="text" class="form-control " name="title" required autocomplete="name"></textarea>
-                      </div>
-                  </div>
-                  <div class="form-group ">
-                      <label for="excerpt" >Excerpt</label>
-                      <div>
-                          <textarea id="excerpt" type="text" class="form-control " name="excerpt" required autocomplete="name"></textarea>
-                      </div>
-                  </div>
-                  <div class="form-group ">
-                    <label for="excerpt" class="w-100 text-left" >Highlighted text</label>
-                    <div>
-                        <input id="excerpt" type="text" class="form-control " name="highlighted" value="{{$banner->highlighted ?? ''}}"  />
-                    </div>
-                </div>
-                      <div class=" modal-footer ">
-                          <button type="button" data-dismiss="modal" class="btn btn-secondary btn-sm">
-                              {{ __('Close') }}
-                          </button>
-                          <button type="submit" class="btn btn-primary btn-sm">
-                              {{ __('Save') }}
-                          </button>
-                       </div>
-                  
-                  </div>
-              </form>
-          </div>
-  
-        </div>
-    
-      </div>
 @endsection

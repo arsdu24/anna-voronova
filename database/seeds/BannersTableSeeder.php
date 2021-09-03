@@ -18,6 +18,7 @@ class BannersTableSeeder extends Seeder
                 'highlighted' => 'Slide highlighted example',
                 'thumbnail' =>  'slide11_1944x.png',
                 'is_slide' => true,
+                'link' => '/products'
             ],
             [
                 'title' => 'Slide title example 2',
@@ -25,6 +26,7 @@ class BannersTableSeeder extends Seeder
                 'highlighted' => 'Slide highlighted example 2',
                 'thumbnail' =>  'slide12_1944x.png',
                 'is_slide' => true,
+                'link' => '/products'
             ],
             [
                 'title' => 'Slide title example 3',
@@ -32,6 +34,7 @@ class BannersTableSeeder extends Seeder
                 'highlighted' => 'Slide highlighted example 3',
                 'thumbnail' =>  'slide11_1944x.png',
                 'is_slide' => true,
+                'link' => '/products'
             ],
         ]);
     }

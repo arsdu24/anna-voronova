@@ -60,8 +60,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('sliders','BannerController@slidersList')->name('Sliders');
     Route::get('banners','BannerController@bannersList')->name('Banners');
     Route::get('/search','SearchController@search')->name('adminSearch');
-
-
+    
     Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');
     Route::post('review/unpublish','ReviewController@unpublishReview')->name('reviewUnpublish');
     Route::post('review/delete','ReviewController@deleteReview')->name('reviewDelete');

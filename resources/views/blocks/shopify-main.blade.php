@@ -68,62 +68,75 @@
 
 
         @include('blocks.treding-block')
-
         <div id="shopify-section-1585935437629" class="shopify-section velaFramework">
-            @foreach($banners as $banner)
-                <div class="velaMultiBanner mb30" style="background-color: rgba(0,0,0,0);">
+            <div class="velaMultiBanner mb30" style="background-color: rgba(0,0,0,0);
+                                     padding:0 0 20px; ">
                 <div class="container-full">
                     <div class="velaMultiBannerInner gutter20">
                         <div class="velaContent">
                             <div class="rowFlex rowFlexMargin ">
+
                                 <div class="col-xs-12 col-sm-12">
                                     <div class="mb30 velaBanner effectFour">
-                                        <a href="/products" title="velademo-rubix">
+                                        <a href="{{$firstBanner->link}}" title="velademo-rubix">
+
                                             <div class="p-relative">
-                                                <div class="product-card__image relative" style="padding-top:29.16666666666667%;">
-                                                    <img class="lazyautosizes ls-is-cached lazyloaded banner-img" src="{{asset('img/'.$banner->thumbnail)}}">
-                                                    <div class="ImageOver">
-                                                       
-                                                     <div>
-                                                         <h2 class="velassHeading bottomtop-2" style="color:#444444; word-wrap:break-word; width:50%">
-                                                            <b >{{$banner->excerpt}} <span class="text-primary">{{$banner->highlighted ?? ''}}</span></b>
-                                                        </h2>
-                                                        <h3 class="velassHeadingSmall bottomtop-3"
-                                                            style="color:#1a1a1a;word-wrap:break-word;width:50% ">
-                                                            {{$banner->title}}
-                                                        </h3>
-                                                        <button class="btn btnVelaSlider bottomtop-5"
-                                                        style="border-color: #1a1a1a;
-                                                                background-color: #1a1a1a;
-                                                                color: #ffffff;
-                                                                padding: 14px 30px; ">
-                                                             Start Shopping
-                                                             <i class="icons icon-arrow-right"></i>
-                                                        </button>
-                                                     </div>
-                                                  </div>
-                                                      
+                                                <div class="product-card__image"
+                                                     style="padding-top:29.16666666666667%;">
+                                                    <img class="product-card__img lazyload" src="{{asset('img/'.$firstBanner->thumbnail)}}" data-sizes="auto" alt=""/>
                                                 </div>
-                                                <div class="placeholder-background placeholder-background--animation" data-image-placeholder=""></div>
+                                                <div class="placeholder-background placeholder-background--animation"
+                                                     data-image-placeholder></div>
                                             </div>
+
                                         </a>
-                                        
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
                 </div>
-                </div>
-            @endforeach
+            </div>
         </div>
+       
            @include('blocks.best-seller-block')
            @include('blocks.newsletter')
         <div id="shopify-section-1585963328748" class="shopify-section velaFramework">
             <div class="velaServices mbBlockGutter" style="background-color: #f8f8f8; padding: 20px 0; ">
                 <div class="container">
                 @include('blocks.services-block')
+                </div>
+            </div>
+        </div>
+        <div id="shopify-section-1585935437629" class="shopify-section velaFramework">
+            <div class="velaMultiBanner mb30" style="background-color: rgba(0,0,0,0);
+                                     padding:0 0 20px; ">
+                <div class="container-full">
+                    <div class="velaMultiBannerInner gutter20">
+                        <div class="velaContent">
+                            <div class="rowFlex rowFlexMargin ">
+
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="mb30 velaBanner effectFour">
+                                        <a href="{{$secondBanner->link}}" title="velademo-rubix">
+
+                                            <div class="p-relative">
+                                                <div class="product-card__image"
+                                                     style="padding-top:29.16666666666667%;">
+                                                    <img class="product-card__img lazyload" src="{{asset('img/'.$secondBanner->thumbnail)}}" data-sizes="auto" alt=""/>
+                                                </div>
+                                                <div class="placeholder-background placeholder-background--animation"
+                                                     data-image-placeholder></div>
+                                            </div>
+
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
