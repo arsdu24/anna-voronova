@@ -21,7 +21,7 @@
                                      data-pagination="true">
                                     @foreach($slides as $slide)
                                         <div class="velassSlide ">
-                                        <a href="/products" class="velassLink">
+                                        <a href="{{$slide->link ?? '/products'}}" class="velassLink">
                                             <div class="velassImage">
                                                 <div class="p-relative">
                                                     <div class="product-card__image float-right"
@@ -46,7 +46,7 @@
                                                             style="color:#1a1a1a;word-wrap:break-word;width:50% ">
                                                             {{$slide->title}}
                                                         </h3><a class="btn btnVelaSlider bottomtop-5"
-                                                                href="/collections/all" style="border-color: #1a1a1a;
+                                                                href="{{$slide->link ?? '/products'}}" style="border-color: #1a1a1a;
                                                                 background-color: #1a1a1a;
                                                                 color: #ffffff;
                                                                 padding: 14px 30px; ">

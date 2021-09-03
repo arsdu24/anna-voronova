@@ -20,6 +20,7 @@ class BannerController extends Controller
             'title'=> $request->title,
             'excerpt'=>$request->excerpt,
             'is_slide'=> $is_slide,
+            'link' => $request->link,
             'highlighted' => $highlighted,
         ]);
         if($request->file('thumbnail')){
@@ -46,6 +47,9 @@ class BannerController extends Controller
             $image->move('img',$imageName);
             $banner->thumbnail = $imageName;
        }
+       if($request->link){
+           $banner->link = $request->link;
+       }
        $banner->save();
        return redirect()->back();
     }
@@ -57,11 +61,11 @@ class BannerController extends Controller
 
     public function slidersList(){
         $user = Auth::user();
-        $sliders = Banner::where('is_slide','=',1)->paginate('15');
+        $sliders = Banner::where('is_slide','=',1)->paginate('10');
         return view('pages.sliders-list',['user'=>$user,'sliders'=>$sliders]);
     }
     public function bannersList(){
-        if(Banner::where('is_slide','=',0)->count()<2){
+         if(Banner::where('is_slide','=',0)->count()<2){
             DB::table('banners')->insert([
              [
                 'title' => 'Under Trending Products block',

@@ -21,12 +21,18 @@
   <div class="card">
     <div class="card-header">
       <h3 class="card-title">  Sliders</h3>
+      @if($sliders->count()<10)
       <div class="card-tools">
         <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">
             <i class="fas fa-plus"></i>
            Create a Slider
         </button>
       </div>
+      @else
+      <div class="card-tools">
+        <h5>Max sliders count : 10</h5>
+      </div>
+      @endif
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -105,6 +111,12 @@
                                         <input id="excerpt" type="text" class="form-control " name="highlighted" value="{{$slider->highlighted ?? ''}}"  />
                                     </div>
                                   </div>
+                                  <div class="form-group ">
+                                    <label for="link"  class="w-100 text-left">Link</label>
+                                    <div>
+                                        <input id="link" type="text" class="form-control "  value="{{$slider->link ?? ''}}" name="link" >
+                                    </div>
+                                  </div>
                                     <input type="hidden" name="is_slide" value="1">
                                       <div class=" modal-footer ">
                                           <button type="button" data-dismiss="modal" class="btn btn-secondary btn-sm">
@@ -168,7 +180,7 @@
                             <span class="input-group-text" id="inputGroupFileAddon01"><i class="fas fa-image"></i></span>
                           </div>
                           <div class="custom-file">
-                            <input id="image" type="file" name="thumbnail" class="custom-file-input" id="inputGroupFile01" >
+                            <input id="image" type="file" name="thumbnail" class="custom-file-input" id="inputGroupFile01" required>
                             <label class="custom-file-label  text-left"  id="image_label">Choose file</label>
                           </div>
                         </div>
@@ -176,21 +188,27 @@
                   <div class="form-group ">
                       <label for="title" >Title</label>
                       <div>
-                          <textarea id="name" type="text" class="form-control " name="title" required autocomplete="name"></textarea>
+                          <textarea id="name" type="text" class="form-control " name="title" required ></textarea>
                       </div>
                   </div>
                   <div class="form-group ">
                       <label for="excerpt" >Excerpt</label>
                       <div>
-                          <textarea id="excerpt" type="text" class="form-control " name="excerpt" required autocomplete="name"></textarea>
+                          <textarea id="excerpt" type="text" class="form-control " name="excerpt" required ></textarea>
                       </div>
                   </div>
                   <div class="form-group ">
                     <label for="excerpt" class="w-100 text-left" >Highlighted text</label>
                     <div>
-                        <input id="excerpt" type="text" class="form-control " name="highlighted" value="{{$slider->highlighted ?? ''}}"  />
+                        <input id="excerpt" type="text" class="form-control " name="highlighted" value=""  />
                     </div>
                 </div>
+                <div class="form-group ">
+                  <label for="link"  class="w-100 text-left">Link</label>
+                  <div>
+                      <input id="link" type="text" class="form-control "  value="" name="link" required >
+                  </div>
+              </div>
                   <input type="hidden" name="is_slide" value="1">
                       <div class=" modal-footer ">
                           <button type="button" data-dismiss="modal" class="btn btn-secondary btn-sm">
