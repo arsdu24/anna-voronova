@@ -61,6 +61,18 @@ class BannerController extends Controller
 
     public function slidersList(){
         $user = Auth::user();
+        if(Banner::where('is_slide','=',1)->count()<1){
+            DB::table('banners')->insert([
+             [
+                'title' => 'See our new collection',
+                'thumbnail' => 'slide11_1944x.png',
+                'excerpt'=>'We brought something ',
+                'highlighted' =>'for you ',
+                'link' => '/products',
+                'is_slide' => 1
+              ],
+            ]);
+            }
         $sliders = Banner::where('is_slide','=',1)->paginate('10');
         return view('pages.sliders-list',['user'=>$user,'sliders'=>$sliders]);
     }

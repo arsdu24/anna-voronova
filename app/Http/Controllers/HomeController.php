@@ -25,6 +25,18 @@ class HomeController extends Controller
                 $cart=$order;break;
             }
         }
+        if(Banner::where('is_slide','=',1)->count()<1){
+            DB::table('banners')->insert([
+             [
+                'title' => 'See our new collection',
+                'thumbnail' => 'slide11_1944x.png',
+                'excerpt'=>'We brought something ',
+                'highlighted' =>'for you ',
+                'link' => '/products',
+                'is_slide' => 1
+              ],
+            ]);
+        }
         $slides = Banner::where('is_slide','=',1)->get();
         if(Banner::where('is_slide','=',0)->count()<2){
             DB::table('banners')->insert([
