@@ -9,7 +9,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Client;
+use App\SiteSettings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -26,8 +28,16 @@ class RegisterController extends Controller
 
     public function showClientRegisterForm()
     {   
+        $user= Auth::user();
         $categories =Category::all();
-        return view('auth.register', ['url' => 'client','categories'=>$categories]);
+        $site = SiteSettings::first();
+        $cart = null;
+        foreach($user->orders as $order){
+          if($order->status == "Draft"){
+              $cart=$order;break;
+          }
+        }
+        return view('auth.register', ['url' => 'client','categories'=>$categories,'site'=>$site,'cart'=>$cart]);
     }
 
     protected function createClient(Request $request)

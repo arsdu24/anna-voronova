@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
+use App\SiteSettings;
 
 class OrdersController extends Controller
 {
@@ -24,7 +25,8 @@ class OrdersController extends Controller
         $cart = $order;break;
       }
       }
-      return view('pages.checkout-information',['categories'=>$categories,'user'=>$user,'cart'=>$cart]);
+      $site = SiteSettings::first();
+      return view('pages.checkout-information',['categories'=>$categories,'site'=>$site,'user'=>$user,'cart'=>$cart]);
     }
 
     public function createOrder(Request $request)
@@ -54,12 +56,14 @@ class OrdersController extends Controller
     public function viewList(Request $request)
     {
      $orders = Order::orderby('created_at','desc')->where('status','<>','Draft')->paginate(15);
-     return view('pages.orders_list',['user'=>Auth::user(),'orders'=>$orders]);
+     $site = SiteSettings::first();
+     return view('pages.orders_list',['user'=>Auth::user(),'site'=>$site,'orders'=>$orders]);
     }
 
     public function orderPage(Order $order){
       $categories =Category::all();
-      return view('pages.order_page',['user'=>Auth::user(),'order'=>$order,'categories'=>$categories]);  
+      $site = SiteSettings::first();
+      return view('pages.order_page',['user'=>Auth::user(),'site'=>$site,'order'=>$order,'categories'=>$categories]);  
     }
 
     public function deleteOrder(Request $request){
@@ -173,6 +177,7 @@ class OrdersController extends Controller
               $cart=$order;break;
           }
       }
-      return view('pages.cart-information',['categories'=>$categories,'user'=>$user,'cart'=>$cart]);
+      $site = SiteSettings::first();
+      return view('pages.cart-information',['categories'=>$categories,'site'=>$site,'user'=>$user,'cart'=>$cart]);
   }
 }
