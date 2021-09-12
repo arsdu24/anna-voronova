@@ -8,6 +8,7 @@ use App\BlogTag;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\SiteSettings;
 
 class BlogController extends Controller
 {
@@ -26,7 +27,8 @@ class BlogController extends Controller
               $cart=$order;break;
           }
         }
-        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags]);
+        $site = SiteSettings::first();
+        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'site'=>$site,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags]);
     }
     
     public function categoriesList()
@@ -34,8 +36,8 @@ class BlogController extends Controller
         $user = Auth::user();
         $blog_category = BlogCategory::paginate(15);
         $tags = BlogTag::all();
-        return view('pages.admin_blog_cat',['user'=>$user,'categories'=>$blog_category,'tags'=>$tags]);
-
+        $site = SiteSettings::first();
+        return view('pages.admin_blog_cat',['user'=>$user,'site'=>$site,'categories'=>$blog_category,'tags'=>$tags]);
     }
 
     public function blogPage(Article $article){
@@ -55,8 +57,8 @@ class BlogController extends Controller
               $cart=$order;break;
           }
         }
-
-        return view('pages.client_blogPage',['user'=>$user,'article'=>$article,'categories'=>$blog_categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'article_tags'=>$article_tags,'tags'=>$tags]);
+        $site = SiteSettings::first();
+        return view('pages.client_blogPage',['user'=>$user,'site'=>$site,'article'=>$article,'categories'=>$blog_categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'article_tags'=>$article_tags,'tags'=>$tags]);
     }
 
     public function admin_blogs(){
@@ -64,7 +66,8 @@ class BlogController extends Controller
         $user=Auth::user();
         $blog_category = BlogCategory::all();
         $tags = BlogTag::all();
-        return view('pages.blogs_list',['articles'=>$articles,'user'=>$user,'categories'=>$blog_category,'tags'=>$tags]);
+        $site = SiteSettings::first();
+        return view('pages.blogs_list',['articles'=>$articles,'site'=>$site,'user'=>$user,'categories'=>$blog_category,'tags'=>$tags]);
 
     }
 
@@ -110,7 +113,8 @@ class BlogController extends Controller
         foreach($article->category as $category){
         array_push($article_categories, $category->id);
         }
-        return view('pages.admin_article',['user'=>Auth::user(),'article'=>$article,'categories'=>$blog_category,'cat'=>$article_categories,'tags'=>$article_tags,'blog_tags'=>$blog_tags]);
+        $site = SiteSettings::first();
+        return view('pages.admin_article',['user'=>Auth::user(),'site'=>$site,'article'=>$article,'categories'=>$blog_category,'cat'=>$article_categories,'tags'=>$article_tags,'blog_tags'=>$blog_tags]);
 
     }
 
@@ -189,7 +193,8 @@ class BlogController extends Controller
     {   
         $user = Auth::user();
         $blog_tag = BlogTag::paginate(15);
-        return view('pages.admin_blog_tags',['user'=>$user,'tags'=>$blog_tag]);
+        $site = SiteSettings::first();
+        return view('pages.admin_blog_tags',['user'=>$user,'site'=>$site,'tags'=>$blog_tag]);
     }
 
     public function Tagged($slug)
@@ -212,7 +217,8 @@ class BlogController extends Controller
               $cart=$order;break;
           }
         }
-        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags]);
+        $site = SiteSettings::first();
+        return view('pages.blogs',['user'=>$user,'site'=>$site,'articles'=>$articles,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags]);
     }
 
 }

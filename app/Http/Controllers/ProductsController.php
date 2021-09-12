@@ -8,7 +8,7 @@ use App\Review;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
+use App\SiteSettings;
 
 class ProductsController extends Controller
 {   
@@ -109,8 +109,9 @@ class ProductsController extends Controller
           if($order->status == "Draft"){
               $cart=$order;break;
           }
-      }
-        return view('pages.product_page',['user'=>Auth::user(),'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_cat'=>$product_categories,'cart'=>$cart,'product_tags'=>$product_tags,'tags'=>$tags]);  
+        }
+        $site = SiteSettings::first();
+        return view('pages.product_page',['user'=>Auth::user(),'site'=>$site,'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_cat'=>$product_categories,'cart'=>$cart,'product_tags'=>$product_tags,'tags'=>$tags]);  
 
     }
      
@@ -122,8 +123,9 @@ class ProductsController extends Controller
           if($order->status == "Draft"){
               $cart=$order;break;
           }
-      }
-        return view('pages.products_list',['user'=>Auth::user(),'products'=>$products,'cart'=>$cart]);  
+      } 
+      $site = SiteSettings::first();
+        return view('pages.products_list',['user'=>Auth::user(),'site'=>$site,'products'=>$products,'cart'=>$cart]);  
     }
 
     public function clientViewAll()
@@ -154,7 +156,8 @@ class ProductsController extends Controller
               $cart=$order;break;
           }
       }
-        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'categories'=>$categories,'cart'=>$cart]);  
+      $site = SiteSettings::first();
+        return view('pages.client_products_list',['user'=>Auth::user(),'site'=>$site,'products'=>$products,'categories'=>$categories,'cart'=>$cart]);  
     }
 
     public function clientProductPage($id)
@@ -176,8 +179,8 @@ class ProductsController extends Controller
         }
       }
       $MightLike = Product::where('id','<>',$product->id)->inRandomOrder()->take(10)->get();
-
-      return view('pages.client_product_page',['user'=>Auth::user(),'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart,'myl'=>$MightLike]);  
+      $site = SiteSettings::first();
+      return view('pages.client_product_page',['user'=>Auth::user(),'site'=>$site,'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart,'myl'=>$MightLike]);  
     }
 
   public function createTag(Request $request){
@@ -206,6 +209,7 @@ class ProductsController extends Controller
     {   
         $user = Auth::user();
         $tag = Tag::paginate(15);
-        return view('pages.admin_tags',['user'=>$user,'tags'=>$tag]);
+        $site = SiteSettings::first();
+        return view('pages.admin_tags',['user'=>$user,'tags'=>$tag,'site'=>$site]);
     }
 }
