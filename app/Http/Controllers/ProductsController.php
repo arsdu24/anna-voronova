@@ -180,6 +180,8 @@ class ProductsController extends Controller
           }
         }
         $MightLike = Product::where('id','<>',$product->id)->inRandomOrder()->take(10)->get();
+        $product->views ++;
+        $product->save();
         $site = SiteSettings::first();
         return view('pages.client_product_page',['user'=>Auth::user(),'site'=>$site,'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart,'myl'=>$MightLike]);
       }else return redirect()->route('home');
