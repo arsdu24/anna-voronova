@@ -66,7 +66,8 @@ class CollectionsController extends Controller
             }
         }
         $site = SiteSettings::first();
-        return view('pages.client_collections_list',['user'=>Auth::user(),'collections'=>$collections,'cart'=>$cart,'site'=>$site]);  
+        $categories = Category::all();
+        return view('pages.client_collections_list',['user'=>Auth::user(),'collections'=>$collections,'categories'=>$categories,'cart'=>$cart,'site'=>$site]);  
     }
   
     public function collectionShow(Collection $collection)

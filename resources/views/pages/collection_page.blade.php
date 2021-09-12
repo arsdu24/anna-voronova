@@ -11,7 +11,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active"> Categories</li>
+            <li class="breadcrumb-item "><a href="/admin/collections-list">Collections</a></li>
           </ol>
         </div>
       </div>
@@ -24,7 +24,7 @@
       <div class="card-header p-0 pt-1">
         <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="custom-tabs-one-home-tab" >Category</a>
+            <a class="nav-link active" id="custom-tabs-one-home-tab" >Collection</a>
           </li>
         </ul>
       </div>
@@ -36,12 +36,12 @@
               <div class="row">
                       <div class="card-body">
       
-                          <form method="POST" action="{{route('categoryUpdate',['category'=>$category])}}" id="form" enctype="multipart/form-data">
+                          <form method="POST" action="{{route('collectionUpdate',['collection'=>$collection])}}" id="form" enctype="multipart/form-data">
                               @csrf
                                   <div class="row">
                                   <div class="col-12 col-lg-6 form-group mt-3">
                                     <div class="col-12 image-input image-input-outline">
-                                      <img src="{{asset('img/'.$category->thumbnail)}}" class="product-image rounded" id="img" alt="Product Image">
+                                      <img src="{{asset('img/'.$collection->thumbnail)}}" class="product-image rounded" id="img" alt="Product Image">
                                       
                                     <div></div>
                                     </div>
@@ -67,11 +67,11 @@
                                         <div class="col-12 col-sm-6 form-group mt-3">
                                           <div class="form-group ">
                                             <label for="name">Title</label>
-                                            <input type="text" class="form-control" id="name"  name="title" value="{{$category->title ?? '' }}  " required>
+                                            <input type="text" class="form-control" id="name"  name="title" value="{{$collection->title ?? '' }}  " required>
                                           </div>
                                           <div class="form-group ">
                                             <label for="excerpt">Description</label>
-                                            <textarea style="height:200px"class="form-control" name="description" aria-label="With textarea" id="excerpt" required >{{$category->description ?? '' }}</textarea>
+                                            <textarea style="height:200px"class="form-control" name="description" aria-label="With textarea" id="excerpt" required >{{$collection->description ?? '' }}</textarea>
                                           </div>
                                         </div>
                                       </div>

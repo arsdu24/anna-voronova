@@ -35,7 +35,7 @@ class BannerController extends Controller
     }
 
     public function bannerUpdate(Request $request,Banner $banner){
-       $banner->title = $request->title;
+       if($request->title)$banner->title = $request->title;
        $banner->excerpt = $request->excerpt;
        if($request->highlighted)
        $banner->highlighted = $request->highlighted;
@@ -74,6 +74,7 @@ class BannerController extends Controller
               ],
             ]);
             }
+        $site = SiteSettings::first();
         $sliders = Banner::where('is_slide','=',1)->paginate('10');
         return view('pages.sliders-list',['user'=>$user,'sliders'=>$sliders,'site'=>$site]);
     }
@@ -99,27 +100,6 @@ class BannerController extends Controller
         $site = SiteSettings::first();
         return view('pages.banners-list',['user'=>$user,'banners'=>$banners,'site'=>$site]);
     }
-    public function bannersList(){
-         if(Banner::where('is_slide','=',0)->count()<2){
-            DB::table('banners')->insert([
-             [
-                'title' => 'Under Trending Products block',
-                'thumbnail' => 'banner4.jpg',
-                'link' => '/products',
-                'is_slide' => 0
-              ],
-              [
-                'title' => 'Above Blog block',
-                'thumbnail' => 'banner3_360x.jpg',
-                'link' => '/blogs/news',
-                'is_slide' => 0
-              ]
-            ]);
-            }
-        $user = Auth::user();
-        $banners = Banner::where('is_slide','=',0)->paginate('2');
-        return view('pages.banners-list',['user'=>$user,'banners'=>$banners]);
-
-    }
+    
    
 }

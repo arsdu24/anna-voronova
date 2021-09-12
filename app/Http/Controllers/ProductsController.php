@@ -228,7 +228,7 @@ class ProductsController extends Controller
         $user = Auth::user();
         $site = SiteSettings::first();
         $category = Category::paginate(15);
-        return view('pages.admin_tags',['user'=>$user,'categories'=>$category,'site'=>$site]);
+        return view('pages.admin_categories',['user'=>$user,'categories'=>$category,'site'=>$site]);
     }
   
 }
