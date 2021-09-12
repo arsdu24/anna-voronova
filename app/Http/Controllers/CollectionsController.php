@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\collection;
 use App\Product;
+use App\SiteSettings;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,14 +44,15 @@ class CollectionsController extends Controller
     }
 
     public function collectionPage(Collection $collection){
-        
-        return view('pages.collection_page',['user'=>Auth::user(),'collection'=>$collection]);  
+        $site = SiteSettings::first();
+        return view('pages.collection_page',['user'=>Auth::user(),'collection'=>$collection,'site'=>$site]);  
     }
      
      public function viewList()
     {   
+        $site = SiteSettings::first();
         $collections=Collection::orderby('id', 'desc')->paginate(15);
-        return view('pages.collections_list',['user'=>Auth::user(),'collections'=>$collections]);  
+        return view('pages.collections_list',['user'=>Auth::user(),'collections'=>$collections,'site'=>$site]);  
     }
 
     public function clientViewAll()
@@ -63,9 +65,10 @@ class CollectionsController extends Controller
                 $cart=$order;break;
             }
         }
-        return view('pages.client_collections_list',['user'=>Auth::user(),'collections'=>$collections,'cart'=>$cart]);  
+        $site = SiteSettings::first();
+        return view('pages.client_collections_list',['user'=>Auth::user(),'collections'=>$collections,'cart'=>$cart,'site'=>$site]);  
     }
-
+  
     public function collectionShow(Collection $collection)
     {   $user=Auth::user();
         $id = $collection->id;
@@ -108,6 +111,7 @@ class CollectionsController extends Controller
                 $cart=$order;break;
             }
         }
-        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'collections'=>$collections,'categories'=>$categories,'category'=>$category,'collection'=>$collection,'cart'=>$cart]);  
+        $site = SiteSettings::first();
+        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'collections'=>$collections,'categories'=>$categories,'category'=>$category,'collection'=>$collection,'cart'=>$cart,'site'=>$site]);  
     }
 }
