@@ -9,7 +9,7 @@ use App\Collection;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
+use App\SiteSettings;
 
 class ProductsController extends Controller
 {   
@@ -77,7 +77,7 @@ class ProductsController extends Controller
         $images = unserialize( $product->thumbnail);
         foreach($images as $key => $image){
             if($key == $request->name){
-                unset($images[$key]);
+              array_splice($images, $key, 1);
             }
         }
         $product->thumbnail = serialize($images);
@@ -110,8 +110,9 @@ class ProductsController extends Controller
           if($order->status == "Draft"){
               $cart=$order;break;
           }
-      }
-        return view('pages.product_page',['user'=>Auth::user(),'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_coll'=>$product_coll,'cart'=>$cart,'product_categories'=>$product_categories,'categories'=>$categories,'collections'=>$collections]);  
+        }
+        $site = SiteSettings::first();
+        return view('pages.product_page',['user'=>Auth::user(),'site'=>$site,'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_coll'=>$product_coll,'cart'=>$cart,'product_categories'=>$product_categories,'categories'=>$categories,'collections'=>$collections]);  
 
     }
      
@@ -123,8 +124,9 @@ class ProductsController extends Controller
           if($order->status == "Draft"){
               $cart=$order;break;
           }
-      }
-        return view('pages.products_list',['user'=>Auth::user(),'products'=>$products,'cart'=>$cart]);  
+      } 
+      $site = SiteSettings::first();
+        return view('pages.products_list',['user'=>Auth::user(),'site'=>$site,'products'=>$products,'cart'=>$cart]);  
     }
 
     public function clientViewAll()
@@ -166,7 +168,9 @@ class ProductsController extends Controller
               $cart=$order;break;
           }
       }
-        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'categories'=>$categories,'cart'=>$cart,'collections'=>$collection,'category'=>$category]);  
+
+      $site = SiteSettings::first();
+      return view('pages.client_products_list',['user'=>Auth::user(),'site'=>$site,'products'=>$products,'categories'=>$categories,'cart'=>$cart,'collections'=>$collection,'category'=>$category]);  
     }
 
     public function clientProductPage($id)
@@ -175,22 +179,26 @@ class ProductsController extends Controller
       $categories =Category::all();
       $collections = Collection::all();
       $product=Product::find($id);
-      $reviews = $product->reviews->where('published',1)->reverse();
-      $stars =0;
-      foreach($reviews as $review){
-        $stars+=$review->stars;
-      }
-      if($stars)$rating=$stars/$reviews->count();
-      else $rating=0;
-      $cart = null;
-      foreach($user->orders as $order){
-        if($order->status == "Draft"){
-            $cart=$order;break;
+      if($product && $product->published){
+        $reviews = $product->reviews->where('published',1)->reverse();
+        $stars =0;
+        foreach($reviews as $review){
+          $stars+=$review->stars;
         }
-      }
-      $MightLike = Product::where('id','<>',$product->id)->inRandomOrder()->take(10)->get();
-
-      return view('pages.client_product_page',['user'=>Auth::user(),'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart,'myl'=>$MightLike,'collections'=>$collections]);  
+        if($stars)$rating=$stars/$reviews->count();
+        else $rating=0;
+        $cart = null;
+        foreach($user->orders as $order){
+          if($order->status == "Draft"){
+              $cart=$order;break;
+          }
+        }
+        $MightLike = Product::where('id','<>',$product->id)->inRandomOrder()->take(10)->get();
+        $product->views ++;
+        $product->save();
+        $site = SiteSettings::first();
+        return view('pages.client_product_page',['user'=>Auth::user(),'site'=>$site,'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart,'myl'=>$MightLike,'collections'=>$collections]);
+      }else return redirect()->route('home');
     }
 
   public function createCategory (Request $request){
@@ -218,8 +226,9 @@ class ProductsController extends Controller
   public function categoriesList()
     {   
         $user = Auth::user();
+        $site = SiteSettings::first();
         $category = Category::paginate(15);
-        return view('pages.admin_categories',['user'=>$user,'categories'=>$category]);
+        return view('pages.admin_tags',['user'=>$user,'categories'=>$category,'site'=>$site]);
     }
   
 }

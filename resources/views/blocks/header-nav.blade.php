@@ -22,12 +22,12 @@
                                                                                                             itemprop="url"
                                                                                                             class="velaLogoLink"
                                                                                                             style="width: 150px;"><span
-                                            class="text-hide">velademo-rubix</span>
+                                            class="text-hide">{{$site->company_name}}</span>
 
 
                                         <div class="p-relative">
                                             <div class="product-card__image" style="padding-top:18.461538461538463%;">
-                                                <img class="product-card__img lazyload" src="{{asset('img/logo.png')}}"/>
+                                                <img class="product-card__img lazyload" src="{{asset('img/'.$site->full_logo)}}"/>
                                             </div>
                                             <div class="placeholder-background placeholder-background--animation"
                                                  data-image-placeholder></div>
@@ -41,20 +41,10 @@
                                 <section id="velaMegamenu" class="velaMegamenu">
                                     <nav class="menuContainer">
                                         <ul class="nav hidden-xs hidden-sm">
-                                            <li class="hasMenuDropdown active">
+                                            <li  class="active">
                                                     <a href="{{route('home')}}" title="Home">
                                                         <span>Home</span>
                                                     </a>                                        
-                                                    <ul class="menuDropdown">
-
-                                                         @include('components.list-link',['title'=>'Home 01','class'=>'' ,'href'=>"{{route('home')}}=94977327148"])
-                                                         @include('components.list-link',['title'=>'Home 02','class'=>'' ,'href'=>"{{route('home')}}=96445497388"])
-                                                         @include('components.list-link',['title'=>'Home 03','class'=>'' ,'href'=>"{{route('home')}}=96547930156"])
-                                                         @include('components.list-link',['title'=>'Home 04','class'=>'' ,'href'=>"{{route('home')}}=96549371948"])
-                                                         @include('components.list-link',['title'=>'Home 05','class'=>'' ,'href'=>"{{route('home')}}=96538427436"])
-                                                         @include('components.list-link',['title'=>'Home 06','class'=>'' ,'href'=>"{{route('home')}}=96540786732"])
-
-                                                    </ul>
                                             </li>        
                                             <li class="hasMenuDropdown hasMegaMenu">
                                                 @include('blocks.shop-dropdown')

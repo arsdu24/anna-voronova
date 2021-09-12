@@ -1448,10 +1448,7 @@ vela.productImage = function() {
                 return false;
             });
         } else if (($(window).width()) <= 991) {
-            vela.cache.$velaProductImage.elevateZoom({
-                zoomEnabled: false,
-                gallery: 'productThumbs'
-            });
+            
             var imageGallery = [];
             var ez = vela.cache.$velaProductImage.data('elevateZoom');
             $.each(ez.getGalleryList(), function(index, value) {

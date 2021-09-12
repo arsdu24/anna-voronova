@@ -1,4 +1,4 @@
-<li class="{{$class}}">
+<li class="{{$class}} ">
     <a href="{{$href}}">{{$title}}
     </a>
 </li>

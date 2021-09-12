@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
+use App\SiteSettings;
 
 class ClientController extends Controller
 {    
@@ -19,6 +19,7 @@ class ClientController extends Controller
                 $cart=$order;break;
             }
         }
-        return view('pages.client',['orders'=>$orders, 'user'=>Auth::user(),'categories'=>$categories,'cart'=>$cart]);
+        $site = SiteSettings::first();
+        return view('pages.client',['orders'=>$orders,'site'=>$site,'user'=>Auth::user(),'categories'=>$categories,'cart'=>$cart]);
     }
 }

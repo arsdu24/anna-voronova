@@ -5,6 +5,7 @@ use App\Category;
 use App\Collection;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\SiteSettings;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Auth;
@@ -40,7 +41,8 @@ class LoginController extends Controller
               $cart=$order;break;
           }
         }
-        return view('auth.login',['categories'=>$categories,'cart'=>$cart,'collections'=>$collections]);
+        $site = SiteSettings::first();
+        return view('auth.login',['categories'=>$categories,'cart'=>$cart,'collections'=>$collections,'site'=>$site]);
     }
 
     public function login(Request $request)

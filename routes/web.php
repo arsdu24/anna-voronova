@@ -1,7 +1,8 @@
 <?php
 
-
-
+use App\Http\Controllers\SiteSettingsController;
+use App\SiteSettings;
+use Illuminate\Routing\RouteRegistrar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -57,10 +58,13 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('blog/categories','BlogController@categoriesList')->name('articleCategories');
     Route::get('blog/tags','BlogController@tagsList')->name('articleTags');
     Route::get('blog/product-tags','ProductsController@tagsList')->name('Tags');
+    Route::get('sliders','BannerController@slidersList')->name('Sliders');
     Route::get('banners','BannerController@bannersList')->name('Banners');
     Route::get('/search','SearchController@search')->name('adminSearch');
     Route::get('/categories','ProductsController@categoriesList')->name('Categories');
 
+    Route::get('/site_settings','SiteSettingsController@showform')->name('settingsForm');
+    Route::post('site/update',"SiteSettingsController@update")->name('settingsUpdate');
     Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');
     Route::post('review/unpublish','ReviewController@unpublishReview')->name('reviewUnpublish');
     Route::post('review/delete','ReviewController@deleteReview')->name('reviewDelete');

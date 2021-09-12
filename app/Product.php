@@ -9,7 +9,7 @@ class Product extends Model
     protected $table = 'product';
 
     protected $fillable = [
-        'name', 'excerpt', 'thumbnail', 'price', 'sale_price','content'
+        'name', 'excerpt', 'thumbnail', 'price', 'sale_price','content','views'
     ];
     protected $casts = [
         'published' => 'boolean',
