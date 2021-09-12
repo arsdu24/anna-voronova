@@ -1,34 +1,34 @@
 @extends('layouts.Admin')
-@section('title', 'Tags')
+@section('title', 'Product Categories')
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>
-            Articles Tags
+            Products Categories
           </h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Articles  Tags</li>
+            <li class="breadcrumb-item active">Products  Categories</li>
           </ol>
         </div>
       </div>
     </div><!-- /.container-fluid -->
   </section>
   <div class="card"><div class="card-header">
-    <h3 class="card-title"> Tags</h3>
+    <h3 class="card-title"> Categories</h3>
     <div class="card-tools">
       <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">
           <i class="fas fa-plus"></i>
-          Add Tag
+          Add Category
       </button>
     </div>
   </div>
   <div class="card-body">
-    @if(count($tags)!=0)
+    @if(count($categories)!=0)
     <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12">
    
       <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
@@ -40,7 +40,7 @@
           <th>Action</th></tr>
       </thead>
       <tbody>
-          @foreach($tags as $tag)
+          @foreach($categories as $tag)
           <tr class="odd">
               <td class="dtr-control sorting_1" tabindex="0">
                   {{$tag->id}}
@@ -59,7 +59,7 @@
                     </i>
                     Delete
                 </a>
-                <form id="{{$tag->id}}" action="{{route('deleteTag',['tag'=>$tag])}}" method="POST" style="display: none;">
+                <form id="{{$tag->id}}" action="{{route('deleteCategory',['category'=>$tag])}}" method="POST" style="display: none;">
                     @csrf</form>
             </td>
             </tr>
@@ -69,11 +69,11 @@
                 <!-- Modal content-->
                 <div class="modal-content" >
                   <div class="modal-header">
-                    <h4 class="modal-title">Create Tag</h4>
+                    <h4 class="modal-title">Create Article</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
-                      <form method="POST" action="{{route('updateTag',['tag'=>$tag->id])}}" enctype="multipart/form-data" >
+                      <form method="POST" action="{{route('updateCategory',['category'=>$tag->id])}}" enctype="multipart/form-data" >
                           @csrf
                           <div class="form-group ">
                               <label for="title" >Title</label>
@@ -84,7 +84,7 @@
                             <div class="form-group ">
                               <label for="excerpt" >Ecxerpt</label>
                               <div>
-                                  <input id="excerpt" type="text" class="form-control " name="excerpt" value="{{$tag->excerpt}}" required autocomplete="name"/>
+                                  <input id="excerpt" type="text" class="form-control " name="excerpt" autocomplete="name"/>
                               </div>
                             </div>
                               <div class=" modal-footer ">
@@ -110,17 +110,17 @@
   </div></div><div class="row">
     <div class="col-sm-12 col-md-5">
       <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-        Showing {{$tags->firstItem()  ?? '0'}} to {{$tags->count()}} of {{$tags->total()}} entries
+        Showing {{$categories->firstItem()  ?? '0'}} to {{$categories->count()}} of {{$categories->total()}} entries
       </div>
     </div>
           <ul class="pagination">
             <div class="col-sm-12 col-md-7">
                 <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-            {!!$tags->links() !!}
+            {!!$categories->links() !!}
           </ul></div></div></div>
           @else
           <div class="alert alert-info" role="alert">
-            You don't have tags yet!
+            You don't have Categories yet!
           </div>
           @endif
         </div>
@@ -133,11 +133,11 @@
     <!-- Modal content-->
     <div class="modal-content" >
       <div class="modal-header">
-        <h4 class="modal-title">Create Tag</h4>
+        <h4 class="modal-title">Create Category</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-          <form method="POST" action="{{ route('createTag') }}" enctype="multipart/form-data" >
+          <form method="POST" action="{{ route('createCategory') }}" enctype="multipart/form-data" >
               @csrf
               <div class="form-group ">
                   <label for="title" >Title</label>

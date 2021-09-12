@@ -22,7 +22,6 @@ class CreateProductTable extends Migration
             $table->bigInteger('views')->nullable();
             $table->float('sale_price')->nullable();
             $table->mediumText('content')->nullable();
-            $table->bigInteger('views')->nullable();
             $table->boolean('published')->default(false);
             $table->timestamps();
         });

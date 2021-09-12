@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Banner;
 use App\Category;
+use App\Collection;
 use App\Product;
-use App\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\SiteSettings;
@@ -20,6 +20,7 @@ class HomeController extends Controller
     public function index()
     {   $user = Auth::user();
         $categories = Category::all();
+        $collections = Collection::all();
         $cart = null;
         foreach($user->orders as $order){
             if($order->status == "Draft"){
@@ -68,6 +69,6 @@ class HomeController extends Controller
         $secondBanner = Banner::where('is_slide','=',0)->where('title','Above Blog block')->first();
         $Trending_products = Product::where('published',1)->orderby('views','desc')->take(4)->get();
         $site = SiteSettings::first();
-        return view('pages.index',['categories'=>$categories,'user'=>$user,'cart'=>$cart,'slides'=>$slides,'site'=>$site,'firstBanner'=>$firstBanner,'secondBanner'=>$secondBanner, 'treding'=>$Trending_products]);
+        return view('pages.index',['categories'=>$categories,'user'=>$user,'cart'=>$cart,'slides'=>$slides,'site'=>$site,'firstBanner'=>$firstBanner,'secondBanner'=>$secondBanner, 'treding'=>$Trending_products,'collections'=>$collections]);
     }
 }

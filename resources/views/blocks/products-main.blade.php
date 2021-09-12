@@ -28,7 +28,7 @@
                         <div class="filterTagFullwidthClose hidden-xl hidden-lg hidden-md hidden-xl"></div>
                         <div class="velaSidebarInner">
                             <div id="shopify-section-sidebartop" class="shopify-section"><div id="velaCategories" class="velaCategoriesSidebar velaBlock">
-              <h3 class="titleSidebar">Product Categories</h3><div class="velaContent">
+              <h3 class="titleSidebar">Categories</h3><div class="velaContent">
                     <ul class="sidebarListCategories list-unstyled">
                                 @if(!isset($category) )
                                  <li class="sidebarCateItem active">
@@ -39,12 +39,12 @@
                                 @endif
 
                                 @foreach($categories as $item)
-                                    @if(isset($category) && $item->title == $category->title)
+                                    @if(isset($category) && $item->name == $category)
                                     <li class="sidebarCateItem active">
-                                        <a href="/collections/{{$item->id}}" class="active">{{$item->title}}</a></li>
+                                        <a href="?category={{$item->name}}" class="active">{{$item->name}}</a></li>
                                     @else
                                     <li class="sidebarCateItem">
-                                        <a href="/collections/{{$item->id}}">{{$item->title}}</a></li>
+                                        <a href="?category={{$item->name}}">{{$item->name}}</a></li>
                                     @endif
                                 @endforeach
                     </ul>

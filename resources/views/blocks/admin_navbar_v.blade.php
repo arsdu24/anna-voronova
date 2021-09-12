@@ -64,24 +64,24 @@
             <a href="" class="nav-link">
                <i class="fa fa-list-alt" aria-hidden="true"></i>
               <p>
-                Categories
+                Collections
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('categoriesList')}}" class="nav-link">
+                <a href="{{route('collectionsList')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Categories List</p>
+                  <p>Collections List</p>
                 </a>
               </li>
             </ul>
           </li>
           <li class="nav-item">
-            <a href="{{route('Tags')}}" class="nav-link">
+            <a href="{{route('Categories')}}" class="nav-link">
               <i class="fas fa-tag"></i>
               <p>
-                Tags
+                Categories
               </p>
             </a>
           </li>
