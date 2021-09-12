@@ -165,22 +165,24 @@ class ProductsController extends Controller
       $user=Auth::user();
       $categories =Category::all();
       $product=Product::find($id);
-      $reviews = $product->reviews->where('published',1)->reverse();
-      $stars =0;
-      foreach($reviews as $review){
-        $stars+=$review->stars;
-      }
-      if($stars)$rating=$stars/$reviews->count();
-      else $rating=0;
-      $cart = null;
-      foreach($user->orders as $order){
-        if($order->status == "Draft"){
-            $cart=$order;break;
+      if($product && $product->published){
+        $reviews = $product->reviews->where('published',1)->reverse();
+        $stars =0;
+        foreach($reviews as $review){
+          $stars+=$review->stars;
         }
-      }
-      $MightLike = Product::where('id','<>',$product->id)->inRandomOrder()->take(10)->get();
-      $site = SiteSettings::first();
-      return view('pages.client_product_page',['user'=>Auth::user(),'site'=>$site,'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart,'myl'=>$MightLike]);  
+        if($stars)$rating=$stars/$reviews->count();
+        else $rating=0;
+        $cart = null;
+        foreach($user->orders as $order){
+          if($order->status == "Draft"){
+              $cart=$order;break;
+          }
+        }
+        $MightLike = Product::where('id','<>',$product->id)->inRandomOrder()->take(10)->get();
+        $site = SiteSettings::first();
+        return view('pages.client_product_page',['user'=>Auth::user(),'site'=>$site,'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart,'myl'=>$MightLike]);
+      }else return redirect()->route('home');
     }
 
   public function createTag(Request $request){
