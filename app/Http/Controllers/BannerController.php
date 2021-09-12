@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\SiteSettings;
 use Illuminate\Support\Facades\DB;
+use App\SiteSettings;
 
 class BannerController extends Controller
 {
@@ -21,6 +21,7 @@ class BannerController extends Controller
             'title'=> $request->title,
             'excerpt'=>$request->excerpt,
             'is_slide'=> $is_slide,
+            'link' => $request->link,
             'highlighted' => $highlighted,
         ]);
         if($request->file('thumbnail')){
@@ -47,6 +48,9 @@ class BannerController extends Controller
             $image->move('img',$imageName);
             $banner->thumbnail = $imageName;
        }
+       if($request->link){
+           $banner->link = $request->link;
+       }
        $banner->save();
        return redirect()->back();
     }
@@ -71,7 +75,6 @@ class BannerController extends Controller
             ]);
             }
         $sliders = Banner::where('is_slide','=',1)->paginate('10');
-        $site = SiteSettings::first();
         return view('pages.sliders-list',['user'=>$user,'sliders'=>$sliders,'site'=>$site]);
     }
     public function bannersList(){
@@ -95,7 +98,28 @@ class BannerController extends Controller
         $banners = Banner::where('is_slide','=',0)->paginate('2');
         $site = SiteSettings::first();
         return view('pages.banners-list',['user'=>$user,'banners'=>$banners,'site'=>$site]);
+    }
+    public function bannersList(){
+         if(Banner::where('is_slide','=',0)->count()<2){
+            DB::table('banners')->insert([
+             [
+                'title' => 'Under Trending Products block',
+                'thumbnail' => 'banner4.jpg',
+                'link' => '/products',
+                'is_slide' => 0
+              ],
+              [
+                'title' => 'Above Blog block',
+                'thumbnail' => 'banner3_360x.jpg',
+                'link' => '/blogs/news',
+                'is_slide' => 0
+              ]
+            ]);
+            }
+        $user = Auth::user();
+        $banners = Banner::where('is_slide','=',0)->paginate('2');
+        return view('pages.banners-list',['user'=>$user,'banners'=>$banners]);
 
     }
-
+   
 }

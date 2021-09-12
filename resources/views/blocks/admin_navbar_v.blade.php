@@ -94,8 +94,16 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('Banners')}}" class="nav-link">
+            <a href="{{route('Sliders')}}" class="nav-link">
               <i class="fas fa-bookmark"></i>
+              <p>
+                Sliders
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('Banners')}}" class="nav-link">
+              <i class="fab fa-elementor"></i>
               <p>
                 Banners
               </p>
