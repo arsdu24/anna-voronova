@@ -22,12 +22,12 @@
                                                                                                             itemprop="url"
                                                                                                             class="velaLogoLink"
                                                                                                             style="width: 150px;"><span
-                                            class="text-hide">velademo-rubix</span>
+                                            class="text-hide">{{$site->company_name}}</span>
 
 
                                         <div class="p-relative">
                                             <div class="product-card__image" style="padding-top:18.461538461538463%;">
-                                                <img class="product-card__img lazyload" src="{{asset('img/logo.png')}}"/>
+                                                <img class="product-card__img lazyload" src="{{asset('img/'.$site->full_logo)}}"/>
                                             </div>
                                             <div class="placeholder-background placeholder-background--animation"
                                                  data-image-placeholder></div>

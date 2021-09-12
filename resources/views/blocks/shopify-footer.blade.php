@@ -12,7 +12,7 @@
                                                 <div class="product-card__image"
                                                      style="padding-top:18.461538461538463%;">
                                                     <img class="product-card__img lazyload"
-                                                         data-src="//cdn.shopify.com/s/files/1/0376/9440/6700/files/footer_logo_{width}x.png?v=1586356142"
+                                                         data-src="{{asset('img/'.$site->full_logo)}}"
                                                          data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
                                                          data-aspectratio="5.416666666666667"
                                                          data-ratio="5.416666666666667" data-sizes="auto" alt=""/>
@@ -68,17 +68,21 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-3 mb30">
                                 <div class="footerAbout">
+                                    @if($site->phone || $site->email)
                                     <h5>Let’s Talk</h5>
                                     <div class="d-flex mb30">
                                         <div><i class="icons icon-earphones-alt"></i></div>
-                                        <div>+391 (0)35 2568 4593 <br><u>hello@domain.com</u>
+                                        <div>{{$site->phone ?? ''}} <br><u>{{$site->email ?? ''}}</u>
                                         </div>
                                     </div>
+                                    @endif
+                                    @if($site->address)
                                     <h5>Find Us</h5>
                                     <div class="d-flex">
                                         <div><i class="icons icon-location-pin"></i></div>
-                                        <div>502 New Design Str<br>Melbourne, Australia</div>
+                                        <div>{{$site->address}}</div>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -89,7 +93,7 @@
                 <div class="container">
                     <div class="footerCopyRightInner clearfix">
                         <div class="velaCopyRight pull-left">
-                            <a href="/"><b>© 2020 Rubix.</b></a> All Rights Reserved
+                            <a href="/"><b>© 2020 {{$site->company_name}}.</b></a> All Rights Reserved
                         </div>
                         <div class="velaPayment pull-right hidden-xs hidden-sm">
                             <div class="vela-content">

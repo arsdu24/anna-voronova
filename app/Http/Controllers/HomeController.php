@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Banner;
 use App\Category;
-use Illuminate\Support\Facades\Auth;
 use App\Product;
 use App\Tag;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\SiteSettings;
 
 class HomeController extends Controller
 {
@@ -53,9 +54,19 @@ class HomeController extends Controller
                 'is_slide' => 0
               ]
             ]);
-            }
+        }
+        if(!SiteSettings::first()){
+                DB::table('site_settings')->insert([
+                    [
+                       'company_name' => ' Name',
+                       'short_logo' => 'faviicon_32x32.jpg',
+                       'full_logo' => 'logo.png',
+                     ]
+                   ]);
+        }
         $firstBanner = Banner::where('is_slide','=',0)->where('title','Under Trending Products block')->first();
         $secondBanner = Banner::where('is_slide','=',0)->where('title','Above Blog block')->first();
-        return view('pages.index',['categories'=>$categories,'user'=>$user,'cart'=>$cart,'slides'=>$slides,'firstBanner'=>$firstBanner,'secondBanner'=>$secondBanner]);
+        $site = SiteSettings::first();
+        return view('pages.index',['categories'=>$categories,'user'=>$user,'cart'=>$cart,'slides'=>$slides,'site'=>$site,'firstBanner'=>$firstBanner,'secondBanner'=>$secondBanner]);
     }
 }

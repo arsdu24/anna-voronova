@@ -2,8 +2,8 @@
     <!-- Brand Logo -->
     <div class="user-panel mt-3 d-flex">
     <a href="" class="brand-link ">
-      <img src="{{asset('/img/21_360x.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <img src="{{asset('img/'.$site->short_logo)}}" alt="{{$site->company_name}}" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">{{$site->company_name}}</span>
     </a>
     </div>
 
@@ -137,6 +137,12 @@
                 </a>
               </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('settingsForm')}}" class="nav-link">
+              <i class="fas fa-cog"></i>
+              <p>Settings</p>
+            </a>
           </li>
         </ul>
       </nav>
