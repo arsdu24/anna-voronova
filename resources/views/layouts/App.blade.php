@@ -12,7 +12,7 @@
     <meta name="theme-color" content="#ba933e">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="canonical" href="{{ route('home') }}">
-    <link rel="shortcut icon" href="{{ asset('img/faviicon_32x32.jpg') }}" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('img/'.$site->short_logo) }}" type="image/png">
     <title>
         @yield('title')
     </title>

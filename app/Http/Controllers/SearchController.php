@@ -9,9 +9,9 @@ use App\BlogCategory;
 use App\BlogTag;
 use App\Order;
 use App\Product;
-use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\SiteSettings;
 
 class SearchController extends Controller
 {
@@ -41,7 +41,8 @@ class SearchController extends Controller
                                 })
                                 ->paginate(15);
             $search = $products->take(10);
-            return view('pages.search_result',['user'=>$user,'categories'=>$categories,'cart'=>$cart,'results'=>$products,'q'=>$q,'search'=>$search]);
+            $site = SiteSettings::first();
+            return view('pages.search_result',['user'=>$user,'site'=>$site,'categories'=>$categories,'cart'=>$cart,'results'=>$products,'q'=>$q,'search'=>$search]);
         }
         elseif($request->type=='blog'){
             $articles = Article::where('published','=',1)
@@ -49,7 +50,8 @@ class SearchController extends Controller
                                 ->orWhere('excerpt','LIKE','%'.$q.'%')
                                 ->paginate(15);
             $search = $articles->take(10);
-            return view('pages.search_result',['user'=>$user,'categories'=>$categories,'cart'=>$cart,'q'=>$q,'results'=>$articles,'search'=>$search]);
+            $site = SiteSettings::first();
+            return view('pages.search_result',['user'=>$user,'site'=>$site,'categories'=>$categories,'cart'=>$cart,'q'=>$q,'results'=>$articles,'search'=>$search]);
             
         }
         elseif($request->type=='search'){
