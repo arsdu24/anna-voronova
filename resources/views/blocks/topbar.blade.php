@@ -1,9 +1,9 @@
 <div id="velaTopbar">
             <div class="container">
                 <div class="velaTopbarInner row flexAlignCenter">
-                    <div class="velaTopbarLeft hidden-xs hidden-sm hidden-md d-flex col-md-4"><i
-                            class="icons icon-call-in"></i> +391 (0)35 2568 4593<span class="ml10 mr10">|</span> <i
-                            class="icons icon-envelope"></i>velatheme@gmail.com
+                    <div class="velaTopbarLeft hidden-xs hidden-sm hidden-md d-flex col-md-4">
+                        @if($site->phone) <i  class="icons icon-call-in"></i> {{$site->phone}}<span class="ml10 mr10">|</span> @endif
+                        @if($site->email)<i class="icons icon-envelope"></i>{{$site->email}}@endif
                     </div>
                     <div class="velaTopbarCenter text-center col-xs-12 col-md-12 col-lg-4">
                         Free shipping on all orders over <u>$79</u><a href="/collections/all" class="bg-primary">shop

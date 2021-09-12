@@ -6,7 +6,7 @@ use App\Category;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
+use App\SiteSettings;
 
 class CategoryController extends Controller
 {
@@ -42,14 +42,15 @@ class CategoryController extends Controller
     }
 
     public function categoryPage(Category $category){
-        
-        return view('pages.category_page',['user'=>Auth::user(),'category'=>$category]);  
+        $site = SiteSettings::first();
+        return view('pages.category_page',['user'=>Auth::user(),'category'=>$category,'site'=>$site]);  
     }
      
      public function viewList()
     {   
         $categories=Category::orderby('id', 'desc')->paginate(15);
-        return view('pages.categories_list',['user'=>Auth::user(),'categories'=>$categories]);  
+        $site = SiteSettings::first();
+        return view('pages.categories_list',['user'=>Auth::user(),'categories'=>$categories,'site'=>$site]);  
     }
 
     public function clientViewAll()
@@ -62,7 +63,8 @@ class CategoryController extends Controller
                 $cart=$order;break;
             }
         }
-        return view('pages.client_categories_list',['user'=>Auth::user(),'categories'=>$categories,'cart'=>$cart]);  
+        $site = SiteSettings::first();
+        return view('pages.client_categories_list',['user'=>Auth::user(),'categories'=>$categories,'cart'=>$cart,'site'=>$site]);  
     }
 
     public function categoryShow(Category $category)
@@ -78,6 +80,7 @@ class CategoryController extends Controller
                 $cart=$order;break;
             }
         }
-        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'categories'=>$categories,'category'=>$category,'cart'=>$cart]);  
+        $site = SiteSettings::first();
+        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'categories'=>$categories,'category'=>$category,'site'=>$site,'cart'=>$cart]);  
     }
 }
