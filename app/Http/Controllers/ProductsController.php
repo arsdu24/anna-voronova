@@ -76,7 +76,7 @@ class ProductsController extends Controller
         $images = unserialize( $product->thumbnail);
         foreach($images as $key => $image){
             if($key == $request->name){
-                unset($images[$key]);
+              array_splice($images, $key, 1);
             }
         }
         $product->thumbnail = serialize($images);

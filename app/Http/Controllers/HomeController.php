@@ -66,7 +66,8 @@ class HomeController extends Controller
         }
         $firstBanner = Banner::where('is_slide','=',0)->where('title','Under Trending Products block')->first();
         $secondBanner = Banner::where('is_slide','=',0)->where('title','Above Blog block')->first();
+        $Trending_products = Product::where('published',1)->orderby('views','desc')->take(4)->get();
         $site = SiteSettings::first();
-        return view('pages.index',['categories'=>$categories,'user'=>$user,'cart'=>$cart,'slides'=>$slides,'site'=>$site,'firstBanner'=>$firstBanner,'secondBanner'=>$secondBanner]);
+        return view('pages.index',['categories'=>$categories,'user'=>$user,'cart'=>$cart,'slides'=>$slides,'site'=>$site,'firstBanner'=>$firstBanner,'secondBanner'=>$secondBanner, 'treding'=>$Trending_products]);
     }
 }
