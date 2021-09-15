@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\collection;
+use App\Collection;
 use App\Product;
 use App\SiteSettings;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;

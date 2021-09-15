@@ -180,7 +180,9 @@ class ProductsController extends Controller
       $collections = Collection::all();
       $product=Product::find($id);
       if($product && $product->published){
+        $user_reviews = $product->reviews->where('user_id',$user->id)->reverse();
         $reviews = $product->reviews->where('published',1)->reverse();
+        $reviews = $user_reviews->merge($reviews);
         $stars =0;
         foreach($reviews as $review){
           $stars+=$review->stars;
