@@ -86,10 +86,15 @@
                                                             <span class="txtFallback">&minus;</span>
                                                         </button>
                                                         <input type="text" name="updates[]"  data-id="{{$cartItem->id}}" class="qtyNum velaQtyText " value="{{$cartItem->quantity}}" min="0"  pattern="[0-9]*" />
-                                                        <button type="button" data-id="{{$cartItem->id}}" data-price="{{$cartItem->price}}" class="qtyUpdate  velaQtyButton velaPlus" >
+                                                        <button type="button" data-id="{{$cartItem->id}}" data-stock="{{$cartItem->product->stock}}" data-price="{{$cartItem->price}}" class="qtyUpdate  velaQtyButton velaPlus"@if($cartItem->product->stock-$cartItem->quantity==0)disabled  @endif >
                                                             <span class="txtFallback">+</span>
                                                         </button>
                                                     </div>
+                                                    @if($cartItem->quantity>$cartItem->product->stock)
+                                                    <div class="alert alert-danger outOfStock" role="alert">
+                                                        Out of stock!
+                                                    </div>
+                                                    @endif
                                                 </div>
                                                 <div class="drawerProductDelete">
                                                     <div class="cartRemoveBox">
@@ -141,7 +146,7 @@
                                     View Cart
                                 </a>
                             </div>
-                            <div class="drawerButtonBox">
+                            <div class="drawerButtonBox" id="checkout">
                                 <a href="/checkout" class="btn btnVelaCart btnCheckout" name="checkout">
                                     Check Out
                                 </a>
@@ -342,7 +347,7 @@
                 <div class="drawerAjaxFooter">
                     <div class="drawerSubtotal">
                         <span class="cartSubtotalHeading">Subtotal</span>
-                        <span class="cartSubtotal">123</span>
+                        <span class="cartSubtotal">0</span>
                     </div>
                     <p class="drawerShipping">Shipping, taxes, and discounts will be calculated at checkout.</p>
                     <div class="drawerButton">
@@ -550,7 +555,7 @@ function remove(){
     }
     else if($(this).hasClass('velaPlus')){
             $(this).closest(".velaQty").find('.velaQtyText').val(++quantity)
-            $(this).closest(".velaQty").find('.velaQtyText').trigger('change');
+            $(this).closest(".velaQty").find('.velaQtyText').trigger('change'); 
     }
 });
 }
@@ -558,7 +563,6 @@ function remove(){
 function change(){$('.velaQty').change(function ajust_qty(e) {
     e.preventDefault();
     var quantity = e.target.value;
-    console.log(quantity);
     var product_id =e.target.getAttribute('data-id');
     var data = {
         "_token": "{{ csrf_token() }}",

@@ -16,6 +16,7 @@ class CreateProductTable extends Migration
         Schema::create('product', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('stock')->nullable();
             $table->longText('thumbnail');
             $table->string('excerpt');
             $table->float('price');
@@ -37,3 +38,4 @@ class CreateProductTable extends Migration
         Schema::dropIfExists('product');
     }
 }
+

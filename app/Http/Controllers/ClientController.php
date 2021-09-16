@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Collection;
 use Illuminate\Support\Facades\Auth;
 use App\SiteSettings;
 
@@ -20,6 +21,6 @@ class ClientController extends Controller
             }
         }
         $site = SiteSettings::first();
-        return view('pages.client',['orders'=>$orders,'site'=>$site,'user'=>Auth::user(),'categories'=>$categories,'cart'=>$cart]);
+        return view('pages.client',['orders'=>$orders,'site'=>$site,'user'=>Auth::user(),'categories'=>$categories,'cart'=>$cart,'collections'=>$collections]);
     }
 }

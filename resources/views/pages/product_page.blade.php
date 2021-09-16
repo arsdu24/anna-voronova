@@ -133,6 +133,10 @@
                                        @endif
                                       </select><span class="select2 select2-container select2-container--bootstrap4 select2-container--below select2-container--focus" dir="ltr" data-select2-id="24" style="width: 100%;">
                                       </div>
+                                      <div class="form-group ">
+                                        <label for="name">Stock</label>
+                                        <input type="number" class="form-control" id="stock" step="any"  name="stock" value="{{$product->stock ?? ''}}">
+                                      </div>
                                     @if($product->published != 0)
                                     <input type="checkbox" data-toggle="switchbutton" name="published" checked data-onlabel="Public" data-width="100" data-offlabel="Private" data-onstyle="success" data-offstyle="danger">
                                     @else
