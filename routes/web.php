@@ -74,7 +74,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('product/delete/{id}','ProductsController@deleteProduct')->name('productDelete');
     Route::post('order/delete','OrdersController@deleteOrder')->name('orderDelete');
     Route::post('order/update_status','OrdersController@updateOrderStatus')->name('orderStatusUpdate');
-
+    Route::post('product/might-like',"ProductsController@mightLike")->name('ml_set');
+    Route::post('product/might-like/add',"ProductsController@mightLikeAdd")->name('ml_add');
+    Route::post('product/might-like/delete',"ProductsController@mightLikeDelete")->name('ml_delete');
     Route::post('collection/delete/{collection}','CollectionsController@deleteCollection')->name('collectionDelete');
     Route::post('add-collection','CollectionsController@createCollection')->name('createCollection');
     Route::post('collection/save/{collection}','CollectionsController@updateCollection')->name('collectionUpdate');

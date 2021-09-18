@@ -13,7 +13,7 @@
                                             <ul class="velaMenuLinks p-2">
                                                 @include('components.list-link',['title'=>'Categories','class'=>'menuTitle ml30' ,'href'=>"/collections"])
                                                  @foreach($categories as $category)
-                                                 @include('components.list-link',['title'=>$category->title,'class'=>'ml30' ,'href'=>'/collections/'.$category->id])
+                                                 @include('components.list-link',['title'=>$category->name,'class'=>'ml30' ,'href'=>'/products?category='.$category->name])
                                                 @endforeach
 
                                             </ul>
