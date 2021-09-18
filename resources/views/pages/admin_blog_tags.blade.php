@@ -69,7 +69,7 @@
                 <!-- Modal content-->
                 <div class="modal-content" >
                   <div class="modal-header">
-                    <h4 class="modal-title">Create Tag</h4>
+                    <h4 class="modal-title">Edit Tag</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
@@ -79,12 +79,6 @@
                               <label for="title" >Title</label>
                               <div>
                                   <input id="title" type="text" class="form-control " name="name" value="{{$tag->name}}" required autocomplete="name"/>
-                              </div>
-                            </div>
-                            <div class="form-group ">
-                              <label for="excerpt" >Ecxerpt</label>
-                              <div>
-                                  <input id="excerpt" type="text" class="form-control " name="excerpt" value="{{$tag->excerpt}}" required autocomplete="name"/>
                               </div>
                             </div>
                               <div class=" modal-footer ">
