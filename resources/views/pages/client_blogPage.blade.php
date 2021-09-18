@@ -138,7 +138,7 @@
         <ul class="sidebarListCategories list-unstyled">
 @foreach($categories as $category)
     <li class="sidebarBlogCateItem active">
-      <a class="active" href="/blogs/news">{{$category->name}}</a></li>
+      <a class="active" href="/blogs/news?category={{$category->name}}">{{$category->name}}</a></li>
 @endforeach
         </ul>
     </div></div><div class="blogSidebar">
