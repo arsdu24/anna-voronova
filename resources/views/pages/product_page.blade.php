@@ -189,9 +189,7 @@
                          <p><b>The selectet might like products</b></p>
                        </label>
                        <div class="filter-container p-0 row" style="padding: 3px; position: relative; width: 100%; display: flex; flex-wrap: wrap;">
-                       @foreach(unserialize($product->mightLike) as $item)
-                          @if(!is_string($item))
-                          
+                       @foreach($ml_products as $item)
                             <div class="filtr-item col-sm-2 hover-select-delete">
                               <a href="#" data-toggle="lightbox"  style="color:black;">
                                 <img src="{{asset('img/'.unserialize($item->thumbnail)[0])}}" class="img-fluid mb-2" alt="white sample">
@@ -201,8 +199,6 @@
                                 <i class="fas fa-times"></i>
                               </div>
                             </div>
-                            
-                          @endif
                        @endforeach
                       </div>
                       @endif
@@ -457,7 +453,7 @@ $(".delete").click(function(e) {
         }
     });
 });
-function radio1(){$("#radio1").click(function(e) {
+function radio1(){$("#radio1").off("click").click(function(e) {
     e.preventDefault();
     $.ajax({
         type: "POST",
@@ -481,7 +477,7 @@ function radio1(){$("#radio1").click(function(e) {
 });
 }
 function radio2(){
-  $("#radio2").click(function(e) {
+  $("#radio2").off("click").click(function(e) {
     e.preventDefault();
     $.ajax({
         type: "POST",
@@ -504,7 +500,7 @@ function radio2(){
 });
 }
 function add(){
-  $(".hover-select_after").click(function(e){
+  $(".hover-select_after").off("click").click(function(e){
     let data_id = $(this).attr('data-id');
     e.preventDefault();
     $.ajax({
@@ -529,7 +525,7 @@ function add(){
 });
 }
 function delete_i(){
-  $(".hover-select_after_delete").click(function(e){
+  $(".hover-select_after_delete").off("click").click(function(e){
     let data_id = $(this).attr('data-id');
     e.preventDefault();
     $.ajax({
@@ -546,7 +542,7 @@ function delete_i(){
            radio2();
            add();
            delete_i();
-           console.log('dd');
+           console.log('1');
         },
         error: function(result) {
           console.log(result.responseText);
@@ -559,5 +555,4 @@ radio2();
 add();
 delete_i();
 </script>
-
 @endsection

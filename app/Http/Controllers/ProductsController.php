@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\SiteSettings;
+use Mockery\Generator\StringManipulation\Pass\RemoveUnserializeForInternalSerializableClassesPass;
 
 class ProductsController extends Controller
 {   
@@ -35,7 +36,7 @@ class ProductsController extends Controller
             $products  = $products->where('id','!=',$product->id)->orderby('views','desc');
             $products = $products->take(10)->get();
             foreach($products as $item){
-              array_push($array,$item);
+              array_push($array,$item->id);
             }
             $product->mightLike =  serialize($array);
             $product->save();
@@ -111,14 +112,13 @@ class ProductsController extends Controller
     
     public function productPage($id){
       $product = Product::find($id);
+      $ml = unserialize($product->mightLike);
+      array_splice($ml,0,1);
           if(unserialize($product->mightLike)[0]=="Manual"){
-            $ml = unserialize($product->mightLike);
-            array_splice($ml,0,1);
-            foreach($ml as $element)$element->toArray();
-            $ml = array_column ($ml,"id");
             $products= Product::whereNotIn('id',$ml)->where('id','!=',$product->id)->where('published',1)->orderby('id','desc')->paginate(30);
           }
           else $products = Product::where('id','!=',$product->id)->where('published',1)->orderby('id','desc')->paginate(30);
+        $MightLike = Product::where('id','!=',$product->id)->whereIn('id',$ml)->where('published',1)->orderby('id','desc')->paginate(30);
         $categories =Category::all();
         $collections = Collection::all();
         $product_categories = array();
@@ -138,7 +138,7 @@ class ProductsController extends Controller
           }
         }
         $site = SiteSettings::first();
-        return view('pages.product_page',['user'=>Auth::user(),'site'=>$site,'products'=>$products,'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_coll'=>$product_coll,'cart'=>$cart,'product_categories'=>$product_categories,'categories'=>$categories,'collections'=>$collections]);  
+        return view('pages.product_page',['user'=>Auth::user(),'site'=>$site,'ml_products'=>$MightLike,'products'=>$products,'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_coll'=>$product_coll,'cart'=>$cart,'product_categories'=>$product_categories,'categories'=>$categories,'collections'=>$collections]);  
 
     }
      
@@ -219,7 +219,7 @@ class ProductsController extends Controller
       $products  = Product::where('id','!=',$product->id)->whereIn('id',$ids)->orderby('views','desc');
       $products = $products->take(10)->get();
       foreach($products as $item){
-        array_push($array,$item);
+        array_push($array,$item->id);
       }
       $product->mightLike =  serialize($array);
       $product->save();
@@ -238,11 +238,13 @@ class ProductsController extends Controller
               $cart=$order;break;
           }
         }
-        $MightLike = $product->mightLike;
+        $ml = unserialize($product->mightLike);
+        array_splice($ml,0,1);
+        $MightLike = Product::where('id','!=',$product->id)->whereIn('id',$ml)->where('published',1)->orderby('id','desc')->paginate(30);
         $product->views ++;
         $product->save();
         $site = SiteSettings::first();
-        return view('pages.client_product_page',['user'=>Auth::user(),'site'=>$site,'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart,'myl'=>$MightLike,'collections'=>$collections]);
+        return view('pages.client_product_page',['user'=>Auth::user(),'site'=>$site,'ml_products'=>$MightLike,'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart,'collections'=>$collections]);
       }else return redirect()->route('home');
     }
 
@@ -292,7 +294,7 @@ class ProductsController extends Controller
       $products  = Product::where('id','!=',$product->id)->whereIn('id',$ids)->orderby('views','desc');
       $products = $products->take(10)->get();
       foreach($products as $item){
-        array_push($array,$item);
+        array_push($array,$item->id);
       }
       $product->mightLike =  serialize($array);
       $product->save();
@@ -308,9 +310,8 @@ class ProductsController extends Controller
   public function mightLikeAdd(Request $request)
   {
         $product = Product::find($request->id);
-        $product_ml = Product::find($request->data_id);
         $array = unserialize($product->mightLike);
-        array_push($array,$product_ml);
+        array_push($array,$request->data_id);
         $product->mightLike = serialize($array);
         $product->save();
     return redirect()->back();
@@ -320,7 +321,7 @@ class ProductsController extends Controller
         $product = Product::find($request->id);
         $array = unserialize($product->mightLike);
           foreach($array as $key => $item)
-              if(!is_string($item) && $item->id == $request->data_id){
+              if($item == $request->data_id){
                   array_splice($array,$key,1);
               } 
         $product->mightLike = serialize($array);

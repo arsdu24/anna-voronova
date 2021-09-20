@@ -338,8 +338,7 @@ border-color: #ECECEC;
                                 data-columnfour="2" 
                                 data-columnfive="1">
                                 
-@foreach(unserialize($product->mightLike) as $elem)
-@if(!is_string($elem))
+@foreach($ml_products as $elem)
     
                           <div class="item">
                                             
@@ -443,7 +442,6 @@ border-color: #ECECEC;
         </div>
     </div>
                                         </div>
-           @endif
                                         @endforeach
               
                    
@@ -462,8 +460,7 @@ border-color: #ECECEC;
      
     
     </div>
-    @foreach(unserialize($product->mightLike) as $item)
-    @if(!is_string($item))
+    @foreach($ml_products as $item)
     <div class="modal fade" id="Product{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
        <div class="modal-dialog modal-dialog-centered modal-lg " >
        <div class="modal-content">
@@ -554,8 +551,6 @@ border-color: #ECECEC;
                    </div>
                </div>
            </div>
-                           
-           @endif
    @endforeach 
     @endif
     <div class="zoomContainer" style="transform: translateZ(0px); position: absolute; left: 71.5px; top: 277px; height: 770px; width: 620px;">
