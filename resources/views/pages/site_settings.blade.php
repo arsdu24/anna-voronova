@@ -105,6 +105,10 @@
                                       <input type="text" class="form-control" id="name"  name="address" placeholder="Enter address" value="{{$site->address ?? '' }}"/>
                                     </div>
                                     <div class="form-group ">
+                                      <label for="excerpt">Adress link</label>
+                                      <input class="form-control" name="yandex_map" type ="text"aria-label="With textarea" id="excerpt" placeholder="Enter address link " value="{{$site->yandex_map ?? ''}}"/>
+                                    </div>
+                                    <div class="form-group ">
                                       <label for="excerpt">Phone</label>
                                       <input class="form-control" name="phone" type ="text"aria-label="With textarea" placeholder="Enter phone" id="excerpt" value="{{$site->phone ?? ''}}"/>
                                     </div>
