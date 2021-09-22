@@ -68,7 +68,10 @@ class HomeController extends Controller
         $firstBanner = Banner::where('is_slide','=',0)->where('title','Under Trending Products block')->first();
         $secondBanner = Banner::where('is_slide','=',0)->where('title','Above Blog block')->first();
         $Trending_products = Product::where('published',1)->orderby('views','desc')->take(4)->get();
+        $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+        $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+        $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
         $site = SiteSettings::first();
-        return view('pages.index',['categories'=>$categories,'user'=>$user,'cart'=>$cart,'slides'=>$slides,'site'=>$site,'firstBanner'=>$firstBanner,'secondBanner'=>$secondBanner, 'treding'=>$Trending_products,'collections'=>$collections]);
+        return view('pages.index',['categories'=>$categories,'user'=>$user,'cart'=>$cart,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'slides'=>$slides,'site'=>$site,'firstBanner'=>$firstBanner,'secondBanner'=>$secondBanner, 'treding'=>$Trending_products,'collections'=>$collections]);
     }
 }

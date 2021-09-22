@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Category;
+use App\Collection;
+use App\Product;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -37,7 +39,10 @@ class RegisterController extends Controller
               $cart=$order;break;
           }
         }
-        return view('auth.register', ['url' => 'client','categories'=>$categories,'site'=>$site,'cart'=>$cart]);
+        $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+        $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+        $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
+        return view('auth.register', ['url' => 'client','categories'=>$categories,'site'=>$site,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'cart'=>$cart]);
     }
 
     protected function createClient(Request $request)
