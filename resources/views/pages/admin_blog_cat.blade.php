@@ -66,7 +66,7 @@
                 <!-- Modal content-->
                 <div class="modal-content" >
                   <div class="modal-header">
-                    <h4 class="modal-title">Create Article</h4>
+                    <h4 class="modal-title">Edit Category</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
@@ -124,7 +124,7 @@
     <!-- Modal content-->
     <div class="modal-content" >
       <div class="modal-header">
-        <h4 class="modal-title">Create Article</h4>
+        <h4 class="modal-title">Create Category</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
