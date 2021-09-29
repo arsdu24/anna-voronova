@@ -145,7 +145,7 @@ class ProductsController extends Controller
         $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-        return view('pages.product_page',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_coll'=>$product_coll,'cart'=>$cart,'product_categories'=>$product_categories,'categories'=>$categories,'collections'=>$collections]);  
+        return view('pages.product_page',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'products'=>$products,'menu_collections'=>$menu_collections,'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_coll'=>$product_coll,'cart'=>$cart,'product_categories'=>$product_categories,'categories'=>$categories,'collections'=>$collections]);  
 
     }
      
