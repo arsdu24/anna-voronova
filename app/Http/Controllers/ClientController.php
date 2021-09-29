@@ -25,6 +25,6 @@ class ClientController extends Controller
         $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-        return view('pages.client',['orders'=>$orders,'site'=>$site,'user'=>Auth::user(),'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'categories'=>$categories,'cart'=>$cart]);
+        return view('pages.client',['orders'=>$orders,'site'=>$site,'user'=>Auth::user(),'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'collections'=>$collections',categories'=>$categories,'cart'=>$cart]);
     }
 }
