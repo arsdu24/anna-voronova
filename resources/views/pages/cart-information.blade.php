@@ -52,7 +52,7 @@ Information
                                                     <span class="txtFallback">&minus;</span>
                                                 </button>
                                                 <input type="text" name="updates[]" data-id="{{$data->id}}" class="qtyNum velaQtyText" value="{{$data->quantity}}" min="0"  pattern="[0-9]*" />
-                                                <button type="button" data-id="{{$data->id}}"  class="qtyUpdate velaQtyButton velaPlus" >
+                                                <button type="button" data-id="{{$data->id}}"  class="qtyUpdate velaQtyButton velaPlus" @if($data->product->stock-$data->quantity==0)disabled  @endif  >
                                                     <span class="txtFallback">+</span>
                                                 </button>
                                             </div>

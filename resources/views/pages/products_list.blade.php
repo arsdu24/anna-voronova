@@ -139,17 +139,24 @@
                         </div>
                       </div>
                 </div>
+              <div class="form-group row">
+                <label for="stock" class="col-md-4 col-form-label text-md-right">Stock</label>
 
-                <div class="form-group row">
-                    <label for="price" class="col-md-4 col-form-label text-md-right">Price</label>
+                    <div class="input-group mb-3 col-md-6">
+                        
+                        <input type="number" class="form-control" id="stock"  name="stock" >
+                    </div>
+            </div>
+              <div class="form-group row">
+                <label for="price" class="col-md-4 col-form-label text-md-right">Price</label>
 
-                        <div class="input-group mb-3 col-md-6">
-                            <div class="input-group-prepend">
-                                    <span class="input-group-text">$</span>
-                            </div>
-                            <input type="number" class="form-control" name="price" id="price" aria-label="Amount (to the nearest dollar)">
+                    <div class="input-group mb-3 col-md-6">
+                        <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
                         </div>
-                </div>
+                        <input type="number" class="form-control" name="price" id="price" aria-label="Amount (to the nearest dollar)">
+                    </div>
+            </div>
                     <div class=" modal-footer ">
                         <button type="button" data-dismiss="modal" class="btn btn-secondary btn-sm">
                             {{ __('Close') }}
