@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Category;
 use App\Collection;
+use App\Product;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\SiteSettings;
@@ -42,7 +43,10 @@ class LoginController extends Controller
           }
         }
         $site = SiteSettings::first();
-        return view('auth.login',['categories'=>$categories,'cart'=>$cart,'collections'=>$collections,'site'=>$site]);
+        $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+        $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+        $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
+        return view('auth.login',['categories'=>$categories,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'cart'=>$cart,'collections'=>$collections,'site'=>$site]);
     }
 
     public function login(Request $request)

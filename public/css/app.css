@@ -18070,10 +18070,11 @@ button:active:focus,
 #velaTopbar {
     color: #666666;
     background-color: whitesmoke;
-    padding: 10px 0;
     font-size: 14px;
 }
-
+.velaTopbarLeft{
+    margin: 10px 0;
+}
 .velaTopbarLeft .icons {
     position: relative;
     bottom: -6px;
@@ -18097,6 +18098,7 @@ button:active:focus,
     display: inline-block;
     color: #666666;
     margin-left: 15px;
+    margin: 10px 0;
     font-size: 16px;
     transition: all 0.2s ease-in-out 0s;
 }

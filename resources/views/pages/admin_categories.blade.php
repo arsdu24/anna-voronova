@@ -6,13 +6,13 @@
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>
-            Products Categories
+            Product Categories
           </h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Products  Categories</li>
+            <li class="breadcrumb-item active">Product  Categories</li>
           </ol>
         </div>
       </div>
@@ -20,6 +20,10 @@
   </section>
   <div class="card"><div class="card-header">
     <h3 class="card-title"> Categories</h3>
+    <button type="button" class="btn btn-info btn-md ml-3" data-toggle="modal" data-target="#inMenu">
+      <i class="fas fa-edit"></i>
+      Categories in menu
+    </button>
     <div class="card-tools">
       <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">
           <i class="fas fa-plus"></i>
@@ -69,7 +73,7 @@
                 <!-- Modal content-->
                 <div class="modal-content" >
                   <div class="modal-header">
-                    <h4 class="modal-title">Create Article</h4>
+                    <h4 class="modal-title">Edit Category</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
@@ -84,7 +88,7 @@
                             <div class="form-group ">
                               <label for="excerpt" >Ecxerpt</label>
                               <div>
-                                  <input id="excerpt" type="text" class="form-control " name="excerpt" autocomplete="name"/>
+                                  <input id="excerpt" type="text" class="form-control " name="excerpt" value="{{$tag->excerpt}}" autocomplete="name"/>
                               </div>
                             </div>
                               <div class=" modal-footer ">
@@ -167,7 +171,69 @@
     </div>
 
   </div>
+  <div id="inMenu" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
   
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">In Menu</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="container" id="inMenu_content">
+            <div class="row">
+                    <div class="card-body">
+                       @if($menu_categories->count()>0)
+                       <hr class="my-12"/>
+                       <label class="form-check-label">
+                         <p><b>The selectet in menu products</b></p>
+                       </label>
+                       <div class="filter-container p-0 row" style="padding: 3px; position: relative; width: 100%; display: flex; flex-wrap: wrap;">
+                       @foreach($menu_categories as $item)
+                            <div class="filtr-item col-sm-2 deleteMenu" data-id="{{$item->id}}" >
+                              <a href="#" data-toggle="lightbox" style="color:black;">
+                                <p>{{$item->name}}</p>
+                              </a>
+                            </div>
+                       @endforeach
+                      </div>
+                      @endif
+                      <div 
+                      @if($menu_categories->count()>=5)
+                        class="disabled"
+                      @endif>
+                        <hr class="my-12"/>
+                        <div class="filter-container p-0 row" style="padding: 3px; position: relative; width: 100%; display: flex; flex-wrap: wrap;">
+                        @foreach($modal_categories as $item)
+                        <div class="filtr-item col-sm-2 addMenu" data-id="{{$item->id}}">
+                          <a href="#" style="color:black;">
+                            <p>{{$item->name}}</p>
+                          </a>
+                        </div>
+                        @endforeach
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                          Showing {{$modal_categories->firstItem()  ?? '0'}} to {{$modal_categories->count()}} of {{$modal_categories->total()}} entries
+                        </div></div>
+                          <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                              <ul class="pagination">
+                                {!!$modal_categories->links() !!}
+                              </ul>
+                            </div></div></div>
+                </div>
+        </div>
+
+      </div>
+  
+    </div>
+  </div>
 
 @endsection
 @section('scripts')
@@ -177,11 +243,62 @@
      });
     let label = document.querySelector('#image_label');
 let input = document.querySelector('#image');
- input.addEventListener("change",()=>{
+ if(input)input.addEventListener("change",()=>{
      if(input.value!=null)label.innerHTML=input.value;
      else label.innerHTML= "Choose file"
  })
  
-
+ function add(){
+  $(".addMenu").off("click").click(function(e){
+    e.preventDefault();
+    let data_id = $(this).attr('data-id');
+    $.ajax({
+      headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "POST",
+        url: '{{route("InMenuCategory")}}',
+        data: { 
+            data_id: data_id,
+        },
+        success: function(result) {
+          let content = $(result).find('#inMenu_content').html();
+           $('#inMenu_content').html(content);
+           add();
+           delete_i();
+        },
+        error: function(result) {
+          console.log(result.responseText);
+        }
+    });
+});
+}
+function delete_i(){
+  $(".deleteMenu").off("click").click(function(e){
+    let data_id = $(this).attr('data-id');
+    e.preventDefault();
+    $.ajax({
+      headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "POST",
+        url: '{{route("downFromMenuCategory")}}',
+        data: {  
+            data_id: data_id,
+        },
+        success: function(result) {
+          let content = $(result).find('#inMenu_content').html();
+           $('#inMenu_content').html(content);
+           add();
+           delete_i();
+        },
+        error: function(result) {
+          console.log(result.responseText);
+        }
+    });
+});
+}
+add();
+delete_i();
 </script>
 @endsection

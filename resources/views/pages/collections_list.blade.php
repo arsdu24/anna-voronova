@@ -25,6 +25,10 @@
 <div class="card">
     <div class="card-header">
       <h3 class="card-title"> Collections</h3>
+      <button type="button" class="btn btn-info btn-md ml-3" data-toggle="modal" data-target="#inMenu">
+        <i class="fas fa-edit"></i>
+        Collections in menu
+      </button>
       <div class="card-tools">
         <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">
             <i class="fas fa-plus"></i>
@@ -149,6 +153,77 @@
       </div>
   
     </div>
+    <div id="inMenu" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+    
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">In Menu</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="container" id="inMenu_content">
+              <div class="row">
+                      <div class="card-body">
+                         @if($menu_collections->count()>0)
+                         <hr class="my-12"/>
+                         <label class="form-check-label">
+                           <p><b>The selectet in menu collections</b></p>
+                         </label>
+                         <div class="filter-container p-0 row" style="padding: 3px; position: relative; width: 100%; display: flex; flex-wrap: wrap;">
+                         @foreach($menu_collections as $item)
+                              <div class="filtr-item col-sm-2 hover-select-delete">
+                                <a href="#" data-toggle="lightbox"  style="color:black;">
+                                  <img src="{{asset('img/'.$item->thumbnail)}}" class="img-fluid mb-2" alt="white sample">
+                                  <p>{{$item->name}}</p>
+                                </a>
+                                <div class="hover-select_after_delete" data-id="{{$item->id}}">
+                                  <i class="fas fa-times"></i>
+                                </div>
+                              </div>
+                         @endforeach
+                        </div>
+                        @endif
+                        <div 
+                        @if($menu_collections->count()>=2)
+                          class="disabled"
+                        @endif>
+                          <hr class="my-12"/>
+                          <div class="filter-container p-0 row" style="padding: 3px; position: relative; width: 100%; display: flex; flex-wrap: wrap;">
+                          @foreach($modal_collections as $item)
+                          <div class="filtr-item col-sm-2 hover-select">
+                            <a href="#" data-toggle="lightbox"  style="color:black;">
+                              <img src="{{asset('img/'.$item->thumbnail)}}" class="img-fluid mb-2" alt="white sample">
+                              <p>{{$item->title}}</p>
+                            </a>
+                            <div class="hover-select_after" data-id="{{$item->id}}">
+                              <i class="fas fa-plus"></i>
+                            </div>
+                          </div>
+                          @endforeach
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12 col-md-5">
+                          <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                            Showing {{$modal_collections->firstItem()  ?? '0'}} to {{$modal_collections->count()}} of {{$modal_collections->total()}} entries
+                          </div></div>
+                            <div class="col-sm-12 col-md-7">
+                              <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                                <ul class="pagination">
+                                  {!!$modal_collections->links() !!}
+                                </ul>
+                              </div></div></div>
+                  </div>
+          </div>
+  
+        </div>
+    
+      </div>
+    </div>
 @endsection
 @section('scripts')
 <script>
@@ -173,5 +248,58 @@ $('[data-dismiss=modal]').on('click', function (e) {
        .prop("checked", "")
        .end();
 })
+
+function add(){
+  $(".hover-select_after").off("click").click(function(e){
+    let data_id = $(this).attr('data-id');
+    e.preventDefault();
+    $.ajax({
+      headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "POST",
+        url: '{{route("InMenuCollection")}}',
+        data: { 
+            data_id: data_id,
+        },
+        success: function(result) {
+          let content = $(result).find('#inMenu_content').html();
+           $('#inMenu_content').html(content);
+           add();
+           delete_i();
+        },
+        error: function(result) {
+          console.log(result.responseText);
+        }
+    });
+});
+}
+function delete_i(){
+  $(".hover-select_after_delete").off("click").click(function(e){
+    let data_id = $(this).attr('data-id');
+    e.preventDefault();
+    $.ajax({
+      headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "POST",
+        url: '{{route("downFromMenuCollection")}}',
+        data: {  
+            data_id: data_id,
+        },
+        success: function(result) {
+          let content = $(result).find('#inMenu_content').html();
+           $('#inMenu_content').html(content);
+           add();
+           delete_i();
+        },
+        error: function(result) {
+          console.log(result.responseText);
+        }
+    });
+});
+}
+add();
+delete_i();
  </script>
 @endsection

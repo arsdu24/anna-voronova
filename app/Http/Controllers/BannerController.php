@@ -100,6 +100,6 @@ class BannerController extends Controller
         $site = SiteSettings::first();
         return view('pages.banners-list',['user'=>$user,'banners'=>$banners,'site'=>$site]);
     }
-    
+   
    
 }
