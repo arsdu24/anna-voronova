@@ -46,6 +46,7 @@ class ProductsController extends Controller
     }
 
     public function updateProduct($id,Request $request){
+     
         $product = Product::find($id);
         if($request->collections){
          $product->collections()->sync($request->collections);
@@ -56,6 +57,8 @@ class ProductsController extends Controller
         if($request->content)$product->content = $request->content;
         if($request->price)$product->price = $request->price;
         $product->sale_price = $request->sale_price;
+        if($request->stock) $product->stock = $request->stock;
+        else $product->stock = 0;
         if($request->published)$product->published = 1;
         else $product->published = 0;
         if($request->categories){

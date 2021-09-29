@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Collection;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Collection;
@@ -27,10 +28,11 @@ class OrdersController extends Controller
       }
       }
       $site = SiteSettings::first();
+      $collections= Collection::all();
       $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
       $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
       $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-      return view('pages.checkout-information',['categories'=>$categories,'site'=>$site,'user'=>$user,'cart'=>$cart]);
+      return view('pages.checkout-information',['categories'=>$categories,'site'=>$site,'user'=>$user,'cart'=>$cart,'collections'=>$collections]);
     }
 
     public function createOrder(Request $request)
@@ -46,7 +48,11 @@ class OrdersController extends Controller
      }
      $quantity=0;
      foreach($cart->items as $item){
-       $quantity+=$item->quantity;
+       if($item->product->stock > 0 && $item->product->stock - $item->quantity >= 0){
+          $item->product->decrement('stock',$item->quantity);
+          $quantity+=$item->quantity;
+         }
+         else return redirect()->back();
      }
      $cart->contact = $request->checkout['email_or_phone'];
      $cart->address = serialize($request->checkout['shipping_address']);
@@ -96,12 +102,16 @@ class OrdersController extends Controller
           $cart = $order;break;
         }
       }
-
+      $product = Product::find($request->product);
       if(!$cart){
           $NewCart = $user->orders()->create([
               'subtotal' => 0,
               'status'=> 'Draft'
           ]);
+          if($request->quantity > $product->stock){
+            $request->quantity =  $product->stock;
+          }
+          if($request->quantity != 0){
           $item = $NewCart->items()->create([
               'cart_id'=>$NewCart->id,
               'quantity' => $request->quantity,      
@@ -110,19 +120,26 @@ class OrdersController extends Controller
           ]);
           $NewCart->subtotal +=$item->price * $request->quantity;
           $NewCart->save();
+        }
       };
       if($cart){
           if($cart->items){
           foreach($cart->items as $cartItem){
-             if($cartItem->product_id == $request->product){
+             if($cartItem->product_id == $request->product ){
+               if( $cartItem->quantity + $request->quantity <= $cartItem->product->stock){
                   $cartItem->quantity += $request->quantity;
                   $cartItem->save();
                   $cart->subtotal+=$cartItem->price * $request->quantity;
                   $cart->save();
+                }
                   return redirect()->back();
              }
           }
       }
+      if($request->quantity > $product->stock){
+        $request->quantity =  $product->stock;
+      }
+      if($request->quantity != 0){
       $item=$cart->items()->create([
           'cart_id'=>$cart->id,
           'quantity' => $request->quantity,      
@@ -131,6 +148,7 @@ class OrdersController extends Controller
       ]);
       $cart->subtotal+=$item->price * $request->quantity;
       $cart->save();
+    }
   }
       return redirect()->back();
   }   
@@ -161,7 +179,7 @@ class OrdersController extends Controller
       }
     }
       if($cart)$item=$cart->items()->find($request->id);
-      if($item){
+      if($item &&  $request->quantity<=$item->product->stock){
       $cart->subtotal -=  $item->quantity * $item->price;
       $item->quantity = $request->quantity;
       $cart->subtotal += $item->price * $item->quantity ;
