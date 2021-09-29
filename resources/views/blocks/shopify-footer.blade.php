@@ -72,7 +72,8 @@
                                     <h5>Let’s Talk</h5>
                                     <div class="d-flex mb30">
                                         <div><i class="icons icon-earphones-alt"></i></div>
-                                        <div>{{$site->phone ?? ''}} <br><u>{{$site->email ?? ''}}</u>
+                                        <div><a href="tel:{{$site->phone}}">{{$site->phone ?? ''}}</a><br>
+                                            <u><a href="mailto:{{$site->email}}">{{$site->email ?? ''}}</a></u>
                                         </div>
                                     </div>
                                     @endif
@@ -80,7 +81,7 @@
                                     <h5>Find Us</h5>
                                     <div class="d-flex">
                                         <div><i class="icons icon-location-pin"></i></div>
-                                        <div>{{$site->address}}</div>
+                                        <div><a @if($site->yandex_map)href="{{$site->yandex_map}}" @endif>{{$site->address}}</a></div>
                                     </div>
                                     @endif
                                 </div>
