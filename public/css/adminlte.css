@@ -2919,9 +2919,66 @@ textarea.form-control.is-invalid {
 }
 
 a.btn.disabled,
+.disabled,
 fieldset:disabled a.btn {
 	pointer-events: none
 }
+.disabled{
+	position: relative;
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+}
+.disabled::after{
+	
+	position:absolute;
+	top:0;
+	width:100%;
+	height:100%;
+	content:" ";
+	background-color:rgba(255,255,255,0.6);
+}
+
+
+.hover-select, .hover-select-delete{
+	position: relative;
+}
+.hover-select:hover .hover-select_after{
+	display: flex;
+}
+.hover-select-delete:hover .hover-select_after_delete{
+	display: flex;
+}
+.hover-select_after{
+	display:none;
+	cursor:pointer;
+	align-items: center;
+	justify-content:center;
+	font-size: 500%;
+	color: rgba(17, 17, 17, 0.8);
+	position: absolute;
+	top:0;
+	width:100%;
+	height:100%;
+	background-color:rgba(255,255,255,0.5);
+}
+.hover-select_after_delete{
+	display:none;
+	cursor:pointer;
+	align-items: center;
+	justify-content:center;
+	font-size: 100px;
+	color: rgba(245, 31, 31, 0.8);
+	position: absolute;
+	top:0;
+	width:100%;
+	height:100%;
+	background-color:rgba(255,255,255,0.5);
+}
+
 
 .btn-primary {
 	color: #fff;

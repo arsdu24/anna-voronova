@@ -6,7 +6,6 @@ use App\Category;
 use App\Product;
 use App\Review;
 use App\Collection;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\SiteSettings;
@@ -71,6 +70,8 @@ class ProductsController extends Controller
                 $product->thumbnail = serialize($thumbnails);
             }
         };
+        if($request->in_menu)$product->in_menu = 1;
+        else $product->in_menu = 0;
         $product->save();
         return redirect()->route('productPage',['id'=> $id]);
     }
@@ -115,13 +116,19 @@ class ProductsController extends Controller
           }
         }
         $site = SiteSettings::first();
-        return view('pages.product_page',['user'=>Auth::user(),'site'=>$site,'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_coll'=>$product_coll,'cart'=>$cart,'product_categories'=>$product_categories,'categories'=>$categories,'collections'=>$collections]);  
+        $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+        $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+        $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
+        return view('pages.product_page',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_coll'=>$product_coll,'cart'=>$cart,'product_categories'=>$product_categories,'categories'=>$categories,'collections'=>$collections]);  
 
     }
      
      public function viewList()
-    {    $user=Auth::user();
+    {   
+        $user=Auth::user();
         $products=Product::orderby('id', 'desc')->paginate(15);
+        $menu_products = Product::where('in_menu',1)->orderby('views','desc')->get();
+        $modal_products = Product::where('in_menu',0)->orWhere('in_menu',NULL)->paginate(15);
         $cart = null;
         foreach($user->orders as $order){
           if($order->status == "Draft"){
@@ -129,7 +136,10 @@ class ProductsController extends Controller
           }
       } 
       $site = SiteSettings::first();
-        return view('pages.products_list',['user'=>Auth::user(),'site'=>$site,'products'=>$products,'cart'=>$cart]);  
+      $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+      $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+      $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
+        return view('pages.products_list',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'products'=>$products,'cart'=>$cart,'menu_products'=>$menu_products,'modal_products'=>$modal_products]);  
     }
 
     public function clientViewAll()
@@ -171,9 +181,11 @@ class ProductsController extends Controller
               $cart=$order;break;
           }
       }
-
       $site = SiteSettings::first();
-      return view('pages.client_products_list',['user'=>Auth::user(),'site'=>$site,'products'=>$products,'categories'=>$categories,'cart'=>$cart,'collections'=>$collection,'category'=>$category]);  
+      $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+      $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+      $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
+      return view('pages.client_products_list',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'products'=>$products,'categories'=>$categories,'cart'=>$cart,'collections'=>$collection,'category'=>$category]);  
     }
 
     public function clientProductPage($id)
@@ -183,7 +195,9 @@ class ProductsController extends Controller
       $collections = Collection::all();
       $product=Product::find($id);
       if($product && $product->published){
+        $user_reviews = $product->reviews->where('user_id',$user->id)->reverse();
         $reviews = $product->reviews->where('published',1)->reverse();
+        $reviews = $user_reviews->merge($reviews);
         $stars =0;
         foreach($reviews as $review){
           $stars+=$review->stars;
@@ -200,7 +214,10 @@ class ProductsController extends Controller
         $product->views ++;
         $product->save();
         $site = SiteSettings::first();
-        return view('pages.client_product_page',['user'=>Auth::user(),'site'=>$site,'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart,'myl'=>$MightLike,'collections'=>$collections]);
+        $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+        $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+        $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
+        return view('pages.client_product_page',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'product'=>$product,'categories'=>$categories,'reviews'=>$reviews, 'rating'=>$rating,'cart'=>$cart,'myl'=>$MightLike,'collections'=>$collections]);
       }else return redirect()->route('home');
     }
 
@@ -230,8 +247,38 @@ class ProductsController extends Controller
     {   
         $user = Auth::user();
         $site = SiteSettings::first();
+        $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->get();
+        $modal_categories = Category::where('in_menu',0)->orWhere('in_menu',NULL)->paginate(15);
         $category = Category::paginate(15);
-        return view('pages.admin_categories',['user'=>$user,'categories'=>$category,'site'=>$site]);
+        return view('pages.admin_categories',['user'=>$user,'categories'=>$category,'site'=>$site,'menu_categories'=>$menu_categories,'modal_categories'=>$modal_categories]);
     }
   
+  public function InMenu(Request $request)
+  {
+     $product = Product::where('id',$request->data_id)->first();
+     $product->in_menu = 1;
+     $product->save();
+     return redirect()->back();
+  }  
+  public function downFromMenu(Request $request)
+  {
+     $product = Product::where('id',$request->data_id)->first();
+     $product->in_menu = 0;
+     $product->save();
+     return redirect()->back();
+  }  
+  public function InMenuCategory(Request $request)
+  {
+     $category = Category::where('id',$request->data_id)->first();
+     $category->in_menu = 1;
+     $category->save();
+     return redirect()->back();
+  }  
+  public function downFromMenuCategory(Request $request)
+  {
+     $category = Category::where('id',$request->data_id)->first();
+     $category->in_menu = 0;
+     $category->save();
+     return redirect()->back();
+  }      
 }

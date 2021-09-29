@@ -13,6 +13,7 @@ class Product extends Model
     ];
     protected $casts = [
         'published' => 'boolean',
+        'in_menu' => 'boolean',
     ];
     public function reviews(){
         return $this->hasMany('App\Review');

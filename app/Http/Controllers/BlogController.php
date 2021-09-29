@@ -7,6 +7,7 @@ use App\BlogCategory;
 use App\BlogTag;
 use App\Category;
 use App\Collection;
+use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\SiteSettings;
@@ -19,11 +20,24 @@ class BlogController extends Controller
         $categories = Category::all();
         $tags = BlogTag::all();
         $collections = Collection::all();
-        $articles = Article::orderby('created_at','desc')->where('published','=','1')->paginate(15);
+        $articles = Article::orderby('created_at','desc')->where('published','=','1');
+        if(isset($_GET['category'])){
+            $category = BlogCategory::where('name','=',$_GET['category'])->first();
+            if($category){
+            $id= $category->id;
+            $articles=$articles->whereHas('category', function($q) use ($id) {
+              $q->where('blog_category_id', $id);
+           });
+         }
+        }
+        $articles = $articles->paginate(15);
         $date = strtotime("-3 days");
         $startdate = date('Y-m-d',$date);
         $recents_articles =  Article::whereDate('created_at', '>=', $startdate)->where('published','=','1')->orderby('created_at','desc')->get();
         $cart = null;
+        $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+        $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+        $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
         foreach($user->orders as $order){
           if($order->status == "Draft"){
               $cart=$order;break;
@@ -31,7 +45,7 @@ class BlogController extends Controller
         };
 
         $site = SiteSettings::first();
-        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'site'=>$site,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
+        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'site'=>$site,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
     }
     
     public function categoriesList()
@@ -62,7 +76,10 @@ class BlogController extends Controller
           }
         }
         $site = SiteSettings::first();
-        return view('pages.client_blogPage',['user'=>$user,'site'=>$site,'article'=>$article,'categories'=>$blog_categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'article_tags'=>$article_tags,'tags'=>$tags,'collections'=>$collections]);
+        $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+        $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+        $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
+        return view('pages.client_blogPage',['user'=>$user,'site'=>$site,'article'=>$article,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'categories'=>$blog_categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'article_tags'=>$article_tags,'tags'=>$tags,'collections'=>$collections]);
     }
 
     public function admin_blogs(){
@@ -212,7 +229,17 @@ class BlogController extends Controller
         $tags = BlogTag::all();
         $articles = Article::whereHas('tags', function($q) use ($id) {
             $q->where('blog_tag_id', $id);
-         })->where('published',1)->paginate(15);
+         })->where('published',1);
+         if(isset($_GET['category'])){
+            $category = BlogCategory::where('name','=',$_GET['category'])->first();
+            if($category){
+            $id= $category->id;
+            $articles=$articles->whereHas('category', function($q) use ($id) {
+              $q->where('blog_category_id', $id);
+           });
+         }
+        }
+        $articles = $articles->paginate(20);
         $date = strtotime("-3 days");
         $startdate = date('Y-m-d',$date);
         $recents_articles =  Article::whereDate('created_at', '>=', $startdate)->where('published','=','1')->orderby('created_at','desc')->get();
@@ -223,7 +250,10 @@ class BlogController extends Controller
           }
         }
         $site = SiteSettings::first();
-        return view('pages.blogs',['user'=>$user,'site'=>$site,'articles'=>$articles,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
+        $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+        $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+        $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
+        return view('pages.blogs',['user'=>$user,'site'=>$site,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
     }
 
 }

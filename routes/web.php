@@ -94,4 +94,10 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('banners/create','BannerController@create')->name('createBanner');
     Route::post('banners/delete/{banner}','BannerController@bannerDelete')->name('deleteBanner');
     Route::post('banners/update/{banner}','BannerController@bannerUpdate')->name('updateBanner');
+    Route::post('products-list/in-menu','ProductsController@InMenu')->name('InMenu');
+    Route::post('products-list/down-from-menu','ProductsController@downFromMenu')->name('downFromMenu');
+    Route::post('collection-list/in-menu','CollectionsController@InMenu')->name('InMenuCollection');
+    Route::post('collection-list/down-from-menu','CollectionsController@downFromMenu')->name('downFromMenuCollection');
+    Route::post('categories-list/in-menu','ProductsController@InMenuCategory')->name('InMenuCategory');
+    Route::post('categories-list/down-from-menu','ProductsController@downFromMenuCategory')->name('downFromMenuCategory');
 });
