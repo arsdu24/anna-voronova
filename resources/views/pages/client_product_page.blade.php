@@ -316,7 +316,7 @@ border-color: #ECECEC;
                             </div>
                         </div>
                         
-                        
+@if(count(unserialize($product->mightLike))>1)
                         <section class="proRelated mb30">
                 <div id="relatedProducts" class="velaProducts"><div class="headingGroup pb20">
                             <h3 class="velaTitle velaHomeTitle">
@@ -336,8 +336,9 @@ border-color: #ECECEC;
                                 data-columnfour="2" 
                                 data-columnfive="1">
                                 
-                                    
-                                        <div class="item">
+@foreach($ml_products as $elem)
+    
+                          <div class="item">
                                             
     
     
@@ -345,682 +346,104 @@ border-color: #ECECEC;
     <div class="velaProBlock grid " data-price="79.00">
         <div class="velaProBlockInner">
             <div class="proHImage d-flex flexJustifyCenter">
-                <a class="proFeaturedImage" href="victo-pedant-lamp.html">
-                    <div class="wrap ">
-                        
-                            
+                @if($elem->sale_price)
+                <div class="productLable"><span class="labelSale">Sale</span></div>
+                @endif
+                @if(count(unserialize($elem->thumbnail))<2)
+                <a class="proFeaturedImage" href="/products/{{$elem->id}}">
+                    <div class="wrap proSwatch">
     
     <div class="p-relative">
         <div class="product-card__image" style="padding-top:124.25%;">
             <img class="product-card__img lazyload"
-               
-                data-src="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/14_%7bwidth%7dxd379.html?v=1586245038"
-                data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
+                scr="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"
+                data-src="{{asset('img/'.unserialize($elem->thumbnail)[0])}}"
+                data-widths="[1,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808]"
                 data-aspectratio="0.8048289738430584"
                 data-ratio="0.8048289738430584"
                 data-sizes="auto"
                 alt=""
-                
             />
         </div>
         <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
     </div>
-    
-    
-                        
-                    </div></a>
+
+
+</div></a>
+@else
+<a class="proFeaturedImage" href="/products/{{$elem->id}}">
+    <div class="wrap ">
+              <div class="p-relative">
+                  <div class="product-card__image"
+                       style="padding-top:124.25%;">
+                      <img class="product-card__img lazyload"
+                           data-src="{{asset('img/'.unserialize($elem->thumbnail)[0])}}"
+                           data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
+                           data-aspectratio="0.8048289738430584"
+                           data-ratio="0.8048289738430584" data-sizes="auto"
+                           alt=""/>
+                  </div>
+                  <div
+                      class="placeholder-background placeholder-background--animation"
+                      data-image-placeholder></div>
+              </div>
+          </div>
+          <div class="hidden-sm hidden-xs proSwatch proImageSecond">
+              <div class="p-relative">
+                  <div class="product-card__image"
+                       style="padding-top:124.25%;">
+                      <img class="product-card__img lazyload"
+                           data-src="{{asset('img/'.unserialize($elem->thumbnail)[1])}}"
+                           data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
+                           data-aspectratio="0.8048289738430584"
+                           data-ratio="0.8048289738430584" data-sizes="auto"
+                           alt="Turning Table"/>
+                  </div>
+                  <div
+                      class="placeholder-background placeholder-background--animation"
+                      data-image-placeholder></div>
+              </div>
+          </div>
+</a>
+@endif
+
+
+
                 <div class="productLable"></div><div class="proButton clearfix">
-                <form action="{{route('addToCart')}}" method="post" enctype="multipart/form-data" class="formAddToCart">
-                        <input type="hidden" name="id" value="{{$product->id}}" /><button class="btn  btnProduct btnAddToCart" type="submit" value="Submit" title="Add to Cart">
-                                    <span class="icons icon-handbag"></span>
-                                    <span class="text">Add to Cart</span>
-                                </button>
-                </form>
+                    <form action="/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
+                        <input type="hidden" name="id" value="33475186819116" />
+                       
+                    </form>
                     
-        <div class="productQuickView">
-            <a class="btn btnProduct btnProductQuickview" href="#velaQuickView" data-handle="victo-pedant-lamp" title="Quick view">
-                <span class="icons icon-magnifier"></span>
-                  <span class="text">Quick view</span>
-            </a>
+                    <div class="productQuickView"  data-toggle="modal" data-target="{{"#Product".$elem->id}}">
+                        <a class="btn btnProduct btnProductQuickview" href="#velaQuickView" data-handle="arctander-chair" title="Quick view">
+                            <span class="icons icon-magnifier"></span>
+                              <span class="text">Quick view</span>
+                        </a>
+                    </div>
         </div>
-    
+    </div>
+    <div class="proContent">
+    <h5 class="proName">
+        <a href="/products/{{$elem->id}}">{{$elem->name}}</a>
+    </h5>
+
+<div class="groupPrice clearfix">
+  <div class="proPrice"> 
+      @if($elem->sale_price != null)
+      <div class="priceProduct priceCompare"><span class="money" data-currency-usd="{{$elem->price}}" data-currency="USD">${{$elem->price}}</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="{{$elem->sale_price}}" data-currency="USD">${{$elem->sale_price}}</span></div>               
+      @else        
+        <div class="priceProduct "><span class=money>${{$elem->price}} </span></div>
+      @endif
+          </div></div>
                 </div>
-            </div>
-            <div class="proContent"><h5 class="proName">
-                    <a href="victo-pedant-lamp.html">Victo pedant lamp</a>
-                </h5><div class="groupPrice clearfix">
-                    <div class="proPrice">
-                        
-    <div class="priceProduct "><span class=money>$79.00</span></div>               
-                    </div><div class="velaSwatchCus">
-                            
-    
-                        </div></div>
-            </div>
         </div>
     </div>
                                         </div>
-                                    
-                                
-                                    
-                                        <div class="item">
-                                            
-    
-    
-    
-    <div class="velaProBlock grid " data-price="59.00">
-        <div class="velaProBlockInner">
-            <div class="proHImage d-flex flexJustifyCenter">
-                <a class="proFeaturedImage" href="turning-table.html">
-                    <div class="wrap ">
-                        
-                            
-    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyload"
-               
-                data-src="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/30_%7bwidth%7dx96d6.html?v=1586316781"
-                data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
-                data-aspectratio="0.8048289738430584"
-                data-ratio="0.8048289738430584"
-                data-sizes="auto"
-                alt=""
-                
-            />
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
-    </div>
-    
-    
-                        
-                    </div><div class="hidden-sm hidden-xs proSwatch proImageSecond">
-                            
-    
-    
-    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyload"
-               
-                data-src="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/30_1_%7bwidth%7dx96d6.html?v=1586316781"
-                data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
-                data-aspectratio="0.8048289738430584"
-                data-ratio="0.8048289738430584"
-                data-sizes="auto"
-                alt="Turning Table"
-                
-            />
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
-    </div>
-    
-    
-                                    
-                        </div></a>
-                <div class="productLable"></div><div class="proButton clearfix"><form action="https://velademo-rubix.myshopify.com/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
-                        <input type="hidden" name="id" value="33475052175404" /><button class="btn  btnProduct btnAddToCart" type="submit" value="Submit" title="Add to Cart">
-                                    <span class="icons icon-handbag"></span>
-                                    <span class="text">Add to Cart</span>
-                                </button></form>
-                    
-        <div class="productQuickView">
-            <a class="btn btnProduct btnProductQuickview" href="#velaQuickView" data-handle="turning-table" title="Quick view">
-                <span class="icons icon-magnifier"></span>
-                  <span class="text">Quick view</span>
-            </a>
-        </div>
-    
-                </div>
-            </div>
-            <div class="proContent"><h5 class="proName">
-                    <a href="turning-table.html">Turning Table</a>
-                </h5><div class="groupPrice clearfix">
-                    <div class="proPrice">
-                        
-    <div class="priceProduct "><span class=money>$59.00</span></div>               
-                    </div><div class="velaSwatchCus">
-                            
-    
-                        </div></div>
-            </div>
-        </div>
-    </div>
-                                        </div>
-                                    
-                                
-                                    
-                                        <div class="item">
-                                            
-    
-    
-    
-    <div class="velaProBlock grid " data-price="49.00">
-        <div class="velaProBlockInner">
-            <div class="proHImage d-flex flexJustifyCenter">
-                <a class="proFeaturedImage" href="sweeper-and-funnel.html">
-                    <div class="wrap ">
-                        
-                            
-    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyload"
-               
-                data-src="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/11_1_%7bwidth%7dxb82d.html?v=1586223968"
-                data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
-                data-aspectratio="0.8048289738430584"
-                data-ratio="0.8048289738430584"
-                data-sizes="auto"
-                alt=""
-                
-            />
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
-    </div>
-    
-    
-                        
-                    </div><div class="hidden-sm hidden-xs proSwatch proImageSecond">
-                            
-    
-    
-    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyload"
-               
-                data-src="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/11_4_%7bwidth%7dx00e2.html?v=1598084962"
-                data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
-                data-aspectratio="0.8048289738430584"
-                data-ratio="0.8048289738430584"
-                data-sizes="auto"
-                alt="Sweeper and Funnel"
-                
-            />
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
-    </div>
-    
-    
-                                    
-                        </div></a>
-                <div class="productLable"></div><div class="proButton clearfix"><form action="https://velademo-rubix.myshopify.com/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
-                        <input type="hidden" name="id" value="33672952807468" /><a class="btn btnProduct btnAddToCart" href="sweeper-and-funnel.html" title="Select options">
-                                    <span class="icons icon-handbag"></span>
-                                    <span class="select_options text">Select options</span>
-                                </a></form>
-                    
-        <div class="productQuickView">
-            <a class="btn btnProduct btnProductQuickview" href="#velaQuickView" data-handle="sweeper-and-funnel" title="Quick view">
-                <span class="icons icon-magnifier"></span>
-                  <span class="text">Quick view</span>
-            </a>
-        </div>
-    
-                </div>
-            </div>
-            <div class="proContent"><h5 class="proName">
-                    <a href="sweeper-and-funnel.html">Sweeper and Funnel</a>
-                </h5><div class="groupPrice clearfix">
-                    <div class="proPrice">
-                        
-    <div class="priceProduct "><span class=money>$49.00</span></div>               
-                    </div><div class="velaSwatchCus">
-                            
-    <ul class="velaSwatchProduct">
-                                            
-    <li>
-                                                        <label style="background-color: black; background-image: url(../../cdn.shopify.com/s/files/1/0376/9440/6700/products/11_1_small00e2.jpg?v=1598084962)"></label>
-                                                        <div class="hidden">
-                                                            <a href="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/11_1_large00e2.jpg?v=1598084962"></a>
-                                                        </div>
-                                                    </li>
-    <li>
-                                                        <label style="background-color: white; background-image: url(../../cdn.shopify.com/s/files/1/0376/9440/6700/products/11_2_small00e2.jpg?v=1598084962)"></label>
-                                                        <div class="hidden">
-                                                            <a href="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/11_2_large00e2.jpg?v=1598084962"></a>
-                                                        </div>
-                                                    </li>
-                                        </ul>
-                        </div></div>
-            </div>
-        </div>
-    </div>
-                                        </div>
-                                    
-                                
-                                    
-                                        <div class="item">
-                                            
-    
-    
-    
-    <div class="velaProBlock grid " data-price="27.00">
-        <div class="velaProBlockInner">
-            <div class="proHImage d-flex flexJustifyCenter">
-                <a class="proFeaturedImage" href="storm-small-jug.html">
-                    <div class="wrap ">
-                        
-                            
-    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyload"
-               
-                data-src="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/1_1_%7bwidth%7dxa8f8.html?v=1586244535"
-                data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
-                data-aspectratio="0.8048289738430584"
-                data-ratio="0.8048289738430584"
-                data-sizes="auto"
-                alt=""
-                
-            />
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
-    </div>
-    
-    
-                        
-                    </div><div class="hidden-sm hidden-xs proSwatch proImageSecond">
-                            
-    
-    
-    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyload"
-               
-                data-src="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/1_2_%7bwidth%7dxb238.html?v=1586244828"
-                data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
-                data-aspectratio="0.8048289738430584"
-                data-ratio="0.8048289738430584"
-                data-sizes="auto"
-                alt="Storm Small Jug"
-                
-            />
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
-    </div>
-    
-    
-                                    
-                        </div></a>
-                <div class="productLable"></div><div class="proButton clearfix"><form action="https://velademo-rubix.myshopify.com/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
-                        <input type="hidden" name="id" value="33452256493612" /><a class="btn btnProduct btnAddToCart" href="storm-small-jug.html" title="Select options">
-                                    <span class="icons icon-handbag"></span>
-                                    <span class="select_options text">Select options</span>
-                                </a></form>
-                    
-        <div class="productQuickView">
-            <a class="btn btnProduct btnProductQuickview" href="#velaQuickView" data-handle="storm-small-jug" title="Quick view">
-                <span class="icons icon-magnifier"></span>
-                  <span class="text">Quick view</span>
-            </a>
-        </div>
-    
-                </div>
-            </div>
-            <div class="proContent"><h5 class="proName">
-                    <a href="storm-small-jug.html">Storm Small Jug</a>
-                </h5><div class="groupPrice clearfix">
-                    <div class="proPrice">
-                        <span class="text-color-banner mr5">From:</span>
-    <div class="priceProduct "><span class=money>$27.00</span></div>               
-                    </div><div class="velaSwatchCus">
-                            
-    <ul class="velaSwatchProduct">
-                                            
-    <li>
-                                                        <label style="background-color: white; background-image: url(../../cdn.shopify.com/s/files/1/0376/9440/6700/products/1_2_smallb238.jpg?v=1586244828)"></label>
-                                                        <div class="hidden">
-                                                            <a href="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/1_2_largeb238.jpg?v=1586244828"></a>
-                                                        </div>
-                                                    </li>
-    <li>
-                                                        <label style="background-color: black; background-image: url(../../cdn.shopify.com/s/files/1/0376/9440/6700/products/1_1_smallb238.jpg?v=1586244828)"></label>
-                                                        <div class="hidden">
-                                                            <a href="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/1_1_largeb238.jpg?v=1586244828"></a>
-                                                        </div>
-                                                    </li>
-    <li>
-                                                        <label style="background-color: blue; background-image: url(../../cdn.shopify.com/s/files/1/0376/9440/6700/products/1_3_smallb238.jpg?v=1586244828)"></label>
-                                                        <div class="hidden">
-                                                            <a href="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/1_3_largeb238.jpg?v=1586244828"></a>
-                                                        </div>
-                                                    </li>
-                                        </ul>
-                        </div></div>
-            </div>
-        </div>
-    </div>
-                                        </div>
-                                    
-                                
-                                    
-                                        <div class="item">
-                                            
-    
-    
-    
-    <div class="velaProBlock grid " data-price="39.00">
-        <div class="velaProBlockInner">
-            <div class="proHImage d-flex flexJustifyCenter">
-                <a class="proFeaturedImage" href="stainless-steel-teapot.html">
-                    <div class="wrap ">
-                        
-                            
-    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyload"
-               
-                data-src="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/28_%7bwidth%7dx7041.html?v=1586316960"
-                data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
-                data-aspectratio="0.8048289738430584"
-                data-ratio="0.8048289738430584"
-                data-sizes="auto"
-                alt=""
-                
-            />
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
-    </div>
-    
-    
-                        
-                    </div></a>
-                <div class="productLable"><span class="labelSale">Sale</span></div><div class="proButton clearfix"><form action="https://velademo-rubix.myshopify.com/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
-                        <input type="hidden" name="id" value="33475121676332" /><button class="btn  btnProduct btnAddToCart" type="submit" value="Submit" title="Add to Cart">
-                                    <span class="icons icon-handbag"></span>
-                                    <span class="text">Add to Cart</span>
-                                </button></form>
-                    
-        <div class="productQuickView">
-            <a class="btn btnProduct btnProductQuickview" href="#velaQuickView" data-handle="stainless-steel-teapot" title="Quick view">
-                <span class="icons icon-magnifier"></span>
-                  <span class="text">Quick view</span>
-            </a>
-        </div>
-    
-                </div>
-            </div>
-            <div class="proContent"><h5 class="proName">
-                    <a href="stainless-steel-teapot.html">Stainless steel teapot</a>
-                </h5><div class="groupPrice clearfix">
-                    <div class="proPrice">
-                        
-    <div class="priceProduct priceCompare"><span class=money>$57.00</span></div><div class="priceProduct priceSale"><span class=money>$39.00</span></div>               
-                    </div><div class="velaSwatchCus">
-                            
-    
-                        </div></div>
-            </div>
-        </div>
-    </div>
-                                        </div>
-                                    
-                                
-                                    
-                                        <div class="item">
-                                            
-    
-    
-    
-    <div class="velaProBlock grid " data-price="59.00">
-        <div class="velaProBlockInner">
-            <div class="proHImage d-flex flexJustifyCenter">
-                <a class="proFeaturedImage" href="side-table.html">
-                    <div class="wrap ">
-                        
-                            
-    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyload"
-               
-                data-src="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/3_1_%7bwidth%7dx6400.html?v=1586316386"
-                data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
-                data-aspectratio="0.8048289738430584"
-                data-ratio="0.8048289738430584"
-                data-sizes="auto"
-                alt=""
-                
-            />
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
-    </div>
-    
-    
-                        
-                    </div><div class="hidden-sm hidden-xs proSwatch proImageSecond">
-                            
-    
-    
-    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyload"
-               
-                data-src="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/3_2_%7bwidth%7dx6400.html?v=1586316386"
-                data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
-                data-aspectratio="0.8048289738430584"
-                data-ratio="0.8048289738430584"
-                data-sizes="auto"
-                alt="Side Table"
-                
-            />
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
-    </div>
-    
-    
-                                    
-                        </div></a>
-                <div class="productLable"></div><div class="proButton clearfix"><form action="https://velademo-rubix.myshopify.com/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
-                        <input type="hidden" name="id" value="33474941288492" /><button class="btn  btnProduct btnAddToCart" type="submit" value="Submit" title="Add to Cart">
-                                    <span class="icons icon-handbag"></span>
-                                    <span class="text">Add to Cart</span>
-                                </button></form>
-                    
-        <div class="productQuickView">
-            <a class="btn btnProduct btnProductQuickview" href="#velaQuickView" data-handle="side-table" title="Quick view">
-                <span class="icons icon-magnifier"></span>
-                  <span class="text">Quick view</span>
-            </a>
-        </div>
-    
-                </div>
-            </div>
-            <div class="proContent"><h5 class="proName">
-                    <a href="side-table.html">Side Table</a>
-                </h5><div class="groupPrice clearfix">
-                    <div class="proPrice">
-                        
-    <div class="priceProduct "><span class=money>$59.00</span></div>               
-                    </div><div class="velaSwatchCus">
-                            
-    
-                        </div></div>
-            </div>
-        </div>
-    </div>
-                                        </div>
-                                    
-                                
-                                    
-                                        <div class="item">
-                                            
-    
-    
-    
-    <div class="velaProBlock grid " data-price="59.00">
-        <div class="velaProBlockInner">
-            <div class="proHImage d-flex flexJustifyCenter">
-                <a class="proFeaturedImage" href="pia-chair.html">
-                    <div class="wrap ">
-                        
-                            
-    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyload"
-               
-                data-src="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/20_1_%7bwidth%7dx2675.html?v=1586314636"
-                data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
-                data-aspectratio="0.8048289738430584"
-                data-ratio="0.8048289738430584"
-                data-sizes="auto"
-                alt=""
-                
-            />
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
-    </div>
-    
-    
-                        
-                    </div><div class="hidden-sm hidden-xs proSwatch proImageSecond">
-                            
-    
-    
-    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyload"
-               
-                data-src="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/20_2_%7bwidth%7dx2675.html?v=1586314636"
-                data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
-                data-aspectratio="0.8048289738430584"
-                data-ratio="0.8048289738430584"
-                data-sizes="auto"
-                alt="Pia Chair"
-                
-            />
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
-    </div>
-    
-    
-                                    
-                        </div></a>
-                <div class="productLable"></div><div class="proButton clearfix"><form action="https://velademo-rubix.myshopify.com/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
-                        <input type="hidden" name="id" value="33474340356140" /><button class="btn  btnProduct btnAddToCart" type="submit" value="Submit" title="Add to Cart">
-                                    <span class="icons icon-handbag"></span>
-                                    <span class="text">Add to Cart</span>
-                                </button></form>
-                    
-        <div class="productQuickView">
-            <a class="btn btnProduct btnProductQuickview" href="#velaQuickView" data-handle="pia-chair" title="Quick view">
-                <span class="icons icon-magnifier"></span>
-                  <span class="text">Quick view</span>
-            </a>
-        </div>
-    
-                </div>
-            </div>
-            <div class="proContent"><h5 class="proName">
-                    <a href="pia-chair.html">Pia Chair</a>
-                </h5><div class="groupPrice clearfix">
-                    <div class="proPrice">
-                        
-    <div class="priceProduct "><span class=money>$59.00</span></div>               
-                    </div><div class="velaSwatchCus">
-                            
-    
-                        </div></div>
-            </div>
-        </div>
-    </div>
-                                        </div>
-                                    
-                                
-                                    
-                                        <div class="item">
-                                            
-    
-    
-    
-    <div class="velaProBlock grid  lastItem" data-price="59.00">
-        <div class="velaProBlockInner">
-            <div class="proHImage d-flex flexJustifyCenter">
-                <a class="proFeaturedImage" href="outdoor-dining-table.html">
-                    <div class="wrap ">
-                        
-                            
-    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyload"
-               
-                data-src="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/2_1_%7bwidth%7dx453a.html?v=1586245114"
-                data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
-                data-aspectratio="0.8048289738430584"
-                data-ratio="0.8048289738430584"
-                data-sizes="auto"
-                alt=""
-                
-            />
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
-    </div>
-    
-    
-                        
-                    </div><div class="hidden-sm hidden-xs proSwatch proImageSecond">
-                            
-    
-    
-    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyload"
-               
-                data-src="../../cdn.shopify.com/s/files/1/0376/9440/6700/products/2_2_%7bwidth%7dx453a.html?v=1586245114"
-                data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
-                data-aspectratio="0.8048289738430584"
-                data-ratio="0.8048289738430584"
-                data-sizes="auto"
-                alt="Outdoor Dining Table"
-                
-            />
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder></div>
-    </div>
-    
-    
-                                    
-                        </div></a>
-                <div class="productLable"></div><div class="proButton clearfix"><form action="https://velademo-rubix.myshopify.com/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
-                        <input type="hidden" name="id" value="33452411158572" /><button class="btn  btnProduct btnAddToCart" type="submit" value="Submit" title="Add to Cart">
-                                    <span class="icons icon-handbag"></span>
-                                    <span class="text">Add to Cart</span>
-                                </button></form>
-                    
-        <div class="productQuickView">
-            <a class="btn btnProduct btnProductQuickview" href="#velaQuickView" data-handle="outdoor-dining-table" title="Quick view">
-                <span class="icons icon-magnifier"></span>
-                  <span class="text">Quick view</span>
-            </a>
-        </div>
-    
-                </div>
-            </div>
-            <div class="proContent"><h5 class="proName">
-                    <a href="outdoor-dining-table.html">Outdoor Dining Table</a>
-                </h5><div class="groupPrice clearfix">
-                    <div class="proPrice">
-                        
-    <div class="priceProduct "><span class=money>$59.00</span></div>               
-                    </div><div class="velaSwatchCus">
-                            
-    
-                        </div></div>
-            </div>
-        </div>
-    </div>
-                                        </div>
-                                    
+                                        @endforeach
+              
+                   
+                                        
                                 
                             </div>
                         </div>
@@ -1032,9 +455,102 @@ border-color: #ECECEC;
         </div>
     </div>
     
-    
+     
     
     </div>
+    @foreach($ml_products as $item)
+    <div class="modal fade" id="Product{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered modal-lg " >
+       <div class="modal-content">
+           <div class="modal-body">
+               <div class="w-100 text-right">
+                   <a title="Close" class="quickviewClose btnClose text-right w-100" style="right: 0;" data-dismiss="modal" href="javascript:void(0);"></a>
+               </div>
+               <div class="proBoxPrimary row">
+                   <div class="proBoxImage col-xs-12 col-sm-12 col-md-5">
+                       <div class="proFeaturedImage">
+                           <a class="proImage" title="" href="/products/{{$item->id}}">
+                               <img class="img-responsive proImageQuickview" src="{{asset('img/'.unserialize($item->thumbnail)[0])}}" alt="Quickview">
+                               <span class="loadingImage" style="display: none;"></span>
+                           </a>
+                       </div>
+                       <div class="proThumbnails proThumbnailsQuickview clearfix">
+                           <div class="owl-thumblist">
+                               <div class="owl-carousel owl-loaded" style="visibility: visible;">
+   
+                               <div class="owl-stage-outer">
+                                   <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 172px;">
+                                       @foreach(unserialize($item->thumbnail) as $image)
+                                      
+                                       <div class="owl-item " style="width: 85.75px;"><div
+                                   class="thumbItem">
+                                   <a href="javascript:void(0)" class="imgs" data-index="0" data-imageid="7714764259372" data-image="{{asset('img/'.$image)}}">
+                                       <img src="{{asset('img/'.$image)}}" alt="undefined">
+                                   </a>
+                                   
+                               </div>
+                               
+                           </div>
+                           @endforeach
+                           </div></div><div class="owl-nav disabled"><div class="owl-prev disabled">prev</div><div class="owl-next disabled">next</div></div><div class="owl-dots disabled"></div></div>
+                           </div>
+                       </div>
+                       
+                   </div>
+                   <div class="proBoxInfo col-xs-12 col-sm-12 col-md-7" id="product-4948426817580">
+                       <h3 class="quickviewName mb20 text-left"><a href="/products/{{$item->id}}" class="w-100 text-left">{{$item->name}}</a></h3>
+                       <div class="proShortDescription rte text-left"><p>{{$item->excerpt}}</p>
+   <p></p></div>
+                       
+                   <form method="post" action="{{route('addToCart')}}" accept-charset="UTF-8" enctype="multipart/form-data">  
+                       @csrf                    
+                           <div class="proVariantsQuickview"></div>
+                           <input type="hidden" value="{{$item->id}}" name="product"/>
+                           <div class="proPrice clearfix">
+                               @if($item->sale_price != null)
+                               <div class="priceProduct priceCompare"><span class="money" data-currency-usd="{{$item->price}}" data-currency="USD">${{$item->price}}</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="{{$item->sale_price}}" data-currency="USD">${{$item->sale_price}}</span></div>               
+                               @else 
+                               <div class="priceProduct "><span class="money">{{$item->price}} $</span></div>     
+                               @endif
+                               
+                           </div>
+                           <div class="velaGroup d-flex flexAlignEnd mb20">
+                               <div class="proQuantity">
+                                   <!-- <label for="Quantity" class="qtySelector">Quantity</label> -->
+                                   
+       
+                                   <div style="display:none"><input type="number"></div>     
+                                   <div class="velaQty">
+                                       <button type="button" class="velaQtyAdjust velaQtyButton velaQtyMinus">
+                                           <span class="txtFallback">−</span>
+                                       </button>
+                                       <input type="text" value="1" name="quantity" class="velaQtyNum velaQtyText " >
+                                       <button type="button" class="velaQtyAdjust velaQtyButton velaQtyPlus">
+                                           <span class="txtFallback">+</span>
+                                       </button>
+                                   </div>
+       
+   
+                               </div>
+                               <div class="proButton">
+                                   <button type="submit" name="add" class="btn btnAddToCart">
+                                       <span>Add to Cart</span>
+                                   </button>
+                               </div>
+                           </div>
+                       </form>
+                       <div class="proAttr quickviewAvailability instock text-left"><label>Availability:</label> In stock</div>       
+                   </div>
+               </div>
+           </div>
+       </div>
+       </div>
+   </div>
+                   </div>
+               </div>
+           </div>
+   @endforeach 
+    @endif
     <div class="zoomContainer" style="transform: translateZ(0px); position: absolute; left: 71.5px; top: 277px; height: 770px; width: 620px;">
         <div class="zoomLens" style="background-position: 0px 0px; float: right; overflow: hidden; z-index: 999; transform: translateZ(0px); opacity: 0.4; zoom: 1; width: 350.175px; height: 350.345px; background-color: white; cursor: pointer; border: 1px solid rgb(0, 0, 0); background-repeat: no-repeat; position: absolute; left: 230px; top: 84px; display: none;">
             &nbsp;
@@ -1071,6 +587,20 @@ border-color: #ECECEC;
          el.style.display="none";
         else el.style.display="block";
     })};
+</script>
+<script>
+    document.querySelector('.imgs').classList.add("active");
+    $('.imgs').bind('click', function (e) {
+        e.preventDefault();
+        let value = $(this).attr('data-image');
+        let element = $(this).closest('.proBoxImage').find('.img-responsive');
+        document.querySelectorAll('.imgs').forEach(element =>{
+               element.classList.remove("active");
+        }); 
+       $(this).get(0).classList.add("active"); 
+        element.attr('src',value);
+        });
+
 </script>
 <script>
  $(document).ready(function(){

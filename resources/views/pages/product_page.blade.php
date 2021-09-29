@@ -30,6 +30,9 @@
             <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">Details</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" id="custom-tabs-one-myl-tab" data-toggle="pill" href="#custom-tabs-one-myl" role="tab" aria-controls="custom-tabs-one-myl" aria-selected="false">Might like products</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Reviews</a>
           </li>
         </ul>
@@ -167,8 +170,79 @@
                       </div>
                   </div>
         </div>
+        <div class="tab-pane fade show" id="custom-tabs-one-myl" role="tabpanel" aria-labelledby="custom-tabs-one-myl-tab">
+            
+          <div class="container" id="ml_content">
+            <div class="row">
+                    <div class="card-body">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="radio1" @if(unserialize($product->mightLike)[0]== "Automated" ) checked @endif >
+                        <label class="form-check-label" for="radio1">
+                          <p>Automated</p>
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="radio2" @if(unserialize($product->mightLike)[0]== "Manual") checked @endif >
+                        <label class="form-check-label" for="radio2">
+                          <p>Chose the products manualy</p>
+                        </label>
+                      </div>
+                       @if( unserialize($product->mightLike)[0]!="Automated" && unserialize($product->mightLike)[0]!=NULL && count(unserialize($product->mightLike))>1)
+                       <hr class="my-12"/>
+                       <label class="form-check-label">
+                         <p><b>The selectet might like products</b></p>
+                       </label>
+                       <div class="filter-container p-0 row" style="padding: 3px; position: relative; width: 100%; display: flex; flex-wrap: wrap;">
+                       @foreach($ml_products as $item)
+                            <div class="filtr-item col-sm-2 hover-select-delete">
+                              <a href="#" data-toggle="lightbox"  style="color:black;">
+                                <img src="{{asset('img/'.unserialize($item->thumbnail)[0])}}" class="img-fluid mb-2" alt="white sample">
+                                <p>{{$item->name}}</p>
+                              </a>
+                              <div class="hover-select_after_delete" data-id="{{$item->id}}">
+                                <i class="fas fa-times"></i>
+                              </div>
+                            </div>
+                       @endforeach
+                      </div>
+                      @endif
+                      <div 
+                      @if(unserialize($product->mightLike)[0]!="Manual" || count(unserialize($product->mightLike))>=10)
+                        class="disabled"
+                      @endif>
+                        <hr class="my-12"/>
+                        <div class="filter-container p-0 row" style="padding: 3px; position: relative; width: 100%; display: flex; flex-wrap: wrap;">
+                        @foreach($products as $item)
+                        <div class="filtr-item col-sm-2 hover-select">
+                          <a href="#" data-toggle="lightbox"  style="color:black;">
+                            <img src="{{asset('img/'.unserialize($item->thumbnail)[0])}}" class="img-fluid mb-2" alt="white sample">
+                            <p>{{$item->name}}</p>
+                          </a>
+                          <div class="hover-select_after" data-id="{{$item->id}}">
+                            <i class="fas fa-plus"></i>
+                          </div>
+                        </div>
+                        @endforeach
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12 col-md-5">
+                        <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                          Showing {{$products->firstItem()  ?? '0'}} to {{$products->count()}} of {{$products->total()}} entries
+                        </div></div>
+                          <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                              <ul class="pagination">
+                                {!!$products->links() !!}
+                              </ul>
+                            </div></div></div>
+                </div>
+      </div>
           <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
-            <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12">
+            <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+              <div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12">
               <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
             <thead>
             <tr role="row">
@@ -365,6 +439,124 @@ $(".delete").click(function(e) {
         }
     });
 });
+$(".delete").click(function(e) {
+    e.preventDefault();
+    let id = $(this).attr('rev_id');
+    let el =  $(this);
+    $.ajax({
+        type: "POST",
+        url: '{{route("reviewDelete")}}',
+        data: { 
+            id: id, // < note use of 'this' here
+        },
+        success: function(result) {
+           el.parent().parents('tr').remove()
+        },
+        error: function(result) {
+            alert('error');
+        }
+    });
+});
+function radio1(){$("#radio1").off("click").click(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: '{{route("ml_set")}}',
+        data: { 
+            id: {!!json_encode($product->id)!!},
+            type: "Automated", 
+        },
+        success: function(result) {
+           let content = $(result).find('#ml_content').html();
+           $('#ml_content').html(content);
+           radio1();
+           radio2();
+           add();
+           delete_i();
+        },
+        error: function(result) {
+          console.log(result);
+        }
+    });
+});
+}
+function radio2(){
+  $("#radio2").off("click").click(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: '{{route("ml_set")}}',
+        data: { 
+            id: {!!json_encode($product->id)!!}, 
+        },
+        success: function(result) {
+          let content = $(result).find('#ml_content').html();
+           $('#ml_content').html(content);
+           radio1();
+           radio2();
+           add();
+           delete_i();
+        },
+        error: function(result) {
+          console.log(result);
+        }
+    });
+});
+}
+function add(){
+  $(".hover-select_after").off("click").click(function(e){
+    let data_id = $(this).attr('data-id');
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: '{{route("ml_add")}}',
+        data: { 
+            id: {!!json_encode($product->id)!!}, 
+            data_id: data_id,
+        },
+        success: function(result) {
+          let content = $(result).find('#ml_content').html();
+           $('#ml_content').html(content);
+           radio1();
+           radio2();
+           add();
+           delete_i();
+        },
+        error: function(result) {
+          console.log(result);
+        }
+    });
+});
+}
+function delete_i(){
+  $(".hover-select_after_delete").off("click").click(function(e){
+    let data_id = $(this).attr('data-id');
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: '{{route("ml_delete")}}',
+        data: { 
+            id: {!!json_encode($product->id)!!}, 
+            data_id: data_id,
+        },
+        success: function(result) {
+          let content = $(result).find('#ml_content').html();
+           $('#ml_content').html(content);
+           radio1();
+           radio2();
+           add();
+           delete_i();
+           console.log('1');
+        },
+        error: function(result) {
+          console.log(result.responseText);
+        }
+    });
+});
+}
+radio1();
+radio2();
+add();
+delete_i();
 </script>
-
 @endsection

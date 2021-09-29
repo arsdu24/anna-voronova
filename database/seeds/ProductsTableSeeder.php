@@ -13,6 +13,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => '20',
                 'thumbnail' => serialize($thumbnail),
                 'published' => 1,
+                'mightLike' => serialize([0=>"Automated"]),
             ],
             [
                 'name' => 'Product 2',
@@ -20,6 +21,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => '23.45',
                 'thumbnail' => serialize($thumbnail),
                 'published' => 1,
+                'mightLike' => serialize([0=>"Automated"]),
             ],
             [
                 'name' => 'Product 3',
@@ -27,6 +29,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => '54.23',
                 'thumbnail' => serialize($thumbnail),
                 'published' => 1,
+                'mightLike' => serialize([0=>"Automated"]),
             ],
             [
                 'name' => 'Product 4',
@@ -34,6 +37,7 @@ class ProductsTableSeeder extends Seeder
                 'price' => '12.42',
                 'thumbnail' => serialize($thumbnail),
                 'published' => 1,
+                'mightLike' => serialize([0=>"Automated"]),
             ],
           ]);
     }

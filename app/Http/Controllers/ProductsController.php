@@ -9,6 +9,7 @@ use App\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\SiteSettings;
+use Mockery\Generator\StringManipulation\Pass\RemoveUnserializeForInternalSerializableClassesPass;
 
 class ProductsController extends Controller
 {   
@@ -21,6 +22,23 @@ class ProductsController extends Controller
             $thumbnail = [$imageName];
             $formInput['thumbnail'] = serialize($thumbnail);
             $product = Product::create($formInput);
+            $array = [0=>"Automated"];
+            $products = $product;
+            foreach( $product->categories() as $category)
+                if($category)
+                 foreach($category->products() as $item)
+                    $products = $products->merge($item);
+              foreach( $product->collections() as $collection)
+                if($collection)
+                 foreach($collection->products() as $item)
+                    $products  = $products ->merge($item);
+            $products  = $products->where('id','!=',$product->id)->orderby('views','desc');
+            $products = $products->take(10)->get();
+            foreach($products as $item){
+              array_push($array,$item->id);
+            }
+            $product->mightLike =  serialize($array);
+            $product->save();
             $id = $product->id;
             return redirect()->route('productPage',['id'=> $id]);
         }
@@ -95,8 +113,16 @@ class ProductsController extends Controller
         return redirect()->route('productList');
     }
 
+    
     public function productPage($id){
-        $product = Product::find($id);
+      $product = Product::find($id);
+      $ml = unserialize($product->mightLike);
+      array_splice($ml,0,1);
+          if(unserialize($product->mightLike)[0]=="Manual"){
+            $products= Product::whereNotIn('id',$ml)->where('id','!=',$product->id)->where('published',1)->orderby('id','desc')->paginate(30);
+          }
+          else $products = Product::where('id','!=',$product->id)->where('published',1)->orderby('id','desc')->paginate(30);
+        $MightLike = Product::where('id','!=',$product->id)->whereIn('id',$ml)->where('published',1)->orderby('id','desc')->paginate(30);
         $categories =Category::all();
         $collections = Collection::all();
         $product_categories = array();
@@ -194,6 +220,25 @@ class ProductsController extends Controller
       $categories =Category::all();
       $collections = Collection::all();
       $product=Product::find($id);
+      if(unserialize($product->mightLike)[0]=="Automated"){
+        $array = [0=>"Automated"];
+      $ids = [];
+      foreach( $product->categories as $category)
+          if($category)
+           foreach($category->products as $item)
+              array_push($ids,$item->id);
+        foreach( $product->collections as $collection)
+          if($collection)
+           foreach($collection->products as $item)
+           array_push($ids,$item->id);
+      $products  = Product::where('id','!=',$product->id)->whereIn('id',$ids)->orderby('views','desc');
+      $products = $products->take(10)->get();
+      foreach($products as $item){
+        array_push($array,$item->id);
+      }
+      $product->mightLike =  serialize($array);
+      $product->save();
+      }
       if($product && $product->published){
         $user_reviews = $product->reviews->where('user_id',$user->id)->reverse();
         $reviews = $product->reviews->where('published',1)->reverse();
@@ -210,7 +255,9 @@ class ProductsController extends Controller
               $cart=$order;break;
           }
         }
-        $MightLike = Product::where('id','<>',$product->id)->inRandomOrder()->take(10)->get();
+        $ml = unserialize($product->mightLike);
+        array_splice($ml,0,1);
+        $MightLike = Product::where('id','!=',$product->id)->whereIn('id',$ml)->where('published',1)->orderby('id','desc')->paginate(30);
         $product->views ++;
         $product->save();
         $site = SiteSettings::first();
@@ -252,6 +299,57 @@ class ProductsController extends Controller
         $category = Category::paginate(15);
         return view('pages.admin_categories',['user'=>$user,'categories'=>$category,'site'=>$site,'menu_categories'=>$menu_categories,'modal_categories'=>$modal_categories]);
     }
+  public function mightLike(Request $request)
+  {
+    $product = Product::find($request->id);
+    if($request->type == "Automated"){
+      $array = [0=>"Automated"];
+      $ids = [];
+      foreach( $product->categories as $category)
+          if($category)
+           foreach($category->products as $item)
+              array_push($ids,$item->id);
+        foreach( $product->collections as $collection)
+          if($collection)
+           foreach($collection->products as $item)
+           array_push($ids,$item->id);
+      $products  = Product::where('id','!=',$product->id)->whereIn('id',$ids)->orderby('views','desc');
+      $products = $products->take(10)->get();
+      foreach($products as $item){
+        array_push($array,$item->id);
+      }
+      $product->mightLike =  serialize($array);
+      $product->save();
+    }
+    else{
+      if(unserialize($product->mightLike)[0]=="Automated"){
+      $product->mightLike = serialize([0=>"Manual"]);
+      $product->save();
+      }
+    }
+    return redirect()->back();
+  }
+  public function mightLikeAdd(Request $request)
+  {
+        $product = Product::find($request->id);
+        $array = unserialize($product->mightLike);
+        array_push($array,$request->data_id);
+        $product->mightLike = serialize($array);
+        $product->save();
+    return redirect()->back();
+  }
+  public function mightLikeDelete(Request $request)
+  {
+        $product = Product::find($request->id);
+        $array = unserialize($product->mightLike);
+          foreach($array as $key => $item)
+              if($item == $request->data_id){
+                  array_splice($array,$key,1);
+              } 
+        $product->mightLike = serialize($array);
+        $product->save();
+    return redirect()->back();
+  }
   
   public function InMenu(Request $request)
   {
