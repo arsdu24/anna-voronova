@@ -20,7 +20,17 @@ class BlogController extends Controller
         $categories = Category::all();
         $tags = BlogTag::all();
         $collections = Collection::all();
-        $articles = Article::orderby('created_at','desc')->where('published','=','1')->paginate(15);
+        $articles = Article::orderby('created_at','desc')->where('published','=','1');
+        if(isset($_GET['category'])){
+            $category = BlogCategory::where('name','=',$_GET['category'])->first();
+            if($category){
+            $id= $category->id;
+            $articles=$articles->whereHas('category', function($q) use ($id) {
+              $q->where('blog_category_id', $id);
+           });
+         }
+        }
+        $articles = $articles->paginate(15);
         $date = strtotime("-3 days");
         $startdate = date('Y-m-d',$date);
         $recents_articles =  Article::whereDate('created_at', '>=', $startdate)->where('published','=','1')->orderby('created_at','desc')->get();
@@ -219,7 +229,17 @@ class BlogController extends Controller
         $tags = BlogTag::all();
         $articles = Article::whereHas('tags', function($q) use ($id) {
             $q->where('blog_tag_id', $id);
-         })->where('published',1)->paginate(15);
+         })->where('published',1);
+         if(isset($_GET['category'])){
+            $category = BlogCategory::where('name','=',$_GET['category'])->first();
+            if($category){
+            $id= $category->id;
+            $articles=$articles->whereHas('category', function($q) use ($id) {
+              $q->where('blog_category_id', $id);
+           });
+         }
+        }
+        $articles = $articles->paginate(20);
         $date = strtotime("-3 days");
         $startdate = date('Y-m-d',$date);
         $recents_articles =  Article::whereDate('created_at', '>=', $startdate)->where('published','=','1')->orderby('created_at','desc')->get();
