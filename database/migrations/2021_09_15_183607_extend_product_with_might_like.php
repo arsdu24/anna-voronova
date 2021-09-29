@@ -14,7 +14,7 @@ class ExtendProductWithMightLike extends Migration
     public function up()
     {
         Schema::table('product', function (Blueprint $table) {
-            $table->integer('mightLike')->nullable();
+            $table->string('mightLike')->nullable();
             
         });
     }
