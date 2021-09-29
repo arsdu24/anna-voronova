@@ -114,7 +114,7 @@
                                     </div>
                                     <div class="form-group">
                                       <label for="sel1">Collections</label>
-                                        <select class="select2bs4 select2-hidden-accessible" name="collections[]" multiple="" id="category" data-placeholder="Select categories" style="width: 100%;" data-select2-id="22" tabindex="-1" aria-hidden="true">
+                                        <select class="select2bs4 select2-hidden-accessible" name="collections[]" multiple="" id="category" data-placeholder="Select collections" style="width: 100%;" data-select2-id="22" tabindex="-1" aria-hidden="true">
                                          @if(isset($collections))
                                             @foreach($collections as $option)
                                            <option value="{{$option->id}}">{{$option->title}}</option>
@@ -125,7 +125,7 @@
                                     </div>
                                     <div class="form-group">
                                       <label>Categories</label>
-                                      <select class="select2bs4 select2-hidden-accessible" id="tag" multiple="" data-placeholder="Select tags" style="width: 100%;" data-select2-id="23" tabindex="-1" aria-hidden="true" name="categories[]">
+                                      <select class="select2bs4 select2-hidden-accessible" id="tag" multiple="" data-placeholder="Select categories" style="width: 100%;" data-select2-id="23" tabindex="-1" aria-hidden="true" name="categories[]">
                                         @if($categories ?? '')
                                          @foreach($categories as $option)
                                           <option value="{{$option->id}}">{{$option->name}}</option>

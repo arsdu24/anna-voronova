@@ -9,7 +9,7 @@
                         style="padding-top:124.25%;">
                     <img
                         class="product-card__img lazyload"
-                        data-src="//cdn.shopify.com/s/files/1/0376/9440/6700/products/{{$img}}"
+                        data-src="{{asset('img/'.$img)}}"
                         data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
                         data-aspectratio="0.8048289738430584"
                         data-ratio="0.8048289738430584"
@@ -24,12 +24,12 @@
     </div>
     <div class="proMeta proMetaMenu">
         <h5 class="proName">
-            <a href="/products/victo-pedant-lamp"
+            <a  href="/products/{{$href}}"
                 title="">{{$title}}</a>
         </h5>
         <div class="boxProPrice">
             <span class=" proPrice"><span
-                    class=money>{{$price}}</span></span>
+                    class=money>{{$price}} $</span></span>
         </div>
     </div>
 </div>

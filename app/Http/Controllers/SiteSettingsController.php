@@ -23,6 +23,9 @@ class SiteSettingsController extends Controller
         if($request->address){
             $site->address=$request->address;
         } else $site->address= NULL;
+        if($request->yandex_map){
+            $site->yandex_map=$request->yandex_map;
+        } else $site->yandex_map= NULL;
         if($request->instagram){
             $site->instagram=$request->instagram;
         } else $site->instagram= NULL;

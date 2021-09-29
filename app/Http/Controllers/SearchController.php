@@ -44,6 +44,9 @@ class SearchController extends Controller
                                 ->paginate(15);
             $search = $products->take(10);
             $site = SiteSettings::first();
+        $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+        $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+        $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
             return view('pages.search_result',['user'=>$user,'site'=>$site,'categories'=>$categories,'cart'=>$cart,'results'=>$products,'q'=>$q,'search'=>$search,'collections'=>$collections]);
 
         }
@@ -54,7 +57,7 @@ class SearchController extends Controller
                                 ->paginate(15);
             $search = $articles->take(10);
             $site = SiteSettings::first();
-            return view('pages.search_result',['user'=>$user,'site'=>$site,'categories'=>$categories,'cart'=>$cart,'q'=>$q,'results'=>$articles,'search'=>$search,'collections'=>$collections]);
+            return view('pages.search_result',['user'=>$user,'site'=>$site,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'categories'=>$categories,'cart'=>$cart,'q'=>$q,'results'=>$articles,'search'=>$search,'collections'=>$collections]);
 
             
         }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use App\Order;
+use App\Collection;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
 use App\SiteSettings;
@@ -26,6 +27,9 @@ class OrdersController extends Controller
       }
       }
       $site = SiteSettings::first();
+      $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+      $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+      $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
       return view('pages.checkout-information',['categories'=>$categories,'site'=>$site,'user'=>$user,'cart'=>$cart]);
     }
 
@@ -180,6 +184,9 @@ class OrdersController extends Controller
           }
       }
       $site = SiteSettings::first();
-      return view('pages.cart-information',['categories'=>$categories,'site'=>$site,'user'=>$user,'cart'=>$cart,'collections'=>$collections]);
+      $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+      $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+      $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
+      return view('pages.cart-information',['categories'=>$categories,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'site'=>$site,'user'=>$user,'cart'=>$cart,'collections'=>$collections]);
   }
 }

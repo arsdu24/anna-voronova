@@ -19,7 +19,8 @@ class CreateSiteSettingsTable extends Migration
             $table->string("phone")->nullable();
             $table->string("email")->nullable();
             $table->string("short_logo")->nullable();
-            $table->string("full_logo")->nullable();
+            $table->string("full_logo")->nullable(); 
+            $table->string("yandex_map")->nullable();
             $table->string("address")->nullable();
             $table->string("facebook")->nullable();
             $table->string("instagram")->nullable();
