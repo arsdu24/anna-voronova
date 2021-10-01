@@ -542,7 +542,11 @@
                             </div>
                         </div>
                     </form>
-                    <div class="proAttr quickviewAvailability instock text-left"><label>Availability:</label> In stock</div>       
+
+                      @if($product->stock>0)<p class="proAttr productAvailability instock"><label>Availability:</label>In stock</p>
+            @else <p class="proAttr productAvailability outstock"><label>Availability:</label>Out of stock</p>
+            @endif
+
                 </div>
             </div>
         </div>

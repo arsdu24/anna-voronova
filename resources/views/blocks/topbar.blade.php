@@ -10,7 +10,7 @@
                     <div class="velaTopbarRight d-flex flexAlignEnd hidden-xs hidden-sm hidden-md d-flex col-md-8">
                         <div class="hidden-xs">
                             <div class="d-flex velaSocialTop">
-                               @include('blocks.social')
+                                @include('blocks.social')
                             </div>
                         </div>
                     </div>

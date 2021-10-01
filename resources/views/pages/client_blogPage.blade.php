@@ -83,7 +83,7 @@
     <div class="articleTags">
     <span>Tags:</span>
     @foreach ($article->tags as $tag)
-    <a href="/blogs/news/tagged/apps">{{$tag->name}}</a>, 
+    <a href="/blogs/tagged/{{$tag->slug}}" >{{$tag->name}}</a>, 
 @endforeach
 </div>
 
@@ -112,12 +112,12 @@
         <input type="hidden" name="view" value="blog">
         <input type="hidden" name="type" value="article">
         <div class="input-group">
-            <input type="search" name="q" value="" placeholder="Search our blogs" class="formSearchPageInput form-control">                      
+            <input name="q" value="" placeholder="Search our blogs" autocomplete="off" class="formSearchPageInput form-control">                      
             <button type="submit" class="formSearchPageButton">
                 <i class="icons icon-magnifier"></i>
             </button>
         </div>
-    <ul class="velaAjaxSearch" style="display: none;"></ul></form>
+        <ul class="blogSearch" style="display: none;"></ul></form>
 </div>
 </div><div class="blogSidebar">
 <h4 class="titleSidebar">Recent Articles</h4>

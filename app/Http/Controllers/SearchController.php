@@ -33,7 +33,9 @@ class SearchController extends Controller
         $date = strtotime("-3 days");
         $startdate = date('Y-m-d',$date);
         $recents_articles =  Article::whereDate('created_at', '>=', $startdate)->where('published','=','1')->orderby('created_at','desc')->get();
-
+        $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+        $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+        $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
         $q = $request->q;
         if($request->type=='product'){
             $products = Product::where('published','=',1)
@@ -44,10 +46,7 @@ class SearchController extends Controller
                                 ->paginate(15);
             $search = $products->take(10);
             $site = SiteSettings::first();
-        $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
-        $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
-        $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-            return view('pages.search_result',['user'=>$user,'site'=>$site,'categories'=>$categories,'cart'=>$cart,'results'=>$products,'q'=>$q,'search'=>$search,'collections'=>$collections]);
+            return view('pages.search_result',['user'=>$user,'site'=>$site,'categories'=>$categories,'cart'=>$cart,'results'=>$products,'q'=>$q,'search'=>$search,'collections'=>$collections,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections]);
 
         }
         elseif($request->type=='blog'){

@@ -11,9 +11,9 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-5 d-flex justify-content-center">
                                             <ul class="velaMenuLinks p-2">
-                                                @include('components.list-link',['title'=>'Categories','class'=>'menuTitle ml30' ,'href'=>"/collections"])
+                                                @include('components.list-link',['title'=>'Categories','class'=>'menuTitle ml30' ,'href'=>""])
                                                  @foreach($menu_categories as $category)
-                                                  @include('components.list-link',['title'=>$category->name,'class'=>'ml30' ,'href'=>'/collections/'.$category->id])
+                                                  @include('components.list-link',['title'=>$category->name,'class'=>'ml30' ,'href'=>'/products?category='.$category->name])
                                                 @endforeach
 
                                             </ul>

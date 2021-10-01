@@ -136,8 +136,8 @@
                                          
                                             @foreach ($search as $item)
                                                 <li>
-                                                    <a href="/products/{{$result->id}}">
                                                         @if($_GET['type']=='product')
+                                                        <a href="/products/{{$result->id}}">
                                                         <span class="searchProductImage" >
                                                            
                                                             <img src="{{asset('img/'.unserialize($item->thumbnail)[0])}}" class="search_img">
@@ -145,7 +145,9 @@
                                                         <span class="searchProductTitle">
                                                            {{$item->name}}
                                                         </span>
+                                                        </a>
                                                         @else
+                                                        <a href="/blogs/news/{{$result->id}}">
                                                             <span class="searchProductImage" >
                                                             
                                                                 <img src="{{asset('img/'.$item->thumbnail)}}" class="search_img">
@@ -153,8 +155,8 @@
                                                             <span class="searchProductTitle">
                                                             {{$item->title}}
                                                             </span>
+                                                        </a>
                                                         @endif
-                                                    </a>
                                                 </li>
                                             @endforeach
                                             <li>

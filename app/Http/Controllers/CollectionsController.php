@@ -74,7 +74,7 @@ class CollectionsController extends Controller
         $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-        return view('pages.client_collections_list',['user'=>Auth::user(),'collections'=>$collections,'categories'=>$categories,'cart'=>$cart,'site'=>$site]);  
+        return view('pages.client_collections_list',['user'=>Auth::user(),'collections'=>$collections,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'categories'=>$categories,'cart'=>$cart,'site'=>$site]);  
     }
   
     public function collectionShow(Collection $collection)

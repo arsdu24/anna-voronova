@@ -1,5 +1,5 @@
 @extends('layouts.App')
-@section('title', 'Collections')
+@section('title', 'Checkout')
 
 @section('shopify-section-main')
 

@@ -637,7 +637,7 @@ $('.formSearchPageInput').on('keyup focus',function (e) {
              $('.blogSearch').show();
         },
         error: function (response) {
-               console.log(response);
+               console.log(response.responseText);
             }
     });
 });
