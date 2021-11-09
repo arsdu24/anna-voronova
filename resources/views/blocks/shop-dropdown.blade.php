@@ -42,7 +42,7 @@
                                                 <div class="product-card__image"
                                                         style="padding-top:133.33333333333334%;">
                                                     <img class="product-card__img lazyload"
-                                                            data-src="img/{{$collection->thumbnail}}"
+                                                            data-src="{{asset("img/".$collection->thumbnail)}}"
                                                             data-widths="[180,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808,3024,4320]"
                                                             data-aspectratio="0.75"
                                                             data-ratio="0.75"

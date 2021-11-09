@@ -570,7 +570,7 @@ vela.ajaxFilter = function() {
             if (Shopify.queryParams.constraint) {
                 currentTags = Shopify.queryParams.constraint.split('+');
             }
-            if (!window.sidebar_multichoise && !$(this).parent().hasClass("active")) {
+            if (window.sidebar_multichoise && !$(this).parent().hasClass("active")) {
                 var otherTag = $(this).parents('.listFilter').find("li.active");
                 if (otherTag.length > 0) {
                     var tagName = otherTag.data("filter");
@@ -635,6 +635,7 @@ vela.ajaxFilter = function() {
                     if (Shopify.queryParams.constraint) {
                         currentTags = Shopify.queryParams.constraint.split('+');
                     }
+                    console.log('ss');
                     sidebarTag.find(".listFilter > li.active").each(function() {
                         var selectedTag = $(this);
                         var tagName = selectedTag.data("filter");

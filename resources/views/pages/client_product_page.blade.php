@@ -336,7 +336,7 @@ border-color: #ECECEC;
                                 data-columnfour="2" 
                                 data-columnfive="1">
                                 
-@foreach($ml_products as $elem)
+@foreach($myl as $elem)
     
                           <div class="item">
                                             
@@ -458,7 +458,7 @@ border-color: #ECECEC;
      
     
     </div>
-    @foreach($ml_products as $item)
+    @foreach($myl as $item)
     <div class="modal fade" id="Product{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
        <div class="modal-dialog modal-dialog-centered modal-lg " >
        <div class="modal-content">

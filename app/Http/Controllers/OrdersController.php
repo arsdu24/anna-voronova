@@ -145,7 +145,7 @@ class OrdersController extends Controller
           'product_id' => $request->product, 
           'price' => $price,  
       ]);
-      $cart->subtotal+=$item->price * $request->quantity;
+      $cart->subtotal += $item->price*$item->quantity;
       $cart->save();
     }
   }
@@ -179,13 +179,16 @@ class OrdersController extends Controller
     }
       if($cart)$item=$cart->items()->find($request->id);
       if($item &&  $request->quantity<=$item->product->stock){
-      $cart->subtotal -=  $item->quantity * $item->price;
       $item->quantity = $request->quantity;
-      $cart->subtotal += $item->price * $item->quantity ;
       $item->save();
       if($item->quantity == 0){
           $item->delete();
       }
+      $subtotal =0;
+      foreach($cart->items as $item){
+          $subtotal+=$item->price*$item->quantity;
+      }
+      $cart->subtotal = $subtotal;
       $cart->save();
       }
       return redirect()->back();

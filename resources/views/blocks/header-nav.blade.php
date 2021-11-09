@@ -41,23 +41,23 @@
                                 <section id="velaMegamenu" class="velaMegamenu">
                                     <nav class="menuContainer">
                                         <ul class="nav hidden-xs hidden-sm">
-                                            <li  class="active">
+                                            <li id="home">
                                                     <a href="{{route('home')}}" title="Home">
                                                         <span>Home</span>
                                                     </a>                                        
                                             </li>        
-                                            <li class="hasMenuDropdown hasMegaMenu">
+                                            <li id="shop" class="hasMenuDropdown hasMegaMenu">
                                                 @include('blocks.shop-dropdown')
                                             </li>
-                                            <li class="hasMenuDropdown hasMegaMenu">
+                                            <li  id="collection" class="hasMenuDropdown hasMegaMenu">
                                                  @include('blocks.collections-dropdown')
                                             </li>
 
-                                            <li class="">
+                                            <li id="blog">
                                                 <a href="/blogs/news" title="">
                                                     <span>Blogs</span></a>
                                             </li>
-                                            <li class="">
+                                            <li id="contact">
                                                 <a href="/pages/contact-us" title="">
                                                     <span>Contact Us</span></a>
                                             </li>
@@ -90,16 +90,27 @@
                                     </form>
                                     
                                  @else
-                                    <ul class="list-unstyled list-inline hidden-xs hidden-sm hidden-md">
+                                 
+                                    <ul class="list-unstyled list-inline hidden-xs hidden-md">
                                         <li><a href="/login" id="customer_login_link">Login</a></li>
                                         <li><a href="/register/client" id="customer_register_link">Sign up</a></li>
 
                                     </ul>
+                                    <div class="dropdown visible-md ml30">
+                                        <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          Auth
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <div class="mb30 ml30 mt30"><a href="/login">Login</a></div>
+                                                <div class="mb30 ml30 mt30"><a href="/register/client">Sign up</a></div>
+                                        </div>
+                                      </div>
+                                   
                                  @endif
-                                    
+                                
                                     
                                 </div>
-
+                               
 
                                 <a class="velaSearchIcon hidden-xs hidden-sm" href="#velaSearchTop"
                                    data-toggle="collapse" title="Search">
@@ -119,7 +130,9 @@
                                         </span></span>
 
                                     </a></div>
+                            
                             </div>
+                           
                             <div id="velaSearchTop" class="collapse">
                                 <div class="text-center">
                                     <form id="velaSearchbox" class="formSearch" action="/search" method="get">
@@ -137,7 +150,7 @@
                                             @foreach ($search as $item)
                                                 <li>
                                                         @if($_GET['type']=='product')
-                                                        <a href="/products/{{$result->id}}">
+                                                        <a href="/products/{{$item->id}}">
                                                         <span class="searchProductImage" >
                                                            
                                                             <img src="{{asset('img/'.unserialize($item->thumbnail)[0])}}" class="search_img">
@@ -147,7 +160,7 @@
                                                         </span>
                                                         </a>
                                                         @else
-                                                        <a href="/blogs/news/{{$result->id}}">
+                                                        <a href="/blogs/news/{{$item->id}}">
                                                             <span class="searchProductImage" >
                                                             
                                                                 <img src="{{asset('img/'.$item->thumbnail)}}" class="search_img">
@@ -178,3 +191,17 @@
                 </div>
             </section>
         </header>
+        <script>
+            $(document).ready(function(){
+            var title = document.title;
+            if(title == "Home")console.log('ff');
+            switch(title){
+                case "Home":$('#home').addClass('active');break;
+                case "Shop":$('#shop').addClass('active');break;
+                case "Collections":$('#collection').addClass('active');break;
+                case "Blog":$('#blog').addClass('active');break;
+                case "Contact us":$('#contact').addClass('active');break;
+
+            }});
+         </script>
+

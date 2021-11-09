@@ -145,7 +145,7 @@ class ProductsController extends Controller
         $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-        return view('pages.product_page',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'products'=>$products,'menu_collections'=>$menu_collections,'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_coll'=>$product_coll,'cart'=>$cart,'product_categories'=>$product_categories,'categories'=>$categories,'collections'=>$collections]);  
+        return view('pages.product_page',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'ml_products'=>$MightLike,'menu_categories'=>$menu_categories,'products'=>$products,'menu_collections'=>$menu_collections,'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_coll'=>$product_coll,'cart'=>$cart,'product_categories'=>$product_categories,'categories'=>$categories,'collections'=>$collections]);  
 
     }
      
@@ -185,10 +185,29 @@ class ProductsController extends Controller
           $products=Product::where('published',1)->orderby('created_at', 'desc');
         else if($_GET['sort_by']== 'created-ascending')
           $products=Product::where('published',1)->orderby('created_at', 'asc');
-        else if($_GET['sort_by']== 'manual')
-          $products=Product::where('published',1)->orderby('updated_at', 'asc');
-        else if($_GET['sort_by']== 'best-selling')
-          $products=Product::where('published',1)->orderby('updated_at', 'asc');
+        else if($_GET['sort_by']== 'treding')
+          $products=Product::where('published',1)->orderby('views', 'desc');
+          if(isset($_GET['constraint'])){
+            $q = $_GET['constraint'];
+            $products = $products->where( function ($query) use($q){
+              if(strpos($q, 'price_-0-50') !== false){
+               $query->OrwhereBetween('price',[0,50]);
+              }
+              if(strpos($q, 'price_-50-100') !== false){
+                $query->OrwhereBetween('price',[50,100]);
+              }
+              if(strpos($q, 'price_-100-150') !== false){
+                $query->OrwhereBetween('price',[100,150]);
+              }
+              if(strpos($q, 'price_-150-200') !== false){
+                $query->OrwhereBetween('price',[150,200]);
+              }
+              if(strpos($q, 'price_-200-250') !== false){
+                $query->OrwhereBetween('price',[200,250]);
+              }
+
+            });
+          }
         $category = null;
         if(isset($_GET['category'])){
           $category = Category::where('name','=',$_GET['category'])->first();
@@ -207,11 +226,16 @@ class ProductsController extends Controller
               $cart=$order;break;
           }
       }
+      $bestSellerProducts = Product::where('published',1)->withCount(['cartItems' => function ($query) {
+        $query->whereHas('order', function ($query2) {
+          $query2->where('status','!=','Draft');
+        });
+      }])->orderby("cart_items_count",'desc')->take(4)->get();
       $site = SiteSettings::first();
       $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
       $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
       $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-      return view('pages.client_products_list',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'products'=>$products,'categories'=>$categories,'cart'=>$cart,'collections'=>$collection,'category'=>$category]);  
+      return view('pages.client_products_list',['user'=>Auth::user(),'site'=>$site,'bestSeller'=>$bestSellerProducts,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'products'=>$products,'categories'=>$categories,'cart'=>$cart,'collections'=>$collection,'category'=>$category]);  
     }
 
     public function clientProductPage($id)

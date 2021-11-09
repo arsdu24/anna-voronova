@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use App\Banner;
 use App\Category;
 use App\Collection;
@@ -76,7 +77,8 @@ class HomeController extends Controller
         $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
+        $blogs = Article::orderby('id','desc')->take(6)->get();
         $site = SiteSettings::first();
-        return view('pages.index',['categories'=>$categories,'bestseller'=>$bestSellerProducts,'user'=>$user,'cart'=>$cart,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'slides'=>$slides,'site'=>$site,'firstBanner'=>$firstBanner,'secondBanner'=>$secondBanner, 'treding'=>$Trending_products,'collections'=>$collections]);
+        return view('pages.index',['categories'=>$categories,'blogs'=>$blogs,'bestseller'=>$bestSellerProducts,'user'=>$user,'cart'=>$cart,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'slides'=>$slides,'site'=>$site,'firstBanner'=>$firstBanner,'secondBanner'=>$secondBanner, 'treding'=>$Trending_products,'collections'=>$collections]);
     }
 }

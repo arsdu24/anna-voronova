@@ -59,20 +59,54 @@
                             <a href="javascript:void(0)" class="velaClear" style="display:none;" title="Clear"><i class="icons icon-close"></i></a>
                         </h4>
                         <ul class="listFilter  list-unstyled">
-    
-    <li class="filterItem" data-filter="price_-0-50">
-                                                <a href="/collections/all/price_-0-50?view=list" title="Narrow selection to products matching tag Price_ $0 - $50"> $0 - $50</a>
+    @if(isset($_GET['constraint']) && strpos($_GET['constraint'], 'price_-0-50')!==false)
+     <li class="filterItem active" data-filter="price_-0-50">
+                                                <a href="price_-0-50?view=list" title="Narrow selection to products matching tag Price_ $0 - $50"> $0 - $50</a>
+                                             </li>
+                                            @else
+        <li class="filterItem " data-filter="price_-0-50">
+            <a href="price_-50-100?view=list" title="Narrow selection to products matching tag Price_ $50 - $100"> $0 - $50</a>
+        </li>
+
+     @endif
+    @if(isset($_GET['constraint']) && strpos($_GET['constraint'], 'price_-50-100')!==false)
+    <li class="filterItem active" data-filter="price_-50-100">
+                                                <a href="price_-50-100?view=list" title="Narrow selection to products matching tag Price_ $50 - $100"> $50 - $100</a>
                                             </li>
-    <li class="filterItem" data-filter="price_-150-200">
-                                                <a href="/collections/all/price_-150-200?view=list" title="Narrow selection to products matching tag Price_ $150 - $200"> $150 - $200</a>
+                                            @else
+        <li class="filterItem " data-filter="price_-50-100">
+            <a href="price_-50-100?view=list" title="Narrow selection to products matching tag Price_ $50 - $100"> $50 - $100</a>
+        </li>
+                                            @endif
+        @if(isset($_GET['constraint']) &&  strpos($_GET['constraint'], 'price_-100-150')!==false)
+    <li class="filterItem active"  data-filter="price_-100-150">
+                                                <a href="price_-100-150?view=list" title="Narrow selection to products matching tag Price_ $100 - $150"> $100 - $150</a>
                                             </li>
+                                            @else
+
+        <li class="filterItem "  data-filter="price_-100-150">
+            <a href="price_-100-150?view=list" title="Narrow selection to products matching tag Price_ $100 - $150"> $100 - $150</a>
+        </li>
+                                            @endif
+        @if(isset($_GET['constraint']) && strpos($_GET['constraint'], 'price_-150-200')!==false)
+    <li class="filterItem active"  data-filter="price_-150-200" data-filter="price_-150-200">
+                                                <a href="price_-150-200?view=list" title="Narrow selection to products matching tag Price_ $150 - $200"> $150 - $200</a>
+                                            </li> 
+                                            @else
+        <li class="filterItem "  data-filter="price_-150-200" data-filter="price_-150-200">
+            <a href="price_-150-200?view=list" title="Narrow selection to products matching tag Price_ $150 - $200"> $150 - $200</a>
+        </li>
+                                            @endif
+        @if(isset($_GET['constraint']) && strpos($_GET['constraint'], 'price_-200-250')!==false)
+        <li class="filterItem active"  data-filter="price_-200-250">
+                                                <a href="price_-200-250?view=list" title="Narrow selection to products matching tag Price_ $200 - $250"> $200 - $250</a>
+                                            </li>
+                                            @else
     <li class="filterItem" data-filter="price_-200-250">
-                                                <a href="/collections/all/price_-200-250?view=list" title="Narrow selection to products matching tag Price_ $200 - $250"> $200 - $250</a>
-                                            </li>
-    <li class="filterItem" data-filter="price_-50-100">
-                                                <a href="/collections/all/price_-50-100?view=list" title="Narrow selection to products matching tag Price_ $50 - $100"> $50 - $100</a>
-                                            </li>
-                        </ul>
+        <a href="/collections/all/price_-200-250" title="Narrow selection to products matching tag Price_ $0 - $50"> $200 - $250</a>
+    </li>
+                                            @endif
+                    </ul>
                     </div>
                 
             </div>
@@ -81,38 +115,31 @@
         
     </div>
                             <div id="shopify-section-sidebarbottom" class="shopify-section"><div class="velaProductsSidebar velaBlock"><h3 class="titleSidebar">Best sellers</h3><div class="velaContent">
-    <div class="productSidebar">
-                        <div class="productSidebarImage">
-                            <a class="d-block" href="/products/arctander-chair">
-                                
-                                    
     
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyautosizes ls-is-cached lazyloaded" scr="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-widths="[1,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808]" data-aspectratio="0.8048289738430584" data-ratio="0.8048289738430584" data-sizes="auto" alt="Arctander Chair" data-srcset="//cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_1x.jpg?v=1598253084 1w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_360x.jpg?v=1598253084 360w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_540x.jpg?v=1598253084 540w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_720x.jpg?v=1598253084 720w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_900x.jpg?v=1598253084 900w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_1080x.jpg?v=1598253084 1080w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_1296x.jpg?v=1598253084 1296w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_1512x.jpg?v=1598253084 1512w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_1728x.jpg?v=1598253084 1728w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_1944x.jpg?v=1598253084 1944w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_2160x.jpg?v=1598253084 2160w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_2376x.jpg?v=1598253084 2376w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_2592x.jpg?v=1598253084 2592w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_2808x.jpg?v=1598253084 2808w" sizes="65px" srcset="//cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_1x.jpg?v=1598253084 1w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_360x.jpg?v=1598253084 360w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_540x.jpg?v=1598253084 540w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_720x.jpg?v=1598253084 720w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_900x.jpg?v=1598253084 900w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_1080x.jpg?v=1598253084 1080w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_1296x.jpg?v=1598253084 1296w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_1512x.jpg?v=1598253084 1512w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_1728x.jpg?v=1598253084 1728w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_1944x.jpg?v=1598253084 1944w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_2160x.jpg?v=1598253084 2160w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_2376x.jpg?v=1598253084 2376w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_2592x.jpg?v=1598253084 2592w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/21_1_2808x.jpg?v=1598253084 2808w">
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder=""></div>
-    </div>
-                            </a>
-                        </div>
-                        <div class="productSidebarContent">
-                            <h4 class="productSidebarName">
-                                <a href="/products/arctander-chair">Arctander Chair</a>
-                            </h4>
-                            <div class="productSidebarPrice"><div class="priceProduct "><span class="money" data-currency-usd="$39.00">$39.00</span></div>
-                            </div>
-                        </div>
-                    </div>
+                
+    
+    @foreach($bestSeller as $product)
+        
+    
                 
     <div class="productSidebar">
                         <div class="productSidebarImage">
-                            <a class="d-block" href="/products/stainless-steel-teapot">
+                            <a class="d-block" href="/products/{{$product->id}}">
                                 
                                     
     
     <div class="p-relative">
         <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyautosizes ls-is-cached lazyloaded" scr="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-widths="[1,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808]" data-aspectratio="0.8048289738430584" data-ratio="0.8048289738430584" data-sizes="auto" alt="Stainless steel teapot" data-srcset="//cdn.shopify.com/s/files/1/0376/9440/6700/products/28_1x.jpg?v=1586316960 1w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_360x.jpg?v=1586316960 360w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_540x.jpg?v=1586316960 540w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_720x.jpg?v=1586316960 720w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_900x.jpg?v=1586316960 900w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_1080x.jpg?v=1586316960 1080w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_1296x.jpg?v=1586316960 1296w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_1512x.jpg?v=1586316960 1512w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_1728x.jpg?v=1586316960 1728w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_1944x.jpg?v=1586316960 1944w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_2160x.jpg?v=1586316960 2160w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_2376x.jpg?v=1586316960 2376w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_2592x.jpg?v=1586316960 2592w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_2808x.jpg?v=1586316960 2808w" sizes="65px" srcset="//cdn.shopify.com/s/files/1/0376/9440/6700/products/28_1x.jpg?v=1586316960 1w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_360x.jpg?v=1586316960 360w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_540x.jpg?v=1586316960 540w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_720x.jpg?v=1586316960 720w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_900x.jpg?v=1586316960 900w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_1080x.jpg?v=1586316960 1080w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_1296x.jpg?v=1586316960 1296w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_1512x.jpg?v=1586316960 1512w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_1728x.jpg?v=1586316960 1728w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_1944x.jpg?v=1586316960 1944w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_2160x.jpg?v=1586316960 2160w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_2376x.jpg?v=1586316960 2376w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_2592x.jpg?v=1586316960 2592w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/28_2808x.jpg?v=1586316960 2808w">
+                <img class="product-card__img lazyautosizes ls-is-cached lazyloaded" 
+                scr="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" 
+                data-src="{{asset('img/'.unserialize($product->thumbnail)[0])}}" 
+                data-widths="[1,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808]" 
+                data-aspectratio="0.8048289738430584" 
+                data-ratio="0.8048289738430584" 
+                data-sizes="auto" 
+                alt="" 
+                sizes="213px" 
+                src="{{asset('img/'.unserialize($product->thumbnail)[0])}}">
         </div>
         <div class="placeholder-background placeholder-background--animation" data-image-placeholder=""></div>
     </div>
@@ -123,63 +150,18 @@
                         </div>
                         <div class="productSidebarContent">
                             <h4 class="productSidebarName">
-                                <a href="/products/stainless-steel-teapot">Stainless steel teapot</a>
+                                <a href="/products/{{$product->id}}">{{$product->name}}</a>
                             </h4>
-                            <div class="productSidebarPrice"><div class="priceProduct priceCompare"><span class="money" data-currency-usd="$57.00">$57.00</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="$39.00">$39.00</span></div>
+                            <div class="productSidebarPrice">
+                                @if($product->sale_price != null)
+                                <div class="priceProduct priceCompare"><span class="money" data-currency-usd="{{$product->price}}" data-currency="USD">${{$product->price}}</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="{{$product->sale_price}}" data-currency="USD">${{$product->sale_price}}</span></div>               
+                                @else        
+                                  <div class="priceProduct "><span class=money>${{$product->price}} </span></div>
+                                @endif
                             </div>
                         </div>
                     </div>
-                
-    <div class="productSidebar">
-                        <div class="productSidebarImage">
-                            <a class="d-block" href="/products/beoplay-a1">
-                                
-                                    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyautosizes ls-is-cached lazyloaded" scr="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-widths="[1,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808]" data-aspectratio="0.8048289738430584" data-ratio="0.8048289738430584" data-sizes="auto" alt="Beoplay A1" data-srcset="//cdn.shopify.com/s/files/1/0376/9440/6700/products/29_1x.jpg?v=1586316900 1w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_360x.jpg?v=1586316900 360w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_540x.jpg?v=1586316900 540w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_720x.jpg?v=1586316900 720w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_900x.jpg?v=1586316900 900w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_1080x.jpg?v=1586316900 1080w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_1296x.jpg?v=1586316900 1296w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_1512x.jpg?v=1586316900 1512w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_1728x.jpg?v=1586316900 1728w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_1944x.jpg?v=1586316900 1944w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_2160x.jpg?v=1586316900 2160w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_2376x.jpg?v=1586316900 2376w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_2592x.jpg?v=1586316900 2592w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_2808x.jpg?v=1586316900 2808w" sizes="65px" srcset="//cdn.shopify.com/s/files/1/0376/9440/6700/products/29_1x.jpg?v=1586316900 1w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_360x.jpg?v=1586316900 360w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_540x.jpg?v=1586316900 540w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_720x.jpg?v=1586316900 720w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_900x.jpg?v=1586316900 900w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_1080x.jpg?v=1586316900 1080w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_1296x.jpg?v=1586316900 1296w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_1512x.jpg?v=1586316900 1512w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_1728x.jpg?v=1586316900 1728w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_1944x.jpg?v=1586316900 1944w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_2160x.jpg?v=1586316900 2160w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_2376x.jpg?v=1586316900 2376w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_2592x.jpg?v=1586316900 2592w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/29_2808x.jpg?v=1586316900 2808w">
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder=""></div>
-    </div>
-    
-    
-                                
-                            </a>
-                        </div>
-                        <div class="productSidebarContent">
-                            <h4 class="productSidebarName">
-                                <a href="/products/beoplay-a1">Beoplay A1</a>
-                            </h4>
-                            <div class="productSidebarPrice"><div class="priceProduct priceCompare"><span class="money" data-currency-usd="$57.00">$57.00</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="$39.00">$39.00</span></div>
-                            </div>
-                        </div>
-                    </div>
-                
-    <div class="productSidebar">
-                        <div class="productSidebarImage">
-                            <a class="d-block" href="/products/turning-table">
-                                
-                                    
-    
-    <div class="p-relative">
-        <div class="product-card__image" style="padding-top:124.25%;">
-            <img class="product-card__img lazyautosizes ls-is-cached lazyloaded" scr="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-widths="[1,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808]" data-aspectratio="0.8048289738430584" data-ratio="0.8048289738430584" data-sizes="auto" alt="Turning Table" data-srcset="//cdn.shopify.com/s/files/1/0376/9440/6700/products/30_1x.jpg?v=1586316781 1w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_360x.jpg?v=1586316781 360w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_540x.jpg?v=1586316781 540w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_720x.jpg?v=1586316781 720w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_900x.jpg?v=1586316781 900w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_1080x.jpg?v=1586316781 1080w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_1296x.jpg?v=1586316781 1296w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_1512x.jpg?v=1586316781 1512w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_1728x.jpg?v=1586316781 1728w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_1944x.jpg?v=1586316781 1944w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_2160x.jpg?v=1586316781 2160w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_2376x.jpg?v=1586316781 2376w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_2592x.jpg?v=1586316781 2592w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_2808x.jpg?v=1586316781 2808w" sizes="65px" srcset="//cdn.shopify.com/s/files/1/0376/9440/6700/products/30_1x.jpg?v=1586316781 1w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_360x.jpg?v=1586316781 360w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_540x.jpg?v=1586316781 540w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_720x.jpg?v=1586316781 720w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_900x.jpg?v=1586316781 900w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_1080x.jpg?v=1586316781 1080w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_1296x.jpg?v=1586316781 1296w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_1512x.jpg?v=1586316781 1512w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_1728x.jpg?v=1586316781 1728w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_1944x.jpg?v=1586316781 1944w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_2160x.jpg?v=1586316781 2160w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_2376x.jpg?v=1586316781 2376w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_2592x.jpg?v=1586316781 2592w, //cdn.shopify.com/s/files/1/0376/9440/6700/products/30_2808x.jpg?v=1586316781 2808w">
-        </div>
-        <div class="placeholder-background placeholder-background--animation" data-image-placeholder=""></div>
-    </div>
-    
-    
-                                
-                            </a>
-                        </div>
-                        <div class="productSidebarContent">
-                            <h4 class="productSidebarName">
-                                <a href="/products/turning-table">Turning Table</a>
-                            </h4>
-                            <div class="productSidebarPrice"><div class="priceProduct "><span class="money" data-currency-usd="$59.00">$59.00</span></div>
-                            </div>
-                        </div>
-                    </div>
+         @endforeach
                 
             </div>
         </div></div>
@@ -238,8 +220,7 @@
     <div class="pull-right">
         <select name="SortBy" id="SortBy" class="form-control">
             <option value="default">Default sorting</option>
-            <option value="manual">Featured</option>
-            <option value="best-selling">Best Selling</option>
+            <option value="treding">Most viewed</option>
             <option value="title-ascending">Alphabetically, A-Z</option>
             <option value="title-descending">Alphabetically, Z-A</option>
             <option value="price-ascending">Price, low to high</option>

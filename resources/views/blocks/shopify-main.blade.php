@@ -17,8 +17,8 @@
                             </span>
                                 </button>
                                 <div id="velaSlideshows1551027504217" class="vela--slideshow velaSliderLoading"
-                                     data-autoplay="false" data-speed="8000" data-navigation="true"
-                                     data-pagination="true">
+                                     data-autoplay="true" data-speed="8000" data-navigation="true"
+                                     data-pagination="true" role="toolbar">
                                     @foreach($slides as $slide)
                                         <div class="velassSlide ">
                                         <a href="{{$slide->link ?? '/products'}}" class="velassLink">

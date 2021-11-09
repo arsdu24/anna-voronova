@@ -16,34 +16,36 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/','\App\Http\Controllers\HomeController@index')->middleware('auth','guest')->name('home');
-Route::get('/client', 'ClientController@index')->middleware('client')->name('client');
-Route::get('/products','ProductsController@clientViewAll')->middleware('client')->name('productsView');
-Route::get('/checkout','\App\Http\Controllers\OrdersController@showForm');
-Route::get('/cart','OrdersController@index')->name('cart');
-Route::get('/collections','CollectionsController@clientViewAll')->name('collectionsList');
-Route::get('/collections/{collection}','CollectionsController@collectionShow')->name('collectionShow');
-Route::get('/products/{id}','ProductsController@clientProductPage')->middleware('client')->name('productView');
-Route::get('/search','SearchController@search')->name('search');
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('/','\App\Http\Controllers\HomeController@index')->middleware('guest')->name('home');
+    Route::get('/client', 'ClientController@index')->middleware('client')->name('client');
+    Route::get('/products','ProductsController@clientViewAll')->middleware('client')->name('productsView');
+    Route::get('/checkout','\App\Http\Controllers\OrdersController@showForm');
+    Route::get('/cart','OrdersController@index')->name('cart');
+    Route::get('/collections','CollectionsController@clientViewAll')->name('collectionsList');
+    Route::get('/collections/{collection}','CollectionsController@collectionShow')->name('collectionShow');
+    Route::get('/products/{id}','ProductsController@clientProductPage')->middleware('client')->name('productView');
+    Route::get('/search','SearchController@search')->name('search');
 
-Route::post('/cart/add','OrdersController@addToCart')->middleware('client')->name('addToCart');
-Route::post('/checkout','\App\Http\Controllers\OrdersController@createOrder')->name('create_order');
-Route::post('cart/delete','OrdersController@ItemDelete')->name('cartItemDelete');
-Route::post('cart/qty_update','OrdersController@qtyUpdate')->name('qtyUpdate');
-Route::post('products/review','ReviewController@createReview')->name('createReview');
+    Route::post('/cart/add','OrdersController@addToCart')->middleware('client')->name('addToCart');
+    Route::post('/checkout','\App\Http\Controllers\OrdersController@createOrder')->name('create_order');
+    Route::post('cart/delete','OrdersController@ItemDelete')->name('cartItemDelete');
+    Route::post('cart/qty_update','OrdersController@qtyUpdate')->name('qtyUpdate');
+    Route::post('products/review','ReviewController@createReview')->name('createReview');
 
-//Blog routes
-Route::get('/blogs/news','BlogController@index')->name('blogs');
-Route::get('/blogs/news/{article}','BlogController@blogPage')->name(' blogPage');
-Route::get('/blogs/tagged/{slug}','BlogController@Tagged')->name('TaggedPage');
+    //Blog routes
+    Route::get('/blogs/news','BlogController@index')->name('blogs');
+    Route::get('/blogs/news/{article}','BlogController@blogPage')->name(' blogPage');
+    Route::get('/blogs/tagged/{slug}','BlogController@Tagged')->name('TaggedPage');
 
-Auth::routes();
-Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');
-Route::get('/register/client', 'Auth\RegisterController@showClientRegisterForm');
+    Auth::routes();
+    Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');
+    Route::get('/register/client', 'Auth\RegisterController@showClientRegisterForm');
 
-Route::post('/register/client', 'Auth\RegisterController@createClient');
-Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
-Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login')->name('login');
+    Route::post('/register/client', 'Auth\RegisterController@createClient');
+    Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+    Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login')->name('login');
+});
 //    Admin panel routes
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('product-list','ProductsController@viewList')->name('productList');
