@@ -149,7 +149,7 @@ class BlogController extends Controller
      if($request->tags){
         $article->tags()->sync($request->tags);
       }
-     else $product->tags()->detach();
+     else $article->tags()->detach();
 
      $article->title=$request->title;
      $article->excerpt=$request->excerpt;
@@ -189,7 +189,7 @@ class BlogController extends Controller
     public function tagCreate(Request $request)
     {
         BlogTag::create([
-            'name'=>$request->name,
+            'name'=>strtoupper($request->name),
             'slug'=>str_replace(' ', '-', $request->name),
         ]);
         return redirect()->back();
@@ -203,7 +203,7 @@ class BlogController extends Controller
 
     public function tagUpdate(BlogTag $tag,Request $request)
     {
-        if($request->name)$tag->name = $request->name;
+        if($request->name)$tag->name = strtoupper($request->name);
         if($request->slug)$tag->slug = $request->slug;
         $tag->save();
         return redirect()->back();
@@ -253,7 +253,7 @@ class BlogController extends Controller
         $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-        return view('pages.blogs',['user'=>$user,'site'=>$site,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
+        return view('pages.blogs',['user'=>$user,'tag'=>$tag,'site'=>$site,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
     }
 
 }
