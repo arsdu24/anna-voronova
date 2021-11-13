@@ -19,6 +19,35 @@
   </section>
   <div class="card"><div class="card-header">
     <h3 class="card-title"> Categories</h3>
+    <form method="POST" action="{{route('blog-image-set')}}" id="form-blog-image" enctype="multipart/form-data" class="form-inline">
+      @csrf
+                                    
+          <div class="col-12 col-lg-12"> 
+            <div class="form-group ">
+              <div class="input-group col-md-12">
+                  <div class="custom-file">
+                    <label class="list-inline">
+                    
+                    <div id="actions" class="col-9">
+                      <div class="col-lg-12">
+                        <div class="btn-group w-100 p-15">
+                          <span class="btn btn-success col fileinput-button dz-clickable">
+                            <i class="fas fa-plus"></i>
+                            <span>Change Blog Image</span>
+                          </span>
+                        </div>
+                      </div>
+                  </div>
+                  
+                
+                  <input id="image_blog" type="file" name="image" class="custom-file-input col-3">
+                  </label>
+                </div>
+                  
+                </div>
+          </div>
+        </div>
+  </form>
     <div class="card-tools">
       <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">
           <i class="fas fa-plus"></i>
@@ -174,5 +203,10 @@ let input = document.querySelector('#image');
  })
  
 
+</script>
+<script>
+  $('#image_blog').change((e)=>{
+    $('#form-blog-image').submit();
+  })
 </script>
 @endsection

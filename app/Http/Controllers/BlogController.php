@@ -253,7 +253,19 @@ class BlogController extends Controller
         $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-        return view('pages.blogs',['user'=>$user,'site'=>$site,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
+        return view('pages.blogs',['user'=>$user,'tag'=>$tag,'site'=>$site,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
     }
 
+    public function blogImage(Request $request)
+    {
+        $site = SiteSettings::first();
+        if($request->file('image')){
+            $image=$request->file('image');
+            $imageName=$image->getClientOriginalName();
+            $image->move('img',$imageName);
+            $site->blog_image=$imageName;
+            $site->save();
+        }
+        return redirect()->back();
+    }
 }

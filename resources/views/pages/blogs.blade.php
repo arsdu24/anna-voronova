@@ -1,13 +1,17 @@
 @extends('layouts.App')
-@section('title','Blogs')
+@section('title','Blog')
 @section('shopify-section-main')
 <main class="mainContent" role="main">
     <div id="shopify-section-vela-breacrumb-image" class="shopify-section"><section class="velaBreadcrumbs hasBackgroundImage">
 <div class="velaBreadcrumbsInner" style="background-color: #eaebef"><div class="velaBreadcrumbImage">
 
-<img alt="velademo-rubix" src="{{asset('img/slide11_1944x.png')}}"></div><nav class="velaBreadcrumbWrap container">       
+<img alt="{{$site->company_name}}" src="{{asset('img/'.$site->blog_image)}}"></div><nav class="velaBreadcrumbWrap container">       
     <div class="velaBreadcrumbsInnerWrap">
-                <h1 class="breadcrumbHeading">lifestyle</h1>
+        @if(isset($tag))
+            <h1 class="breadcrumbHeading">{{ucfirst(strtolower($tag->name))}}</h1>
+        @else
+            <h1 class="breadcrumbHeading">Blog</h1>
+        @endif
             
 <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
@@ -16,7 +20,11 @@
                 </a>
                 <meta itemprop="position" content="1">
             </li><li class="active" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <span itemprop="name">lifestyle</span>
+                @if(isset($tag))
+                    <span itemprop="name">{{ucfirst(strtolower($tag->name))}}</span>
+                @else
+                    <span itemprop="name">Blog</span>
+                 @endif
                         <meta itemprop="position" content="2">
                     </li></ol>
     </div>
