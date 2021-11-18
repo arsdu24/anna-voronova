@@ -7,7 +7,11 @@
 
 <img alt="velademo-rubix" src="{{asset('img/slide11_1944x.png')}}"></div><nav class="velaBreadcrumbWrap container">       
     <div class="velaBreadcrumbsInnerWrap">
-                <h1 class="breadcrumbHeading">lifestyle</h1>
+            @if(isset($tag))
+                <h1 class="breadcrumbHeading">{{ucfirst(strtolower($tag->name))}}</h1>
+            @else
+                 <h1 class="breadcrumbHeading">Blog</h1>
+            @endif
             
 <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
@@ -16,7 +20,12 @@
                 </a>
                 <meta itemprop="position" content="1">
             </li><li class="active" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                        <span itemprop="name">lifestyle</span>
+                @if(isset($tag))
+                    <span itemprop="name">{{ucfirst(strtolower($tag->name))}}</span>
+                @else
+                    <span itemprop="name">Blog</span>
+                 @endif
+                       
                         <meta itemprop="position" content="2">
                     </li></ol>
     </div>
@@ -34,7 +43,7 @@
             <div class="col-xs-12 col-sm-8 col-md-9">
 <div class="blogContainer 
     blogContainerSidebar 
-    "><h1 class="velaBlogTitle">lifestyle</h1>
+    "><h1 class="velaBlogTitle"></h1>
     
     <div class="blogListArticle blogGridTemplate">
                 <div class="rowFlexMargin rowFlex">
@@ -55,8 +64,12 @@
             </div> </a>
             </div>
                 <div class="articleContent">
-                    <div class="blogTitle">
-                        <a href="/blogs/news/{{$article->id}}" title="lifestyle">lifestyle</a>
+                    <div>
+                        <ul class="blogTagsList list-inline">
+                            @foreach($article->tags->take(5) as $tag)
+                            <li><a href="/blogs/tagged/{{$tag->slug}}" title="Show articles tagged {{strtoupper($tag->name)}}">{{strtoupper($tag->name)}}</a></li>
+                         @endforeach
+                        </ul>
                     </div>
                     <div class="articleMeta d-flex">
                         <span class="articleAuthor">{{$article->author}}</span>
@@ -135,7 +148,7 @@
     <div class="velaContent" style="">
         <ul class="blogTagsList list-inline">
             @foreach($tags as $tag)
-            <li><a href="/blogs/tagged/{{$tag->slug}}" title="Show articles tagged {{$tag->name}}">{{$tag->name}}</a></li>
+            <li><a href="/blogs/tagged/{{$tag->slug}}" title="Show articles tagged {{strtoupper($tag->name)}}">{{strtoupper($tag->name)}}</a></li>
          @endforeach
             
            

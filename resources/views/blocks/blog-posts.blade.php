@@ -25,8 +25,12 @@
                 </div> </a>
                 </div>
                     <div class="articleContent">
-                        <div class="blogTitle">
-                            <a href="/blogs/news/{{$article->id}}" title="lifestyle">lifestyle</a>
+                        <div >
+                            <ul class="blogTagsList list-inline">
+                                @foreach($article->tags->take(5) as $tag)
+                                <li><a href="/blogs/tagged/{{$tag->slug}}" title="Show articles tagged {{strtoupper($tag->name)}}">{{strtoupper($tag->name)}}</a></li>
+                             @endforeach
+                            </ul>
                         </div>
                         <div class="articleMeta d-flex">
                             <span class="articleAuthor">{{$article->author}}</span>
