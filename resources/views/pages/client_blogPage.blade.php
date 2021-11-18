@@ -66,7 +66,6 @@
 
 
                 </div><div class="blogTitle">
-            <a href="/blogs/news" title="lifestyle">lifestyle</a>
         </div>
         <div class="articleMeta d-flex">
             <span class="articleAuthor">{{$article->author}} .</span>
@@ -83,7 +82,7 @@
     <div class="articleTags">
     <span>Tags:</span>
     @foreach ($article->tags as $tag)
-    <a href="/blogs/tagged/{{$tag->slug}}" >{{$tag->name}}</a>, 
+    <a href="/blogs/tagged/{{$tag->slug}}" >{{strtoupper($tag->name)}}</a>, 
 @endforeach
 </div>
 
@@ -109,8 +108,7 @@
 <aside class="velaSidebar velaBlogSidebar col-xs-12 col-sm-4 col-md-3 mb30">
     <div class="blogSidebar velaSearchSidebar"><div class="velaContentSearch">
     <form class="formSearchPage formSearchBlogPage" action="/search" method="get">
-        <input type="hidden" name="view" value="blog">
-        <input type="hidden" name="type" value="article">
+        <input type="hidden" name="type" value="blog">
         <div class="input-group">
             <input name="q" value="" placeholder="Search our blogs" autocomplete="off" class="formSearchPageInput form-control">                      
             <button type="submit" class="formSearchPageButton">

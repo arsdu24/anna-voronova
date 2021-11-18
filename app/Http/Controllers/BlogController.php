@@ -191,7 +191,7 @@ class BlogController extends Controller
     {
         $generator = new SlugGenerator;
         BlogTag::create([
-            'name'=>$request->name,
+            'name'=>strtoupper($request->name),
             'slug'=> $generator->generate($request->name) ,
         ]);
         return redirect()->back();
@@ -206,7 +206,7 @@ class BlogController extends Controller
     public function tagUpdate(BlogTag $tag,Request $request)
     {   
         $generator = new SlugGenerator;
-        if($request->name)$tag->name = $request->name;
+        if($request->name)$tag->name = strtoupper($request->name);
         $tag->slug = $generator->generate($request->name);
         $tag->save();
         return redirect()->back();
@@ -256,7 +256,7 @@ class BlogController extends Controller
         $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-        return view('pages.blogs',['user'=>$user,'site'=>$site,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
+        return view('pages.blogs',['user'=>$user,'tag'=>$tag,'site'=>$site,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
     }
 
 }
