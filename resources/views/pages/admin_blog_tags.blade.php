@@ -76,7 +76,7 @@
               <td class="dtr-control sorting_1" tabindex="0">
                   {{$tag->id}}
               </td>
-              <td> {{$tag->name}}</td>
+              <td> {{strtoupper($tag->name)}}</td>
               <td> {{$tag->slug}}</td>
               <td class="project-actions">
                 <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="{{'#d'.$tag->id}}">
@@ -109,7 +109,7 @@
                           <div class="form-group ">
                               <label for="title" >Title</label>
                               <div>
-                                  <input id="title" type="text" class="form-control " name="name" value="{{$tag->name}}" required autocomplete="name"/>
+                                  <input id="title" type="text" class="form-control " name="name" value="{{$tag->name}}" required autocomplete="name"  style="text-transform:uppercase" />
                               </div>
                             </div>
                               <div class=" modal-footer ">
@@ -167,7 +167,7 @@
               <div class="form-group ">
                   <label for="title" >Title</label>
                   <div>
-                      <input id="name" type="text" class="form-control " name="name" required autocomplete="name"/>
+                      <input id="name" type="text" class="form-control " name="name"  style="text-transform:uppercase"  required autocomplete="name"/>
                   </div>
                 </div>
                   <div class=" modal-footer ">

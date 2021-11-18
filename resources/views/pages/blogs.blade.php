@@ -25,8 +25,8 @@
                 @else
                     <span itemprop="name">Blog</span>
                  @endif
-                        <meta itemprop="position" content="2">
-                    </li></ol>
+                    <meta itemprop="position" content="2">
+              </li></ol>
     </div>
 </nav>
 </div>
@@ -42,7 +42,7 @@
             <div class="col-xs-12 col-sm-8 col-md-9">
 <div class="blogContainer 
     blogContainerSidebar 
-    "><h1 class="velaBlogTitle">lifestyle</h1>
+    "><h1 class="velaBlogTitle"></h1>
     
     <div class="blogListArticle blogGridTemplate">
                 <div class="rowFlexMargin rowFlex">
@@ -63,8 +63,12 @@
             </div> </a>
             </div>
                 <div class="articleContent">
-                    <div class="blogTitle">
-                        <a href="/blogs/news/{{$article->id}}" title="lifestyle">lifestyle</a>
+                    <div>
+                        <ul class="blogTagsList list-inline">
+                            @foreach($article->tags->take(5) as $tag)
+                            <li><a href="/blogs/tagged/{{$tag->slug}}" title="Show articles tagged {{strtoupper($tag->name)}}">{{strtoupper($tag->name)}}</a></li>
+                         @endforeach
+                        </ul>
                     </div>
                     <div class="articleMeta d-flex">
                         <span class="articleAuthor">{{$article->author}}</span>
@@ -143,7 +147,7 @@
     <div class="velaContent" style="">
         <ul class="blogTagsList list-inline">
             @foreach($tags as $tag)
-            <li><a href="/blogs/tagged/{{$tag->slug}}" title="Show articles tagged {{$tag->name}}">{{$tag->name}}</a></li>
+            <li><a href="/blogs/tagged/{{$tag->slug}}" title="Show articles tagged {{strtoupper($tag->name)}}">{{strtoupper($tag->name)}}</a></li>
          @endforeach
             
            

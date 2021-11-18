@@ -50,7 +50,7 @@
                                 </h3>
                                 <div class="articleMeta">
                                     <span class="articlePublish">{{$result->created_at->format('d M, Y')}}</span> 
-                                    <span class="articleAuthor">Mr Vela</span></div>
+                                    <span class="articleAuthor">{{$result->author}}</span></div>
                                 <div class="articleItemSearchDesc">
                                     {{$result->excerpt}}
                                 </div>
