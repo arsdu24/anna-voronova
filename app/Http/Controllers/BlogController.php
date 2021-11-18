@@ -259,4 +259,16 @@ class BlogController extends Controller
         return view('pages.blogs',['user'=>$user,'tag'=>$tag,'site'=>$site,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
     }
 
+    public function blogImage(Request $request)
+    {
+        $site = SiteSettings::first();
+        if($request->file('image')){
+            $image=$request->file('image');
+            $imageName=$image->getClientOriginalName();
+            $image->move('img',$imageName);
+            $site->blog_image=$imageName;
+            $site->save();
+        }
+        return redirect()->back();
+    }
 }

@@ -4,8 +4,8 @@
 <main class="mainContent" role="main">
     <div id="shopify-section-vela-breacrumb-image" class="shopify-section"><section class="velaBreadcrumbs hasBackgroundImage">
 <div class="velaBreadcrumbsInner" style="background-color: #eaebef"><div class="velaBreadcrumbImage">
-<img alt="velademo-rubix" src="//cdn.shopify.com/s/files/1/0376/9440/6700/files/bg-breacumb.jpg?v=1586848586"></div><nav class="velaBreadcrumbWrap container">       
-    <div class="velaBreadcrumbsInnerWrap"><h2 class="breadcrumbHeading breadcrumbHeadingArticle">lifestyle</h2><ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+<img alt="{{$site->company_name}}" src="{{asset('img/'.$site->blog_image)}}"></div><nav class="velaBreadcrumbWrap container">       
+    <div class="velaBreadcrumbsInnerWrap"><h2 class="breadcrumbHeading breadcrumbHeadingArticle">{{ucfirst($article->title)}}</h2><ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
                 <a href="/" title="Back to the frontpage" itemprop="item">
                     <span itemprop="name">Home</span>
@@ -13,12 +13,12 @@
                 <meta itemprop="position" content="1">
             </li><li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
                     <a href="/blogs/news" title="lifestyle" itemprop="item">
-                        <span itemprop="name">lifestyle</span>
+                        <span itemprop="name">Blog</span>
                     </a>
                     <meta itemprop="position" content="2">
                 </li>
                 <li class="active" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                    <span itemprop="name">Anteposuerit litterarum formas.</span>
+                    <span itemprop="name">{{$article->title}}</span>
                     <meta itemprop="position" content="3">
                 </li></ol>
     </div>

@@ -104,4 +104,5 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('collection-list/down-from-menu','CollectionsController@downFromMenu')->name('downFromMenuCollection');
     Route::post('categories-list/in-menu','ProductsController@InMenuCategory')->name('InMenuCategory');
     Route::post('categories-list/down-from-menu','ProductsController@downFromMenuCategory')->name('downFromMenuCategory');
+    Route::post('blog-image-update','BlogController@blogImage')->name('blog-image-set');
 });
