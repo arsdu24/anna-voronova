@@ -11,6 +11,7 @@ use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\SiteSettings;
+use Ausi\SlugGenerator\SlugGenerator;
 
 class BlogController extends Controller
 {
@@ -188,9 +189,10 @@ class BlogController extends Controller
 
     public function tagCreate(Request $request)
     {
+        $generator = new SlugGenerator;
         BlogTag::create([
             'name'=>strtoupper($request->name),
-            'slug'=>str_replace(' ', '-', $request->name),
+            'slug'=> $generator->generate($request->name) ,
         ]);
         return redirect()->back();
     }
@@ -202,9 +204,10 @@ class BlogController extends Controller
     }
 
     public function tagUpdate(BlogTag $tag,Request $request)
-    {
+    {   
+        $generator = new SlugGenerator;
         if($request->name)$tag->name = strtoupper($request->name);
-        if($request->slug)$tag->slug = $request->slug;
+        $tag->slug = $generator->generate($request->name);
         $tag->save();
         return redirect()->back();
     }
