@@ -13,7 +13,7 @@
                                      @foreach($blogs as $article)
                                      <div class="blogArticle mb20 pb-md-30">
                                         <div class="articleImage">
-                                            <a href="/blogs/news/{{$article->id}}">  
+                                            <a href="/blog/article/{{$article->slug}}">  
     <div class="p-relative">
                 <div class="product-card__image" style="padding-top:62.5%;">
                     <img id="ProductPhotoImg"
@@ -26,9 +26,9 @@
                 </div>
                     <div class="articleContent">
                         <div >
-                            <ul class="blogTagsList list-inline">
+                            <ul class="blogTagsList cardList list-inline">
                                 @foreach($article->tags->take(5) as $tag)
-                                <li><a href="/blogs/tagged/{{$tag->slug}}" title="Show articles tagged {{strtoupper($tag->name)}}">{{strtoupper($tag->name)}}</a></li>
+                                <li><a href="/blog/tag/{{$tag->slug}}" title="Show articles tagged {{strtoupper($tag->name)}}">{{strtoupper($tag->name)}}</a></li>
                              @endforeach
                             </ul>
                         </div>
@@ -37,7 +37,7 @@
                             <span class="articlePublish pull-left">{{$article->created_at->format('j F Y')}}</span> 
                         </div>
                         <h3 class="articleTitle">
-                            <a href="/blogs/news/{{$article->id}}">
+                            <a href="/blog/article/{{$article->slug}}">
                                 @if(strlen($article->excerpt)<=50)
                                         {{$article->title}}
                                 @else {{substr($article->title, 0, 50).'...'}}
@@ -49,7 +49,7 @@
                                 @else {{substr($article->excerpt, 0, 180).'...'}}
                                 @endif
                         </div>
-                        @include('components.read-more',['href'=>$article->id])
+                        @include('components.read-more',['href'=>$article->slug])
                     </div>
                 </div>
 

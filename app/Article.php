@@ -8,7 +8,7 @@ class Article extends Model
 {
     protected $table = 'article';
     protected $fillable = [
-        'title','thumbnail','content','excerpt','author'
+        'title','thumbnail','content','excerpt','author','slug'
     ];
     protected $casts = [
         'published' => 'boolean',
@@ -19,5 +19,9 @@ class Article extends Model
 
     public function tags(){
         return $this->belongsToMany(BlogTag::class);
+    }
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

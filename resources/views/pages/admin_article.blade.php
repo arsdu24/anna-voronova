@@ -14,7 +14,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item "><a href="/admin/blogs">Articles</a></li>
+            <li class="breadcrumb-item "><a href="/admin/blog">Articles</a></li>
             <li class="breadcrumb-item active">{{$article->title}}</li>
           </ol>
         </div>
@@ -40,7 +40,7 @@
               <div class="row">
                       <div class="card-body">
       
-                          <form method="POST" action="{{route('articleUpdate',['article'=>$article->id])}}" id="form" enctype="multipart/form-data">
+                          <form method="POST" action="{{route('articleUpdate',['article'=>$article->slug])}}" id="form" enctype="multipart/form-data">
                               @csrf
                                 <div class="row">
                                   <div class="col-12 col-lg-6"> 
@@ -76,7 +76,7 @@
                                   <div class="col-12 col-sm-6">
                                     <div class="form-group ">
                                       <label for="name">Title</label>
-                                      <textarea type="text" class="form-control" id="name"  name="title" required>{{$article->title ?? '' }}</textarea>
+                                      <textarea type="text" class="form-control" id="name"  name="title" required maxlength="75">{{$article->title ?? '' }}</textarea>
                                     </div>
                                     <div class="form-group ">
                                       <label for="name">Author</label>
@@ -84,7 +84,7 @@
                                     </div>
                                     <div class="form-group ">
                                       <label for="excerpt">Excerpt</label>
-                                      <textarea style="height:200px"class="form-control" name="excerpt" aria-label="With textarea" id="excerpt" required >{{$article->excerpt ?? '' }}</textarea>
+                                      <textarea style="height:200px"class="form-control" name="excerpt" aria-label="With textarea" id="excerpt" required maxlength="150  " >{{$article->excerpt ?? '' }}</textarea>
                                     </div>
                                     <div class="form-group">
                                       <label for="sel1">Category:</label>

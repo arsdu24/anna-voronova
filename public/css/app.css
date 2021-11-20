@@ -14232,6 +14232,7 @@ ul.lower-alpha {
     font-size: 20px;
     font-weight: 700;
     line-height: 26px;
+    min-height: 52px;
     margin: 10px 0 20px;
 }
 
@@ -14247,6 +14248,7 @@ ul.lower-alpha {
 }
 
 .articleDesc {
+    min-height: 78px;
     line-height: 26px;
     margin-bottom: 25px;
 }
@@ -14254,6 +14256,16 @@ ul.lower-alpha {
 .articleMore {
     padding-top: 25px;
     border-top: 1px solid #e1e1e1;
+}
+
+.cardList{
+    height : 70px;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.cardList li{
+    margin-bottom: 30px;
 }
 
 .articleMore .btn {

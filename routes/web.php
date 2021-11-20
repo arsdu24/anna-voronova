@@ -34,9 +34,11 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('products/review','ReviewController@createReview')->name('createReview');
 
     //Blog routes
-    Route::get('/blogs/news','BlogController@index')->name('blogs');
-    Route::get('/blogs/news/{article}','BlogController@blogPage')->name(' blogPage');
-    Route::get('/blogs/tagged/{slug}','BlogController@Tagged')->name('TaggedPage');
+    Route::get('/blog','BlogController@index')->name('blogs');
+    Route::get('/blog/article/{article}','BlogController@blogPage')->name(' blogPage');
+    Route::get('/blog/tag/{slug}','BlogController@Tagged')->name('TaggedPage');
+    Route::get('/blog/category/{category}','BlogController@categoryShow')->name('categoryShow');
+
 
     Auth::routes();
     Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');
@@ -55,10 +57,10 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('collections-list/{collection}','CollectionsController@collectionPage')->name('collectionPage');
     Route::get('orders-list','OrdersController@viewList')->name('ordersList');
     Route::get('orders-list/{order}','OrdersController@orderPage')->name('orderPage');
-    Route::get('blogs','BlogController@admin_blogs')->name('admin_blogs');
-    Route::get('blogs/{article}','BlogController@article_update_page')->name('admin_article');
-    Route::get('blog/categories','BlogController@categoriesList')->name('articleCategories');
-    Route::get('blog/tags','BlogController@tagsList')->name('articleTags');
+    Route::get('blog','BlogController@admin_blogs')->name('admin_blogs');
+    Route::get('blog/{article}','BlogController@article_update_page')->name('admin_article');
+    Route::get('blog/categories/all','BlogController@categoriesList')->name('articleCategories');
+    Route::get('blog/tags/all','BlogController@tagsList')->name('articleTags');
     Route::get('blog/product-tags','ProductsController@tagsList')->name('Tags');
     Route::get('sliders','BannerController@slidersList')->name('Sliders');
     Route::get('banners','BannerController@bannersList')->name('Banners');

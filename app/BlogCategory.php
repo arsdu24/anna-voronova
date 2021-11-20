@@ -8,10 +8,15 @@ class BlogCategory extends Model
 {
     protected $table = 'blogs_category';
     protected $fillable = [
-        'name',
+        'name','slug'
     ];
 
     public function aticles(){
         return $this->hasMany(Article::class);
+    }
+    
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }
