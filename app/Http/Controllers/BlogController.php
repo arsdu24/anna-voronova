@@ -169,7 +169,7 @@ class BlogController extends Controller
         $article->content = $request->content;
         $article->author = $request->author;
         $article->save();
-        return redirect()->route('admin_article',['article'=>$article->slug]);
+        return redirect()->route('admin_article',['article'=>$article->id]);
     }
 
     public function categoryCreate(Request $request)

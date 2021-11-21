@@ -20,8 +20,4 @@ class Article extends Model
     public function tags(){
         return $this->belongsToMany(BlogTag::class);
     }
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
 }

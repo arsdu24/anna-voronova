@@ -85,7 +85,7 @@
                     </i>
                     Delete
                 </a>
-                <form id="{{$category->id}}" action="{{route('deleteArticleCategory',['category'=>$category->slug])}}" method="POST" style="display: none;">
+                <form id="{{$category->id}}" action="{{route('deleteArticleCategory',['category'=>$category->id])}}" method="POST" style="display: none;">
                     @csrf</form>
             </td>
             </tr>

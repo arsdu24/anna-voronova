@@ -40,7 +40,7 @@
               <div class="row">
                       <div class="card-body">
       
-                          <form method="POST" action="{{route('articleUpdate',['article'=>$article->slug])}}" id="form" enctype="multipart/form-data">
+                          <form method="POST" action="{{route('articleUpdate',['article'=>$article->id])}}" id="form" enctype="multipart/form-data">
                               @csrf
                                 <div class="row">
                                   <div class="col-12 col-lg-6"> 

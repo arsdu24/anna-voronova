@@ -75,7 +75,7 @@
                               </a>
                             @else
                                 @if($key == 'Categories')<a class="dropdown-item" href="/admin/categories-list/{{$result->id}}">
-                                @else <a class="dropdown-item" href="/admin/blog/{{$result->slug}}">
+                                @else <a class="dropdown-item" href="/admin/blog/{{$result->id}}">
                                 @endif
                                 <i class="far fa-circle nav-icon"></i>
                                   <span class="searchProductImage" >

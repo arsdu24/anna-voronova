@@ -79,7 +79,7 @@
                 <td>{{$article->title}}</td>
                 <td>{{$article->excerpt}}</td>
                 <td>
-                    <a href="{{route('admin_article',['article'=>$article->slug])}}" class="btn btn-info">
+                    <a href="{{route('admin_article',['article'=>$article->id])}}" class="btn btn-info">
                         <i class="fas fa-edit"></i>
                         Edit
                     </a>
@@ -88,7 +88,7 @@
                       <i class="fas fa-trash"></i>
                       Delete
                     </a>
-                    <form id="{{$article->id}}" action="{{route('articleDelete',['article'=>$article->slug])}}" method="POST" style="display: none;">
+                    <form id="{{$article->id}}" action="{{route('articleDelete',['article'=>$article->id])}}" method="POST" style="display: none;">
                       @csrf
                     </form>
                 </td>
