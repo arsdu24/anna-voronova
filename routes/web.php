@@ -26,13 +26,14 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/collections/{collection}','CollectionsController@collectionShow')->name('collectionShow');
     Route::get('/products/{id}','ProductsController@clientProductPage')->middleware('client')->name('productView');
     Route::get('/search','SearchController@search')->name('search');
+    Route::get('/contact-us','ContactUsController@index')->name('contactus');
 
     Route::post('/cart/add','OrdersController@addToCart')->middleware('client')->name('addToCart');
     Route::post('/checkout','\App\Http\Controllers\OrdersController@createOrder')->name('create_order');
     Route::post('cart/delete','OrdersController@ItemDelete')->name('cartItemDelete');
     Route::post('cart/qty_update','OrdersController@qtyUpdate')->name('qtyUpdate');
     Route::post('products/review','ReviewController@createReview')->name('createReview');
-
+    Route::post('/send-email','ContactUsController@sendEmail')->name('sendEmail');
     //Blog routes
     Route::get('/blogs/news','BlogController@index')->name('blogs');
     Route::get('/blogs/news/{article}','BlogController@blogPage')->name(' blogPage');

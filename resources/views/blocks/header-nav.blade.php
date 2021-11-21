@@ -58,7 +58,7 @@
                                                     <span>Blogs</span></a>
                                             </li>
                                             <li id="contact">
-                                                <a href="/pages/contact-us" title="">
+                                                <a href="/contact-us" title="">
                                                     <span>Contact Us</span></a>
                                             </li>
                                         </ul>
