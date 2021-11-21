@@ -184,6 +184,7 @@ class BlogController extends Controller
 
     public function categoryShow(BlogCategory $category)
     {   
+        if($category){
         $user = Auth::user();
         $blog_category = BlogCategory::all();
         $categories = Category::all();
@@ -207,6 +208,7 @@ class BlogController extends Controller
         };
         $site = SiteSettings::first();
         return view('pages.blogs',['user'=>$user,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'site'=>$site,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
+        }else return redirect()->route('blogs');
     }
 
     public function categoryDelete(BlogCategory $category)
