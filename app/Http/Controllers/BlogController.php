@@ -55,7 +55,8 @@ class BlogController extends Controller
         return view('pages.admin_blog_cat',['user'=>$user,'site'=>$site,'categories'=>$blog_category,'tags'=>$tags]);
     }
 
-    public function blogPage(Article $article){
+    public function blogPage($slug){
+        $article = Article::where('slug',$slug)->first();
         $user = Auth::user();
         $blog_categories = BlogCategory::all();
         $article_tags = array();
@@ -182,8 +183,9 @@ class BlogController extends Controller
         return redirect()->back();
     }
 
-    public function categoryShow(BlogCategory $category)
+    public function categoryShow($slug)
     {   
+        $category = BlogCategory::where('slug',$slug)->first();
         if($category){
         $user = Auth::user();
         $blog_category = BlogCategory::all();
