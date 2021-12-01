@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.App')
 @section('title','Contact Us')
 @section('shopify-section-main')
 <main class="mainContent" role="main">
