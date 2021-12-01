@@ -123,7 +123,12 @@ class CollectionsController extends Controller
         $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-        return view('pages.client_products_list',['user'=>Auth::user(),'products'=>$products,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'collections'=>$collections,'categories'=>$categories,'category'=>$category,'collection'=>$collection,'cart'=>$cart,'site'=>$site]);  
+        $bestSellerProducts = Product::where('published',1)->withCount(['cartItems' => function ($query) {
+          $query->whereHas('order', function ($query2) {
+            $query2->where('status','!=','Draft');
+          });
+        }])->orderby("cart_items_count",'desc')->take(4)->get();
+        return view('pages.client_products_list',['user'=>Auth::user(),'bestSeller'=> $bestSellerProducts,'products'=>$products,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'collections'=>$collections,'categories'=>$categories,'category'=>$category,'collection'=>$collection,'cart'=>$cart,'site'=>$site]);  
     }
     public function InMenu(Request $request)
     {

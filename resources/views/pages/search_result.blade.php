@@ -41,12 +41,12 @@
 <div class="searchArticleResults">
                     @foreach ($results as $result)
                         <div class="articleItemSearch"><div class="articleItemSearchImage">
-                                    <a href="/blogs/news/{{$result->id}}">
+                                    <a href="/blog/article/{{$result->slug}}">
                                         <img class="img-responsive" src="{{asset('img/'.$result->thumbnail)}}" alt="{{$result->title}}">
                                     </a>
                                 </div><div class="articleItemSearchContent">
                                 <h3 class="articleItemSearchTitle">
-                                    <a href="/blogs/news/{{$result->id}}">{{$result->title}}</a>
+                                    <a href="/blog/article/{{$result->id}}">{{$result->title}}</a>
                                 </h3>
                                 <div class="articleMeta">
                                     <span class="articlePublish">{{$result->created_at->format('d M, Y')}}</span> 

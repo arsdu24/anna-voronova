@@ -22,7 +22,7 @@
                         </ul>
                     </li>
                     @include('components.list-link',['title'=>'Collections','class'=>'' ,'href'=>'/collections'])
-                    @include('components.list-link',['title'=>'Blogs','class'=>'' ,'href'=>'/blogs/news'])
+                    @include('components.list-link',['title'=>'Blogs','class'=>'' ,'href'=>'/blog'])
                     @include('components.list-link',['title'=>'Contact Us','class'=>'' ,'href'=>'/pages/contact-us'])
                     <li>
                         <a href="/client">
