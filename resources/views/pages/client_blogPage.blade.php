@@ -12,7 +12,7 @@
                 </a>
                 <meta itemprop="position" content="1">
             </li><li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
-                    <a href="/blogs/news" title="lifestyle" itemprop="item">
+                    <a href="/blog" title="lifestyle" itemprop="item">
                         <span itemprop="name">Blog</span>
                     </a>
                     <meta itemprop="position" content="2">
@@ -82,7 +82,7 @@
     <div class="articleTags">
     <span>Tags:</span>
     @foreach ($article->tags as $tag)
-    <a href="/blogs/tagged/{{$tag->slug}}" >{{strtoupper($tag->name)}}</a>, 
+    <a href="/blog/tag/{{$tag->slug}}" >{{strtoupper($tag->name)}}</a>, 
 @endforeach
 </div>
 
@@ -91,10 +91,10 @@
 <div class="articleSocialSharing pull-left">
                     <span>Share:</span>
                     <div class="articleFacebookShare">
-                        <div class="fb-share-button fb_iframe_widget" data-href="https://velademo-rubix.myshopify.com/blogs/news/anteposuerit-litterarum-formas-9" data-mobile_iframe="true" data-layout="button_count" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;container_width=0&amp;href=https%3A%2F%2Fvelademo-rubix.myshopify.com%2Fblogs%2Fnews%2Fanteposuerit-litterarum-formas-9&amp;layout=button_count&amp;locale=en_US&amp;mobile_iframe=true&amp;sdk=joey"><span style="vertical-align: bottom; width: 78px; height: 20px;"><iframe name="f2f76822ec93864" width="1000px" height="1000px" data-testid="fb:share_button Facebook Social Plugin" title="fb:share_button Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="https://web.facebook.com/v2.12/plugins/share_button.php?app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Dfa34cd6b7cf7c%26domain%3Dvelademo-rubix.myshopify.com%26is_canvas%3Dfalse%26origin%3Dhttps%253A%252F%252Fvelademo-rubix.myshopify.com%252Ff3226cf7cd392e8%26relation%3Dparent.parent&amp;container_width=0&amp;href=https%3A%2F%2Fvelademo-rubix.myshopify.com%2Fblogs%2Fnews%2Fanteposuerit-litterarum-formas-9&amp;layout=button_count&amp;locale=en_US&amp;mobile_iframe=true&amp;sdk=joey" style="border: none; visibility: visible; width: 78px; height: 20px;" class=""></iframe></span></div>
+                        <div class="fb-share-button fb_iframe_widget" data-href="https://velademo-rubix.myshopify.com/blog/anteposuerit-litterarum-formas-9" data-mobile_iframe="true" data-layout="button_count" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;container_width=0&amp;href=https%3A%2F%2Fvelademo-rubix.myshopify.com%2Fblogs%2Fnews%2Fanteposuerit-litterarum-formas-9&amp;layout=button_count&amp;locale=en_US&amp;mobile_iframe=true&amp;sdk=joey"><span style="vertical-align: bottom; width: 78px; height: 20px;"><iframe name="f2f76822ec93864" width="1000px" height="1000px" data-testid="fb:share_button Facebook Social Plugin" title="fb:share_button Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="https://web.facebook.com/v2.12/plugins/share_button.php?app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Dfa34cd6b7cf7c%26domain%3Dvelademo-rubix.myshopify.com%26is_canvas%3Dfalse%26origin%3Dhttps%253A%252F%252Fvelademo-rubix.myshopify.com%252Ff3226cf7cd392e8%26relation%3Dparent.parent&amp;container_width=0&amp;href=https%3A%2F%2Fvelademo-rubix.myshopify.com%2Fblogs%2Fnews%2Fanteposuerit-litterarum-formas-9&amp;layout=button_count&amp;locale=en_US&amp;mobile_iframe=true&amp;sdk=joey" style="border: none; visibility: visible; width: 78px; height: 20px;" class=""></iframe></span></div>
                     </div>
                     <div class="articleTwitterShare">
-                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Anteposuerit%20litterarum%20formas.&amp;url=https://velademo-rubix.myshopify.com/blogs/news/anteposuerit-litterarum-formas-9" target="_blank">
+                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Anteposuerit%20litterarum%20formas.&amp;url=https://velademo-rubix.myshopify.com/blog/anteposuerit-litterarum-formas-9" target="_blank">
                             <i class="fa fa-twitter"></i> Tweet
                         </a>
                     </div>
@@ -123,7 +123,7 @@
     <ul class="listSidebarBlog list-unstyled">
             @foreach($recent_articles as $article)
             <li>
-                <a class="titleBlogsidebar" href="/blogs/news/{{$article->id}}" title="{{$article->title}}">
+                <a class="titleBlogsidebar" href="/blog/article/{{$article->slug}}" title="{{$article->title}}">
                     {{$article->title}}
                 </a>
                 <time datetime="2020-04-04">{{$article->created_at->format('j F Y')}}</time>
@@ -136,7 +136,7 @@
         <ul class="sidebarListCategories list-unstyled">
 @foreach($categories as $category)
     <li class="sidebarBlogCateItem active">
-      <a class="active" href="/blogs/news?category={{$category->name}}">{{$category->name}}</a></li>
+      <a class="active" href="{{route('categoryShow',['category'=>$category->slug])}}">{{$category->name}}</a></li>
 @endforeach
         </ul>
     </div></div><div class="blogSidebar">
@@ -144,7 +144,7 @@
     <div class="velaContent" style="">
         <ul class="blogTagsList list-inline">
             @foreach($tags as $tag)
-            <li><a href="/blogs/tagged/{{$tag->slug}}" title="Show articles tagged {{$tag->name}}">{{$tag->name}}</a></li>
+            <li><a href="/blog/tag/{{$tag->slug}}" title="Show articles tagged {{$tag->name}}">{{$tag->name}}</a></li>
             @endforeach
         </ul>
     </div>

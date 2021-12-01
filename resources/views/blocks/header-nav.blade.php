@@ -54,11 +54,11 @@
                                             </li>
 
                                             <li id="blog">
-                                                <a href="/blogs/news" title="">
+                                                <a href="/blog" title="">
                                                     <span>Blogs</span></a>
                                             </li>
                                             <li id="contact">
-                                                <a href="/pages/contact-us" title="">
+                                                <a href="/contact-us" title="">
                                                     <span>Contact Us</span></a>
                                             </li>
                                         </ul>
@@ -160,7 +160,7 @@
                                                         </span>
                                                         </a>
                                                         @else
-                                                        <a href="/blogs/news/{{$item->id}}">
+                                                        <a href="/blog/article/{{$item->slug}}">
                                                             <span class="searchProductImage" >
                                                             
                                                                 <img src="{{asset('img/'.$item->thumbnail)}}" class="search_img">

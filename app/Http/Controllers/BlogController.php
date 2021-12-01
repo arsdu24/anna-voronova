@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\SiteSettings;
 use Ausi\SlugGenerator\SlugGenerator;
+use Ausi\SlugGenerator\SlugOptions;
+use phpDocumentor\Reflection\Types\Null_;
 
 class BlogController extends Controller
 {
@@ -21,17 +23,7 @@ class BlogController extends Controller
         $categories = Category::all();
         $tags = BlogTag::all();
         $collections = Collection::all();
-        $articles = Article::orderby('created_at','desc')->where('published','=','1');
-        if(isset($_GET['category'])){
-            $category = BlogCategory::where('name','=',$_GET['category'])->first();
-            if($category){
-            $id= $category->id;
-            $articles=$articles->whereHas('category', function($q) use ($id) {
-              $q->where('blog_category_id', $id);
-           });
-         }
-        }
-        $articles = $articles->paginate(15);
+        $articles = Article::orderby('created_at','desc')->where('published','=','1')->paginate(15);
         $date = strtotime("-3 days");
         $startdate = date('Y-m-d',$date);
         $recents_articles =  Article::whereDate('created_at', '>=', $startdate)->where('published','=','1')->orderby('created_at','desc')->get();
@@ -44,23 +36,30 @@ class BlogController extends Controller
               $cart=$order;break;
           }
         };
-
         $site = SiteSettings::first();
         return view('pages.blogs',['user'=>$user,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'site'=>$site,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
     }
     
     public function categoriesList()
-    {   
+    {      
+        $generator = new SlugGenerator;
         $user = Auth::user();
         $blog_category = BlogCategory::paginate(15);
+        foreach($blog_category as $category)
+            if(!$category->slug){
+                $category->slug = $generator->generate($category->name);
+                $category ->save();
+            }
         $tags = BlogTag::all();
         $site = SiteSettings::first();
         return view('pages.admin_blog_cat',['user'=>$user,'site'=>$site,'categories'=>$blog_category,'tags'=>$tags]);
     }
 
-    public function blogPage(Article $article){
-
-        if($article){
+    public function blogPage($slug){
+        $article = Article::where('slug',$slug)->first();
+  
+        if(!$article) return redirect()->route('blogs');
+      
         $user = Auth::user();
         $blog_categories = BlogCategory::all();
         $article_tags = array();
@@ -83,12 +82,16 @@ class BlogController extends Controller
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
         return view('pages.client_blogPage',['user'=>$user,'site'=>$site,'article'=>$article,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'categories'=>$blog_categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'article_tags'=>$article_tags,'tags'=>$tags,'collections'=>$collections]);
-        }
-        else return redirect()->route('blogs');
     }
 
     public function admin_blogs(){
+        $generator = new SlugGenerator;
         $articles = Article::orderby('created_at','desc')->paginate(15);
+        foreach($articles as $article)
+            if(!$article->slug){
+                $article->slug = $generator->generate($article->title);
+                $article ->save();
+            }
         $user=Auth::user();
         $blog_category = BlogCategory::all();
         $tags = BlogTag::all();
@@ -98,9 +101,11 @@ class BlogController extends Controller
     }
 
     public function create_article(Request $request){
+        $generator = new SlugGenerator;
         $category=$request->category;
         $article=Article::create([
             'title'=>$request->title,
+            'slug'=> $generator->generate($request->title) ,
             'excerpt'=>$request->excerpt,
             'content'=>$request->content,
             'author'=>$request->author,
@@ -145,37 +150,71 @@ class BlogController extends Controller
 
     public function articleUpdate(Article $article,Request $request)
     {
-     if($request->file('thumbnail')){
-         $image=$request->file('thumbnail');
-         $imageName=$image->getClientOriginalName();
-         $image->move('img',$imageName);
-         $article->thumbnail=$imageName;
-     }
-     if($request->tags){
-        $article->tags()->sync($request->tags);
-      }
-     else $article->tags()->detach();
-
-     $article->title=$request->title;
-     $article->excerpt=$request->excerpt;
-     if($request->published)$article->published=1;
-     else $article->published =0;
-     if($request->category){
-        $article->category()->sync($request->category);
-     }
-     else $article->category()->detach();
-     $article->content = $request->content;
-     $article->author = $request->author;
-     $article->save();
-     return redirect()->back();
+        $generator = new SlugGenerator;
+        if($request->file('thumbnail')){
+            $image=$request->file('thumbnail');
+            $imageName=$image->getClientOriginalName();
+            $image->move('img',$imageName);
+            $article->thumbnail=$imageName;
+        }
+        if($request->tags){
+            $article->tags()->sync($request->tags);
+        }
+        else $article->tags()->detach();
+        $article->title=$request->title;
+        $article->excerpt=$request->excerpt;
+        $article->slug = $generator->generate($request->title);
+        if($request->published)$article->published=1;
+        else $article->published =0;
+        if($request->category){
+            $article->category()->sync($request->category);
+        }
+        else $article->category()->detach();
+        $article->content = $request->content;
+        $article->author = $request->author;
+        $article->save();
+        return redirect()->route('admin_article',['article'=>$article->id]);
     }
 
     public function categoryCreate(Request $request)
-    {
+    {   
+        $generator = new SlugGenerator;
         BlogCategory::create([
-            'name'=>$request->name
+            'name'=>$request->name,
+            'slug'=> $generator->generate($request->name),
         ]);
         return redirect()->back();
+    }
+
+    public function categoryShow($slug)
+    {   
+        $category = BlogCategory::where('slug',$slug)->first();
+      
+        if(!$category) return redirect()->route('blogs');
+          
+        $user = Auth::user();
+        $blog_category = BlogCategory::all();
+        $categories = Category::all();
+        $tags = BlogTag::all();
+        $collections = Collection::all();
+            $articles=Article::orderby('created_at','desc')->where('published','=','1')->whereHas('category', function($q) use ($category) {
+              $q->where('blog_category_id', $category->id);
+           });
+        $articles = $articles->paginate(15);
+        $date = strtotime("-3 days");
+        $startdate = date('Y-m-d',$date);
+        $recents_articles =  Article::whereDate('created_at', '>=', $startdate)->where('published','=','1')->orderby('created_at','desc')->get();
+        $cart = null;
+        $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
+        $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
+        $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
+        foreach($user->orders as $order){
+          if($order->status == "Draft"){
+              $cart=$order;break;
+          }
+        };
+        $site = SiteSettings::first();
+        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'site'=>$site,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
     }
 
     public function categoryDelete(BlogCategory $category)
@@ -185,8 +224,10 @@ class BlogController extends Controller
     }
 
     public function categoryUpdate(BlogCategory $category,Request $request)
-    {
+    {   
+        $generator = new SlugGenerator;
         $category->name = $request->name;
+        $category->slug = $generator->generate($request->name);
         $category->save();
         return redirect()->back();
     }
@@ -196,7 +237,7 @@ class BlogController extends Controller
         $generator = new SlugGenerator;
         BlogTag::create([
             'name'=>strtoupper($request->name),
-            'slug'=> $generator->generate($request->name) ,
+            'slug'=> $generator->generate($request->name),
         ]);
         return redirect()->back();
     }

@@ -51,7 +51,7 @@
          <div class="col-sp-12 col-xs-6">
                             <div class="blogArticle mb20 pb-md-30">
                                     <div class="articleImage">
-                                        <a href="/blogs/news/{{$article->id}}">  
+                                        <a href="/blog/article/{{$article->slug}}">  
 <div class="p-relative">
             <div class="product-card__image" style="padding-top:62.5%;">
                 <img id="ProductPhotoImg"
@@ -64,9 +64,9 @@
             </div>
                 <div class="articleContent">
                     <div>
-                        <ul class="blogTagsList list-inline">
+                        <ul class="blogTagsList cardList list-inline">
                             @foreach($article->tags->take(5) as $tag)
-                            <li><a href="/blogs/tagged/{{$tag->slug}}" title="Show articles tagged {{strtoupper($tag->name)}}">{{strtoupper($tag->name)}}</a></li>
+                            <li><a href="/blog/tag/{{$tag->slug}}" title="Show articles tagged {{strtoupper($tag->name)}}">{{strtoupper($tag->name)}}</a></li>
                          @endforeach
                         </ul>
                     </div>
@@ -75,7 +75,7 @@
                         <span class="articlePublish pull-left">{{$article->created_at->format('j F Y')}}</span> 
                     </div>
                     <h3 class="articleTitle">
-                        <a href="/blogs/news/{{$article->id}}">
+                        <a href="/blog/article/{{$article->slug}}">
                             @if(strlen($article->excerpt)<=50)
                                     {{$article->title}}
                             @else {{substr($article->title, 0, 50).'...'}}
@@ -87,7 +87,7 @@
                             @else {{substr($article->excerpt, 0, 180).'...'}}
                             @endif
                     </div>
-                    @include('components.read-more',['href'=>$article->id])
+                    @include('components.read-more',['href'=>$article->slug])
                 </div>
             </div>
         </div>
@@ -119,11 +119,11 @@
 </div>
 <div class="blogSidebar">
 <h4 class="titleSidebar">Recent Articles</h4>
-<div class="velaContent" style="">
+<div class="velaContent" >
     <ul class="listSidebarBlog list-unstyled">
         @foreach($recent_articles as $article)
         <li>
-            <a class="titleBlogsidebar" href="/blogs/news/{{$article->id}}" title="{{$article->title}}">
+            <a class="titleBlogsidebar" href="/blog/article/{{$article->slug}}" title="{{$article->title}}">
                 @if(strlen($article->excerpt)<=50)
                 {{$article->title}}
                 @else {{substr($article->title, 0, 50).'...'}}
@@ -135,19 +135,19 @@
 </ul>
 </div>
 </div><div class="velaCategoriesBlogSidebar velaBlock">
-  <h3 class="titleSidebar">Categories</h3><div class="velaContent" style="">
+  <h3 class="titleSidebar">Categories</h3><div class="velaContent">
         <ul class="sidebarListCategories list-unstyled">
 @foreach($category as $item)
     <li class="sidebarBlogCateItem active">
-      <a class="active" href="?category={{$item->name}}">{{$item->name}}</a></li>
+      <a class="active" href="{{route('categoryShow',['category'=>$item->slug])}}">{{$item->name}}</a></li>
 @endforeach
         </ul>
     </div></div><div class="blogSidebar">
     <h4 class="titleSidebar">Articles Tags</h4>
-    <div class="velaContent" style="">
+    <div class="velaContent">
         <ul class="blogTagsList list-inline">
             @foreach($tags as $tag)
-            <li><a href="/blogs/tagged/{{$tag->slug}}" title="Show articles tagged {{strtoupper($tag->name)}}">{{strtoupper($tag->name)}}</a></li>
+            <li><a href="/blog/tag/{{$tag->slug}}" title="Show articles tagged {{strtoupper($tag->name)}}">{{strtoupper($tag->name)}}</a></li>
          @endforeach
             
            
@@ -175,7 +175,7 @@
             <div class="col-sm-12  text-center"> 
                 <h2 class="articleTitle">
                     <div class="alert alert-warning text-center  mt-5" style="padding:3rem">Sorry for the inconvenience, there are no articles to display !
-                        <a href="/"  style="margin-top:1rem" data-abc="true">Go Back</a>
+                        <a href="/blog"  style="margin-top:1rem" data-abc="true">Go Back</a>
             </div>
         </div>
     </div>

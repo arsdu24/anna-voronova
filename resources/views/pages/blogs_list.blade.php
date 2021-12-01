@@ -79,7 +79,7 @@
                 <td>{{$article->title}}</td>
                 <td>{{$article->excerpt}}</td>
                 <td>
-                    <a href="blogs/{{$article->id}}" class="btn btn-info">
+                    <a href="{{route('admin_article',['article'=>$article->id])}}" class="btn btn-info">
                         <i class="fas fa-edit"></i>
                         Edit
                     </a>
@@ -144,7 +144,7 @@
                   <div class="form-group ">
                       <label for="title" >Title</label>
                       <div>
-                          <textarea id="name" type="text" class="form-control " name="title" required autocomplete="name"></textarea>
+                          <textarea id="name" type="text" class="form-control " name="title" required autocomplete="name" maxlength="75"></textarea>
                       </div>
                   </div>
                   <div class="form-group ">
@@ -154,14 +154,13 @@
                   <div class="form-group ">
                       <label for="excerpt" >Excerpt</label>
                       <div>
-                          <textarea id="excerpt" type="text" class="form-control " name="excerpt" required autocomplete="name"></textarea>
+                          <textarea id="excerpt" type="text" class="form-control " name="excerpt" required autocomplete="name" maxlength="150"></textarea>
                       </div>
                   </div>
                   <div class="form-group">
                       <label for="content" >Content  </label>
                       <div>
                           <textarea class="form-control" name="content" id="summernote2" >
-                            {{$article->content ?? ''}}
                           </textarea>
                       </div>
                 

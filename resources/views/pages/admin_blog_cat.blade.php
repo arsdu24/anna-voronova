@@ -85,7 +85,7 @@
                     </i>
                     Delete
                 </a>
-                <form id="{{$category->id}}" action="{{route('deleteArticleCategory',['category'=>$category])}}" method="POST" style="display: none;">
+                <form id="{{$category->id}}" action="{{route('deleteArticleCategory',['category'=>$category->id])}}" method="POST" style="display: none;">
                     @csrf</form>
             </td>
             </tr>
@@ -99,7 +99,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                   </div>
                   <div class="modal-body">
-                      <form method="POST" action="{{route('updateArticleCategory',['category'=>$category->id])}}" enctype="multipart/form-data" >
+                      <form method="POST" action="{{route('updateArticleCategory',['category'=>$category])}}" enctype="multipart/form-data" >
                           @csrf
                           <div class="form-group ">
                               <label for="title" >Title</label>

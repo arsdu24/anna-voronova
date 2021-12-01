@@ -8,7 +8,7 @@ class Article extends Model
 {
     protected $table = 'article';
     protected $fillable = [
-        'title','thumbnail','content','excerpt','author'
+        'title','thumbnail','content','excerpt','author','slug'
     ];
     protected $casts = [
         'published' => 'boolean',
