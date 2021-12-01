@@ -57,6 +57,9 @@ class BlogController extends Controller
 
     public function blogPage($slug){
         $article = Article::where('slug',$slug)->first();
+  
+        if(!$article) return redirect()->route('blogs');
+      
         $user = Auth::user();
         $blog_categories = BlogCategory::all();
         $article_tags = array();
@@ -186,7 +189,9 @@ class BlogController extends Controller
     public function categoryShow($slug)
     {   
         $category = BlogCategory::where('slug',$slug)->first();
-        if($category){
+      
+        if(!$category) return redirect()->route('blogs');
+          
         $user = Auth::user();
         $blog_category = BlogCategory::all();
         $categories = Category::all();
@@ -210,7 +215,6 @@ class BlogController extends Controller
         };
         $site = SiteSettings::first();
         return view('pages.blogs',['user'=>$user,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'site'=>$site,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
-        }else return redirect()->route('blogs');
     }
 
     public function categoryDelete(BlogCategory $category)
@@ -265,6 +269,7 @@ class BlogController extends Controller
     public function Tagged($slug)
     {
         $tag = BlogTag::where('slug','=',$slug)->first();
+        if($tag){
         $id = $tag->id;        
         $user = Auth::user();
         $blog_category = BlogCategory::all();
@@ -298,6 +303,8 @@ class BlogController extends Controller
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
         return view('pages.blogs',['user'=>$user,'tag'=>$tag,'site'=>$site,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
+        }
+        else return redirect()->route('blogs');
     }
 
     public function blogImage(Request $request)
