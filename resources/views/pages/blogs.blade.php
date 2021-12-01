@@ -175,7 +175,7 @@
             <div class="col-sm-12  text-center"> 
                 <h2 class="articleTitle">
                     <div class="alert alert-warning text-center  mt-5" style="padding:3rem">Sorry for the inconvenience, there are no articles to display !
-                        <a href="/"  style="margin-top:1rem" data-abc="true">Go Back</a>
+                        <a href="/blog"  style="margin-top:1rem" data-abc="true">Go Back</a>
             </div>
         </div>
     </div>
