@@ -59,10 +59,10 @@
                                                                 <div> {{ $address['country']}} </div>
                                                                 <div>{{ $address['zip']}}{{ $order->phone_number }}</div>
                                                             </div></div></div>
-                                                     <div class="d-lg-inline-flex flex-row"><div><h5>Amount :</h5></div><div style="padding:10px 0 0 10px">{{count($order->items)}} </div></div>
-                                                     <div  class="d-lg-inline-flex flex-row"><div><h5>Date :</h5></div><div style="padding:10px 0 0 10px">{{$order->created_at->format('d-m-y, H:i')}} </div></div>
-                                                     <div  class="d-lg-inline-flex flex-row"><div><h5>Status :</h5></div><div style="padding:10px 0 0 10px">{{$order->status}}</div></div>
-                                                     <div  class="d-lg-inline-flex flex-row"><div><h5>Number :</h5></div><div style="padding:10px 0 0 10px">{{$order->serial_number}}</div></div>
+                                                     <div class="d-flex flex-row " ><div><h5>Amount :</h5></div><div style="padding:10px 0 0 10px">{{count($order->items)}} </div></div>
+                                                     <div  class="d-flex flex-row"><div><h5>Date :</h5></div><div style="padding:10px 0 0 10px">{{$order->created_at->format('d-m-y, H:i')}} </div></div>
+                                                     <div  class="d-flex flex-row"><div><h5>Status :</h5></div><div style="padding:10px 0 0 10px">{{$order->status}}</div></div>
+                                                     <div  class="d-flex flex-row"><div><h5>Number :</h5></div><div style="padding:10px 0 0 10px">{{$order->serial_number}}</div></div>
                                                      </div>
                                                      <div><h5>Products :</h5></div>
                                                      <div>
