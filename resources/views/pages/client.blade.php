@@ -73,7 +73,7 @@
                                                                   <th scope="col">Name</th>
                                                                   <th scope="col">Price</th>
                                                                   <th scope="col">Quantity</th>
-                                                                  <th scope="col">Total</th>
+                                                                  <th scope="col">Subtotal</th>
                                                                 </tr>
                                                               </thead>
                                                               <tbody>
