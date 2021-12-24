@@ -44,7 +44,12 @@ Route::group(['middleware'=>'auth'], function(){
     Auth::routes();
     Route::get('/login','\App\Http\Controllers\Auth\LoginController@showLoginForm');
     Route::get('/register/client', 'Auth\RegisterController@showClientRegisterForm');
+    Route::get('/confirm-password', 'Auth\ForgotPasswordController@ForgotPassword')->middleware('guest')->name('password.request');
+    Route::get('/reset-password', 'Auth\ForgotPasswordController@EmailForm')->middleware('guest')->name('password.emailForm');
+    Route::get('/password/reset/{token}','Auth\ForgotPasswordController@PasswordResetForm')->middleware('guest')->name('password.reset');
 
+    Route::post('/reset-password','Auth\ForgotPasswordController@PasswordUpdate')->middleware('guest')->name('password.update');
+    Route::post('/verify-email','Auth\ForgotPasswordController@EmailVerify')->name('password.email');
     Route::post('/register/client', 'Auth\RegisterController@createClient');
     Route::post('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
     Route::post('/login', '\App\Http\Controllers\Auth\LoginController@login')->name('login');

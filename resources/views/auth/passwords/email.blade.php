@@ -1,11 +1,11 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+@extends('layouts.App')
+@section('title', 'Reset password')
+@section('shopify-section-main')
+<div class="container" style="margin-bottom:200px;>
+    <div class="row justify-content-center" >
+        <div class="col-md-8" style="width:100%">
             <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+                <div class="card-header" style="margin: 150px 0 100px 0;text-align:center">{{ __('Reset Password') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
