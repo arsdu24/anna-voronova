@@ -2,13 +2,13 @@
 @section('title', 'Checkout')
 
 @section('shopify-section-main')
-
 <header class="banner" data-header role="banner">
 <div class="wrap">
 <h1 class="visually-hidden">
 Information
 </h1>
 </div>
+
 </header>
 @if($cart->items()->count()!=0)
 <aside role="complementary">
@@ -67,21 +67,9 @@ Information
   </header>
   <main class="main__content" role="main">
 
-<iframe srcdoc="<script>(function() {
-Shopify = window.Shopify || {};
-Shopify.Checkout = window.Shopify.Checkout || {};
-Shopify.Checkout.whitelistedUrls = [&quot;https:\/\/velademo-rubix.myshopify.com&quot;,&quot;https:\/\/checkout.shopify.com&quot;];
-Shopify.Checkout.whitelistedHostSuffixes = [&quot;.shopifypreview.com&quot;];
-})();
-</script>
-
-<script src="https://checkout.shopify.com/37694406700/sandbox/google_analytics_iframe" onload="this.setAttribute(&#39;data-loaded&#39;, true)" sandbox="allow-scripts allow-same-origin" id="google-analytics-sandbox" tabIndex="-1" class="visually-hidden" style="display:none" aria-hidden="true"></iframe>
-
-
-
 
 <div class="step" >
-<form class="edit_checkout"  action="{{route('create_order')}}" accept-charset="UTF-8" method="POST">
+<form class="edit_checkout" id="checkoutform" action="{{route('create_order')}}" accept-charset="UTF-8" method="POST">
   @csrf
 <div class="step__sections">
 <div class="section section--contact-information">
@@ -110,20 +98,6 @@ Contact information
       @endif
     </div>
 </div>        </div>
-
-<div class="fieldset-description" data-buyer-accepts-marketing>
-  <div class="section__content">
-    <div class="checkbox-wrapper">
-<div class="checkbox__input">
-<input name="checkout[buyer_accepts_marketing]" type="hidden" value="0" />
-<input class="input-checkbox" data-backup="buyer_accepts_marketing" type="checkbox" value="1" name="checkout[buyer_accepts_marketing]" id="checkout_buyer_accepts_marketing" />
-</div>
-<label class="checkbox__label" for="checkout_buyer_accepts_marketing">
-Keep me up to date on news and offers
-</label></div>
-
-  </div>
-</div>
 </div> 
 </div> 
 
@@ -132,6 +106,11 @@ Keep me up to date on news and offers
 <h2 class="section__title" id="section-delivery-title">
   Shipping &#38; Billing information
 </h2>
+</div>
+<div class="accountButton">
+  <button type="button" data-toggle="modal" class="btn" data-target="#UseAddress" >
+    Your addresses
+  </button>
 </div>
 
 
@@ -150,20 +129,20 @@ Keep me up to date on news and offers
 <div class="field--half field field--optional" data-address-field="first_name">
 <label class="field__label" for="checkout_shipping_address_first_name">First name (optional)</label>
 <div class="field__input-wrapper">
-<input placeholder="First name (optional)" autocomplete="shipping given-name" autocorrect="off" data-backup="first_name" class="field__input" size="30" type="text" value="" name="checkout[shipping_address][first_name]" id="checkout_shipping_address_first_name" />
+<input placeholder="First name (optional)" autocomplete="shipping given-name" value="{{unserialize($cart->address)['first_name'] ?? ' '}} " autocorrect="off" data-backup="first_name" class="field__input" size="30" type="text" name="checkout[shipping_address][first_name]" id="checkout_shipping_address_first_name" />
 </div>
 </div>
 <div class="field--half field field--required" data-address-field="last_name">
 <label class="field__label" for="checkout_shipping_address_last_name">Last name</label>
 <div class="field__input-wrapper">
-<input placeholder="Last name" required autocomplete="shipping family-name" autocorrect="off" data-backup="last_name" class="field__input" aria-required="true" size="30" type="text" value="sssss" name="checkout[shipping_address][last_name]" id="checkout_shipping_address_last_name" />
+<input placeholder="Last name" required autocomplete="shipping family-name" value="{{unserialize($cart->address)['last_name'] ?? ' '}} " autocorrect="off" data-backup="last_name" class="field__input" aria-required="true" size="30" type="text" name="checkout[shipping_address][last_name]" id="checkout_shipping_address_last_name" />
 </div>
 </div>
 
 <div data-address-field="address1" data-autocomplete-field-container="true" class="field field--required">
 <label class="field__label" for="checkout_shipping_address_address1">Address</label>
 <div class="field__input-wrapper">
-<input placeholder="Address" required autocomplete="shipping address-line1" autocorrect="off" data-backup="address1" class="field__input" aria-required="true" size="30" type="text" value="12 3 4 4" name="checkout[shipping_address][address1]" id="checkout_shipping_address_address1" />
+<input placeholder="Address" required autocomplete="shipping address-line1" autocorrect="off" value="{{unserialize($cart->address)['address1'] ?? ' '}}" data-backup="address1" class="field__input" aria-required="true" size="30" type="text"  name="checkout[shipping_address][address1]" id="checkout_shipping_address_address1" />
 
 <p class="field__additional-info " data-address-civic-number-warning>
 <svg class="icon-svg icon-svg--size-16 field__message__icon" aria-hidden="true" focusable="false"> <use xlink:href="#info" /> </svg>
@@ -174,24 +153,25 @@ Add a house number if you have one
 <div data-address-field="address2" data-autocomplete-field-container="true" class="field field--optional">
 <label class="field__label" for="checkout_shipping_address_address2">Apartment, suite, etc. (optional)</label>
 <div class="field__input-wrapper">
-<input placeholder="Apartment, suite, etc. (optional)" autocomplete="shipping address-line2" autocorrect="off" data-backup="address2" class="field__input" size="30" type="text" value="floresti, moldova" name="checkout[shipping_address][address2]" id="checkout_shipping_address_address2" />
+<input placeholder="Apartment, suite, etc. (optional)" autocomplete="shipping address-line2" autocorrect="off" data-backup="address2" value="{{unserialize($cart->address)['address2'] ?? ' '}}"  class="field__input" size="30" type="text" name="checkout[shipping_address][address2]" id="checkout_shipping_address_address2" />
 </div>
 </div>
 <div data-address-field="city" data-autocomplete-field-container="true" class="field field--required">
 <label class="field__label" for="checkout_shipping_address_city">City</label>
 <div class="field__input-wrapper">
-<input placeholder="City" required autocomplete="shipping address-level2" autocorrect="off" data-backup="city" class="field__input" aria-required="true" size="30" type="text" value="floresti" name="checkout[shipping_address][city]" id="checkout_shipping_address_city" />
+<input placeholder="City" required autocomplete="shipping address-level2" autocorrect="off" value="{{unserialize($cart->address)['city'] ?? ' '}}"  data-backup="city" class="field__input" aria-required="true" size="30" type="text"  name="checkout[shipping_address][city]" id="checkout_shipping_address_city" />
 </div>
 </div>
 <div class="field--third field field--required" data-address-field="country" data-autocomplete-field-container="true">
 <label class="field__label" for="checkout_shipping_address_country">Country/region</label>
 <div class="field__input-wrapper field__input-wrapper--select">
-<select size="1" required autocomplete="shipping country" data-backup="country" class="field__input field__input--select" aria-required="true" name="checkout[shipping_address][country]" id="checkout_shipping_address_country">
+<select size="1" required autocomplete="shipping country" data-backup="country" value="{{unserialize($cart->address)['country'] ?? ' '}}" class="field__input field__input--select" aria-required="true" name="checkout[shipping_address][country]" id="checkout_shipping_address_country">
+  @if($cart->address)<option value="{{unserialize($cart->address)['country'] ?? ' '}}" selected="selected" >{{unserialize($cart->address)['country']}}</option>@else
+<option disabled="disabled" selected="selected" value="---">---</option>@endif
 <option data-code="IN" value="India">India</option>
 <option data-code="SK" value="Slovakia">Slovakia</option>
 <option data-code="NL" value="Netherlands">Netherlands</option>
 <option data-code="FR" value="France">France</option>
-<option disabled="disabled" value="---">---</option>
 <option data-code="AF" value="Afghanistan">Afghanistan</option>
 <option data-code="AX" value="Aland Islands">Åland Islands</option>
 <option data-code="AL" value="Albania">Albania</option>
@@ -328,7 +308,7 @@ Add a house number if you have one
 <option data-code="MU" value="Mauritius">Mauritius</option>
 <option data-code="YT" value="Mayotte">Mayotte</option>
 <option data-code="MX" value="Mexico">Mexico</option>
-<option data-code="MD" selected="selected" value="Moldova, Republic of">Moldova</option>
+<option data-code="MD" value="Moldova, Republic of">Moldova</option>
 <option data-code="MC" value="Monaco">Monaco</option>
 <option data-code="MN" value="Mongolia">Mongolia</option>
 <option data-code="ME" value="Montenegro">Montenegro</option>
@@ -438,7 +418,7 @@ Add a house number if you have one
 <div class="field--third field field--required" data-address-field="province" data-autocomplete-field-container="true">
 <label class="field__label" for="checkout_shipping_address_province">Region</label>
 <div class="field__input-wrapper field__input-wrapper--select">
-<input placeholder="Region" autocomplete="shipping address-level1" autocorrect="off" data-backup="province" class="field__input" aria-required="true" type="text" name="checkout[shipping_address][province]" id="checkout_shipping_address_province" />
+<input placeholder="Region" autocomplete="shipping address-level1" value="{{unserialize($cart->address)['province'] ?? ' '}}" autocorrect="off" data-backup="province" class="field__input" aria-required="true" type="text" name="checkout[shipping_address][province]" id="checkout_shipping_address_province" />
 <div class="field__caret shown-if-js">
 <svg class="icon-svg icon-svg--color-adaptive-lighter icon-svg--size-10 field__caret-svg" role="presentation" aria-hidden="true" focusable="false"> <use xlink:href="#caret-down" /> </svg>
 </div>
@@ -447,20 +427,8 @@ Add a house number if you have one
 <div class="field--third field field--required" data-address-field="zip" data-autocomplete-field-container="true">
 <label class="field__label" for="checkout_shipping_address_zip">Postal code</label>
 <div class="field__input-wrapper">
-<input placeholder="Postal code" required autocomplete="shipping postal-code" autocorrect="off" data-backup="zip" class="field__input field__input--zip" aria-required="true" size="30" type="text" value="9854" name="checkout[shipping_address][zip]" id="checkout_shipping_address_zip" />
+<input placeholder="Postal code" value="{{unserialize($cart->address)['zip'] ?? ' '}}" required autocomplete="shipping postal-code" autocorrect="off" data-backup="zip" class="field__input field__input--zip" aria-required="true" size="30" type="text" name="checkout[shipping_address][zip]" id="checkout_shipping_address_zip" />
 </div>
-</div>
-</div>
-<div class="field">
-<div class="checkbox-wrapper">
-<div class="checkbox__input">
-  <input size="30" type="hidden" value="true" name="checkout[remember_me]" />
-  <input name="checkout[remember_me]" type="hidden" value="0" />
-  <input class="input-checkbox" data-backup="remember_me" type="checkbox" value="1" checked="checked" name="checkout[remember_me]" id="checkout_remember_me" />
-</div>
-<label class="checkbox__label" for="checkout_remember_me">
-  Save this information for next time
-  </label>
 </div>
 </div>
 </div> 
@@ -546,6 +514,64 @@ Shipping method
     <span class="step__footer__previous-link-content">Return to cart</span></a>
 </div>
 </form>
+<div class="modal fade" id="UseAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Use one of your addresses</h5>
+        <button type="button" id="closemodal" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        @foreach($user->addresses as $address)
+            <div class="card velaShadow-1 boxPadding ">
+             <div class="checkbox">
+              <label class="d-flex rowFlex w-100">
+                <div class="card-body col-xs-8 ">     
+                    <div>
+                        <address><strong>{{ $address->first_name}} {{ $address->last_name}}</strong><br>{{ $address->address1}}<br>{{ $address->address2}} {{ $address->city}}, {{ $address->country}}<br> {{ $address->zip}}<br></address>
+                    </div>
+                </div>
+                <div class="col-xs-4 d-flex flexJustifyEnd flexAlignCenter">
+                  <input type="radio" id="A{{$address->id}}" class="SetAddress" name="addres" value="{{$address->id}}">
+                </div>  
+                <script>
+                   $('.SetAddress').change(
+                    function(){
+                        const id = $(this).val();
+                        if ($(this).is(':checked')) {
+                          $.ajax({
+                            headers:{
+                              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            type:"POST",
+                            url: "{{route('SetAddress')}}",
+                            data: {
+                              address: id,
+                            },
+                            success : function(result){
+                              let document=$(result);
+                               let html = document.find('#checkoutform').html();
+                               $('#UseAddress').modal('hide');
+                               $('body').removeClass('modal-open');
+                               $('#checkoutform').html(html);
+                            },
+                            errorr: function(result){
+                              console.log(result.responseText);
+                            }
+                          });
+                        }
+                    });
+                </script>
+              </label>
+            </div>
+          </div>
+            @endforeach   
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 
   </main>
@@ -782,8 +808,6 @@ $0
 @endif
 </div>
 </div>
-
-<link href="https://monorail-edge.shopifysvc.com" rel="dns-prefetch">
-<link rel="stylesheet" href="//cdn.shopify.com/app/services/37694406700/assets/120258330668/checkout_stylesheet/v2-ltr-edge-6281406ce40a9853ec2f98b57d76bbfd-5223" media="all" />
+<link href="{{asset('css/checkout.css')}}" rel="stylesheet">
 
 @endsection
