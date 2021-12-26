@@ -148,19 +148,6 @@
             @endforeach
         </ul>
     </div>
-</div><div class="blogSidebar blogBannerSidebar hidden-xs hidden-sm">
-<div class="effectOne">
-    <a href="/collections/decoration" title="velademo-rubix">
-<div class="p-relative">
-<div class="product-card__image" style="padding-top:63.76811594202898%;">
-<img class="product-card__img lazyautosizes ls-is-cached lazyloaded" scr="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-widths="[1,360,540,720,900,1080,1296,1512,1728,1944,2160,2376,2592,2808]" data-aspectratio="1.5681818181818181" data-ratio="1.5681818181818181" data-sizes="auto" alt="" data-srcset="//cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_1x.jpg?v=1629543118 1w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_360x.jpg?v=1629543118 360w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_540x.jpg?v=1629543118 540w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_720x.jpg?v=1629543118 720w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_900x.jpg?v=1629543118 900w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_1080x.jpg?v=1629543118 1080w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_1296x.jpg?v=1629543118 1296w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_1512x.jpg?v=1629543118 1512w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_1728x.jpg?v=1629543118 1728w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_1944x.jpg?v=1629543118 1944w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_2160x.jpg?v=1629543118 2160w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_2376x.jpg?v=1629543118 2376w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_2592x.jpg?v=1629543118 2592w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_2808x.jpg?v=1629543118 2808w" sizes="217.97727272727272px" srcset="//cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_1x.jpg?v=1629543118 1w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_360x.jpg?v=1629543118 360w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_540x.jpg?v=1629543118 540w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_720x.jpg?v=1629543118 720w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_900x.jpg?v=1629543118 900w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_1080x.jpg?v=1629543118 1080w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_1296x.jpg?v=1629543118 1296w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_1512x.jpg?v=1629543118 1512w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_1728x.jpg?v=1629543118 1728w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_1944x.jpg?v=1629543118 1944w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_2160x.jpg?v=1629543118 2160w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_2376x.jpg?v=1629543118 2376w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_2592x.jpg?v=1629543118 2592w, //cdn.shopify.com/s/files/1/0376/9440/6700/files/banner1_2808x.jpg?v=1629543118 2808w">
-</div>
-<div class="placeholder-background placeholder-background--animation" data-image-placeholder=""></div>
-</div>
-
-
-    </a>
-</div>
 </div>
 </aside>
 

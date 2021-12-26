@@ -105,7 +105,7 @@ Information
 @else
 <aside role="complementary">
   <div class="container-fluid mt-100">
-    <div class="row "style="margin:20rem">
+    <div class="row" style="margin-bottom:20rem">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body cart">
