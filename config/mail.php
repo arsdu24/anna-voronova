@@ -39,8 +39,8 @@ return [
             'host' => env('MAIL_HOST', 'smtp.gmail.com'),
             'port' => env('MAIL_PORT', 25),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME','aaw2012sirbu.andrei@gmail.com'),
-            'password' => env('MAIL_PASSWORD','lamwhpchixhwvegw'),
+            'username' => env('MAIL_USERNAME','avs.dev2@gmail.com'),
+            'password' => env('MAIL_PASSWORD','egvsxnfotdvbsiev'),
             'timeout' => null,
             'auth_mode' => null,
         ],
@@ -84,7 +84,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'aaw2012sirbu.andrei@gmail.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'avs.dev2@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
