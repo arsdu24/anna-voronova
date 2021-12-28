@@ -7,7 +7,7 @@
     <img  alt="velademo-rubix" src="{{asset('img/slide11_1944x.png')}}" /></div><nav class="velaBreadcrumbWrap container">       
                 <div class="velaBreadcrumbsInnerWrap"><h1 class="breadcrumbHeading">Products</h1><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
                         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-                            <a href="../index.html" title="Back to the frontpage" itemprop="item">
+                            <a href="/" title="Back to the frontpage" itemprop="item">
                                 <span itemprop="name">Home</span>
                             </a>
                             <meta itemprop="position" content="1" />

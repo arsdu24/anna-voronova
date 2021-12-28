@@ -1,5 +1,5 @@
 @extends('layouts.App')
-    
+@section('title', 'Account')
     @section('shopify-section-main')
        <main class="mainContent" role="main">
             <section id="pageContent">
@@ -15,15 +15,15 @@
                             <div class="boxAccount accountInfo">
                                 <h4 class="accountHeading">Account Details</h4>
                                 <div class="accountContent">
-                                    <h5 class="customerName">{{$user->name}}</h5>
-                                    <div class="customerEmail">{{$user->email}}</div>
-                                    <div class="formAccountRecover">
-                                        <form method="post" action="/account/recover" accept-charset="UTF-8"><input type="hidden" name="form_type" value="recover_customer_password" /><input type="hidden" name="utf8" value="✓" />
-                                            <div class="formContent"><input type="hidden" name="email" value="e2e323r32r@gmail.com">
-                                                <input type="submit" class="btnRecoverPassword" value="Reset your password">
-                                            </div>
-                                        </form>
-                                    </div>
+                                    @if($user->role==2)
+                                        <h5 class="customerName">{{$user->name}}</h5>
+                                        <div class="customerEmail">{{$user->email}}</div>
+                                        <div class="formAccountRecover">
+                                            <a class="btnRecoverPassword" href="{{route('password.request')}}">Reset your password</a>
+                                        </div>
+                                    @else
+                                        <h5 class="customerName">You are not logged in, to see the account details please log in.</h5>
+                                    @endif
                                 </div>
                             </div>
                         </div>
