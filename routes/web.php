@@ -34,6 +34,9 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('cart/qty_update','OrdersController@qtyUpdate')->name('qtyUpdate');
     Route::post('products/review','ReviewController@createReview')->name('createReview');
     Route::post('/send-email','ContactUsController@sendEmail')->name('sendEmail');
+    Route::post('/add-address','AddressesController@CreateAddress')->name('CreateAddress');
+    Route::post('/delete-address/{address}','AddressesController@DeleteAddress')->name('DeleteAddress');
+    Route::post('/set-order-address','AddressesController@SetAddress')->name('SetAddress');
     //Blog routes
     Route::get('/blog','BlogController@index')->name('blogs');
     Route::get('/blog/article/{article}','BlogController@blogPage')->name(' blogPage');

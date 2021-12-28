@@ -6,6 +6,7 @@
 <!--<![endif]-->
 
 <head>
+  
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -31,7 +32,6 @@
 
     <link href="{{asset('css/app.css')}}"
           rel="stylesheet" type="text/css" media="all"/>
-
     <script src="{{asset('js/jquery-3.5.0.min.js')}}"
             type="text/javascript"></script>
     <link href="{{route('home')}}" rel="dns-prefetch">
@@ -530,7 +530,9 @@ function remove(){
              let cart_value = document.find('#cartContainer').html();
              let cart_count = document.find('#CartCount').html();
              let cart_content = document.find('#Cart').html();
+             console.log(cart_content);
              if(cart_content)$('#Cart').html(cart_content);
+             else $('#pageContent').html(document.find('#pageContent').html());
              $('#CartCount').html(cart_count);
              $('#cartContainer').html(cart_value);
              ajust();
