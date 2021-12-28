@@ -55,6 +55,7 @@ class OrdersController extends Controller
      }
      $cart->contact = $request->checkout['email_or_phone'];
      $cart->address = serialize($request->checkout['shipping_address']);
+     $cart->created_at = date("Y-m-d H:i:s");
      $cart->serial_number='ORD-'.$now;
      $cart->status = "Active";
      $cart->quantity = $quantity;
