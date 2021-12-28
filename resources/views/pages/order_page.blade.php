@@ -40,7 +40,7 @@ Order {!!$order->id!!}
                                 <h2 class="page-header"><i class="fa fa-globe"></i> {{ $order->order_number }}</h2>
                             </div>
                             <div class="col-6">
-                                <h5 class="text-right">Date: {{ $order->created_at->toFormattedDateString() }}</h5>
+                                <h5 class="text-right">Date: {{ $order->created_at->format('d-m-y, H:i') }}</h5>
                             </div>
                         </div>
                         <div class="row invoice-info">
@@ -58,11 +58,8 @@ Order {!!$order->id!!}
                                 <b>Amount:</b> {{ config('settings.currency_symbol') }}{{ round($order->subtotal, 2) }}<br>
                                 <b>Payment Method:</b> {{ $order->payment_method }}<br>
                                 <b>Payment Status:</b> {{ $order->payment_status == 1 ? 'Completed' : 'Not Completed' }}<br>
-                                <b>Order Status:</b> <span id="order-status">
-                              
-                                    {{ $order->status }}
-                                </span>
-                                    <select class="select2bs4 select2-hidden-accessible" order-id="{{$order->id}}" name="status" id="status" data-placeholder="Modify status" style="width: 40%;" type="button" data-select2-id="22" tabindex="-1" aria-hidden="true">
+                                <b>Order Status:</b>  
+                                    <select class="select2bs4 select2-hidden-accessible " order-id="{{$order->id}}" name="status" id="status" data-placeholder="Modify status" style="width: 40%;" type="button" data-select2-id="22" tabindex="0" aria-hidden="true">
                                           <option value="Active">Active</option>
                                           <option value="Confirmed">Confirmed</option>
                                           <option value="Canceled">Canceled</option>
@@ -96,39 +93,16 @@ Order {!!$order->id!!}
                                     </tbody>
                                 </table>
                                 
-                <div class="row">
+                <div class="row d-flex justify-content-end">
                     <!-- accepted payments column -->
-                    <div class="col-6">
-                      <p class="lead">Payment Methods:</p>
-                      <img src="../../dist/img/credit/visa.png" alt="Visa">
-                      <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
-                      <img src="../../dist/img/credit/american-express.png" alt="American Express">
-                      <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
-    
-                      <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                        Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
-                        plugg
-                        dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-                      </p>
-                    </div>
+                    
                     <!-- /.col -->
                     <div class="col-6">
-                      <p class="lead">Amount Due 2/22/2014</p>
+                      <p class="lead">Amount Due {{ $order->created_at->format('d/m/y') }}</p>
     
                       <div class="table-responsive">
                         <table class="table">
-                          <tbody><tr>
-                            <th style="width:50%">Subtotal:</th>
-                            <td>$ {{ config('settings.currency_symbol') }}{{ round($order->subtotal, 2) }}</td>
-                          </tr>
-                          <tr>
-                            <th>Tax (9.3%)</th>
-                            <td>$0</td>
-                          </tr>
-                          <tr>
-                            <th>Shipping:</th>
-                            <td>$0</td>
-                          </tr>
+                          <tbody>
                           <tr>
                             <th>Total:</th>
                             <td> $ {{ config('settings.currency_symbol') }}{{ round($order->subtotal, 2) }}</td>
@@ -143,13 +117,7 @@ Order {!!$order->id!!}
                   <!-- this row will not appear when printing -->
                   <div class="row no-print">
                     <div class="col-12">
-                      <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                      <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                        Payment
-                      </button>
-                      <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                        <i class="fas fa-download"></i> Generate PDF
-                      </button>
+                      <button class="btn btn-default" onclick="window.print();return false;"><i class="fas fa-print"></i> Print</button>
                     </div>
                   </div>
                 
@@ -167,6 +135,7 @@ Order {!!$order->id!!}
   </div>
   
 @section('scripts')
+
 <script>
     $(document).ready(function() {
     let val={!! json_encode($order->status) !!}

@@ -1,5 +1,5 @@
 @extends('layouts.App')
-
+@section('title', 'Login')
 @section('shopify-section-main')
 <div class="container" style="margin-bottom:200px;">
     <div class="row justify-content-center">
@@ -61,8 +61,8 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                @if (Route::has('password.emailForm'))
+                                    <a class="btn btn-link" href="{{ route('password.emailForm') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif

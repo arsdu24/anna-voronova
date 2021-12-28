@@ -1,5 +1,5 @@
 @extends('layouts.App')
-
+@section('title', 'Register')
 @section('shopify-section-main')
 <div class="container" style="margin-bottom:200px;">
     <div class="row justify-content-center">
