@@ -23,6 +23,14 @@ Order {!!$order->id!!}
   </section>
 
 <div class="card">
+  @switch($order->status)
+    @case('Canceled')
+      <div class="col-12 btn btn-danger no-print"></div>
+    @break
+    @case('Finished')
+     <div class="col-12 btn btn-success no-print"></div>
+    @break
+@endswitch
     <div class="card-header">
       <h3 class="card-title">Order {{$order->serial_number}}</h3>
     </div>
@@ -58,16 +66,7 @@ Order {!!$order->id!!}
                                 <b>Amount:</b> {{ config('settings.currency_symbol') }}{{ round($order->subtotal, 2) }}<br>
                                 <b>Payment Method:</b> {{ $order->payment_method }}<br>
                                 <b>Payment Status:</b> {{ $order->payment_status == 1 ? 'Completed' : 'Not Completed' }}<br>
-                                <b>Order Status:</b>  
-                                    <select class="select2bs4 select2-hidden-accessible " order-id="{{$order->id}}" name="status" id="status" data-placeholder="Modify status" style="width: 40%;" type="button" data-select2-id="22" tabindex="0" aria-hidden="true">
-                                          <option value="Active">Active</option>
-                                          <option value="Confirmed">Confirmed</option>
-                                          <option value="Canceled">Canceled</option>
-                                          <option value="Pedding">Pending</option>
-                                          <option value="Completed">Completed</option>
-                                          <option value="Refused">Refused</option>
-                                     </select><span class="select2 select2-container select2-container--bootstrap4 select2-container--below select2-container--focus" dir="ltr" data-select2-id="24" style="width: 100%;">
-                               <br>
+                                <b>Order Status:</b>  {{$order->status}} <br>
                             </div>
                         </div>
                         <div class="row">
@@ -116,11 +115,27 @@ Order {!!$order->id!!}
     
                   <!-- this row will not appear when printing -->
                   <div class="row no-print">
-                    <div class="col-12">
-                      <button class="btn btn-default" onclick="window.print();return false;"><i class="fas fa-print"></i> Print</button>
+                    <div class="col-12 d-flex ">
+                      <div class="col-6">
+                        <button class="btn btn-default" onclick="window.print();return false;"><i class="fas fa-print"></i> Print</button>
+                      </div>
+                     <div class="col-6 d-flex justify-content-end">
+                       @switch($order->status)
+                            @case('Pending')
+                              <button class="btn btn-danger m-1 status" value="Canceled"><i class="fas fa-times"></i> Cancel</button>
+                              <button class="btn btn-primary m-1 status" value="Active">Confirm</button>
+                             @break
+                            @case('Active')
+                              <button class="btn btn-info m-1 status" value="Ready"><i class="fas fa-check"></i> Ready</button>
+                              <button class="btn btn-success m-1 status" value="Finished"><i class="fas fa-check-double"></i> Done</button>
+                            @break
+                            @case('Ready')
+                              <button class="btn btn-success m-1 status" value="Finished"><i class="fas fa-check-double"></i> Done</button>
+                            @break
+                        @endswitch
+                     </div>
                     </div>
                   </div>
-                
                             </div>
                         </div>
                     </section>
@@ -143,9 +158,8 @@ Order {!!$order->id!!}
     $('#status').trigger('change');
     $.fn.select2.defaults.set("theme", "classic");
    
-    $('#status').change(function() {
-        let status=$(this).find(":selected").val();
-        let id=$(this).attr('order-id');
+    $('.status').click(function() {
+        let status=$(this).val();
         $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -153,14 +167,12 @@ Order {!!$order->id!!}
         type: "POST",
         url: '{{route("orderStatusUpdate")}}',
         data: { 
-            id: id, 
-            status: status,// < note use of 'this' here
+            id: {!!json_encode($order->id)!!}, 
+            status: status,
+            user: {!!json_encode($order->contact)!!},
         },
         success: function(result) {
-            refreshedPage = $(result);
-            newstatus=refreshedPage.find('#order-status').html();
-            console.log(status);
-            $('#order-status').html(newstatus);
+          location.reload();
         },
         error: function(result) {
             alert('error');

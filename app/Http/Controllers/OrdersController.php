@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use App\Collection;
+use App\Mail\OrderIsActive;
+use App\Mail\OrderIsCanceled;
+use App\Mail\OrderIsFinished;
+use App\Mail\OrderIsPending;
+use App\Mail\OrderIsReady;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Product;
 use Illuminate\Support\Facades\Auth;
 use App\SiteSettings;
+use Illuminate\Support\Facades\Mail;
 
 class OrdersController extends Controller
 {
-    public function __construct()
+    public function __construct() 
     {
         $this->middleware('auth');
     }
@@ -37,7 +43,6 @@ class OrdersController extends Controller
     public function createOrder(Request $request)
     {
      $user=Auth::user();
-     $id= Auth::id();
      $now=str_replace('.', '', microtime(true));
      $cart = null;
      foreach($user->orders as $order){
@@ -57,9 +62,10 @@ class OrdersController extends Controller
      $cart->address = serialize($request->checkout['shipping_address']);
      $cart->created_at = date("Y-m-d H:i:s");
      $cart->serial_number='ORD-'.$now;
-     $cart->status = "Active";
+     $cart->status = "Pending";
      $cart->quantity = $quantity;
      $cart->save();
+     Mail::to($cart->contact)->send(new OrderIsPending($cart));
      return redirect()->route('home');
     }
 
@@ -87,6 +93,17 @@ class OrdersController extends Controller
       $order=Order::find($request->id);
       $order->status = $request->status;
       $order->save();
+      switch($order->status){
+        case 'Canceled': 
+            if($order->payment_method == "Card")//refound money
+                Mail::to($request->user)->send(new OrderIsCanceled($order,1));
+            else
+                Mail::to($request->user)->send(new OrderIsCanceled($order,0));
+        break;
+        case 'Active': Mail::to($request->user)->send(new OrderIsActive($order));break;
+        case 'Ready': Mail::to($request->user)->send(new OrderIsReady($order));break;
+        case 'Finished':Mail::to($request->user)->send(new OrderIsFinished($order));break;
+        }
       return redirect()->back();
     }
 
