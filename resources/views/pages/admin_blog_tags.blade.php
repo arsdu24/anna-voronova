@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
             <li class="breadcrumb-item active">Articles  Tags</li>
           </ol>
         </div>
@@ -20,39 +20,28 @@
   </section>
   <div class="card"><div class="card-header">
     <h3 class="card-title"> Tags</h3>
-    <button type="button" class="btn  w-60" >
+    <button type="button" class="btn col-md-3 col-12 ml-3 p-0" >
     <form method="POST" action="{{route('blog-image-set')}}" id="form-blog-image" enctype="multipart/form-data" class="form-inline">
-      @csrf
-                                    
-          <div class="col-12 col-lg-12"> 
-            <div class="form-group ">
-              <div class="input-group col-md-12">
-                  <div class="custom-file">
-                    <label class="list-inline">
-                    
-                    <div id="actions" class="col-9">
-                      <div class="col-lg-12">
+      @csrf                          
+          <div class="col-12 p-0"> 
+                    <label class="list-inline w-100 p-0">
+                    <div class="col-12 p-0">
                         <div class="btn-group w-100 p-15">
-                          <span class="btn btn-success col fileinput-button dz-clickable">
+                          <span class="btn btn-success col-12">
                             <i class="fas fa-plus"></i>
                             <span>Change Blog Image</span>
                           </span>
-                        </div>
                       </div>
                   </div>
                   
                 
-                  <input id="image_blog" type="file" name="image" class="custom-file-input col-3">
+                  <input id="image_blog" type="file" name="image" class="custom-file-input d-none">
                   </label>
-                </div>
-                  
-                </div>
-          </div>
         </div>
   </form>
 </button>
-    <div class="card-tools">
-      <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">
+    <div class="card-tools col-md-2 col-12 p-0 float-md-right float-none ml-3">
+      <button type="button" class="btn btn-info btn-md col-12" data-toggle="modal" data-target="#myModal">
           <i class="fas fa-plus"></i>
           Add Tag
       </button>
@@ -60,7 +49,7 @@
   </div>
   <div class="card-body">
     @if(count($tags)!=0)
-    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12">
+    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12 table-responsive">
    
       <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
       <thead>
@@ -167,7 +156,7 @@
               <div class="form-group ">
                   <label for="title" >Title</label>
                   <div>
-                      <input id="name" type="text" class="form-control " name="name"  style="text-transform:uppercase"  required autocomplete="name"/>
+                      <input id="name" type="text" class="form-control " maxlength="250" name="name"  style="text-transform:uppercase"  required autocomplete="name"/>
                   </div>
                 </div>
                   <div class=" modal-footer ">

@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
             <li class="breadcrumb-item active">Products</li>
           </ol>
         </div>
@@ -25,12 +25,12 @@
 <div class="card">
     <div class="card-header">
       <h3 class="card-title">Products</h3>
-      <button type="button" class="btn btn-info btn-md ml-3" data-toggle="modal" data-target="#inMenu">
+      <button type="button" class="btn btn-info btn-md ml-3 col-md-2 col-12" data-toggle="modal" data-target="#inMenu">
         <i class="fas fa-edit"></i>
         Products in menu
       </button>
-      <div class="card-tools">
-        <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">
+      <div class="card-tools col-md-2 col-12 p-0 float-md-right float-none ml-3">
+        <button type="button" class="btn btn-info btn-md col-12" data-toggle="modal" data-target="#myModal">
           <i class="fas fa-plus"></i>
             Add product
         </button>
@@ -38,7 +38,8 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-      <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12">
+      <div id="example2_wrapper " class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div>
+      <div class="row table-responsive"><div class="col-12 table-responsive">
       @if(count($products)!=0)
         <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
         <thead>
@@ -75,6 +76,7 @@
             @endforeach
         </tbody>
       </table>
+      
     @else
     <div class="alert alert-info" role="alert">
       You don't have products yet!
@@ -113,7 +115,7 @@
                     <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
                     <div class="col-md-6">
-                        <input id="name" type="text" class="form-control " name="name" required autocomplete="name">
+                        <input id="name" type="text" class="form-control " maxlength="75" name="name" required autocomplete="name">
                     </div>
                 </div>
 
@@ -121,7 +123,7 @@
                     <label for="description" class="col-md-4 col-form-label text-md-right">Excerpt</label>
 
                     <div class="col-md-6">
-                        <input id="description" type="text" class="form-control" name="excerpt"  required autocomplete="excerpt">
+                        <input id="description" type="text" class="form-control" maxlength="250" name="excerpt"  required autocomplete="excerpt">
                     </div>
                 </div>
 

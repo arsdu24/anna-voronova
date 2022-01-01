@@ -1284,7 +1284,7 @@
 
       var uniqueName = link.replace('./', '').replace(/["&'./:=?[\]]/gi, '-').replace(/(--)/gi, '');
       var navId = "tab-" + uniqueName;
-
+      console.log(link);
       if (!this._config.allowDuplicates && $__default['default']("#" + navId).length > 0) {
         return this.switchTab("#" + navId);
       }
@@ -2153,7 +2153,7 @@
         this._addNotFound();
       } else {
         endResults.each(function (i, result) {
-          $__default['default'](SELECTOR_SEARCH_RESULTS_GROUP).append(_this2._renderItem(escape(result.name), escape(result.link), result.path));
+          $__default['default'](SELECTOR_SEARCH_RESULTS_GROUP).append(_this2._renderItem(result.name, result.link, result.path));
         });
       }
 

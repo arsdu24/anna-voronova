@@ -13,7 +13,7 @@
     <meta name="theme-color" content="#ba933e">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="canonical" href="{{ route('home') }}">
-    <link rel="shortcut icon" href="{{ asset('img/'.$site->short_logo) }}" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('img/'.$site->short_logo ) }}" type="image/png">
     <title>
         @yield('title')
     </title>
@@ -111,26 +111,7 @@
                             
                             
                 </div>
-                
-    
-                
-    
-                    <div class="ajaxCartNote">
-                        <div class="velaCartNoteButton">
-                            <a class="btnCartNote collapsed" href="#velaCartNote" data-toggle="collapse">
-                                <i class="fa fa-times"></i>
-                                add order note
-                            </a>
-                        </div>
-                        <div id="velaCartNote" class="velaCartNoteGroup collapse">
-                            <label for="CartSpecialInstructions">Special instructions for seller</label>
-                            <textarea name="note" class="form-control" id="CartSpecialInstructions" rows="4"></textarea>
-                        </div>
-                    </div>
-    
-                
-    
-                <div class="drawerCartFooter">
+                <div>
                     <div class="drawerAjaxFooter">
                         <div class="drawerSubtotal">
                             <span class="cartSubtotalHeading">Subtotal</span>

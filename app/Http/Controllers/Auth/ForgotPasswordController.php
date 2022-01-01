@@ -36,11 +36,17 @@ class ForgotPasswordController extends Controller
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
         return view('auth.passwords.confirm',[  'categories'=>$categories,'site'=>$site,'collections'=>$collections,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'cart'=>$cart]);
-        }return back();
+        }
+        if(Auth::user()->role==1){
+            $site = SiteSettings::first();
+            $user =Auth::user();
+            return view('auth.passwords.Adminconfirm',['user'=>$user,'site'=>$site]);
+        }
+        return back();
     }
 
     public function EmailForm()
-    {   
+    {  
         if(Auth::user()->role!=1){
         $user= Auth::user();
         $categories =Category::all();
@@ -56,7 +62,10 @@ class ForgotPasswordController extends Controller
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
         return view('auth.passwords.email',[  'categories'=>$categories,'site'=>$site,'collections'=>$collections,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'cart'=>$cart]);
-        }return back();
+        }
+        $site = SiteSettings::first();
+        $user =Auth::user();
+        return view('auth.passwords.Adminemail',['user'=>$user,'site'=>$site]);
     }
 
     public function EmailVerify(Request $request)
@@ -89,7 +98,10 @@ class ForgotPasswordController extends Controller
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
         return view('auth.passwords.reset', ['token' => $token,'categories'=>$categories,'site'=>$site,'collections'=>$collections,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'cart'=>$cart]);
-        }return back();
+        }
+        $site = SiteSettings::first();
+        $user =Auth::user();
+        return view('auth.passwords.Adminreset',['user'=>$user,'site'=>$site,'token' => $token]);
     }
     public function PasswordUpdate(Request $request)
     {

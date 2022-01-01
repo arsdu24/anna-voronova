@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
             <li class="breadcrumb-item active">Orders</li>
           </ol>
         </div>
@@ -28,7 +28,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-      <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12">
+      <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="table-responsive">
       @if(count($orders)!=0)
         <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
         <thead>

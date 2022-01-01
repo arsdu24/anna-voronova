@@ -1,12 +1,23 @@
-@extends('layouts.App')
+@extends('layouts.Admin')
 @section('title', 'Password confirm')
-@section('shopify-section-main')
+@section('content')
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1><strong>
+              Confirm password
+              </strong>
+          </h1>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+<div class="col-12 col-lg-12">
 <div class="container" style="margin-bottom:200px;">
     <div class="row justify-content-center">
         <div class="col-md-8" style="width:100%">
             <div class="card">
-                <div class="card-header" style="margin: 150px 0 100px 0;text-align:center" ><strong>{{ __('Confirm Password') }}</strong></div>
-
                 <div class="card-body" width="100%">
                     <div class="card-body">
                         {{ __('Please confirm your password before continuing.') }}
@@ -47,6 +58,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
