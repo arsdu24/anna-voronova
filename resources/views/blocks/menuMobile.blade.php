@@ -27,7 +27,7 @@
                     <li>
                      @if(Auth::check() && Auth::user()->role != 3)
                            
-                        <ul class="list-unstyled list-inline hidden-xs hidden-md">
+                        <ul class="list-unstyled list-inline hidden-xl hidden-md">
                             <li><a class="" href="{{route('client')}}" >
                                 <i class="icons icon-user"></i> 
                                 Account
