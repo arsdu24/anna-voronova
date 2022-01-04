@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use App\Collection;
 use App\Order;
 use App\Product;
@@ -25,6 +26,10 @@ class AdminController extends Controller
         $arr['active']=Order::where('status','Active')->count();
         $arr['ready']= Order::where('status','Ready')->count();
         $arr['finished']= Order::where('status','Finished')->count();
+        $arr['activeP']= Product::where('published',1)->count();
+        $arr['inactiveP']= Product::where('published',0)->count();
+        $arr['activeA']= Article::where('published',1)->count();
+        $arr['inactiveA']= Article::where('published',0)->count();
         return view('pages.admin',['user'=>$user,'site'=>$site,'bestseller'=>$bestSellerProducts,'treding'=>$Trending_products,'data'=>$arr]);
     }
 }

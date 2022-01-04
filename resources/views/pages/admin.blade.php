@@ -83,7 +83,76 @@
           </a>
       </div>
     </div>
-    <!-- ./col -->    
+    <!-- ./col --> 
+    
+    
+    <div class="col-lg-3 col-6">
+      <!-- small card -->
+      <div class="small-box bg-primary">
+      <div class="inner">
+          <h3>{{$data['activeP']}}</h3>
+
+          <p>Published Products</p>
+        </div>
+        <div class="icon">
+          <i class="fas fa-check-double"></i>
+        </div>
+        <a href="{{route('productList')}}" class="small-box-footer">
+            More info <i class="fas fa-arrow-circle-right"></i>
+          </a>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-6">
+      <!-- small card -->
+      <div class="small-box bg-info">
+        <div class="inner">
+          <h3>{{$data['inactiveP']}}</h3>
+
+          <p>Unpublished Products</p>
+        </div>
+        <div class="icon">
+          <i class="fas fa-check-double"></i>
+        </div>
+        <a href="{{route('productList')}}" class="small-box-footer">
+            More info <i class="fas fa-arrow-circle-right"></i>
+          </a>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-6">
+      <!-- small card -->
+      <div class="small-box bg-primary">
+        <div class="inner">
+          <h3>{{$data['activeA']}}</h3>
+          <p>Published Articles</p>
+        </div>
+        <div class="icon">
+          <i class="fas fa-check-double"></i>
+        </div>
+        <a href="{{route('admin_blogs')}}" class="small-box-footer">
+            More info <i class="fas fa-arrow-circle-right"></i>
+          </a>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-6">
+      <!-- small card -->
+      <div class="small-box bg-info">
+        <div class="inner">
+          <h3>{{$data['inactiveA']}}</h3>
+
+          <p>Unpublished Articles</p>
+        </div>
+        <div class="icon">
+          <i class="fas fa-check-double"></i>
+        </div>
+        <a href="{{route('admin_blogs')}}" class="small-box-footer">
+            More info <i class="fas fa-arrow-circle-right"></i>
+          </a>
+      </div>
+    </div>
+
   </div>
   <div class="row mt-4 d-flex">
   <div class="col-lg-6 col-12">
