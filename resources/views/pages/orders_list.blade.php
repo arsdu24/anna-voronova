@@ -58,31 +58,34 @@
                 <td>{{$order->quantity}}</td>
                 <td>{{$order->subtotal}}</td>
                 <td>
-                @if ($order->status=='Active')
-                                <span class="btn btn-info form-input">
-                                    {{ $order->status }}
-                                </span>
-                                @elseif($order->status=='Confirmed')
-                                <span class="btn btn-success form-input" >
-                                    {{ $order->status }}
-                                </span>
-                                @elseif($order->status=='Pedding')
-                                <span class="btn btn-warning form-input" >
-                                    {{ $order->status }}
-                                </span>
-                                @elseif($order->status=='Completed')
-                                <span class="btn btn-dark form-input" >
-                                    {{ $order->status }}
-                                </span>
-                                @elseif($order->status=='Refused')
-                                <span class="btn btn-danger form-input" >
-                                    {{ $order->status }}
-                                </span>
-                                @elseif($order->status=='Canceled')
-                                <span class="btn btn-danger form-input" >
-                                    {{ $order->status }}
-                                </span>
-                                @endif
+                @switch($order->status)
+                    @case('Pending')
+                            <span class="btn btn-warning form-input">
+                              {{ $order->status }}
+                            </span>
+                        @break
+                    @case('Active')
+                            <span class="btn btn-primary form-input">
+                              {{ $order->status }}
+                            </span>
+                        @break
+                    @case('Canceled')
+                            <span class="btn btn-danger form-input" >
+                              {{ $order->status }}
+                            </span>
+                        @break
+                    @case('Ready')
+                            <span class="btn btn-info form-input" >
+                              {{ $order->status }}
+                            </span>
+                        @break
+                    @case('Finished')
+                            <span class="btn btn-success form-input" >
+                              {{ $order->status }}
+                            </span>
+                        @break
+                        
+                @endswitch
                 </td>
                 <td>
                     <a href="{{route('orderPage',[$order])}}" title="View" class="btn btn-info" >
