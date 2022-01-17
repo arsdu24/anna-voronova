@@ -25,15 +25,14 @@
                     @include('components.list-link',['title'=>'Blogs','class'=>'' ,'href'=>'/blog'])
                     @include('components.list-link',['title'=>'Contact Us','class'=>'' ,'href'=>'/contact-us'])
                     <li>
-                        <a href="/client">
-                            <i class="icons icon-user"></i> Account
-                        </a>
                      @if(Auth::check() && Auth::user()->role != 3)
                            
-                        <ul class="list-unstyled list-inline hidden-xs hidden-sm hidden-md">
+                        <ul class="list-unstyled list-inline hidden-xl hidden-md">
                             <li><a class="" href="{{route('client')}}" >
+                                <i class="icons icon-user"></i> 
                                 Account
-                          </a></li>
+                          </a>
+                        </li> /
                              <li><a class="" href="{{ route('logout') }}" onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">
                             Logout</a></li>

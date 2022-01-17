@@ -101,8 +101,7 @@ class LoginController extends Controller
             break;
             }
         }
-        return back()->withInput($request->only('email', 'remember'));
+        return back()->withInput($request->only('email', 'remember'))->withErrors(['password' => [__("Email and/or password invalid.")]]);;
     }
-
 }
 

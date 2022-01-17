@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
             <li class="breadcrumb-item active"> Collections</li>
           </ol>
         </div>
@@ -25,12 +25,12 @@
 <div class="card">
     <div class="card-header">
       <h3 class="card-title"> Collections</h3>
-      <button type="button" class="btn btn-info btn-md ml-3" data-toggle="modal" data-target="#inMenu">
+      <button type="button" class="btn btn-info btn-md ml-3 col-md-2 col-12" data-toggle="modal" data-target="#inMenu">
         <i class="fas fa-edit"></i>
         Collections in menu
       </button>
-      <div class="card-tools">
-        <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">
+      <div class="card-tools col-md-2 col-12 p-0 float-md-right float-none ml-3">
+        <button type="button" class="btn btn-info btn-md col-12" data-toggle="modal" data-target="#myModal">
             <i class="fas fa-plus"></i>
             Add collection
         </button>
@@ -38,7 +38,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-      <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12">
+      <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="table-responsive">
       @if(count($collections)!=0)
         <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
         <thead>
@@ -111,14 +111,14 @@
                     <label for="name" class="col-md-4 col-form-label text-md-right">Title</label>
 
                     <div class="col-md-6">
-                        <input id="name" type="text" class="form-control " name="title" required autocomplete="title">
+                        <input id="name" type="text" maxlength="250" class="form-control " name="title" required autocomplete="title">
                       </div>
                 </div>
 
                 <div class="form-group row">
                   <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
                   <div class="col-md-6">
-                  <textarea class="form-control" name="description"  >
+                  <textarea class="form-control" maxlength="250" name="description"  >
                   </textarea>
                 </div>
                 </div>

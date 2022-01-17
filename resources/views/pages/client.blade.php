@@ -93,8 +93,8 @@
                                                      <div  class="d-flex flex-row"><div><h5>Status :</h5></div><div style="padding:10px 0 0 10px">{{$order->status}}</div></div>
                                                      <div  class="d-flex flex-row"><div><h5>Number :</h5></div><div style="padding:10px 0 0 10px">{{$order->serial_number}}</div></div>
                                                      </div>
-                                                     <div><h5>Products :</h5></div>
-                                                     <div>
+                                                     <div><h5>Items :</h5></div>
+                                                     <div class="table-responsive">
                                                         <table class="table table-hover">
                                                             <thead>
                                                                 <tr>

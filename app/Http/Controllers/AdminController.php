@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
+use App\Collection;
+use App\Order;
+use App\Product;
 use App\SiteSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,8 +13,23 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     public function index()
-    {   $user = Auth::user();
+    {   $user = Auth::user(); 
         $site = SiteSettings::first();
-        return view('pages.admin',['user'=>$user,'site'=>$site]);
+        $Trending_products = Product::where('published',1)->orderby('views','desc')->take(5)->get();
+        $bestSellerProducts = Product::where('published',1)->withCount(['cartItems' => function ($query) {
+          $query->whereHas('order', function ($query2) {
+            $query2->where('status','!=','Draft');
+          });
+        }])->orderby("cart_items_count",'desc')->take(5)->get();
+        $arr = [];
+        $arr['pending'] = Order::where('status','Pending')->count();
+        $arr['active']=Order::where('status','Active')->count();
+        $arr['ready']= Order::where('status','Ready')->count();
+        $arr['finished']= Order::where('status','Finished')->count();
+        $arr['activeP']= Product::where('published',1)->count();
+        $arr['inactiveP']= Product::where('published',0)->count();
+        $arr['activeA']= Article::where('published',1)->count();
+        $arr['inactiveA']= Article::where('published',0)->count();
+        return view('pages.admin',['user'=>$user,'site'=>$site,'bestseller'=>$bestSellerProducts,'treding'=>$Trending_products,'data'=>$arr]);
     }
 }

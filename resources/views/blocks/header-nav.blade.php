@@ -74,11 +74,11 @@
                                     </a>
                                  @if(Auth::check() && Auth::user()->role != 3)
                                        
-                                    <ul class="list-unstyled list-inline hidden-xs hidden-sm hidden-md">
-                                        <li><a class="" href="{{route('client')}}" >
+                                    <ul class="list-unstyled list-inline hidden-xs hidden-sm">
+                                        <li class="hidden-xs hidden-sm hidden-md hidden-lg"><a href="{{route('client')}}" >
                                             Account
                                       </a></li>
-                                         <li><a class="" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                         <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         Logout</a></li>
 
@@ -91,13 +91,13 @@
                                     
                                  @else
                                  
-                                    <ul class="list-unstyled list-inline hidden-xs hidden-md">
+                                    <ul class="list-unstyled list-inline hidden-xs hidden-sm hidden-md">
                                         <li><a href="/login" id="customer_login_link">Login</a></li>
                                         <li><a href="/register/client" id="customer_register_link">Sign up</a></li>
 
                                     </ul>
                                     <div class="dropdown visible-md ml30">
-                                        <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <a class="dropdown-toggle" href="#" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                           Auth
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

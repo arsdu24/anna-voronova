@@ -13,7 +13,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
             <li class="breadcrumb-item active">Products</li>
           </ol>
         </div>
@@ -100,11 +100,11 @@
                                   <div class="col-12 col-sm-6">
                                     <div class="form-group ">
                                       <label for="name">Name</label>
-                                      <input type="text" class="form-control" id="name"  name="name" value="{{$product->name ?? '' }}  " required>
+                                      <input type="text" class="form-control" id="name"  name="name" maxlength="75" value="{{$product->name ?? '' }}  " required>
                                     </div>
                                     <div class="form-group ">
                                       <label for="excerpt">Excerpt</label>
-                                      <textarea style="height:200px"class="form-control" name="excerpt" aria-label="With textarea" id="excerpt" required >{{$product->excerpt ?? '' }}</textarea>
+                                      <textarea style="height:200px"class="form-control" name="excerpt" maxlength="250" aria-label="With textarea" id="excerpt" required >{{$product->excerpt ?? '' }}</textarea>
                                     </div>
                   
                                     <div class="form-group">
@@ -289,16 +289,13 @@
                   </tr>
                 @endforeach
             </tbody>
-          </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example2_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">6</a></li><li class="paginate_button page-item next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
-          </div>
+          </table></div></div></div>
           
         </div>
       </div>
       <!-- /.card -->
     </div>
   </div>
-</div>
-</div>
 @endsection
 @section('scripts')
 <script>

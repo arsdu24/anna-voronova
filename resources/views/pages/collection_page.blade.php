@@ -10,7 +10,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="/admin">Home</a></li>
             <li class="breadcrumb-item "><a href="/admin/collections-list">Collections</a></li>
           </ol>
         </div>
@@ -67,11 +67,11 @@
                                         <div class="col-12 col-sm-6 form-group mt-3">
                                           <div class="form-group ">
                                             <label for="name">Title</label>
-                                            <input type="text" class="form-control" id="name"  name="title" value="{{$collection->title ?? '' }}  " required>
+                                            <input type="text" class="form-control" id="name" maxlength="250"  name="title" value="{{$collection->title ?? '' }}  " required>
                                           </div>
                                           <div class="form-group ">
                                             <label for="excerpt">Description</label>
-                                            <textarea style="height:200px"class="form-control" name="description" aria-label="With textarea" id="excerpt" required >{{$collection->description ?? '' }}</textarea>
+                                            <textarea style="height:200px"class="form-control" maxlength="250" name="description" aria-label="With textarea" id="excerpt" required >{{$collection->description ?? '' }}</textarea>
                                           </div>
                                         </div>
                                       </div>
