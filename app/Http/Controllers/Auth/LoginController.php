@@ -90,6 +90,11 @@ class LoginController extends Controller
                         $order->save();
                         }
                     }
+                    foreach($OldUser->addresses as $address){
+                        $address->user()->dissociate();
+                        $address->user()->associate(Auth::user());
+                        $address->save();
+                    }
                     $OldUser->delete();
                 }
                 return redirect()->route('client');
