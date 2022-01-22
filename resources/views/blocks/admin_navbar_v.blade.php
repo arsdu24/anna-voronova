@@ -136,6 +136,14 @@
             </ul>
           </li>
           <li class="nav-item">
+            <a href="{{route('Newsletter')}}" class="nav-link">
+              <i class="fas fa-newspaper"></i>
+              <p>
+                Newsletter Section
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{route('settingsForm')}}" class="nav-link">
               <i class="fas fa-cog"></i>
               <p>Settings</p>
