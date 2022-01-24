@@ -54217,6 +54217,13 @@ div.product-image-thumb:hover{
  .form-check-input:hover{
 	cursor:pointer;
  }
+
+ .notification{
+	position:absolute;
+	top:0;
+	right:0;
+ }
+
 /*# sourceMappingURL=adminlte.min.css.map */
 {"mode":"full","isActive":false}
 {"mode":"full","isActive":false}

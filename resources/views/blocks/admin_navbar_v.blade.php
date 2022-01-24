@@ -136,6 +136,12 @@
             </ul>
           </li>
           <li class="nav-item">
+            <a href="{{route('SubscribersList')}}" class="nav-link">
+              <i class="fas fa-user"></i>
+              <p>Newsletter/Subscribers</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{route('settingsForm')}}" class="nav-link">
               <i class="fas fa-cog"></i>
               <p>Settings</p>
