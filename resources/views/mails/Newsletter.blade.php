@@ -62,7 +62,7 @@
                 </td>
             </tr>
             <tr>
-                <td  align="center"><h6>You can <a href="">click here to Unsubscribe</a> from this email</h6></td>
+                <td  align="center"><h6>You can <a href="{{route('unsubscribe',['token'=>$token])}}">click here to Unsubscribe</a> from this email</h6></td>
             </tr>
         </table>
     </div>

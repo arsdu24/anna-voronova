@@ -1,4 +1,4 @@
-<div id="shopify-section-1585674376666" class="shopify-section velaFramework">
+<div id="newsletter-subscribe" class="shopify-section velaFramework">
             <div class="velaNewsletter hasBg" style="background-image: url(//cdn.shopify.com/s/files/1/0376/9440/6700/files/newsletter-bg.jpg?v=1585674408);">
                 <div class="container">
                     <div class="velaNewsletterInner text-center clearfix">
