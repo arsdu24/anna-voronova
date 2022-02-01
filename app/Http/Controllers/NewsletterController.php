@@ -9,6 +9,7 @@ use App\Subscriber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use phpDocumentor\Reflection\Types\Null_;
 
 class NewsletterController extends Controller
 {
@@ -51,4 +52,30 @@ class NewsletterController extends Controller
         $article->save();
         return redirect()->back()->with('success','Mail sent!');
     }
+  
+     public function setingPage(){
+        $site = SiteSettings::first();
+        $user = Auth::user();
+        return view('pages.admin_newsletter',['site' => $site,'user'=>$user,'newsletter'=>unserialize($site->newsletter)]);
+     }
+
+     public function updateSection(Request $request){
+      $site = SiteSettings::first();
+      $user = Auth::user();
+      $Newsletter = unserialize($site->newsletter);
+      if($request->file('thumbnail')){
+         $img = $request->file('thumbnail');
+         $fileName = $img->getClientOriginalName();
+         $img->move('img',$fileName);
+         $Newsletter['thumbnail']=$fileName;
+      }
+         $Newsletter['title']=$request->title;
+         $Newsletter['subtitle']=$request->subtitle;
+         $Newsletter['placeholder']=$request->placeholder;
+         $Newsletter['buttonText']=$request->buttonText;
+         $Newsletter['footer']=$request->footer;
+         $site->newsletter = serialize($Newsletter);
+         $site->save();
+      return redirect()->back();
+   }
 }

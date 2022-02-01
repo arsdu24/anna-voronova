@@ -77,9 +77,12 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('/search','SearchController@search')->name('adminSearch');
     Route::get('/categories','ProductsController@categoriesList')->name('Categories');
     Route::get('/subscribers','NewsletterController@SubscribersList')->name('SubscribersList');
-
-    Route::get('/site_settings','SiteSettingsController@showform')->name('settingsForm');
+  
+    Route::get('/newsletter','NewsletterController@setingPage')->name('Newsletter');    
+    Route::post('/newsletter','NewsletterController@updateSection')->name('NewsletterPost');
     Route::post('/send-newsletter/{article}','NewsletterController@sendNewsLetter')->name('sendNewsLetter');
+  
+    Route::get('/site_settings','SiteSettingsController@showform')->name('settingsForm');
     Route::post('site/update',"SiteSettingsController@update")->name('settingsUpdate');
     Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');
     Route::post('review/unpublish','ReviewController@unpublishReview')->name('reviewUnpublish');
