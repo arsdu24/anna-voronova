@@ -140,6 +140,12 @@
               <i class="fas fa-user"></i>
               <p>Newsletter/Subscribers</p>
             </a>
+            <a href="{{route('Newsletter')}}" class="nav-link">
+              <i class="fas fa-newspaper"></i>
+              <p>
+                Newsletter Section
+              </p>
+            </a>
           </li>
           <li class="nav-item">
             <a href="{{route('settingsForm')}}" class="nav-link">

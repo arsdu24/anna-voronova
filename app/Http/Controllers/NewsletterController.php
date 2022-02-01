@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Facades\JWTFactory;
+use phpDocumentor\Reflection\Types\Null_;
 
 class NewsletterController extends Controller
 {
@@ -84,4 +85,30 @@ class NewsletterController extends Controller
         $collections = Collection::all();
         return view('pages.unsubscribe',['categories'=>$categories,'collections'=>$collections,'cart'=>$cart,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'site'=>$site]);
     }
+  
+     public function setingPage(){
+        $site = SiteSettings::first();
+        $user = Auth::user();
+        return view('pages.admin_newsletter',['site' => $site,'user'=>$user,'newsletter'=>unserialize($site->newsletter)]);
+     }
+
+     public function updateSection(Request $request){
+      $site = SiteSettings::first();
+      $user = Auth::user();
+      $Newsletter = unserialize($site->newsletter);
+      if($request->file('thumbnail')){
+         $img = $request->file('thumbnail');
+         $fileName = $img->getClientOriginalName();
+         $img->move('img',$fileName);
+         $Newsletter['thumbnail']=$fileName;
+      }
+         $Newsletter['title']=$request->title;
+         $Newsletter['subtitle']=$request->subtitle;
+         $Newsletter['placeholder']=$request->placeholder;
+         $Newsletter['buttonText']=$request->buttonText;
+         $Newsletter['footer']=$request->footer;
+         $site->newsletter = serialize($Newsletter);
+         $site->save();
+      return redirect()->back();
+   }
 }
