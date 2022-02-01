@@ -28,6 +28,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('/products/{id}','ProductsController@clientProductPage')->middleware('client')->name('productView');
     Route::get('/search','SearchController@search')->name('search');
     Route::get('/contact-us','ContactUsController@index')->name('contactus');
+    Route::get('/unsubscribe/{token}','NewsletterController@unsubscribe')->name('unsubscribe');
 
     Route::post('/cart/add','OrdersController@addToCart')->middleware('client')->name('addToCart');
     Route::post('/checkout','\App\Http\Controllers\OrdersController@createOrder')->name('create_order');
