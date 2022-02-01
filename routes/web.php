@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\SiteSettingsController;
 use App\SiteSettings;
 use Illuminate\Routing\RouteRegistrar;
@@ -37,9 +38,10 @@ Route::group(['middleware'=>'auth'], function(){
     Route::post('/add-address','AddressesController@CreateAddress')->name('CreateAddress');
     Route::post('/delete-address/{address}','AddressesController@DeleteAddress')->name('DeleteAddress');
     Route::post('/set-order-address','AddressesController@SetAddress')->name('SetAddress');
+    Route::post('/subscibe','NewsletterController@subscribe')->name('subscribeNewsletter');
     //Blog routes
     Route::get('/blog','BlogController@index')->name('blogs');
-    Route::get('/blog/article/{article}','BlogController@blogPage')->name(' blogPage');
+    Route::get('/blog/article/{article}','BlogController@blogPage')->name('blogPage');
     Route::get('/blog/tag/{slug}','BlogController@Tagged')->name('TaggedPage');
     Route::get('/blog/category/{category}','BlogController@categoryShow')->name('categoryShow');
 
@@ -74,10 +76,13 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('banners','BannerController@bannersList')->name('Banners');
     Route::get('/search','SearchController@search')->name('adminSearch');
     Route::get('/categories','ProductsController@categoriesList')->name('Categories');
-    Route::get('/newsletter','NewsletterController@setingPage')->name('Newsletter');
-    Route::get('/site_settings','SiteSettingsController@showform')->name('settingsForm');
-    
+    Route::get('/subscribers','NewsletterController@SubscribersList')->name('SubscribersList');
+  
+    Route::get('/newsletter','NewsletterController@setingPage')->name('Newsletter');    
     Route::post('/newsletter','NewsletterController@updateSection')->name('NewsletterPost');
+    Route::post('/send-newsletter/{article}','NewsletterController@sendNewsLetter')->name('sendNewsLetter');
+  
+    Route::get('/site_settings','SiteSettingsController@showform')->name('settingsForm');
     Route::post('site/update',"SiteSettingsController@update")->name('settingsUpdate');
     Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');
     Route::post('review/unpublish','ReviewController@unpublishReview')->name('reviewUnpublish');
@@ -97,7 +102,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('tag/delete/{category}','ProductsController@deleteCategory')->name('deleteCategory');
     Route::post('add-category','ProductsController@createCategory')->name('createCategory');
     Route::post('category/save/{category}','ProductsController@updateCategory')->name('updateCategory');
-
+    Route::post('/newsletter-delete/{subscriber}','NewsletterController@delete')->name('deleteNewsletter');
     Route::post('blogs/add','BlogController@create_article')->name('createArticle');
     Route::post('blogs/delete/{article}','BlogController@delete_article')->name('articleDelete');
     Route::post('blogs/update/{article}','BlogController@articleUpdate')->name('articleUpdate');

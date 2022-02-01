@@ -14338,6 +14338,8 @@ ul.lower-alpha {
     transition: all 0.35s ease;
     padding-left: 23px;
     line-height: 26px;
+    text-overflow: ellipsis;
+    overflow: hidden; 
 }
 
 .sidebarBlogCateItem a:before {
