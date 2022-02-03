@@ -10,7 +10,7 @@
                                       @csrf
                                       <input type="hidden" name="form_type" value="customer"/><input type="hidden" name="utf8" value="✓"/>
                                     <div class="form-group input-group">
-                                        <input class="form-control" type="email" name="contact[email]"
+                                        <input class="form-control" type="email" id="email" name="contact[email]"
                                                placeholder="{{$newsletter['placeholder'] ?? ' '}}">
                                         <span class="input-group-btn">
                                         <button class="btnNewsletter btnVelaOne" type="submit">
