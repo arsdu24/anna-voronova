@@ -3,7 +3,7 @@
                 <div class="container">
                     <div class="velaNewsletterInner text-center clearfix">
                         <div class="wrap">
-                        @include('components.heading-group',['title'=>$newsletter['title'] ?? ' ', 'subtitle'=>$newsletter['subtitle'] ?? ' ']);
+                        @include('components.heading-group',['title'=>$newsletter['title'] ?? ' ', 'subtitle'=>$newsletter['subtitle'] ?? ' '])
                             <div class="velaContent">
                                 <form  id="contact_form"
                                       accept-charset="UTF-8" class="contact-form">
