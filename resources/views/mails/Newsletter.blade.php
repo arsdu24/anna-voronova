@@ -7,7 +7,7 @@
         <tr width="100%">
             <td class="image-container" width="50%">
                 <div>
-                    <img src="{{asset('img'.$article->thumbnail)}}"/>
+                    <img src="{{asset('img/'.$article->thumbnail)}}"/>
                 </div>
             </td>
             <td width="50%">
