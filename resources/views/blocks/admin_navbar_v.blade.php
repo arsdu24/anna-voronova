@@ -150,7 +150,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('Newsletter')}}" class="nav-link">
+            <a href="{{route('shippingDetails')}}" class="nav-link">
               <i class="fas fa-dolly-flatbed"></i>
               <p>
                 Shipping details
