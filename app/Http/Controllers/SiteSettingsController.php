@@ -99,6 +99,7 @@ class SiteSettingsController extends Controller
 
                 ]
             ]);
+            $details = ShippingDetail::all();
         }
         return view('pages.shipping-details',['site'=>$site,'details'=>$details,'user'=>$user]);
     }
