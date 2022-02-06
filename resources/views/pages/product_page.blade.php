@@ -543,7 +543,6 @@ function delete_i(){
            radio2();
            add();
            delete_i();
-           console.log('1');
         },
         error: function(result) {
           console.log(result.responseText);
