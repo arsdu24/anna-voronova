@@ -54223,7 +54223,13 @@ div.product-image-thumb:hover{
 	top:0;
 	right:0;
  }
-
+.icon-div i:hover{
+    color: rgb(0, 0, 0) !important ;
+	cursor: pointer;
+}
+.icon-div{
+	margin: 10px;
+}
 /*# sourceMappingURL=adminlte.min.css.map */
 {"mode":"full","isActive":false}
 {"mode":"full","isActive":false}

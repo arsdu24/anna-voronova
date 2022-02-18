@@ -194,14 +194,12 @@
         <script>
             $(document).ready(function(){
             var title = document.title;
-            if(title == "Home")console.log('ff');
             switch(title){
                 case "Home":$('#home').addClass('active');break;
                 case "Shop":$('#shop').addClass('active');break;
                 case "Collections":$('#collection').addClass('active');break;
                 case "Blog":$('#blog').addClass('active');break;
-                case "Contact us":$('#contact').addClass('active');break;
-
+                case "Contact Us":$('#contact').addClass('active');break;
             }});
          </script>
 

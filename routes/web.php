@@ -83,6 +83,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('/newsletter','NewsletterController@updateSection')->name('NewsletterPost');
     Route::post('/send-newsletter/{article}','NewsletterController@sendNewsLetter')->name('sendNewsLetter');
   
+    Route::get('shipping-details','SiteSettingsController@shippingDetails')->name('shippingDetails');
+    Route::post('shipping-details-edit/{ShippingDetail}','SiteSettingsController@shippingDetailsEdit')->name('shippingDetailsEdit');
+
     Route::get('/site_settings','SiteSettingsController@showform')->name('settingsForm');
     Route::post('site/update',"SiteSettingsController@update")->name('settingsUpdate');
     Route::post('review/publish','ReviewController@publishReview')->name('reviewPublish');

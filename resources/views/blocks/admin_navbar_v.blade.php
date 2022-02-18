@@ -140,10 +140,20 @@
               <i class="fas fa-user"></i>
               <p>Newsletter/Subscribers</p>
             </a>
+          </li>
+          <li class="nav-item">
             <a href="{{route('Newsletter')}}" class="nav-link">
               <i class="fas fa-newspaper"></i>
               <p>
                 Newsletter Section
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('shippingDetails')}}" class="nav-link">
+              <i class="fas fa-dolly-flatbed"></i>
+              <p>
+                Shipping details
               </p>
             </a>
           </li>
