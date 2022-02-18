@@ -54,8 +54,24 @@
             </div>
         </div>
     </div>
+    <div class="pageContactInfo" style="padding-bottom:0">
+    @foreach($details as $detail)
+        <div class="shopify-policy__container  mt30" id="policy-{{$detail->id}}">
+            <div class="shopify-policy__title ">
+                <i class="{{$detail->icon}}" style="font-size:100px"></i>
+                <h1>{{$detail->title}}</h1>
+            </div>
+            <div class="shopify-policy__body">
+            <div class="rte">
+                {!!$detail->description!!}
+            </div>
+            </div>
+        </div>
+    @endforeach
+</div>
+
 </div>
 </div>
-</div><script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqstP8RWMwkuJYsaWQ29dZFim3506MteA&amp;callback=initMap"></script></div>
+
 </main>
 @endsection
