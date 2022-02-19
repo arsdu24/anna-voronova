@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Traits\ProductTrait;
 use App\Product;
 use App\Review;
 use App\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\SiteSettings;
-use Mockery\Generator\StringManipulation\Pass\RemoveUnserializeForInternalSerializableClassesPass;
 
 class ProductsController extends Controller
-{   
+{
+    use ProductTrait;
     public function createProduct(Request $request){
         $formInput= $request->except('thumbnail');
         $image=$request->file('thumbnail');
@@ -46,7 +47,7 @@ class ProductsController extends Controller
     }
 
     public function updateProduct($id,Request $request){
-     
+
         $product = Product::find($id);
         if($request->collections){
          $product->collections()->sync($request->collections);
@@ -106,14 +107,14 @@ class ProductsController extends Controller
         $product->save();
         return response()->json(true);
     }
-    
+
     public function deleteProduct($id){
         $product = Product::find($id);
         $product->delete();
         return redirect()->route('productList');
     }
 
-    
+
     public function productPage($id){
       $product = Product::find($id);
       $ml = unserialize($product->mightLike);
@@ -145,79 +146,34 @@ class ProductsController extends Controller
         $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
         $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-        return view('pages.product_page',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'ml_products'=>$MightLike,'menu_categories'=>$menu_categories,'products'=>$products,'menu_collections'=>$menu_collections,'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_coll'=>$product_coll,'cart'=>$cart,'product_categories'=>$product_categories,'categories'=>$categories,'collections'=>$collections]);  
+        return view('pages.product_page',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'ml_products'=>$MightLike,'menu_categories'=>$menu_categories,'products'=>$products,'menu_collections'=>$menu_collections,'product'=>$product,'reviews'=>$reviews,'categories'=>$categories,'product_coll'=>$product_coll,'cart'=>$cart,'product_categories'=>$product_categories,'collections'=>$collections]);
 
     }
-     
+
      public function viewList()
-    {   
+    {
         $user=Auth::user();
         $products=Product::orderby('id', 'desc')->paginate(15);
-        $menu_products = Product::where('in_menu',1)->orderby('views','desc')->get();
         $modal_products = Product::where('in_menu',0)->orWhere('in_menu',NULL)->paginate(15);
         $cart = null;
         foreach($user->orders as $order){
           if($order->status == "Draft"){
               $cart=$order;break;
           }
-      } 
+      }
       $site = SiteSettings::first();
       $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
       $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
       $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-        return view('pages.products_list',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'products'=>$products,'cart'=>$cart,'menu_products'=>$menu_products,'modal_products'=>$modal_products]);  
+        return view('pages.products_list',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'products'=>$products,'cart'=>$cart,'modal_products'=>$modal_products]);
     }
 
     public function clientViewAll()
-    {    
+    {
         $user=Auth::user();
-        if(!isset($_GET['sort_by']) || $_GET['sort_by']== 'default')
-        $products=Product::where('published',1)->orderby('id', 'desc');
-        else if($_GET['sort_by']== 'title-ascending')
-          $products=Product::where('published',1)->orderby('name', 'asc');
-        else if($_GET['sort_by']== 'title-descending')
-          $products=Product::where('published',1)->orderby('name', 'desc');
-        else if($_GET['sort_by']== 'price-ascending')
-          $products=Product::where('published',1)->orderby('price', 'asc');
-        else if($_GET['sort_by']== 'price-descending')
-          $products=Product::where('published',1)->orderby('price', 'desc');
-        else if($_GET['sort_by']== 'created-descending')
-          $products=Product::where('published',1)->orderby('created_at', 'desc');
-        else if($_GET['sort_by']== 'created-ascending')
-          $products=Product::where('published',1)->orderby('created_at', 'asc');
-        else if($_GET['sort_by']== 'treding')
-          $products=Product::where('published',1)->orderby('views', 'desc');
-          if(isset($_GET['constraint'])){
-            $q = $_GET['constraint'];
-            $products = $products->where( function ($query) use($q){
-              if(strpos($q, 'price_-0-50') !== false){
-               $query->OrwhereBetween('price',[0,50]);
-              }
-              if(strpos($q, 'price_-50-100') !== false){
-                $query->OrwhereBetween('price',[50,100]);
-              }
-              if(strpos($q, 'price_-100-150') !== false){
-                $query->OrwhereBetween('price',[100,150]);
-              }
-              if(strpos($q, 'price_-150-200') !== false){
-                $query->OrwhereBetween('price',[150,200]);
-              }
-              if(strpos($q, 'price_-200-250') !== false){
-                $query->OrwhereBetween('price',[200,250]);
-              }
-
-            });
-          }
-        $category = null;
-        if(isset($_GET['category'])){
-          $category = Category::where('name','=',$_GET['category'])->first();
-          $id= $category->id;
-          $category = $_GET['category'];
-          $products=$products->whereHas('categories', function($q) use ($id) {
-            $q->where('category_id', $id);
-         })->paginate(15);
-        } else
-          $products= $products->paginate(15);
+        $products = $this->sort();
+        if(isset($_GET['category']))$category = $_GET['category'];
+        else $category = null;
         $collection = Collection::all();
         $categories = Category::all();
         $cart = null;
@@ -235,7 +191,7 @@ class ProductsController extends Controller
       $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
       $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
       $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-      return view('pages.client_products_list',['user'=>Auth::user(),'site'=>$site,'bestSeller'=>$bestSellerProducts,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'products'=>$products,'categories'=>$categories,'cart'=>$cart,'collections'=>$collection,'category'=>$category]);  
+      return view('pages.client_products_list',['user'=>Auth::user(),'site'=>$site,'bestSeller'=>$bestSellerProducts,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'products'=>$products,'categories'=>$categories,'cart'=>$cart,'collections'=>$collection,'category'=>$category]);
     }
 
     public function clientProductPage($id)
@@ -315,7 +271,7 @@ class ProductsController extends Controller
   }
 
   public function categoriesList()
-    {   
+    {
         $user = Auth::user();
         $site = SiteSettings::first();
         $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->get();
@@ -369,38 +325,38 @@ class ProductsController extends Controller
           foreach($array as $key => $item)
               if($item == $request->data_id){
                   array_splice($array,$key,1);
-              } 
+              }
         $product->mightLike = serialize($array);
         $product->save();
     return redirect()->back();
   }
-  
+
   public function InMenu(Request $request)
   {
      $product = Product::where('id',$request->data_id)->first();
      $product->in_menu = 1;
      $product->save();
      return redirect()->back();
-  }  
+  }
   public function downFromMenu(Request $request)
   {
      $product = Product::where('id',$request->data_id)->first();
      $product->in_menu = 0;
      $product->save();
      return redirect()->back();
-  }  
+  }
   public function InMenuCategory(Request $request)
   {
      $category = Category::where('id',$request->data_id)->first();
      $category->in_menu = 1;
      $category->save();
      return redirect()->back();
-  }  
+  }
   public function downFromMenuCategory(Request $request)
   {
      $category = Category::where('id',$request->data_id)->first();
      $category->in_menu = 0;
      $category->save();
      return redirect()->back();
-  }      
+  }
 }

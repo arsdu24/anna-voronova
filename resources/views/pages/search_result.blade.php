@@ -5,7 +5,7 @@
 @section('shopify-section-main')
 <div class="container">
 <div class="velaSearchContainer mb20 pb-md-30">
-        
+
 @if($results->count()>0)<h1 class="velaSearchTitle">Your search for "{{$q}}" revealed the following:</h1>
 @else <h1 class="velaSearchTitle">Your search for "{{$q}}" did not yield any results.</h1>
 @endif
@@ -13,7 +13,7 @@
 <form class="formSearchPage" action="/search" method="get">
                 <div class="input-group">
                     <input type="search" name="q" value="{{$q}}" placeholder="Search our blogs" class="formSearchPageInput form-control">
-                    
+
                     <button type="submit" class="formSearchPageButton">
                         <span class="searchPageButtonText">Search</span>
                         <i class="icons icon-magnifier"></i>
@@ -26,7 +26,7 @@
 <form class="formSearchPage" action="/search" method="get">
     <div class="input-group">
         <input type="search" name="q" value="{{$q}}" placeholder="Search our products" class="formSearchPageInput form-control">
-        
+
         <button type="submit" class="formSearchPageButton">
             <span class="searchPageButtonText">Search</span>
             <i class="icons icon-magnifier"></i>
@@ -49,7 +49,7 @@
                                     <a href="/blog/article/{{$result->id}}">{{$result->title}}</a>
                                 </h3>
                                 <div class="articleMeta">
-                                    <span class="articlePublish">{{$result->created_at->format('d M, Y')}}</span> 
+                                    <span class="articlePublish">{{$result->created_at->format('d M, Y')}}</span>
                                     <span class="articleAuthor">{{$result->author}}</span></div>
                                 <div class="articleItemSearchDesc">
                                     {{$result->excerpt}}
@@ -57,13 +57,13 @@
                             </div>
                         </div>
                     @endforeach
-                        
+
                 </div>
 @elseif($_GET['type']== 'product')
 <div class="proList grid">
     <div class="velaFlexRow flexRow">
-        
-            
+
+
 
 
         @foreach ($results as $result)
@@ -153,10 +153,10 @@
 <div class="proPrice">
 
     @if($result->sale_price != null)
-    <div class="priceProduct priceCompare"><span class="money" data-currency-usd="{{$result->price}}" data-currency="USD">${{$result->price}}</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="{{$result->sale_price}}" data-currency="USD">${{$result->sale_price}}</span></div>               
-    @else        
+    <div class="priceProduct priceCompare"><span class="money" data-currency-usd="{{$result->price}}" data-currency="USD">${{$result->price}}</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="{{$result->sale_price}}" data-currency="USD">${{$result->sale_price}}</span></div>
+    @else
       <div class="priceProduct "><span class=money>${{$result->price}} </span></div>
-    @endif         
+    @endif
 </div></div>
 </div>
 </div>
@@ -179,7 +179,7 @@
                     <div class="proThumbnails proThumbnailsQuickview clearfix">
                         <div class="owl-thumblist">
                             <div class="owl-carousel owl-loaded" style="visibility: visible;">
-   
+
                             <div class="owl-stage-outer">
                                 <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 172px;">
                                     @foreach(unserialize($result->thumbnail) as $image)
@@ -188,39 +188,39 @@
                                  <a href="javascript:void(0)" class="imgs" data-index="0" data-imageid="7714764259372" data-image="{{asset('img/'.$image)}}">
                                     <img src="{{asset('img/'.$image)}}" alt="undefined">
                                 </a>
-                                
+
                             </div>
-                            
+
                         </div>
                         @endforeach
                         </div></div><div class="owl-nav disabled"><div class="owl-prev disabled">prev</div><div class="owl-next disabled">next</div></div><div class="owl-dots disabled"></div></div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="proBoxInfo col-xs-12 col-sm-12 col-md-7" id="product-4948426817580">
                     <h3 class="quickviewName mb20 text-left"><a href="/products/{{$result->id}}" class="w-100 text-left">{{$result->name}}</a></h3>
                     <div class="proShortDescription rte text-left"><p>{{$result->excerpt}}</p>
    <p></p></div>
-                    
-                <form method="post" action="{{route('addToCart')}}" accept-charset="UTF-8" enctype="multipart/form-data">  
-                    @csrf                    
+
+                <form method="post" action="{{route('addToCart')}}" accept-charset="UTF-8" enctype="multipart/form-data">
+                    @csrf
                         <div class="proVariantsQuickview"></div>
                         <input type="hidden" value="{{$result->id}}" name="product"/>
                         <div class="proPrice clearfix">
                             @if($result->sale_price != null)
-                            <div class="priceProduct priceCompare"><span class="money" data-currency-usd="{{$result->price}}" data-currency="USD">${{$result->price}}</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="{{$result->sale_price}}" data-currency="USD">${{$result->sale_price}}</span></div>               
-                            @else 
-                            <div class="priceProduct "><span class="money">{{$result->price}} $</span></div>     
+                            <div class="priceProduct priceCompare"><span class="money" data-currency-usd="{{$result->price}}" data-currency="USD">${{$result->price}}</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="{{$result->sale_price}}" data-currency="USD">${{$result->sale_price}}</span></div>
+                            @else
+                            <div class="priceProduct "><span class="money">{{$result->price}} $</span></div>
                             @endif
-                            
+
                         </div>
                         <div class="velaGroup d-flex flexAlignEnd mb20">
                             <div class="proQuantity">
                                 <!-- <label for="Quantity" class="qtySelector">Quantity</label> -->
-                                
-    
-                                <div style="display:none"><input type="number"></div>     
+
+
+                                <div style="display:none"><input type="number"></div>
                                 <div class="velaQty">
                                     <button type="button" class="velaQtyAdjust velaQtyButton velaQtyMinus">
                                         <span class="txtFallback">−</span>
@@ -230,8 +230,8 @@
                                         <span class="txtFallback">+</span>
                                     </button>
                                 </div>
-    
-   
+
+
                             </div>
                             <div class="proButton">
                                 <button type="submit" name="add" class="btn btnAddToCart">
@@ -249,13 +249,13 @@
       </div>
     </div>
    </div>
-   
-            
-@endforeach  
+
+
+@endforeach
 </div></div>
 
 @endif
-                
+
                 <div class="searchPagination">
                     <nav class="velaPagination  pull-left">
                 <ul class="pagination">
@@ -265,6 +265,7 @@
                 </div>
 @endif
     </div>
+</div>
 </div>
 @endsection
 @section('scripts')
@@ -276,8 +277,8 @@
                 let element = $(this).closest('.proBoxImage').find('.img-responsive');
                 document.querySelectorAll('.imgs').forEach(element =>{
                        element.classList.remove("active");
-                }); 
-               $(this).get(0).classList.add("active"); 
+                });
+               $(this).get(0).classList.add("active");
                 element.attr('src',value);
                 });
 
