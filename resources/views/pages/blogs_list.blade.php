@@ -23,8 +23,8 @@
       <h3 class="card-title">  Articles</h3>
       <button type="button" class="btn col-md-3 col-12 ml-3 p-0" >
         <form method="POST" action="{{route('blog-image-set')}}" id="form-blog-image" enctype="multipart/form-data" class="form-inline">
-          @csrf                          
-              <div class="col-12 p-0"> 
+          @csrf
+              <div class="col-12 p-0">
                         <label class="list-inline w-100 p-0">
                         <div class="col-12 p-0">
                             <div class="btn-group w-100 p-15">
@@ -34,8 +34,8 @@
                               </span>
                           </div>
                       </div>
-                      
-                    
+
+
                       <input id="image_blog" type="file" name="image" class="custom-file-input d-none">
                       </label>
             </div>
@@ -49,6 +49,11 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
+        @if(Session::has('errorMessage'))
+            <div class="alert alert-warning w-100" role="alert">
+                {!! Session::get('errorMessage') !!}
+            </div>
+        @endif
       @if($articles->count()>0)
       <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="table-responsive">
               <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
@@ -92,7 +97,7 @@
        Showing {{$articles->firstItem()  ?? '0'}} to {{$articles->count()}} of {{$articles->total()}} entries
     </div>
   </div>
- 
+
     <div class="col-sm-12 col-md-7">
       <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
         {!!$articles->links()!!}
@@ -104,11 +109,11 @@
 </div>
 @endif
     <!-- /.card-body -->
-  </div> 
-  
+  </div>
+
     <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog modal-lg" style="width:100%">
-    
+
         <!-- Modal content-->
         <div class="modal-content" >
           <div class="modal-header">
@@ -120,7 +125,7 @@
                   @csrf
                   <div class="form-group ">
                       <label for="image" >Thumbnail </label>
-  
+
                       <div class="input-group mb-3 col-md-6">
                           <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupFileAddon01"><i class="fas fa-image"></i></span>
@@ -153,7 +158,7 @@
                           <textarea class="form-control" name="content" id="summernote2" >
                           </textarea>
                       </div>
-                
+
                   </div>
                   <div class="form-group">
                       <label for="sel1">Category:</label>
@@ -180,15 +185,15 @@
                   </div>
                   <div class="form-group row">
                       <label for="description" class="col-md-4 col-form-label text-md-right">Publish</label>
-  
+
                       <div class="col-md-6">
                           <input type="checkbox" data-toggle="switchbutton" name="published"  data-onlabel="Public" data-width="100" data-offlabel="Private" data-onstyle="success" data-offstyle="danger">
                       </div>
                   </div>
-  
-                  
-  
-                  
+
+
+
+
                       <div class=" modal-footer ">
                           <button type="button" data-dismiss="modal" class="btn btn-secondary btn-sm">
                               {{ __('Close') }}
@@ -197,13 +202,13 @@
                               {{ __('Save') }}
                           </button>
                        </div>
-                  
+
                   </div>
               </form>
           </div>
-  
+
         </div>
-    
+
       </div>
 @endsection
 @section('scripts')
@@ -214,10 +219,10 @@
      $(document).ready(function() {
       $('#tag').select2();
       $('#category').select2();
-     
+
       $.fn.select2.defaults.set("theme", "classic");
     });
-    
+
 </script>
 <script>
   $('#image_blog').change((e)=>{

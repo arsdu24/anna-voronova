@@ -4,15 +4,20 @@
 <main class="mainContent" role="main">
     <div id="shopify-section-vela-breacrumb-image" class="shopify-section"><section class="velaBreadcrumbs hasBackgroundImage">
 <div class="velaBreadcrumbsInner" style="background-color: #eaebef"><div class="velaBreadcrumbImage">
-
-<img alt="{{$site->company_name}}" src="{{asset('img/'.$site->blog_image)}}"></div><nav class="velaBreadcrumbWrap container">       
+        @if(isset($FilterCategory))
+            <img alt="{{$site->company_name}}" src="{{asset('img/'.$site->blog_cat_image)}}"></div><nav class="velaBreadcrumbWrap container">
+        @elseif(isset($tag))
+            <img alt="{{$site->company_name}}" src="{{asset('img/'.$site->blog_tag_image)}}"></div><nav class="velaBreadcrumbWrap container">
+        @else
+            <img alt="{{$site->company_name}}" src="{{asset('img/'.$site->blog_image)}}"></div><nav class="velaBreadcrumbWrap container">
+    @endif
     <div class="velaBreadcrumbsInnerWrap">
         @if(isset($tag))
             <h1 class="breadcrumbHeading">{{ucfirst(strtolower($tag->name))}}</h1>
         @else
             <h1 class="breadcrumbHeading">Blog</h1>
         @endif
-            
+
 <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
                 <a href="/" title="Back to the frontpage" itemprop="item">
@@ -40,10 +45,10 @@
 <div class="row" style="min-height: 50rem">
     @if($articles->count()>0)
             <div class="col-xs-12 col-sm-8 col-md-9">
-<div class="blogContainer 
-    blogContainerSidebar 
+<div class="blogContainer
+    blogContainerSidebar
     "><h1 class="velaBlogTitle"></h1>
-    
+
     <div class="blogListArticle blogGridTemplate">
                 <div class="rowFlexMargin rowFlex">
 
@@ -51,7 +56,7 @@
          <div class="col-sp-12 col-xs-6">
                             <div class="blogArticle mb20 pb-md-30">
                                     <div class="articleImage">
-                                        <a href="/blog/article/{{$article->slug}}">  
+                                        <a href="/blog/article/{{$article->slug}}">
 <div class="p-relative">
             <div class="product-card__image" style="padding-top:62.5%;">
                 <img id="ProductPhotoImg"
@@ -72,7 +77,7 @@
                     </div>
                     <div class="articleMeta d-flex">
                         <span class="articleAuthor">{{$article->author}}</span>
-                        <span class="articlePublish pull-left">{{$article->created_at->format('j F Y')}}</span> 
+                        <span class="articlePublish pull-left">{{$article->created_at->format('j F Y')}}</span>
                     </div>
                     <h3 class="articleTitle">
                         <a href="/blog/article/{{$article->slug}}">
@@ -105,7 +110,7 @@
     <form class="formSearchPage formSearchBlogPage"  action="/search" method="get">
         <input type="hidden" name="type" value="blog">
         <div class="input-group">
-            <input  name="q" value="" placeholder="Search our blogs"  autocomplete="off"class="formSearchPageInput form-control">                      
+            <input  name="q" value="" placeholder="Search our blogs"  autocomplete="off"class="formSearchPageInput form-control">
             <button type="submit" class="formSearchPageButton">
                 <i class="icons icon-magnifier"></i>
             </button>
@@ -114,7 +119,7 @@
         <ul class="blogSearch" style="display: none;"></ul>
         <div>
     </form>
-   
+
 </div>
 </div>
 <div class="blogSidebar">
@@ -149,8 +154,8 @@
             @foreach($tags as $tag)
             <li><a href="/blog/tag/{{$tag->slug}}" title="Show articles tagged {{strtoupper($tag->name)}}">{{strtoupper($tag->name)}}</a></li>
          @endforeach
-            
-           
+
+
         </ul>
     </div>
 </div>
@@ -159,7 +164,7 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-body cart">
-            <div class="col-sm-12  text-center"> 
+            <div class="col-sm-12  text-center">
                 <h2 class="articleTitle">
                     <div class="alert alert-warning text-center  mt-5" style="padding:3rem">Sorry for the inconvenience, there are no articles to display !
                         <a href="/blog"  style="margin-top:1rem" data-abc="true">Go Back</a>

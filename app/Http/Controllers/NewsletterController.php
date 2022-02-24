@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Facades\JWTFactory;
-use phpDocumentor\Reflection\Types\Null_;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class NewsletterController extends Controller
 {
@@ -22,14 +23,14 @@ class NewsletterController extends Controller
         $subscribers = Subscriber::all();
         if($request->email)
             foreach($subscribers as $subscriber)
-                if($subscriber->email == $request->email)return redirect()->back();
+                if($subscriber->email == $request->email)return redirect()->back()->with('subscribed',"You are alerdy subscribed!");;
         $request->validate([
             'email' => 'required|email'
         ]);
         $subscriber =Subscriber::create([
             'email'=>$request->email,
         ]);
-        return redirect()->back()->with('Subscribed','You are subscribed!');
+        return redirect()->back()->with('subscribed',"You are subscribed successfully!");
     }
 
     public function delete(Subscriber $subscriber){
@@ -46,7 +47,7 @@ class NewsletterController extends Controller
     }
 
     public function sendNewsLetter(Article $article)
-    {   
+    {
         $subscribers = Subscriber::all();
         foreach($subscribers as $subscriber){
             $email_token = array(
@@ -64,7 +65,7 @@ class NewsletterController extends Controller
     }
 
     public function Unsubscribe($token)
-    {   
+    {
         $tokenN=JWTAuth::getToken($token);
         $email = JWTAuth::getPayload($tokenN)->toArray()['data']->email;
         if($email){
@@ -85,7 +86,7 @@ class NewsletterController extends Controller
         $collections = Collection::all();
         return view('pages.unsubscribe',['categories'=>$categories,'collections'=>$collections,'cart'=>$cart,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'site'=>$site]);
     }
-  
+
      public function setingPage(){
         $site = SiteSettings::first();
         $user = Auth::user();
@@ -94,14 +95,14 @@ class NewsletterController extends Controller
 
      public function updateSection(Request $request){
       $site = SiteSettings::first();
-      $user = Auth::user();
       $Newsletter = unserialize($site->newsletter);
-      if($request->file('thumbnail')){
-         $img = $request->file('thumbnail');
-         $fileName = $img->getClientOriginalName();
-         $img->move('img',$fileName);
-         $Newsletter['thumbnail']=$fileName;
-      }
+      $img = $request->file('thumbnail');
+      if($img)
+          if($img->getSize()){
+             $fileName = $img->getClientOriginalName();
+             $img->move('img',$fileName);
+             $Newsletter['thumbnail']=$fileName;
+          } else return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
          $Newsletter['title']=$request->title;
          $Newsletter['subtitle']=$request->subtitle;
          $Newsletter['placeholder']=$request->placeholder;

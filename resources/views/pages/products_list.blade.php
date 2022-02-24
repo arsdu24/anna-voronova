@@ -38,6 +38,11 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
+        @if(Session::has('errorMessage'))
+            <div class="alert alert-warning w-100" role="alert">
+                {!! Session::get('errorMessage') !!}
+            </div>
+        @endif
       <div id="example2_wrapper " class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div>
       <div class="row table-responsive"><div class="col-12 table-responsive">
       @if(count($products)!=0)
@@ -76,7 +81,7 @@
             @endforeach
         </tbody>
       </table>
-      
+
     @else
     <div class="alert alert-info" role="alert">
       You don't have products yet!
@@ -88,7 +93,7 @@
           Showing {{$products->firstItem()  ?? '0'}} to {{$products->count()}} of {{$products->total()}} entries
         </div>
       </div>
-     
+
         <div class="col-sm-12 col-md-7">
           <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
             <ul class="pagination">
@@ -101,7 +106,7 @@
 
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-  
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -145,7 +150,7 @@
                 <label for="stock" class="col-md-4 col-form-label text-md-right">Stock</label>
 
                     <div class="input-group mb-3 col-md-6">
-                        
+
                         <input type="number" class="form-control" id="stock"  name="stock" >
                     </div>
             </div>
@@ -167,17 +172,17 @@
                             {{ __('Save') }}
                         </button>
                      </div>
-                
+
                 </div>
             </form>
         </div>
 
       </div>
-  
+
     </div>
     <div id="inMenu" class="modal fade" role="dialog">
       <div class="modal-dialog modal-lg modal-dialog-centered">
-    
+
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
@@ -207,7 +212,7 @@
                          @endforeach
                         </div>
                         @endif
-                        <div 
+                        <div
                         @if($menu_products->count()>=4)
                           class="disabled"
                         @endif>
@@ -241,9 +246,9 @@
                               </div></div></div>
                   </div>
           </div>
-  
+
         </div>
-    
+
       </div>
     </div>
 @endsection
@@ -281,7 +286,7 @@ function add(){
         },
         type: "POST",
         url: '{{route("InMenu")}}',
-        data: { 
+        data: {
             data_id: data_id,
         },
         success: function(result) {
@@ -306,7 +311,7 @@ function delete_i(){
         },
         type: "POST",
         url: '{{route("downFromMenu")}}',
-        data: {  
+        data: {
             data_id: data_id,
         },
         success: function(result) {

@@ -38,6 +38,11 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
+        @if(Session::has('errorMessage'))
+            <div class="alert alert-warning w-100" role="alert">
+                {!! Session::get('errorMessage') !!}
+            </div>
+        @endif
       <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="table-responsive">
       @if(count($collections)!=0)
         <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
@@ -85,7 +90,7 @@
       Showing {{$collections->firstItem() ?? '0'}} to {{$collections->count()}} of {{$collections->total()}} entries
     </div>
   </div>
- 
+
     <div class="col-sm-12 col-md-7">
       <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
         {!!$collections->links()!!}
@@ -97,7 +102,7 @@
 
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-  
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -118,8 +123,7 @@
                 <div class="form-group row">
                   <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
                   <div class="col-md-6">
-                  <textarea class="form-control" maxlength="250" name="description"  >
-                  </textarea>
+                  <textarea class="form-control" maxlength="250" name="description"></textarea>
                 </div>
                 </div>
 
@@ -145,17 +149,17 @@
                             {{ __('Save') }}
                         </button>
                      </div>
-                
+
                 </div>
             </form>
         </div>
 
       </div>
-  
+
     </div>
     <div id="inMenu" class="modal fade" role="dialog">
       <div class="modal-dialog modal-lg modal-dialog-centered">
-    
+
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
@@ -185,7 +189,7 @@
                          @endforeach
                         </div>
                         @endif
-                        <div 
+                        <div
                         @if($menu_collections->count()>=2)
                           class="disabled"
                         @endif>
@@ -219,9 +223,9 @@
                               </div></div></div>
                   </div>
           </div>
-  
+
         </div>
-    
+
       </div>
     </div>
 @endsection
@@ -259,7 +263,7 @@ function add(){
         },
         type: "POST",
         url: '{{route("InMenuCollection")}}',
-        data: { 
+        data: {
             data_id: data_id,
         },
         success: function(result) {
@@ -284,7 +288,7 @@ function delete_i(){
         },
         type: "POST",
         url: '{{route("downFromMenuCollection")}}',
-        data: {  
+        data: {
             data_id: data_id,
         },
         success: function(result) {

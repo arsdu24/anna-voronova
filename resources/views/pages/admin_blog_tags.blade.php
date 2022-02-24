@@ -21,20 +21,20 @@
   <div class="card"><div class="card-header">
     <h3 class="card-title"> Tags</h3>
     <button type="button" class="btn col-md-3 col-12 ml-3 p-0" >
-    <form method="POST" action="{{route('blog-image-set')}}" id="form-blog-image" enctype="multipart/form-data" class="form-inline">
-      @csrf                          
-          <div class="col-12 p-0"> 
+    <form method="POST" action="{{route('blog-tag-image-set')}}" id="form-blog-image" enctype="multipart/form-data" class="form-inline">
+      @csrf
+          <div class="col-12 p-0">
                     <label class="list-inline w-100 p-0">
                     <div class="col-12 p-0">
                         <div class="btn-group w-100 p-15">
                           <span class="btn btn-success col-12">
                             <i class="fas fa-plus"></i>
-                            <span>Change Blog Image</span>
+                            <span>Change Blog Tags Image</span>
                           </span>
                       </div>
                   </div>
-                  
-                
+
+
                   <input id="image_blog" type="file" name="image" class="custom-file-input d-none">
                   </label>
         </div>
@@ -48,9 +48,14 @@
     </div>
   </div>
   <div class="card-body">
+      @if(Session::has('errorMessage'))
+          <div class="alert alert-warning w-100" role="alert">
+              {!! Session::get('errorMessage') !!}
+          </div>
+      @endif
     @if(count($tags)!=0)
     <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="col-sm-12 table-responsive">
-   
+
       <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
       <thead>
       <tr role="row">
@@ -85,7 +90,7 @@
             </tr>
             <div id="{{'d'.$tag->id}}" class="modal fade" role="dialog">
               <div class="modal-dialog modal-lg" style="width:100%">
-            
+
                 <!-- Modal content-->
                 <div class="modal-content" >
                   <div class="modal-header">
@@ -109,18 +114,16 @@
                                       {{ __('Save') }}
                                   </button>
                                </div>
-                          
-                          </div>
                       </form>
                   </div>
-            
+
                 </div>
-            
+
               </div>
           @endforeach
       </tbody>
     </table>
-  
+
   </div></div><div class="row">
     <div class="col-sm-12 col-md-5">
       <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
@@ -138,7 +141,7 @@
           </div>
           @endif
         </div>
-  
+
 
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg" style="width:100%">
@@ -166,15 +169,13 @@
                           {{ __('Save') }}
                       </button>
                    </div>
-              
-              </div>
           </form>
       </div>
 
     </div>
 
   </div>
-  
+
 
 @endsection
 @section('scripts')
@@ -188,7 +189,7 @@ let input = document.querySelector('#image');
      if(input.value!=null)label.innerHTML=input.value;
      else label.innerHTML= "Choose file"
  })
- 
+
 
 </script>
 <script>

@@ -36,6 +36,11 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
+        @if(Session::has('errorMessage'))
+            <div class="alert alert-warning w-100" role="alert">
+                {!! Session::get('errorMessage') !!}
+            </div>
+        @endif
       @if($sliders->count()>0)
       <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="table-responsive-md">
               <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
@@ -70,7 +75,7 @@
                     </form>
                     <div id="{{"Edit".$slider->id}}" class="modal fade" role="dialog">
                       <div class="modal-dialog modal-lg" style="width:100%">
-                    
+
                         <!-- Modal content-->
                         <div class="modal-content" >
                           <div class="modal-header">
@@ -82,7 +87,7 @@
                                   @csrf
                                   <div class="form-group">
                                       <label for="image" class="w-100 text-left" >Thumbnail </label>
-                  
+
                                       <div class="input-group mb-3 col-md-6">
                                           <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupFileAddon01"><i class="fas fa-image"></i></span>
@@ -126,13 +131,13 @@
                                               {{ __('Save') }}
                                           </button>
                                        </div>
-                    
-                                  
+
+
                               </form>
                           </div>
-                  
+
                         </div>
-                    
+
                       </div>
                     </div>
                 </td>
@@ -146,7 +151,7 @@
        Showing {{$sliders->firstItem()  ?? '0'}} to {{$sliders->count()}} of {{$sliders->total()}} entries
     </div>
   </div>
- 
+
     <div class="col-sm-12 col-md-7">
       <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
         {!!$sliders->links()!!}
@@ -158,11 +163,11 @@
 </div>
 @endif
     <!-- /.card-body -->
-  </div> 
-  
+  </div>
+
     <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog modal-lg" style="width:100%">
-    
+
         <!-- Modal content-->
         <div class="modal-content" >
           <div class="modal-header">
@@ -174,7 +179,7 @@
                   @csrf
                   <div class="form-group ">
                       <label for="image" >Thumbnail </label>
-  
+
                       <div class="input-group mb-3 col-md-6">
                           <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupFileAddon01"><i class="fas fa-image"></i></span>
@@ -218,12 +223,12 @@
                               {{ __('Save') }}
                           </button>
                        </div>
-                  
+
                   </div>
               </form>
           </div>
-  
+
         </div>
-    
+
       </div>
 @endsection

@@ -34,7 +34,7 @@
   <div class="card-body">
     @if(count($categories)!=0)
     <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="table-responsive">
-   
+
       <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
       <thead>
       <tr role="row">
@@ -69,7 +69,7 @@
             </tr>
             <div id="{{'d'.$tag->id}}" class="modal fade" role="dialog">
               <div class="modal-dialog modal-lg" style="width:100%">
-            
+
                 <!-- Modal content-->
                 <div class="modal-content" >
                   <div class="modal-header">
@@ -99,18 +99,18 @@
                                       {{ __('Save') }}
                                   </button>
                                </div>
-                          
+
                           </div>
                       </form>
                   </div>
-            
+
                 </div>
-            
+
               </div>
           @endforeach
       </tbody>
     </table>
-  
+
   </div></div><div class="row">
     <div class="col-sm-12 col-md-5">
       <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
@@ -163,7 +163,7 @@
                           {{ __('Save') }}
                       </button>
                    </div>
-              
+
               </div>
           </form>
       </div>
@@ -173,7 +173,7 @@
   </div>
   <div id="inMenu" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-  
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -199,7 +199,7 @@
                        @endforeach
                       </div>
                       @endif
-                      <div 
+                      <div
                       @if($menu_categories->count()>=5)
                         class="disabled"
                       @endif>
@@ -231,7 +231,7 @@
         </div>
 
       </div>
-  
+
     </div>
   </div>
 
@@ -247,7 +247,7 @@ let input = document.querySelector('#image');
      if(input.value!=null)label.innerHTML=input.value;
      else label.innerHTML= "Choose file"
  })
- 
+
  function add(){
   $(".addMenu").off("click").click(function(e){
     e.preventDefault();
@@ -258,7 +258,7 @@ let input = document.querySelector('#image');
         },
         type: "POST",
         url: '{{route("InMenuCategory")}}',
-        data: { 
+        data: {
             data_id: data_id,
         },
         success: function(result) {
@@ -283,7 +283,7 @@ function delete_i(){
         },
         type: "POST",
         url: '{{route("downFromMenuCategory")}}',
-        data: {  
+        data: {
             data_id: data_id,
         },
         success: function(result) {
