@@ -21,10 +21,15 @@
   <div class="card">
     <div class="card-header">
       <h3 class="card-title">  Banners</h3>
-      
+
     </div>
     <!-- /.card-header -->
     <div class="card-body">
+        @if(Session::has('errorMessage'))
+            <div class="alert alert-warning w-100" role="alert">
+                {!! Session::get('errorMessage') !!}
+            </div>
+        @endif
       @if($banners->count()>0)
       <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="table-responsive">
               <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
@@ -49,7 +54,7 @@
                     </button>
                     <div id="{{"Edit".$banner->id}}" class="modal fade" role="dialog">
                       <div class="modal-dialog modal-lg" style="width:100%">
-                    
+
                         <!-- Modal content-->
                         <div class="modal-content" >
                           <div class="modal-header">
@@ -61,7 +66,7 @@
                                   @csrf
                                   <div class="form-group">
                                       <label for="image" class="w-100 text-left" >Thumbnail </label>
-                  
+
                                       <div class="input-group mb-3 col-md-6">
                                           <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupFileAddon01"><i class="fas fa-image"></i></span>
@@ -88,9 +93,9 @@
                                        </div>
                               </form>
                           </div>
-                  
+
                         </div>
-                    
+
                       </div>
                     </div>
                 </td>
@@ -104,7 +109,7 @@
        Showing {{$banners->firstItem()  ?? '0'}} to {{$banners->count()}} of {{$banners->total()}} entries
     </div>
   </div>
- 
+
     <div class="col-sm-12 col-md-7">
       <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
         {!!$banners->links()!!}
@@ -116,5 +121,5 @@
 </div>
 @endif
     <!-- /.card-body -->
-  </div> 
+  </div>
 @endsection

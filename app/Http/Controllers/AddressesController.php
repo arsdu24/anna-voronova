@@ -7,7 +7,7 @@ use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AddressesController extends Controller
+class   AddressesController extends Controller
 {
     public function CreateAddress(Request $request)
     {
@@ -24,7 +24,7 @@ class AddressesController extends Controller
     }
 
     public function SetAddress(Request $request)
-    {   
+    {
         $address= Adress::find($request->address);
         $user = Auth::user();
         $addresses = [];

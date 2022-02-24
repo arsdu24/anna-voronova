@@ -41,23 +41,28 @@ class SiteSettingsController extends Controller
         }else $site->facebook= NULL;
         if($request->file('logo1')){
             $logo = $request->file('logo1');
-            $logoName = $logo->getClientOriginalName();
-            $logo->move('img',$logoName);
-            $site->short_logo = $logoName;
-
+            if($logo)
+                if($logo->getSize()){
+                    $logoName = $logo->getClientOriginalName();
+                    $logo->move('img',$logoName);
+                    $site->short_logo = $logoName;
+                }else return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
         }
         if($request->file('logo2')){
             $logo = $request->file('logo2');
-            $logoName = $logo->getClientOriginalName();
-            $logo->move('img',$logoName);
-            $site->full_logo = $logoName;
+            if($logo)
+                if($logo->getSize()){
+                    $logoName = $logo->getClientOriginalName();
+                    $logo->move('img',$logoName);
+                    $site->full_logo = $logoName;
+                }else return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
         }
         $site->save();
         return redirect()->back();
     }
 
     public function showform()
-    {   
+    {
         if(!SiteSettings::first()){
             DB::table('site_settings')->insert([
                 [

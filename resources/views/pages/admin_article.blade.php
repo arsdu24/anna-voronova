@@ -35,18 +35,22 @@
       <div class="card-body">
         <div class="tab-content" id="custom-tabs-one-tabContent">
             <div class="tab-pane fade active show" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
-            
+                @if(Session::has('errorMessage'))
+                    <div class="alert alert-warning w-100" role="alert">
+                        {!! Session::get('errorMessage') !!}
+                    </div>
+                @endif
             <div class="container">
               <div class="row">
                       <div class="card-body">
-      
+
                           <form method="POST" action="{{route('articleUpdate',['article'=>$article->id])}}" id="form" enctype="multipart/form-data">
                               @csrf
                                 <div class="row">
-                                  <div class="col-12 col-lg-6"> 
+                                  <div class="col-12 col-lg-6">
                                     <div class="col-12 image-input image-input-outline">
                                       <img src="{{asset('img/'.$article->thumbnail)}}" class="product-image rounded" id="img" alt="Product Image">
-                                      
+
                                     <div></div>
                                     </div>
                                     <div class="form-group row mt-3">
@@ -68,10 +72,10 @@
                                           </label>
                                           </div>
                                           </div>
-                                          
+
                                         </div>
                                   </div>
-                                
+
                                   </div>
                                   <div class="col-12 col-sm-6">
                                     <div class="form-group ">
@@ -95,7 +99,7 @@
                                             @endforeach
                                          @endif
                                         </select><span class="select2 select2-container select2-container--bootstrap4 select2-container--below select2-container--focus" dir="ltr" data-select2-id="24" style="width: 100%;">
-                                      
+
                                     </div>
                                     <div class="form-group">
                                       <label>Tags</label>
@@ -120,7 +124,7 @@
                                     </div>
                                   </nav>
                                   <div class="tab-content p-3" id="nav-tabContent">
-                                    <div class="tab-pane fade active show" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab"> 
+                                    <div class="tab-pane fade active show" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
                                       <div class="form-group">
                                         <textarea class="form-control" name="content" id="summernote" >
                                           {{$article->content ?? ''}}
@@ -129,14 +133,14 @@
                                     </div>
                                   </div>
                                 </div>
-                               
+
                               <button type=”submit” class="btn btn-success btn-block" id="submit-all">Save</button>
                           </form>
                         </div>
                       </div>
                   </div>
         </div>
-          
+
         </div>
       </div>
       <!-- /.card -->
@@ -164,7 +168,7 @@
     var input = this;
     var url = $(this).val();
     var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-    if (input.files && input.files[0]) 
+    if (input.files && input.files[0])
      {
         var reader = new FileReader();
 

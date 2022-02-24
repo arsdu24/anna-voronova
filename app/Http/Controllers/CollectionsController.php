@@ -20,11 +20,14 @@ class CollectionsController extends Controller
         $formInput= $request->except('thumbnail');
         $image=$request->file('thumbnail');
         if($image){
-            $imageName =  $image->getClientOriginalName();
-            $image->move('img',$imageName);
-            $formInput['thumbnail'] = $imageName;
-            $collection = Collection::create($formInput);
-            return redirect()->route('collectionPage',['collection'=> $collection]);
+            if($image->getSize()){
+                $imageName =  $image->getClientOriginalName();
+                $image->move('img',$imageName);
+                $formInput['thumbnail'] = $imageName;
+                $collection = Collection::create($formInput);
+                return redirect()->route('collectionPage',['collection'=> $collection]);
+            }
+            return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
         }
         return redirect()->back();
     }
@@ -33,11 +36,12 @@ class CollectionsController extends Controller
         if($request->title) $collection->title=$request->title;
         if($request->description)$collection->description = $request->description;
         $image=$request->file('thumbnail');
-        if($image){
-            $imageName =  $image->getClientOriginalName();
-            $image->move('img',$imageName);
-            $collection->thumbnail = $imageName;
-        }
+        if($image)
+            if($image->getSize()){
+                $imageName =  $image->getClientOriginalName();
+                $image->move('img',$imageName);
+                $collection->thumbnail = $imageName;
+            }else return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
         $collection->save();
         return redirect()->route('collectionPage',['collection'=> $collection]);
     }

@@ -78,11 +78,11 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::get('/search','SearchController@search')->name('adminSearch');
     Route::get('/categories','ProductsController@categoriesList')->name('Categories');
     Route::get('/subscribers','NewsletterController@SubscribersList')->name('SubscribersList');
-  
-    Route::get('/newsletter','NewsletterController@setingPage')->name('Newsletter');    
+
+    Route::get('/newsletter','NewsletterController@setingPage')->name('Newsletter');
     Route::post('/newsletter','NewsletterController@updateSection')->name('NewsletterPost');
     Route::post('/send-newsletter/{article}','NewsletterController@sendNewsLetter')->name('sendNewsLetter');
-  
+
     Route::get('shipping-details','SiteSettingsController@shippingDetails')->name('shippingDetails');
     Route::post('shipping-details-edit/{ShippingDetail}','SiteSettingsController@shippingDetailsEdit')->name('shippingDetailsEdit');
 
@@ -126,4 +126,6 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function () {
     Route::post('categories-list/in-menu','ProductsController@InMenuCategory')->name('InMenuCategory');
     Route::post('categories-list/down-from-menu','ProductsController@downFromMenuCategory')->name('downFromMenuCategory');
     Route::post('blog-image-update','BlogController@blogImage')->name('blog-image-set');
+    Route::post('blog-tag-image-update','BlogController@blogTagImage')->name('blog-tag-image-set');
+    Route::post('blog-cat-image-update','BlogController@blogCatImage')->name('blog-cat-image-set');
 });

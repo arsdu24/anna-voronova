@@ -40,18 +40,22 @@
       <div class="card-body">
         <div class="tab-content" id="custom-tabs-one-tabContent">
             <div class="tab-pane fade active show" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
-            
+                @if(Session::has('errorMessage'))
+                    <div class="alert alert-warning w-100" role="alert">
+                        {!! Session::get('errorMessage') !!}
+                    </div>
+                @endif
             <div class="container">
               <div class="row">
                       <div class="card-body">
-      
+
                           <form method="POST" action="{{route('productUpdate',['id'=>$product->id])}}" id="form" enctype="multipart/form-data">
                               @csrf
                                 <div class="row">
-                                  <div class="col-12 col-lg-6"> 
+                                  <div class="col-12 col-lg-6">
                                     <div class="col-12 image-input image-input-outline">
                                       <img src="{{asset('img/'.unserialize($product->thumbnail)[0])}}" class="product-image rounded" id="img" alt="Product Image">
-                                      
+
                                     <div></div>
                                     </div>
                                     <div class="form-group row mt-3">
@@ -73,7 +77,7 @@
                                           </label>
                                           </div>
                                           </div>
-                                          
+
                                         </div>
                                   </div>
                                     <div class=" row col-12 product-image-thumbs">
@@ -106,14 +110,14 @@
                                       <label for="excerpt">Excerpt</label>
                                       <textarea style="height:200px"class="form-control" name="excerpt" maxlength="250" aria-label="With textarea" id="excerpt" required >{{$product->excerpt ?? '' }}</textarea>
                                     </div>
-                  
+
                                     <div class="form-group">
                                       <label for="price">Price</label>
-                                      <input type="number" class="form-control" id="price" name="price" step="any"  value="{{$product->price ?? '' }}">
+                                      <input type="number" class="form-control" id="price" name="price" max="999999" step="any" value="{{$product->price ?? '' }}">
                                     </div>
                                     <div class="form-group">
                                       <label for="SalePrice">Sale price</label>
-                                      <input type="number" class="form-control" id="SalePrice"  name="sale_price" step="any" placeholder="Sale price" value="{{$product->sale_price ?? '' }}">
+                                      <input type="number" class="form-control" id="SalePrice" max="999999"  name="sale_price" step="any" placeholder="Sale price" value="{{$product->sale_price ?? '' }}">
                                     </div>
                                     <div class="form-group">
                                       <label for="sel1">Collections</label>
@@ -124,7 +128,7 @@
                                             @endforeach
                                          @endif
                                         </select><span class="select2 select2-container select2-container--bootstrap4 select2-container--below select2-container--focus" dir="ltr" data-select2-id="24" style="width: 100%;">
-                                      
+
                                     </div>
                                     <div class="form-group">
                                       <label>Categories</label>
@@ -154,7 +158,7 @@
                                     </div>
                                   </nav>
                                   <div class="tab-content p-3" id="nav-tabContent">
-                                    <div class="tab-pane fade active show" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab"> 
+                                    <div class="tab-pane fade active show" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
                                       <div class="form-group">
                                         <textarea class="form-control" name="content" id="summernote" >
                                           {{$product->content ?? ''}}
@@ -163,7 +167,7 @@
                                     </div>
                                   </div>
                                 </div>
-                               
+
                               <button type=”submit” class="btn btn-success btn-block" id="submit-all">Save</button>
                           </form>
                         </div>
@@ -171,7 +175,7 @@
                   </div>
         </div>
         <div class="tab-pane fade show" id="custom-tabs-one-myl" role="tabpanel" aria-labelledby="custom-tabs-one-myl-tab">
-            
+
           <div class="container" id="ml_content">
             <div class="row">
                     <div class="card-body">
@@ -206,7 +210,7 @@
                        @endforeach
                       </div>
                       @endif
-                      <div 
+                      <div
                       @if(unserialize($product->mightLike)[0]!="Manual" || count(unserialize($product->mightLike))>=10)
                         class="disabled"
                       @endif>
@@ -261,7 +265,7 @@
                     <td>{{$review->title}}</td>
                     <td>{{$review->description}}</td>
                     <td class="col-md-6 text-warning">
-                      
+
                       @for($i = 0; $i < $review->stars; $i++)
                           <i class="fas fa-star"></i>
                       @endfor
@@ -290,7 +294,7 @@
                 @endforeach
             </tbody>
           </table></div></div></div>
-          
+
         </div>
       </div>
       <!-- /.card -->
@@ -303,7 +307,7 @@
     var input = this;
     var url = $(this).val();
     var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-    if (input.files && input.files[0]) 
+    if (input.files && input.files[0])
      {
         var reader = new FileReader();
 
@@ -336,11 +340,11 @@
     });
     Dropzone.autoDiscover = false;
     var form = document.querySelector('#form');
-    var imageUpload =  new Dropzone("div#image-upload", { 
+    var imageUpload =  new Dropzone("div#image-upload", {
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: '{{route('productUpdate',["id"=>$product->id])}}', 
+        url: '{{route('productUpdate',["id"=>$product->id])}}',
         autoProcessQueue:true,
         parallelUploads: 10,
         uploadMultiple: true,
@@ -358,26 +362,31 @@
     })
 </script>
 <script>
-      $('.remove_image').on('click', function(e){
-        e.preventDefault();
-        let name = $(this).attr('name_th');
-        let id = {{$product->id}};
-        $.ajax({
-          headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          type : 'POST',
-          url : '{{route("imageDelete")}}',
-          data : {
-              id : id,
-              name : name,
-          },
-          success : function(response){
-              if(response){
-                $(this).parents('.product-image-thumb').remove();
-              }}.bind(this)
-      })
-         });
+    function  removeIMG() {
+        $('.remove_image').on('click', function (e) {
+            console.log($(this).attr('name_th'));
+            e.preventDefault();
+            let name = $(this).attr('name_th');
+            let id = {{$product->id}};
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                url: '{{route("imageDelete")}}',
+                data: {
+                    id: id,
+                    name: name,
+                },
+                success: function (response) {
+                    const content = $(response).find('.product-image-thumbs').html();
+                    $('.product-image-thumbs').html(content);
+                    removeIMG();
+                }
+            })
+        });
+    }
+    removeIMG();
 </script>
 <script>
   $(".publish").click(function(e) {
@@ -387,7 +396,7 @@
     $.ajax({
         type: "POST",
         url: '{{route("reviewPublish")}}',
-        data: { 
+        data: {
             id: id, // < note use of 'this' here
         },
         success: function(result) {
@@ -406,7 +415,7 @@ $(".unpublish").click(function(e) {
     $.ajax({
         type: "POST",
         url: '{{route("reviewUnpublish")}}',
-        data: { 
+        data: {
             id: id, // < note use of 'this' here
         },
         success: function(result) {
@@ -425,7 +434,7 @@ $(".delete").click(function(e) {
     $.ajax({
         type: "POST",
         url: '{{route("reviewDelete")}}',
-        data: { 
+        data: {
             id: id, // < note use of 'this' here
         },
         success: function(result) {
@@ -443,7 +452,7 @@ $(".delete").click(function(e) {
     $.ajax({
         type: "POST",
         url: '{{route("reviewDelete")}}',
-        data: { 
+        data: {
             id: id, // < note use of 'this' here
         },
         success: function(result) {
@@ -459,9 +468,9 @@ function radio1(){$("#radio1").off("click").click(function(e) {
     $.ajax({
         type: "POST",
         url: '{{route("ml_set")}}',
-        data: { 
+        data: {
             id: {!!json_encode($product->id)!!},
-            type: "Automated", 
+            type: "Automated",
         },
         success: function(result) {
            let content = $(result).find('#ml_content').html();
@@ -483,8 +492,8 @@ function radio2(){
     $.ajax({
         type: "POST",
         url: '{{route("ml_set")}}',
-        data: { 
-            id: {!!json_encode($product->id)!!}, 
+        data: {
+            id: {!!json_encode($product->id)!!},
         },
         success: function(result) {
           let content = $(result).find('#ml_content').html();
@@ -507,8 +516,8 @@ function add(){
     $.ajax({
         type: "POST",
         url: '{{route("ml_add")}}',
-        data: { 
-            id: {!!json_encode($product->id)!!}, 
+        data: {
+            id: {!!json_encode($product->id)!!},
             data_id: data_id,
         },
         success: function(result) {
@@ -532,8 +541,8 @@ function delete_i(){
     $.ajax({
         type: "POST",
         url: '{{route("ml_delete")}}',
-        data: { 
-            id: {!!json_encode($product->id)!!}, 
+        data: {
+            id: {!!json_encode($product->id)!!},
             data_id: data_id,
         },
         success: function(result) {

@@ -30,17 +30,22 @@
         </ul>
       </div>
       <div class="card-body">
+          @if(Session::has('errorMessage'))
+              <div class="alert alert-warning w-100" role="alert">
+                  {!! Session::get('errorMessage') !!}
+              </div>
+          @endif
         <div class="tab-content" id="custom-tabs-one-tabContent">
             <div class="tab-pane fade active show" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
-            
+
             <div class="container">
               <div class="row">
                       <div class="card-body">
-      
+
                           <form method="POST" action="{{route('NewsletterPost')}}" id="form" enctype="multipart/form-data">
                               @csrf
                                 <div class="row">
-                                  <div class="col-12 col-lg-6"> 
+                                  <div class="col-12 col-lg-6">
                                     <div class="col-12 image-input image-input-outline">
                                       <img src="{{asset('img/'.$newsletter['thumbnail'])}}" class="product-image rounded" id="img" alt="Thumbnail">
                                     </div>
@@ -65,7 +70,7 @@
                                           </div>
 
                                           </div>
-                                          
+
                                         </div>
                                   </div>
                                   <div class="col-12 col-sm-6">
@@ -90,16 +95,16 @@
                                       <textarea type="text" class="form-control" id="footer"  name="footer" maxlength="75">{{$newsletter['footer']  ?? '' }}</textarea>
                                     </div>
                                   </div>
-                                
+
                                 </div>
-                                  
+
                               <button type=”submit” class="btn btn-success btn-block" id="submit-all">Save</button>
                           </form>
                         </div>
                       </div>
                   </div>
         </div>
-          
+
         </div>
       </div>
       <!-- /.card -->
@@ -114,7 +119,7 @@
     var input = this;
     var url = $(this).val();
     var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-    if (input.files && input.files[0]) 
+    if (input.files && input.files[0])
      {
         var reader = new FileReader();
         reader.onload = function (e) {

@@ -24,13 +24,14 @@ class BannerController extends Controller
             'link' => $request->link,
             'highlighted' => $highlighted,
         ]);
-        if($request->file('thumbnail')){
-            $image = $request->file('thumbnail');
-            $imageName = $image->getClientOriginalName();
-            $image->move('img',$imageName);
-            $banner->thumbnail = $imageName;
-         }
-         $banner->save();
+        $image = $request->file('thumbnail');
+        if($image)
+            if($image->getSize()){
+                $imageName = $image->getClientOriginalName();
+                $image->move('img', $imageName);
+                $banner->thumbnail = $imageName;
+            }else return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
+        $banner->save();
          return redirect()->back();
     }
 
@@ -42,13 +43,14 @@ class BannerController extends Controller
        else  $banner->highlighted = null;
         if($request->is_slide)$banner->is_slide = 1;
         else $banner->is_slide = 0;
-       if($request->file('thumbnail')){
-            $image = $request->file('thumbnail');
+        $image = $request->file('thumbnail');
+        if($image)
+            if($image->getSize()){
             $imageName = $image->getClientOriginalName();
-            $image->move('img',$imageName);
+            $image->move('img', $imageName);
             $banner->thumbnail = $imageName;
-       }
-       if($request->link){
+             }else return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
+        if($request->link){
            $banner->link = $request->link;
        }
        $banner->save();
@@ -100,6 +102,6 @@ class BannerController extends Controller
         $site = SiteSettings::first();
         return view('pages.banners-list',['user'=>$user,'banners'=>$banners,'site'=>$site]);
     }
-   
-   
+
+
 }

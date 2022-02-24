@@ -39,9 +39,9 @@ class BlogController extends Controller
         $site = SiteSettings::first();
         return view('pages.blogs',['user'=>$user,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'site'=>$site,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
     }
-    
+
     public function categoriesList()
-    {      
+    {
         $generator = new SlugGenerator;
         $user = Auth::user();
         $blog_category = BlogCategory::paginate(15);
@@ -57,9 +57,7 @@ class BlogController extends Controller
 
     public function blogPage($slug){
         $article = Article::where('slug',$slug)->first();
-  
         if(!$article) return redirect()->route('blogs');
-      
         $user = Auth::user();
         $blog_categories = BlogCategory::all();
         $article_tags = array();
@@ -117,12 +115,12 @@ class BlogController extends Controller
           }
         else $article->tags()->detach();
         $article->category()->sync($category);
-        if($request->file('image')){
-            $image =$request->file('image');
+        $image =$request->file('image');
+        if($image && $image->getSize()<=2048){
             $imageName=$image->getClientOriginalName();
             $image->move('img',$imageName);
             $article->thumbnail=$imageName;
-        }
+        } else return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
         $article->save();
         return redirect()->back();
     }
@@ -151,12 +149,13 @@ class BlogController extends Controller
     public function articleUpdate(Article $article,Request $request)
     {
         $generator = new SlugGenerator;
-        if($request->file('thumbnail')){
-            $image=$request->file('thumbnail');
-            $imageName=$image->getClientOriginalName();
-            $image->move('img',$imageName);
-            $article->thumbnail=$imageName;
-        }
+        $image=$request->file('thumbnail');
+        if($image)
+            if($image->getSize()){
+                $imageName=$image->getClientOriginalName();
+                $image->move('img',$imageName);
+                $article->thumbnail=$imageName;
+            }else return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
         if($request->tags){
             $article->tags()->sync($request->tags);
         }
@@ -177,7 +176,7 @@ class BlogController extends Controller
     }
 
     public function categoryCreate(Request $request)
-    {   
+    {
         $generator = new SlugGenerator;
         BlogCategory::create([
             'name'=>$request->name,
@@ -187,11 +186,11 @@ class BlogController extends Controller
     }
 
     public function categoryShow($slug)
-    {   
+    {
         $category = BlogCategory::where('slug',$slug)->first();
-      
+
         if(!$category) return redirect()->route('blogs');
-          
+
         $user = Auth::user();
         $blog_category = BlogCategory::all();
         $categories = Category::all();
@@ -214,7 +213,7 @@ class BlogController extends Controller
           }
         };
         $site = SiteSettings::first();
-        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'site'=>$site,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
+        return view('pages.blogs',['user'=>$user,'articles'=>$articles,'menu_products'=>$menu_products,'FilterCategory'=>$category,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'site'=>$site,'category'=>$blog_category,'categories'=>$categories,'cart'=>$cart,'recent_articles'=>$recents_articles,'tags'=>$tags,'collections'=>$collections]);
     }
 
     public function categoryDelete(BlogCategory $category)
@@ -224,7 +223,7 @@ class BlogController extends Controller
     }
 
     public function categoryUpdate(BlogCategory $category,Request $request)
-    {   
+    {
         $generator = new SlugGenerator;
         $category->name = $request->name;
         $category->slug = $generator->generate($request->name);
@@ -249,7 +248,7 @@ class BlogController extends Controller
     }
 
     public function tagUpdate(BlogTag $tag,Request $request)
-    {   
+    {
         $generator = new SlugGenerator;
         if($request->name)$tag->name = strtoupper($request->name);
         $tag->slug = $generator->generate($request->name);
@@ -258,7 +257,7 @@ class BlogController extends Controller
     }
 
     public function tagsList()
-    {   
+    {
         $user = Auth::user();
         $blog_tag = BlogTag::paginate(15);
         $site = SiteSettings::first();
@@ -270,7 +269,7 @@ class BlogController extends Controller
     {
         $tag = BlogTag::where('slug','=',$slug)->first();
         if($tag){
-        $id = $tag->id;        
+        $id = $tag->id;
         $user = Auth::user();
         $blog_category = BlogCategory::all();
         $categories = Category::all();
@@ -310,13 +309,40 @@ class BlogController extends Controller
     public function blogImage(Request $request)
     {
         $site = SiteSettings::first();
-        if($request->file('image')){
-            $image=$request->file('image');
-            $imageName=$image->getClientOriginalName();
-            $image->move('img',$imageName);
-            $site->blog_image=$imageName;
-            $site->save();
-        }
+        $image=$request->file('image');
+        if($image)
+            if($image->getSize()){
+                $imageName=$image->getClientOriginalName();
+                $image->move('img',$imageName);
+                $site->blog_image=$imageName;
+                $site->save();
+            }else return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
+        return redirect()->back();
+    }
+    public function blogTagImage(Request $request)
+    {
+        $site = SiteSettings::first();
+        $image=$request->file('image');
+        if($image)
+            if($image->getSize()){
+                $imageName=$image->getClientOriginalName();
+                $image->move('img',$imageName);
+                $site->blog_tag_image=$imageName;
+                $site->save();
+            }else return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
+        return redirect()->back();
+    }
+    public function blogCatImage(Request $request)
+    {
+        $site = SiteSettings::first();
+        $image=$request->file('image');
+        if($image)
+            if($image->getSize()){
+                $imageName=$image->getClientOriginalName();
+                $image->move('img',$imageName);
+                $site->blog_cat_image=$imageName;
+                $site->save();
+            }else return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
         return redirect()->back();
     }
 }

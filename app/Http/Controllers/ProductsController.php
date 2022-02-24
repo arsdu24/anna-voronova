@@ -17,37 +17,37 @@ class ProductsController extends Controller
     public function createProduct(Request $request){
         $formInput= $request->except('thumbnail');
         $image=$request->file('thumbnail');
-        if($image){
-            $imageName =  $image->getClientOriginalName();
-            $image->move('img',$imageName);
-            $thumbnail = [$imageName];
-            $formInput['thumbnail'] = serialize($thumbnail);
-            $product = Product::create($formInput);
-            $array = [0=>"Automated"];
-            $products = $product;
-            foreach( $product->categories() as $category)
-                if($category)
-                 foreach($category->products() as $item)
-                    $products = $products->merge($item);
-              foreach( $product->collections() as $collection)
-                if($collection)
-                 foreach($collection->products() as $item)
-                    $products  = $products ->merge($item);
-            $products  = $products->where('id','!=',$product->id)->orderby('views','desc');
-            $products = $products->take(10)->get();
-            foreach($products as $item){
-              array_push($array,$item->id);
-            }
-            $product->mightLike =  serialize($array);
-            $product->save();
-            $id = $product->id;
+        if($image)
+            if($image->getSize()){
+                $imageName =  $image->getClientOriginalName();
+                $image->move('img',$imageName);
+                $thumbnail = [$imageName];
+                $formInput['thumbnail'] = serialize($thumbnail);
+                $product = Product::create($formInput);
+                $array = [0=>"Automated"];
+                $products = $product;
+                foreach( $product->categories() as $category)
+                    if($category)
+                     foreach($category->products() as $item)
+                        $products = $products->merge($item);
+                  foreach( $product->collections() as $collection)
+                    if($collection)
+                     foreach($collection->products() as $item)
+                        $products  = $products ->merge($item);
+                $products  = $products->where('id','!=',$product->id)->orderby('views','desc');
+                $products = $products->take(10)->get();
+                foreach($products as $item){
+                  array_push($array,$item->id);
+                }
+                $product->mightLike =  serialize($array);
+                $product->save();
+                $id = $product->id;
             return redirect()->route('productPage',['id'=> $id]);
         }
-        return redirect()->back();
+        return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
     }
 
     public function updateProduct($id,Request $request){
-
         $product = Product::find($id);
         if($request->collections){
          $product->collections()->sync($request->collections);
@@ -67,7 +67,8 @@ class ProductsController extends Controller
         }
         else $product->categories()->detach();
         $firstImage = $request->file('firstThumbnail');
-        if($firstImage){
+        if($firstImage)
+            if($firstImage->getSize()){
                 $imageName =  $firstImage->getClientOriginalName();
                 $firstImage->move('img',$imageName);
                 if($product->thumbnail)$thumbnails = unserialize( $product->thumbnail);
@@ -75,24 +76,24 @@ class ProductsController extends Controller
                 unset($thumbnails[0]);
                 $thumbnails[0] = $imageName;
                 $product->thumbnail = serialize($thumbnails);
-        }
-
-
+            }else return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
         $images=$request->file('file');
         if($images){
             foreach($images as $image){
-                $imageName =  $image->getClientOriginalName();
-                $image->move('img',$imageName);
-                if($product->thumbnail)$thumbnails = unserialize( $product->thumbnail);
-                else $thumbnails=[];
-                array_push($thumbnails,$imageName);
-                $product->thumbnail = serialize($thumbnails);
+                if($image->getSize()) {
+                    $imageName = $image->getClientOriginalName();
+                    $image->move('img', $imageName);
+                    if ($product->thumbnail) $thumbnails = unserialize($product->thumbnail);
+                    else $thumbnails = [];
+                    array_push($thumbnails, $imageName);
+                    $product->thumbnail = serialize($thumbnails);
+                }else return redirect()->back()->with('errorMessage',"Maximum file size to upload is 2MB (2048 KB). If you are uploading a photo, try to reduce its resolution to make it under 2MB");
             }
         };
         if($request->in_menu)$product->in_menu = 1;
         else $product->in_menu = 0;
         $product->save();
-        return redirect()->route('productPage',['id'=> $id]);
+        return redirect()->back();
     }
 
     public function deleteImage(Request $request){
@@ -100,12 +101,12 @@ class ProductsController extends Controller
         $images = unserialize( $product->thumbnail);
         foreach($images as $key => $image){
             if($key == $request->name){
-              array_splice($images, $key, 1);
+             array_splice($images, $key, 1);
             }
         }
         $product->thumbnail = serialize($images);
         $product->save();
-        return response()->json(true);
+        return redirect()->back();
     }
 
     public function deleteProduct($id){
@@ -165,7 +166,7 @@ class ProductsController extends Controller
       $menu_products = Product::where('in_menu',1)->orderby('views','desc')->take(4)->get();
       $menu_categories = Category::where('in_menu',1)->orderby('id','desc')->take(5)->get();
       $menu_collections = Collection::where('in_menu',1)->orderby('id','desc')->take(2)->get();
-        return view('pages.products_list',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'products'=>$products,'cart'=>$cart,'modal_products'=>$modal_products]);
+      return view('pages.products_list',['user'=>Auth::user(),'site'=>$site,'menu_products'=>$menu_products,'menu_categories'=>$menu_categories,'menu_collections'=>$menu_collections,'products'=>$products,'cart'=>$cart,'modal_products'=>$modal_products]);
     }
 
     public function clientViewAll()
