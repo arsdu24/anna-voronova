@@ -4,7 +4,7 @@
 <main class="mainContent" role="main">
     <div id="shopify-section-vela-breacrumb-image" class="shopify-section"><section class="velaBreadcrumbs hasBackgroundImage">
 <div class="velaBreadcrumbsInner" style="background-color: #eaebef"><div class="velaBreadcrumbImage">
-<img alt="{{$site->company_name}}" src="{{asset('img/'.$site->blog_image)}}"></div><nav class="velaBreadcrumbWrap container">       
+<img alt="{{$site->company_name}}" src="{{asset('img/'.$site->blog_image)}}"></div><nav class="velaBreadcrumbWrap container">
     <div class="velaBreadcrumbsInnerWrap"><h2 class="breadcrumbHeading breadcrumbHeadingArticle">{{ucfirst($article->title)}}</h2><ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
                 <a href="/" title="Back to the frontpage" itemprop="item">
@@ -52,7 +52,7 @@
     </div>
     <header class="articleHeader">
         <h1 class="velaArticleTitle">{{$article->title}}</h1><div class="articleFeaturedImage">
-                    
+
 
 <div class="p-relative">
 <div class="product-card__image" style="padding-top:62.5%;">
@@ -69,7 +69,7 @@
         </div>
         <div class="articleMeta d-flex">
             <span class="articleAuthor">{{$article->author}} .</span>
-            <span class="articlePublish pull-left">{{$article->created_at->format('j F Y')}}</span> 
+            <span class="articlePublish pull-left">{{$article->created_at->format('j F Y')}}</span>
         </div>
     </header>
     <div class="articleDetailContent">
@@ -82,23 +82,9 @@
     <div class="articleTags">
     <span>Tags:</span>
     @foreach ($article->tags as $tag)
-    <a href="/blog/tag/{{$tag->slug}}" >{{strtoupper($tag->name)}}</a>, 
+    <a href="/blog/tag/{{$tag->slug}}" >{{strtoupper($tag->name)}}</a>,
 @endforeach
 </div>
-
-
-
-<div class="articleSocialSharing pull-left">
-                    <span>Share:</span>
-                    <div class="articleFacebookShare">
-                        <div class="fb-share-button fb_iframe_widget" data-href="https://velademo-rubix.myshopify.com/blog/anteposuerit-litterarum-formas-9" data-mobile_iframe="true" data-layout="button_count" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;container_width=0&amp;href=https%3A%2F%2Fvelademo-rubix.myshopify.com%2Fblogs%2Fnews%2Fanteposuerit-litterarum-formas-9&amp;layout=button_count&amp;locale=en_US&amp;mobile_iframe=true&amp;sdk=joey"><span style="vertical-align: bottom; width: 78px; height: 20px;"><iframe name="f2f76822ec93864" width="1000px" height="1000px" data-testid="fb:share_button Facebook Social Plugin" title="fb:share_button Facebook Social Plugin" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" src="https://web.facebook.com/v2.12/plugins/share_button.php?app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Dfa34cd6b7cf7c%26domain%3Dvelademo-rubix.myshopify.com%26is_canvas%3Dfalse%26origin%3Dhttps%253A%252F%252Fvelademo-rubix.myshopify.com%252Ff3226cf7cd392e8%26relation%3Dparent.parent&amp;container_width=0&amp;href=https%3A%2F%2Fvelademo-rubix.myshopify.com%2Fblogs%2Fnews%2Fanteposuerit-litterarum-formas-9&amp;layout=button_count&amp;locale=en_US&amp;mobile_iframe=true&amp;sdk=joey" style="border: none; visibility: visible; width: 78px; height: 20px;" class=""></iframe></span></div>
-                    </div>
-                    <div class="articleTwitterShare">
-                        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Anteposuerit%20litterarum%20formas.&amp;url=https://velademo-rubix.myshopify.com/blog/anteposuerit-litterarum-formas-9" target="_blank">
-                            <i class="fa fa-twitter"></i> Tweet
-                        </a>
-                    </div>
-    </div>
             </div>
     </div>
 </article>
@@ -110,7 +96,7 @@
     <form class="formSearchPage formSearchBlogPage" action="/search" method="get">
         <input type="hidden" name="type" value="blog">
         <div class="input-group">
-            <input name="q" value="" placeholder="Search our blogs" autocomplete="off" class="formSearchPageInput form-control">                      
+            <input name="q" value="" placeholder="Search our blogs" autocomplete="off" class="formSearchPageInput form-control">
             <button type="submit" class="formSearchPageButton">
                 <i class="icons icon-magnifier"></i>
             </button>
