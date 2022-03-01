@@ -84,7 +84,7 @@
                               {{ $order->status }}
                             </span>
                         @break
-                        
+
                 @endswitch
                 </td>
                 <td>
@@ -112,10 +112,10 @@
     </div></div><div class="row">
       <div class="col-sm-12 col-md-5">
         <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-          Showing {{$orders->firstItem()  ?? '0'}} to {{$orders->count()}} of {{$orders->total()}} entries
+          Showing {{$orders->firstItem()  ?? '0'}} to {{$orders->lastItem()}} of {{$orders->total()}} entries
         </div>
       </div>
-     
+
         <div class="col-sm-12 col-md-7">
           <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
             <ul class="pagination">

@@ -148,7 +148,7 @@
     </div></div><div class="row">
   <div class="col-sm-12 col-md-5">
     <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-       Showing {{$sliders->firstItem()  ?? '0'}} to {{$sliders->count()}} of {{$sliders->total()}} entries
+       Showing {{$sliders->firstItem()  ?? '0'}} to {{$sliders->lastItem()}} of {{$sliders->total()}} entries
     </div>
   </div>
 

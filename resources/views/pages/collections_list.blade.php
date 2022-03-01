@@ -213,7 +213,7 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-5">
                           <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                            Showing {{$modal_collections->firstItem()  ?? '0'}} to {{$modal_collections->count()}} of {{$modal_collections->total()}} entries
+                            Showing {{$modal_collections->firstItem()  ?? '0'}} to {{$modal_collections->lastItem()}} of {{$modal_collections->total()}} entries
                           </div></div>
                             <div class="col-sm-12 col-md-7">
                               <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">

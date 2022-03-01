@@ -90,7 +90,7 @@
     </div></div><div class="row">
       <div class="col-sm-12 col-md-5">
         <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-          Showing {{$products->firstItem()  ?? '0'}} to {{$products->count()}} of {{$products->total()}} entries
+          Showing {{$products->firstItem()  ?? '0'}} to {{$products->lastItem()}} of {{$products->total()}} entries
         </div>
       </div>
 
@@ -236,7 +236,7 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-5">
                           <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-                            Showing {{$modal_products->firstItem()  ?? '0'}} to {{$modal_products->count()}} of {{$modal_products->total()}} entries
+                            Showing {{$modal_products->firstItem()  ?? '0'}} to {{$modal_products->lastItem()}} of {{$modal_products->total()}} entries
                           </div></div>
                             <div class="col-sm-12 col-md-7">
                               <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">

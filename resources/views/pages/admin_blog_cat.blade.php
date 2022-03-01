@@ -125,7 +125,7 @@
   </div></div><div class="row">
     <div class="col-sm-12 col-md-5">
       <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-        Showing {{$categories->firstItem()  ?? '0'}} to {{$categories->count()}} of {{$categories->total()}} entries
+        Showing {{$categories->firstItem()  ?? '0'}} to {{$categories->lastItem()}} of {{$categories->total()}} entries
       </div>
     </div>
           <ul class="pagination">

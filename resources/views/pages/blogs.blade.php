@@ -100,7 +100,7 @@
         @endforeach
                 </div><div class="velaPaginationWrap clearfix">
                     {!!$articles->links()!!}
-                        <div class="itemPaginate pull-right"> Showing {{$articles->firstItem()}} to {{$articles->count()}} of {{$articles->total()}} entries</div>
+                        <div class="itemPaginate pull-right"> Showing {{$articles->firstItem()}} to {{$articles->lastItem()}} of {{$articles->total()}} entries</div>
                     </div>
         </div>
     </div>

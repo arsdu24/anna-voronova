@@ -106,7 +106,7 @@
     </div></div><div class="row">
   <div class="col-sm-12 col-md-5">
     <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-       Showing {{$banners->firstItem()  ?? '0'}} to {{$banners->count()}} of {{$banners->total()}} entries
+       Showing {{$banners->firstItem()  ?? '0'}} to {{$banners->lastItem()}} of {{$banners->total()}} entries
     </div>
   </div>
 

@@ -512,7 +512,7 @@
 
                             </div>
                             <div class="proButton">
-                                <button type="submit" name="add" class="btn btnAddToCart">
+                                <button type="submit" @if($product->stock==0) disabled @endif name="add" class="btn btnAddToCart">
                                     <span>Add to Cart</span>
                                 </button>
                             </div>
@@ -541,7 +541,7 @@
                                 </ul>
                             </nav>
                             <div class="collProductCount itemPaginate pull-right hidden-xs hidden-sm">
-                                Showing {{$products->firstItem()}} to {{$products->count()}} of {{$products->total()}} entries
+                                Showing {{$products->firstItem()}} to {{$products->lastItem()}} of {{$products->total()}} entries
                             </div>
                         </div>
 

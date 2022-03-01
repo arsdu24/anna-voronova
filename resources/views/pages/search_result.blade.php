@@ -234,7 +234,7 @@
 
                             </div>
                             <div class="proButton">
-                                <button type="submit" name="add" class="btn btnAddToCart">
+                                <button type="submit" name="add" @if($result->stock==0) disabled @endif class="btn btnAddToCart">
                                     <span>Add to Cart</span>
                                 </button>
                             </div>

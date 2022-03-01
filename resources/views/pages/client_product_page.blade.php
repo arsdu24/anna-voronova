@@ -5,17 +5,17 @@
 @section('shopify-section-main')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <main class="mainContent" role="main">
-            
+
     <div id="shopify-section-vela-breacrumb-image" class="shopify-section"><section class="velaBreadcrumbs hasBackgroundImage">
         <div class="velaBreadcrumbsInner" style="background-color: #eaebef"><div class="velaBreadcrumbImage">
-    
-    
-    
-    
-    
-    
-    
-    <img  alt="velademo-rubix" src="{{asset('img/slide11_1944x.png')}}" /></div><nav class="velaBreadcrumbWrap container">       
+
+
+
+
+
+
+
+    <img  alt="velademo-rubix" src="{{asset('img/slide11_1944x.png')}}" /></div><nav class="velaBreadcrumbWrap container">
                 <div class="velaBreadcrumbsInnerWrap"><h2 class="breadcrumbHeading breadcrumbHeadingProduct">{{$product->name}}</h2><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
                         <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                             <a href="/" title="Back to the frontpage" itemprop="item">
@@ -30,7 +30,7 @@
                                     </li><li class="active" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                                 <span itemprop="name">{{$product->name}}</span>
                                         <meta itemprop="position" content="3" />
-                                    
+
     </li></ol>
                 </div>
             </nav>
@@ -39,33 +39,33 @@
     </div>
     <section id="pageContent">
         <div id="shopify-section-vela-template-product" class="shopify-section">.
-    
+
     <div class="container">
         <div class="pageCollectionInner detail_default">
             <div class="productBox">
                 <div class="proBoxPrimary" id="ProductSection-vela-template-product" data-section-id="vela-template-product" data-section-type="product">
                     <div class="row mb30">
                             <div class="proBoxImage col-xs-12 col-md-6  mb30">
-                                
-    
+
+
         <div id="proFeaturedImage" class="proFeaturedImage "><div id="groupMedia" style=" display: none"  data-product-single-media-group>
-                    
+
                             <div id="FeaturedMedia-vela-template-product-9125628280876-wrapper"
                             class="product-single__media-wrapper  hide"
-                             data-product-media-type-video data-enable-video-looping="false" 
-                            
-                            
+                             data-product-media-type-video data-enable-video-looping="false"
+
+
                             data-product-single-media-wrapper
                             data-media-id="vela-template-product-9125628280876" tabindex="1"
                             >
                                 <div data-promedia= 9125628280876 class="product-single__media  product-single__media--9125628280876" style="padding-top: 56.21135469364812%;">
                                 </div>
                             </div>
-                            <div id="FeaturedMedia-vela-template-product-9113550323756-wrapper" 
+                            <div id="FeaturedMedia-vela-template-product-9113550323756-wrapper"
                             class="product-single__media-wrapper  hide"
-                            
+
                              data-product-media-type-model
-                            
+
                             data-product-single-media-wrapper
                             data-media-id="vela-template-product-9113550323756" tabindex="1"
                             >
@@ -83,9 +83,9 @@
                                 <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon--full-color icon-3d-badge-full-color" viewBox="0 0 26 26"><path d="M1 25h24V1H1z"/><path class="icon-3d-badge-full-color-outline" d="M.5 25v.5h25V.5H.5z" fill="none"/><path class="icon-3d-badge-full-color-element" d="M19.13 8.28L14 5.32a2 2 0 0 0-2 0l-5.12 3a2 2 0 0 0-1 1.76V16a2 2 0 0 0 1 1.76l5.12 3a2 2 0 0 0 2 0l5.12-3a2 2 0 0 0 1-1.76v-6a2 2 0 0 0-.99-1.72zm-6.4 11.1l-5.12-3a.53.53 0 0 1-.26-.38v-6a.53.53 0 0 1 .27-.46l5.12-3a.53.53 0 0 1 .53 0l5.12 3-4.72 2.68a1.33 1.33 0 0 0-.67 1.2v6a.53.53 0 0 1-.26 0z" opacity=".6" style="isolation:isolate"/></svg><span class='product-single__view-in-space-text'>View in your space</span>
                                 </button>
                             </div>
-                              
-                    
-                    
+
+
+
     </div>
             <div id="groupProImage" >
                 @if($product->sale_price)
@@ -95,27 +95,27 @@
                     class="img-responsive"
                     src="{{asset('img/'.unserialize($product->thumbnail)[0])}}"
                     alt="{{$product->name}}"
-                    data-zoom-enable="true" 
-                    data-zoom-image="{{asset('img/'.unserialize($product->thumbnail)[0])}}" 
-                    data-zoom-scroll="true" 
-                    data-zoom-type="window" 
-                    data-zoom-width="300" 
-                    data-zoom-height="300" 
-                    data-zoom-lens="100" 
+                    data-zoom-enable="true"
+                    data-zoom-image="{{asset('img/'.unserialize($product->thumbnail)[0])}}"
+                    data-zoom-scroll="true"
+                    data-zoom-type="window"
+                    data-zoom-width="300"
+                    data-zoom-height="300"
+                    data-zoom-lens="100"
                     data-lens-shape="square"
                     /></div>
         </div><div id="productThumbs" class="proThumbnails thumbnails-wrapper">
                 <div class="owl-thumblist">
                         <div class="owl-carousel product-single__thumbnails product-single__thumbnails-vela-template-product" data-item = "5" data-vertical = "false" >
-                                
+
                             @foreach(unserialize($product->thumbnail) as $image)
 
                                 <div class="thumbItem product-single__thumbnails-item" name="ss">
-                                    <a  href="" 
+                                    <a  href=""
                                         name="ss"
-                                        class="product-single__thumbnail images product-single__thumbnail--vela-template-product " 
+                                        class="product-single__thumbnail images product-single__thumbnail--vela-template-product "
                                         data-stype="image"
-                                        data-image="{{asset('img/'.$image)}}" 
+                                        data-image="{{asset('img/'.$image)}}"
                                         data-zoom-image="{{asset('img/'.$image)}}">
                                             <img class="img-responsive"  name="ss" src="{{asset('img/'.$image)}}" alt="{{$product->name}}"/>
                                             </a>
@@ -128,7 +128,7 @@
                             </div>
                             <div class="col-xs-12 col-md-6 mb30">
                                 <div class="proBoxInfo">
-                                    
+
     <h1>{{$product->name}}</h1>
     <div class="proReviews">
         <span class="spr-badge" id="spr_badge_4960484327468" data-rating="5.0">
@@ -145,24 +145,24 @@
     <div class="proReviews">
             <span class="shopify-product-reviews-badge" data-id="4960511557676"></span>
         </div
-        
+
         ><div class="proDescription rte">
             <p>{{$product->excerpt}}</p>
         </div><div class="wrapper">
-    
+
      <form method="post" action="{{route('addToCart')}}" accept-charset="UTF-8" enctype="multipart/form-data">
              @csrf
              <div class="proVariants">
     <style rel="stylesheet" type="text/css" >
                       .proVariants .selector-wrapper:nth-child(1){display: none;}
                 </style>
-        
-       
+
+
             <div class="proPrice flexRow flexAlignCenter">
                 @if($product->sale_price != null)
-                <div class="priceProduct priceCompare"><span class="money" data-currency-usd="{{$product->price}}" data-currency="USD">${{$product->price}}</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="{{$product->sale_price}}" data-currency="USD">${{$product->sale_price}}</span></div>               
-                @else 
-                <div class="priceProduct "><span class="money">{{$product->price}} $</span></div>     
+                <div class="priceProduct priceCompare"><span class="money" data-currency-usd="{{$product->price}}" data-currency="USD">${{$product->price}}</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="{{$product->sale_price}}" data-currency="USD">${{$product->sale_price}}</span></div>
+                @else
+                <div class="priceProduct "><span class="money">{{$product->price}} $</span></div>
                 @endif
             </div>
             @if($product->stock>0)<p class="proAttr productAvailability instock"><label>Availability:</label>In stock</p>
@@ -176,7 +176,7 @@
                 <input type="hidden" name="utf8" value="✓" />
                 <div class="proQuantity">
                     <!-- <label for="Quantity" class="qtySelector">Quantity:</label> -->
-                    <div style="display:none"><input type="number"></div>     
+                    <div style="display:none"><input type="number"></div>
                         <div class="velaQty">
                             <button type="button" class="velaQtyAdjust velaQtyButton velaQtyMinus" @if($product->stock==0)disabled  @endif>
                                 <span class="txtFallback">−</span>
@@ -194,13 +194,13 @@
                     <i class="icons icon-handbag"></i>
                     <span id="AddToCartText">Add to Cart</span>
                 </button>
-                
+
                 <div class="velaBuyNow">
                 </div>
         </form>
-        
+
    <p class="proAttr productAvailability instock"><label></label></p>
-   
+
     <div class="mb30 pt-md-30">
         <section class="proDetailInfo"><div class="proTabHeading">
 <ul class="nav velaProductNavTabs nav-tabs"><li class="active">
@@ -225,7 +225,7 @@ border-color: #ECECEC;
 <h2 class="spr-header-title">Customer Reviews</h2><div class="spr-summary">
 
 <span class="spr-starrating spr-summary-starrating">
-@for($i = 0 ;$i < $rating; $i++)   
+@for($i = 0 ;$i < $rating; $i++)
 <i class="spr-icon spr-icon-star"></i>
 @endfor
 </span>
@@ -306,43 +306,43 @@ border-color: #ECECEC;
 </div>
 
 </div></div></div></div></section>
-    </div>  
+    </div>
 
     </div>
                                     <div class="mt30">
-                                        
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
 @if(count(unserialize($product->mightLike))>1)
                         <section class="proRelated mb30">
                 <div id="relatedProducts" class="velaProducts"><div class="headingGroup pb20">
                             <h3 class="velaTitle velaHomeTitle">
                                 Maybe You Like
                             </h3>
-                            
+
                                 <span class="subTitle">
                                     Mirum est notare quam littera gothica quam nunc putamus parum claram!
                                 </span></div><div class="velaContent">
                         <div class="proOwlCarousel owlCarouselPlay">
-                            <div class="owl-carousel" 
-                                data-nav="true" 
-                                data-margin="30" 
-                                data-columnone="4" 
-                                data-columntwo="4" 
-                                data-columnthree="3" 
-                                data-columnfour="2" 
+                            <div class="owl-carousel"
+                                data-nav="true"
+                                data-margin="30"
+                                data-columnone="4"
+                                data-columntwo="4"
+                                data-columnthree="3"
+                                data-columnfour="2"
                                 data-columnfive="1">
-                                
+
 @foreach($myl as $elem)
-    
+
                           <div class="item">
-                                            
-    
-    
-    
+
+
+
+
     <div class="velaProBlock grid " data-price="79.00">
         <div class="velaProBlockInner">
             <div class="proHImage d-flex flexJustifyCenter">
@@ -352,7 +352,7 @@ border-color: #ECECEC;
                 @if(count(unserialize($elem->thumbnail))<2)
                 <a class="proFeaturedImage" href="/products/{{$elem->id}}">
                     <div class="wrap proSwatch">
-    
+
     <div class="p-relative">
         <div class="product-card__image" style="padding-top:124.25%;">
             <img class="product-card__img lazyload"
@@ -412,9 +412,9 @@ border-color: #ECECEC;
                 <div class="productLable"></div><div class="proButton clearfix">
                     <form action="/cart/add" method="post" enctype="multipart/form-data" class="formAddToCart">
                         <input type="hidden" name="id" value="33475186819116" />
-                       
+
                     </form>
-                    
+
                     <div class="productQuickView"  data-toggle="modal" data-target="{{"#Product".$elem->id}}">
                         <a class="btn btnProduct btnProductQuickview" href="#velaQuickView" data-handle="arctander-chair" title="Quick view">
                             <span class="icons icon-magnifier"></span>
@@ -429,10 +429,10 @@ border-color: #ECECEC;
     </h5>
 
 <div class="groupPrice clearfix">
-  <div class="proPrice"> 
+  <div class="proPrice">
       @if($elem->sale_price != null)
-      <div class="priceProduct priceCompare"><span class="money" data-currency-usd="{{$elem->price}}" data-currency="USD">${{$elem->price}}</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="{{$elem->sale_price}}" data-currency="USD">${{$elem->sale_price}}</span></div>               
-      @else        
+      <div class="priceProduct priceCompare"><span class="money" data-currency-usd="{{$elem->price}}" data-currency="USD">${{$elem->price}}</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="{{$elem->sale_price}}" data-currency="USD">${{$elem->sale_price}}</span></div>
+      @else
         <div class="priceProduct "><span class=money>${{$elem->price}} </span></div>
       @endif
           </div></div>
@@ -441,10 +441,10 @@ border-color: #ECECEC;
     </div>
                                         </div>
                                         @endforeach
-              
-                   
-                                        
-                                
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -454,9 +454,9 @@ border-color: #ECECEC;
             </div>
         </div>
     </div>
-    
-     
-    
+
+
+
     </div>
     @foreach($myl as $item)
     <div class="modal fade" id="Product{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -477,49 +477,49 @@ border-color: #ECECEC;
                        <div class="proThumbnails proThumbnailsQuickview clearfix">
                            <div class="owl-thumblist">
                                <div class="owl-carousel owl-loaded" style="visibility: visible;">
-   
+
                                <div class="owl-stage-outer">
                                    <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 172px;">
                                        @foreach(unserialize($item->thumbnail) as $image)
-                                      
+
                                        <div class="owl-item " style="width: 85.75px;"><div
                                    class="thumbItem">
                                    <a href="javascript:void(0)" class="imgs" data-index="0" data-imageid="7714764259372" data-image="{{asset('img/'.$image)}}">
                                        <img src="{{asset('img/'.$image)}}" alt="undefined">
                                    </a>
-                                   
+
                                </div>
-                               
+
                            </div>
                            @endforeach
                            </div></div><div class="owl-nav disabled"><div class="owl-prev disabled">prev</div><div class="owl-next disabled">next</div></div><div class="owl-dots disabled"></div></div>
                            </div>
                        </div>
-                       
+
                    </div>
                    <div class="proBoxInfo col-xs-12 col-sm-12 col-md-7" id="product-4948426817580">
                        <h3 class="quickviewName mb20 text-left"><a href="/products/{{$item->id}}" class="w-100 text-left">{{$item->name}}</a></h3>
                        <div class="proShortDescription rte text-left"><p>{{$item->excerpt}}</p>
    <p></p></div>
-                       
-                   <form method="post" action="{{route('addToCart')}}" accept-charset="UTF-8" enctype="multipart/form-data">  
-                       @csrf                    
+
+                   <form method="post" action="{{route('addToCart')}}" accept-charset="UTF-8" enctype="multipart/form-data">
+                       @csrf
                            <div class="proVariantsQuickview"></div>
                            <input type="hidden" value="{{$item->id}}" name="product"/>
                            <div class="proPrice clearfix">
                                @if($item->sale_price != null)
-                               <div class="priceProduct priceCompare"><span class="money" data-currency-usd="{{$item->price}}" data-currency="USD">${{$item->price}}</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="{{$item->sale_price}}" data-currency="USD">${{$item->sale_price}}</span></div>               
-                               @else 
-                               <div class="priceProduct "><span class="money">{{$item->price}} $</span></div>     
+                               <div class="priceProduct priceCompare"><span class="money" data-currency-usd="{{$item->price}}" data-currency="USD">${{$item->price}}</span></div><div class="priceProduct priceSale"><span class="money" data-currency-usd="{{$item->sale_price}}" data-currency="USD">${{$item->sale_price}}</span></div>
+                               @else
+                               <div class="priceProduct "><span class="money">{{$item->price}} $</span></div>
                                @endif
-                               
+
                            </div>
                            <div class="velaGroup d-flex flexAlignEnd mb20">
                                <div class="proQuantity">
                                    <!-- <label for="Quantity" class="qtySelector">Quantity</label> -->
-                                   
-       
-                                   <div style="display:none"><input type="number"></div>     
+
+
+                                   <div style="display:none"><input type="number"></div>
                                    <div class="velaQty">
                                        <button type="button" class="velaQtyAdjust velaQtyButton velaQtyMinus">
                                            <span class="txtFallback">−</span>
@@ -529,11 +529,11 @@ border-color: #ECECEC;
                                            <span class="txtFallback">+</span>
                                        </button>
                                    </div>
-       
-   
+
+
                                </div>
                                <div class="proButton">
-                                   <button type="submit" name="add" class="btn btnAddToCart">
+                                   <button type="submit" name="add" @if($item->stock==0) disabled @endif class="btn btnAddToCart">
                                        <span>Add to Cart</span>
                                    </button>
                                </div>
@@ -541,7 +541,7 @@ border-color: #ECECEC;
                        </form>
                        @if($item->stock>0)<p class="proAttr productAvailability instock"><label>Availability:</label>In stock</p>
                        @else <p class="proAttr productAvailability outstock"><label>Availability:</label>Out of stock</p>
-                       @endif     
+                       @endif
                    </div>
                </div>
            </div>
@@ -551,7 +551,7 @@ border-color: #ECECEC;
                    </div>
                </div>
            </div>
-   @endforeach 
+   @endforeach
     @endif
     <div class="zoomContainer" style="transform: translateZ(0px); position: absolute; left: 71.5px; top: 277px; height: 770px; width: 620px;">
         <div class="zoomLens" style="background-position: 0px 0px; float: right; overflow: hidden; z-index: 999; transform: translateZ(0px); opacity: 0.4; zoom: 1; width: 350.175px; height: 350.345px; background-color: white; cursor: pointer; border: 1px solid rgb(0, 0, 0); background-repeat: no-repeat; position: absolute; left: 230px; top: 84px; display: none;">
@@ -564,9 +564,9 @@ border-color: #ECECEC;
         </div>
     </div>
     </section>
-    
+
             </main>
-            
+
 <script>
     $(document).ready(()=>{
         document.querySelector('.images').classList.add("active-thumb");
@@ -598,8 +598,8 @@ border-color: #ECECEC;
         let element = $(this).closest('.proBoxImage').find('.img-responsive');
         document.querySelectorAll('.imgs').forEach(element =>{
                element.classList.remove("active");
-        }); 
-       $(this).get(0).classList.add("active"); 
+        });
+       $(this).get(0).classList.add("active");
         element.attr('src',value);
         });
 
