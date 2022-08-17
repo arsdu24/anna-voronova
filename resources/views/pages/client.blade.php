@@ -46,7 +46,7 @@
                                             </div>
                                             @foreach($user->addresses as $address)
                                             <div class="card addressbox ">
-                                                <div class="card-body col-sm-8">     
+                                                <div class="card-body col-sm-8">
                                                     <div >
                                                         <address><strong>{{ $address->first_name}} {{ $address->last_name}}</strong><br>{{ $address->address1}}<br>{{ $address->address2}} {{ $address->city}}, {{ $address->country}}<br> {{ $address->zip}}<br></address>
                                                     </div>
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="accountOrderBox">
                         <h4 class="accountHeading">Order History</h4>
                         <div class="orderBoxContent">
@@ -106,7 +106,7 @@
                                                                 </tr>
                                                               </thead>
                                                               <tbody>
-                                                                
+
                                                          @foreach($order->items as $item)
                                                             <tr>
                                                                 <td>
@@ -128,7 +128,7 @@
                                                                 <td>{{$item->price}}</td>
                                                                 <td>{{$item->quantity}}</td>
                                                                 <td>{{$item->price * $item->quantity}} $</td>
-                                                                </a>    
+                                                                </a>
                                                             </tr>
                                                          @endforeach
                                                         </table>
@@ -170,25 +170,25 @@
              <div class="section__content">
                 <div class="fieldset">
                 <div class="address-fields" data-address-fields>
-                
+
                 <div class="field--half field field--optional" data-address-field="first_name">
                 <label class="field__label" for="checkout_shipping_address_first_name">First name (optional)</label>
                 <div class="field__input-wrapper">
-                <input placeholder="First name (optional)" autocomplete="shipping given-name" autocorrect="off" class="field__input" size="30" type="text" value="" name="first_name" id="checkout_shipping_address_first_name" />
+                <input placeholder="First name (optional)" maxlength="250" autocomplete="shipping given-name" autocorrect="off" class="field__input" size="30" type="text" value="" name="first_name" id="checkout_shipping_address_first_name" />
                 </div>
                 </div>
                 <div class="field--half field field--required" data-address-field="last_name">
                 <label class="field__label" for="checkout_shipping_address_last_name">Last name</label>
                 <div class="field__input-wrapper">
-                <input placeholder="Last name" required autocomplete="shipping family-name" autocorrect="off"  class="field__input" aria-required="true" size="30" type="text" value="" name="last_name" id="checkout_shipping_address_last_name" />
+                <input placeholder="Last name" maxlength="250" required autocomplete="shipping family-name" autocorrect="off"  class="field__input" aria-required="true" size="30" type="text" value="" name="last_name" id="checkout_shipping_address_last_name" />
                 </div>
                 </div>
-                
+
                 <div data-address-field="address1" data-autocomplete-field-container="true" class="field field--required">
                 <label class="field__label" for="checkout_shipping_address_address1">Address</label>
                 <div class="field__input-wrapper">
-                <input placeholder="Address" required autocomplete="shipping address-line1" autocorrect="off" class="field__input" aria-required="true" size="30" type="text" value="" name="address1" id="checkout_shipping_address_address1" />
-                
+                <input placeholder="Address" maxlength="250" required autocomplete="shipping address-line1" autocorrect="off" class="field__input" aria-required="true" size="30" type="text" value="" name="address1" id="checkout_shipping_address_address1" />
+
                 <p class="field__additional-info " data-address-civic-number-warning>
                    Add a house number if you have one
                 </p>
@@ -197,13 +197,13 @@
                 <div data-address-field="address2" data-autocomplete-field-container="true" class="field field--optional">
                 <label class="field__label" for="checkout_shipping_address_address2">Apartment, suite, etc. (optional)</label>
                 <div class="field__input-wrapper">
-                <input placeholder="Apartment, suite, etc. (optional)" autocomplete="shipping address-line2" autocorrect="off" class="field__input" size="30" type="text" value="" name="address2" id="checkout_shipping_address_address2" />
+                <input placeholder="Apartment, suite, etc. (optional)" maxlength="250" autocomplete="shipping address-line2" autocorrect="off" class="field__input" size="30" type="text" value="" name="address2" id="checkout_shipping_address_address2" />
                 </div>
                 </div>
                 <div data-address-field="city" data-autocomplete-field-container="true" class="field field--required">
                 <label class="field__label" for="checkout_shipping_address_city">City</label>
                 <div class="field__input-wrapper">
-                <input placeholder="City" required autocomplete="shipping address-level2" autocorrect="off" class="field__input" aria-required="true" size="30" type="text" value="" name="city" id="checkout_shipping_address_city" />
+                <input placeholder="City" maxlength="250" required autocomplete="shipping address-level2" autocorrect="off" class="field__input" aria-required="true" size="30" type="text" value="" name="city" id="checkout_shipping_address_city" />
                 </div>
                 </div>
                 <div class="field--third field field--required" data-address-field="country" data-autocomplete-field-container="true">
@@ -458,27 +458,25 @@
                 <div class="field--third field field--required" data-address-field="province" data-autocomplete-field-container="true">
                 <label class="field__label" for="checkout_shipping_address_province">Region</label>
                 <div class="field__input-wrapper field__input-wrapper--select">
-                <input placeholder="Region" autocomplete="shipping address-level1" autocorrect="off" data-backup="province" class="field__input" aria-required="true" type="text" name="province" id="checkout_shipping_address_province" />
+                <input placeholder="Region" maxlength="250" autocomplete="shipping address-level1" autocorrect="off" data-backup="province" class="field__input" aria-required="true" type="text" name="province" id="checkout_shipping_address_province" />
                 </div>
                 </div>
                 <div class="field--third field field--required" data-address-field="zip" data-autocomplete-field-container="true">
                 <label class="field__label" for="checkout_shipping_address_zip">Postal code</label>
                 <div class="field__input-wrapper">
-                <input placeholder="Postal code" required autocomplete="shipping postal-code" autocorrect="off" data-backup="zip" class="field__input field__input--zip" aria-required="true" size="30" type="text" value="" name="zip" id="checkout_shipping_address_zip" />
+                <input placeholder="Postal code" maxlength="10" required autocomplete="shipping postal-code" autocorrect="off" data-backup="zip" class="field__input field__input--zip" aria-required="true" size="30" type="text" value="" name="zip" id="checkout_shipping_address_zip" />
                 </div>
                 </div>
                 </div>
-                </div> 
-                </div> 
+                </div>
+                </div>
             </div>
                 </div>
-            
-        </div> 
-        </div> 
-        </div>
-         
-        </div>
 
+        </div>
+        </div>
+        </div>
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Save changes</button>

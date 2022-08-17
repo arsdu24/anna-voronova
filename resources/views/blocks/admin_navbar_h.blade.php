@@ -50,7 +50,7 @@
                                         {{$result->name}}
                                       </span>
                                 </a>
-                              
+
                             @elseif($key == 'Orders')
                               <a class="dropdown-item" href="/admin/orders-list/{{$result->id}}">
                                 <i class="far fa-circle nav-icon"></i>
@@ -88,27 +88,27 @@
                   </div>
                   </li>
                       @endforeach
-                     
+
                   @else
                           <li>
                               <span class="searchProductTitle"> Not found </span>
                           </li>
                   @endif
-                  
+
                   </ul>
             </div>
           </form>
         </div>
       </li>
 
-    
+
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link"  href="" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-user"></i>
         <div class="ripple-container"></div></a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
@@ -120,10 +120,8 @@
          <form id="logout-form" action="/logout" method="POST" style="display: none;">
           @csrf</form>
         </div>
-        </div>
       </li>
     </ul>
-    
+
   </nav>
-</div>
   <!-- /.navbar -->

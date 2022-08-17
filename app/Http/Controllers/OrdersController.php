@@ -18,11 +18,11 @@ use Illuminate\Support\Facades\Mail;
 
 class OrdersController extends Controller
 {
-    public function __construct() 
+    public function __construct()
     {
         $this->middleware('auth');
     }
-    
+
     public function showForm(){
       $user=Auth::user();
       $categories = Category::all();
@@ -80,7 +80,7 @@ class OrdersController extends Controller
       $categories =Category::all();
       $site = SiteSettings::first();
       $collections = Collection::all();
-      return view('pages.order_page',['user'=>Auth::user(),'site'=>$site,'order'=>$order,'categories'=>$categories,'collections'=>$collections]);  
+      return view('pages.order_page',['user'=>Auth::user(),'site'=>$site,'order'=>$order,'categories'=>$categories,'collections'=>$collections]);
     }
 
     public function deleteOrder(Request $request){
@@ -94,11 +94,18 @@ class OrdersController extends Controller
       $order->status = $request->status;
       $order->save();
       switch($order->status){
-        case 'Canceled': 
-            if($order->payment_method == "Card")//refound money
+        case 'Canceled':
+            if($order->payment_method == "Card")
                 Mail::to($request->user)->send(new OrderIsCanceled($order,1));
             else
                 Mail::to($request->user)->send(new OrderIsCanceled($order,0));
+            foreach ($order->items as $item){
+                $product = $item->product;
+                if($product){
+                    $product->stock += $item->quantity;
+                    $product->save();
+                }
+            }
         break;
         case 'Active': Mail::to($request->user)->send(new OrderIsActive($order));break;
         case 'Ready': Mail::to($request->user)->send(new OrderIsReady($order));break;
@@ -131,9 +138,9 @@ class OrdersController extends Controller
           if($request->quantity != 0){
           $item = $NewCart->items()->create([
               'cart_id'=>$NewCart->id,
-              'quantity' => $request->quantity,      
-              'product_id' => $request->product, 
-              'price' => $price, 
+              'quantity' => $request->quantity,
+              'product_id' => $request->product,
+              'price' => $price,
           ]);
           $NewCart->subtotal +=$item->price * $request->quantity;
           $NewCart->save();
@@ -159,16 +166,16 @@ class OrdersController extends Controller
       if($request->quantity != 0){
       $item=$cart->items()->create([
           'cart_id'=>$cart->id,
-          'quantity' => $request->quantity,      
-          'product_id' => $request->product, 
-          'price' => $price,  
+          'quantity' => $request->quantity,
+          'product_id' => $request->product,
+          'price' => $price,
       ]);
       $cart->subtotal += $item->price*$item->quantity;
       $cart->save();
     }
   }
       return redirect()->back();
-  }   
+  }
 
   public function ItemDelete(Request $request){
       $user=Auth::user();

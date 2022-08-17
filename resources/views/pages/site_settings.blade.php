@@ -34,15 +34,19 @@
       <div class="card-body">
         <div class="tab-content" id="custom-tabs-one-tabContent">
             <div class="tab-pane fade active show" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
-            
+                @if(Session::has('errorMessage'))
+                    <div class="alert alert-warning w-100" role="alert">
+                        {!! Session::get('errorMessage') !!}
+                    </div>
+                @endif
             <div class="container">
               <div class="row">
                       <div class="card-body">
-      
+
                           <form method="POST" action="{{route('settingsUpdate')}}" id="form" enctype="multipart/form-data">
                               @csrf
                                 <div class="row">
-                                  <div class="col-12 col-lg-6"> 
+                                  <div class="col-12 col-lg-6">
                                     <div class="col-12 image-input image-input-outline">
                                       <img src="{{asset('img/'.$site->short_logo)}}" class="product-image rounded" id="image" alt="Logo">
                                     </div>
@@ -65,7 +69,7 @@
                                           </label>
                                           </div>
                                           </div>
-                                          
+
                                         </div>
                                   </div>
                                         <div class="col-12 image-input image-input-outline">
@@ -90,11 +94,11 @@
                                               </label>
                                               </div>
                                               </div>
-                                              
+
                                         </div>
                                   </div>
                                 </div>
-                                  
+
                                   <div class="col-12 col-sm-6">
                                     <div class="form-group ">
                                       <label for="name">Name</label>
@@ -124,7 +128,7 @@
                                       <label for="excerpt">Instagram</label>
                                       <input class="form-control" name="instagram" type ="text"aria-label="With textarea" id="excerpt" placeholder="Enter acoount link " value="{{$site->instagram ?? ''}}"/>
                                     </div>
-                                    <div class="form-group ">                       
+                                    <div class="form-group ">
                                       <label for="excerpt">Twitter</label>
                                       <input class="form-control" name="twitter" type ="text"aria-label="With textarea" id="excerpt" placeholder="Enter acoount link " value="{{$site->twitter ?? ''}}"/>
                                     </div>
@@ -134,14 +138,14 @@
                                     </div>
                                   </div>
                                 </div>
-                               
+
                               <button type=”submit” class="btn btn-success btn-block" id="submit-all">Save</button>
                           </form>
                         </div>
                       </div>
                   </div>
         </div>
-          
+
         </div>
       </div>
     </div>
@@ -155,7 +159,7 @@
   var input = this;
   var url = $(this).val();
   var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-  if (input.files && input.files[0]) 
+  if (input.files && input.files[0])
    {
       var reader = new FileReader();
 
@@ -169,7 +173,7 @@ $('#img1').change(function(){
   var input = this;
   var url = $(this).val();
   var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-  if (input.files && input.files[0]) 
+  if (input.files && input.files[0])
    {
       var reader = new FileReader();
 

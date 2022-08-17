@@ -1056,7 +1056,7 @@
                       <div class="modal-body">
                           <form method="POST" action="{{ route('shippingDetailsEdit',['ShippingDetail'=>$detail])}}" enctype="multipart/form-data" >
                               @csrf
-                              <input type="hidden" class="form-control hidden" value="{{$detail->icon}}" id="icon-set" name="icon"> 
+                              <input type="hidden" class="form-control hidden" value="{{$detail->icon}}" id="icon-set" name="icon">
                               <div class="form-group row d-flex justify-content-end">
                                   <div class="col-md-8 iconBox">
                                       <i id="iconPreview" class="{{$detail->icon ?? ''}}" style="color:rgb(70, 70, 70);font-size:80px"></i>
@@ -1085,7 +1085,7 @@
                               </div>
                               <div class="form-group row">
                                   <label for="subtitle" class="col-md-4 col-form-label text-md-left">Description</label>
-                                  <textarea class="form-control summernote" name="description" id="summernote" >
+                                  <textarea maxlength="16777215" class="form-control summernote" name="description" id="summernote" >
                                     {{$detail->description ?? ''}}
                                   </textarea>
                               </div>
@@ -1097,18 +1097,18 @@
                                       {{ __('Save') }}
                                   </button>
                                   </div>
-                              
+
                               </div>
                           </form>
                       </div>
-              
+
                     </div>
-                
+
                   </div>
               @endforeach
           </tbody>
         </table>
-        
+
       @else
       <div class="alert alert-info" role="alert">
         You don't have Shipping Details yet!
@@ -1117,7 +1117,7 @@
       </div></div></div>
       </div>
 
-     
+
         <div id="iconList" class="modal fade" role="dialog">
             <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
@@ -1128,10 +1128,10 @@
                 <div class="modal-body">
                     <div class="d-flex flexRow flex-wrap">
                         @foreach($iconsFA as $icon)
-                            <div class="col-1 icon-div"> 
+                            <div class="col-1 icon-div">
                                 <a onclick="(event)=>{event.preventdefault()}">
                                     <i class="{{$icon}}" style="color:rgb(70, 70, 70);font-size:48px"></i>
-                                </a>    
+                                </a>
                             </div>
                         @endforeach
                     </div>
@@ -1142,18 +1142,18 @@
                     </button>
                 </div>
               </div>
-          
+
             </div>
     </div>
 </div>
-@endsection   
+@endsection
 @section('scripts')
-    <script>   
+    <script>
     $('.summernote').each(function(){
       $(this).summernote({
         height:300
       });
-    })   
+    })
     $('.icon-div i').click(function(){
         const icon = $(this).attr('class');
         $('.show').find('#icon-set').val(icon);

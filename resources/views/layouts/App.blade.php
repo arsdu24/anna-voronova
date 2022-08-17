@@ -6,7 +6,7 @@
 <!--<![endif]-->
 
 <head>
-  
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -36,7 +36,7 @@
             type="text/javascript"></script>
     <link href="{{route('home')}}" rel="dns-prefetch">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
-    
+
     <meta property="og:image"
           content="{{asset('img/logo.png')}}"/>
     <meta property="og:image:width" content="1200"/>
@@ -53,14 +53,14 @@
     <div class="drawerCartTitle">
         <span>Shopping cart</span>
     </div>
-    
+
 <div id="cartContainer">
-    
+
         @if($cart)
             @if($cart->items()->count())
         <form action="/cart" method="post" novalidate="" class="cart ajaxcart">
             <div class="ajaxCartInner" id="CartItemContainer">
-                       
+
                              @foreach($cart->items as $cartItem)
                                    <div class="ajaxCartProduct">
                                         <div class="drawerProduct ajaxCartRow" data-line="2">
@@ -73,10 +73,10 @@
                                                 </div>
                                                 <div class="drawerProductPrice">
                                                     <div class="priceProduct">
-                                                        <span class="money" data-currency="USD">$ 
-                                                       
+                                                        <span class="money" data-currency="USD">$
+
                                                         {{$cartItem->price}}
-                                                     
+
                                                          USD</span>
                                                     </div>
                                                 </div>
@@ -106,17 +106,17 @@
                                             </div>
                                         </div>
                                     </div>
-                
+
                              @endforeach
-                            
-                            
+
+
                 </div>
                 <div>
                     <div class="drawerAjaxFooter">
                         <div class="drawerSubtotal">
                             <span class="cartSubtotalHeading">Subtotal</span>
                             <span class="cartSubtotal">$<span class="money" id="cart_value"  data-currency="USD">
-                           
+
                                 {{$cart->subtotal}}
                             </span>USD</span>
                         </div>
@@ -132,8 +132,8 @@
                                     Check Out
                                 </a>
                             </div>
-                         
-    
+
+
                         </div>
                     </div>
                 </div>
@@ -145,15 +145,15 @@
         @else
         <div class="drawerCartEmpty">Your cart is currently empty.</div>
         @endif
-    
 
-    
+
+
 </div>
 </div>
 <div id="pageContainer" class="isMoved">
 
     @include('blocks.shopify-header')
-                          
+
     @yield('shopify-section-main')
 
     @include('blocks.shopify-footer')
@@ -438,38 +438,6 @@
         <span class="velaLoadingIcon four"></span>
     </div>
 </div>
-<div id="velaNewsletterModal" class="hidden">
-    <div class="newsletterModal">
-        <div class="velaNewsletterModal text-center">
-            <h3 class="velaTitle">Get Our Email Letter</h3>
-            <div class="velaContent">
-                <div class="newsletterDescription">Subscribe to the Complex mailing list to receive updates on new
-                    arrivals, special offers and other discount information.
-                </div>
-                <form
-                    action="https://velatheme.us13.list-manage.com/subscribe/post-json?u=4d8c80acdd82f3c48d27467f6&amp;id=d52e6e4f14&amp;c=?"
-                    method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank"
-                    class="js-vela-newsletter formNewsletter clearfix">
-                    <div class="input-group">
-                        <input type="email" value="" placeholder="Your email address..." name="EMAIL" id="mail"
-                               class="js-input-newsletter form-control" aria-label="Your email address...">
-                        <span class="input-group-addon">
-                                        <button id="subscribe" class="btn btnNewsletter" type="submit">
-                                            <i class="pe-7s-paper-plane"></i>
-                                            <span>Subscribe</span>
-                            </button>
-                            </span>
-                    </div>
-                </form>
-                <div class="checkbox checkGroup">
-                    <input id="chkNewsletterModal" name="show-again" type="checkbox"><label for="chkNewsletterModal">
-                        Don't show this popup again</label>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script
     src="//cdn.shopify.com/shopifycloud/shopify/assets/themes_support/option_selection-fe6b72c2bbdd3369ac0bfefe8648e3c889efca213baefd4cfb0dd9363563831f.js"
     type="text/javascript"></script>
@@ -537,7 +505,7 @@ function remove(){
     }
     else if($(this).hasClass('velaPlus')){
             $(this).closest(".velaQty").find('.velaQtyText').val(++quantity)
-            $(this).closest(".velaQty").find('.velaQtyText').trigger('change'); 
+            $(this).closest(".velaQty").find('.velaQtyText').trigger('change');
     }
 });
 }

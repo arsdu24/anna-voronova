@@ -36,7 +36,7 @@
   <div class="card-body">
     @if(count($subscribers)!=0)
     <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"></div><div class="col-sm-12 col-md-6"></div></div><div class="row"><div class="table-responsive">
-   
+
       <table id="example2" class="table table-borderless table-striped table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
       <thead>
       <tr role="row">
@@ -66,11 +66,11 @@
           @endforeach
       </tbody>
     </table>
-  
+
   </div></div><div class="row">
     <div class="col-sm-12 col-md-5">
       <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
-        Showing {{$subscribers->firstItem()  ?? '0'}} to {{$subscribers->count()}} of {{$subscribers->total()}} entries
+        Showing {{$subscribers->firstItem()  ?? '0'}} to {{$subscribers->lastItem()}} of {{$subscribers->total()}} entries
       </div>
     </div>
           <ul class="pagination">
@@ -112,11 +112,11 @@
                   </div>
                 {{$article->title}}
               </div>
-            </a> 
+            </a>
             </div>
                   <div id="M-{{$article->id}}" class="modal fade" role="dialog">
                     <div class="modal-dialog modal-dialog-centered " style="width:100%">
-                  
+
                       <!-- Modal content-->
                       <div class="modal-content" >
                         <div class="modal-header bg-light ">
@@ -142,7 +142,7 @@
                         </div>
                       </div>
                     </div>
-            
+
           @endforeach
                 </div>
                   <div class=" modal-footer ">
@@ -155,5 +155,5 @@
     </div>
 
   </div>
-  
+
 @endsection

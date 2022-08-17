@@ -29,20 +29,25 @@
         </ul>
       </div>
       <div class="card-body">
+          @if(Session::has('errorMessage'))
+              <div class="alert alert-warning w-100" role="alert">
+                  {!! Session::get('errorMessage') !!}
+              </div>
+          @endif
         <div class="tab-content" id="custom-tabs-one-tabContent">
             <div class="tab-pane fade active show" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
-            
+
             <div class="container">
               <div class="row">
                       <div class="card-body">
-      
+
                           <form method="POST" action="{{route('collectionUpdate',['collection'=>$collection])}}" id="form" enctype="multipart/form-data">
                               @csrf
                                   <div class="row">
                                   <div class="col-12 col-lg-6 form-group mt-3">
                                     <div class="col-12 image-input image-input-outline">
                                       <img src="{{asset('img/'.$collection->thumbnail)}}" class="product-image rounded" id="img" alt="Product Image">
-                                      
+
                                     <div></div>
                                     </div>
 
@@ -61,7 +66,7 @@
                                           </div>
                                           </label>
                                           </div>
-                                        </div>  
+                                        </div>
                                       </div>
                                     </div>
                                         <div class="col-12 col-sm-6 form-group mt-3">
@@ -75,14 +80,14 @@
                                           </div>
                                         </div>
                                       </div>
-                                
+
                               <button type=”submit” class="btn btn-success btn-block m-30" id="submit-all">Save</button>
                           </form>
                         </div>
                       </div>
                   </div>
         </div>
-        
+
       <!-- /.card -->
     </div>
   </div>
@@ -95,7 +100,7 @@
     var input = this;
     var url = $(this).val();
     var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-    if (input.files && input.files[0]) 
+    if (input.files && input.files[0])
      {
         var reader = new FileReader();
 
